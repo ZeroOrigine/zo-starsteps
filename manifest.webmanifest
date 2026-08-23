@@ -1,0 +1,28 @@
+{
+ "name": "Star Steps",
+ "short_name": "Star Steps",
+ "description": "Little steps. Big climbs. A learning game for ages 6 to 10.",
+ "start_url": "/",
+ "scope": "/",
+ "display": "standalone",
+ "background_color": "#F1F0FB",
+ "theme_color": "#6D3BE8",
+ "icons": [
+  {
+   "src": "/icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "/icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "/icons/maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
