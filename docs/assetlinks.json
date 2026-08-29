@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.zeroorigine.starsteps",
+    "sha256_cert_fingerprints": ["E4:C8:71:BE:E2:4B:D4:F6:63:93:80:F7:18:E1:87:A1:49:B2:C0:1F:B1:F2:2D:9D:9C:86:71:FE:74:92:0E:12"]
+  }
+}]
