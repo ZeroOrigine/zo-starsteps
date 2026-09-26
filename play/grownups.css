@@ -19,3 +19,6 @@
 .gate .g-cancel{background:var(--card);color:var(--ink)}
 .gate .g-ok{background:var(--pick);color:#fff}
 .gate .g-ok:disabled{opacity:.5;cursor:not-allowed}
+.topbar .brand[data-home]{cursor:pointer;border-radius:14px}
+.topbar .brand[data-home]:hover .brand-mark{transform:rotate(0) scale(1.06)}
+.topbar .brand[data-home]:active .brand-mark{transform:rotate(-6deg) scale(.94)}
