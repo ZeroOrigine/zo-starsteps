@@ -1,5 +1,6 @@
 // Star Steps visit counter. Runs on Netlify's servers when the app page is
-// served. It stores ONE thing per app open: the UTC day and a country code.
+// served. It stores ONE thing per open: the UTC day, a country code, and
+// which page (home = parent page, play = the game).
 // No IP address, no user agent, no cookie, no identifier of any kind is kept,
 // and nothing is added to the page itself.
 import { getStore } from "@netlify/blobs";
@@ -22,11 +23,12 @@ export default async (req: Request, ctx: Context) => {
     if (res.status !== 200 && res.status !== 304) return res;
     const day = new Date().toISOString().slice(0, 10);
     const cc = (ctx.geo?.country?.code || "XX").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2) || "XX";
-    const key = `${day}/${cc}/${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
+    const page = new URL(req.url).pathname.startsWith("/play") ? "play" : "home";
+    const key = `${day}/${cc}/${page}/${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
     const store = getStore({ name: "starsteps-visits", consistency: "eventual" });
     ctx.waitUntil ? ctx.waitUntil(store.set(key, "")) : await store.set(key, "");
   } catch (_e) { /* counting must never break the app */ }
   return res;
 };
 
-export const config: Config = { path: ["/", "/index.html"], cache: "manual" };
+export const config: Config = { path: ["/", "/index.html", "/play", "/play/", "/play/index.html"], cache: "manual" };
