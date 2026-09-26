@@ -10,18 +10,23 @@ export default async (req: Request) => {
   const days = Math.min(90, Math.max(1, parseInt(url.searchParams.get("days") || "30", 10) || 30));
   const since = new Date(Date.now() - (days - 1) * 86400000).toISOString().slice(0, 10);
   const store = getStore({ name: "starsteps-visits", consistency: "strong" });
-  const out: Record<string, { total: number; countries: Record<string, number> }> = {};
-  let total = 0;
+  const out: Record<string, { total: number; play: number; home: number; countries: Record<string, number> }> = {};
+  let total = 0, play = 0, home = 0;
   for await (const page of store.list({ paginate: true })) {
     for (const b of page.blobs) {
-      const [day, cc] = b.key.split("/");
+      const parts = b.key.split("/");
+      const day = parts[0], cc = parts[1];
+      // keys written before 2026-09-26 Phase A have no page part: those were all game opens
+      const page = parts.length >= 4 ? parts[2] : "play";
       if (!day || day < since) continue;
-      out[day] ??= { total: 0, countries: {} };
-      out[day].total++; out[day].countries[cc] = (out[day].countries[cc] || 0) + 1; total++;
+      out[day] ??= { total: 0, play: 0, home: 0, countries: {} };
+      out[day].total++; out[day][page === "home" ? "home" : "play"]++;
+      out[day].countries[cc] = (out[day].countries[cc] || 0) + 1; total++;
+      if (page === "home") home++; else play++;
     }
   }
   const sorted = Object.fromEntries(Object.entries(out).sort(([a], [b]) => (a < b ? 1 : -1)));
-  return new Response(JSON.stringify({ site: "starsteps.zeroorigine.com", unit: "app opens", since, total, days: sorted }, null, 1),
+  return new Response(JSON.stringify({ site: "starsteps.zeroorigine.com", unit: "page opens (play = the game, home = the parent page)", since, total, play, home, days: sorted }, null, 1),
     { headers: { "content-type": "application/json", "cache-control": "no-store", "x-robots-tag": "noindex" } });
 };
 
