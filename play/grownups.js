@@ -1,8 +1,8 @@
 /* Star Steps website build: grown-ups layer (Phase A, 2026-09-26).
    1. Every route into the plan screen (which shows prices) asks a grown-up
       question first. Re-renders inside the plan screen are not gated.
-   2. A "For grown-ups" tile in the You tab leads, through the same gate,
-      to the parent page at the site root.
+   2. A "For grown-ups" tile in the You tab and the Star Steps logo in the
+      top bar lead, through the same gate, to the parent page at the site root.
    Nothing here is stored or sent anywhere. */
 (function(){
   "use strict";
@@ -57,6 +57,18 @@
       if(document.body.dataset.view==="plan")return orig.apply(self,args);
       gate(function(){orig.apply(self,args);});
     };
+  }
+
+  /* the Star Steps logo in the top bar leads home, through the same gate */
+  var brand=document.querySelector(".topbar .brand");
+  if(brand&&!brand.dataset.home){
+    brand.dataset.home="1";
+    brand.setAttribute("role","link"); brand.setAttribute("tabindex","0");
+    brand.setAttribute("aria-label","Star Steps home, for grown-ups");
+    brand.title="Star Steps home (grown-ups)";
+    var goHome=function(){gate(function(){location.href="/?stay=1";});};
+    brand.addEventListener("click",goHome);
+    brand.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();goHome();}});
   }
 
   /* "For grown-ups" tile in the You tab */
