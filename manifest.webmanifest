@@ -2,7 +2,7 @@
  "name": "Star Steps",
  "short_name": "Star Steps",
  "description": "Little steps. Big climbs. A learning game for ages 5 to 12.",
- "start_url": "/",
+ "start_url": "/play/",
  "scope": "/",
  "display": "standalone",
  "background_color": "#F1F0FB",
