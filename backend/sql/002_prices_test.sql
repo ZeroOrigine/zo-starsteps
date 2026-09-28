@@ -1,0 +1,5 @@
+insert into public.prices(key,stripe_price_id,tier,cycle,amount_cents,currency,livemode) values ('pro_monthly_test','price_1UKcyfLeCACOzc7TcrtGn3Vc','pro','monthly',799,'usd',false),('pro_yearly_test','price_1UKcygLeCACOzc7TsaWQdXYe','pro','yearly',5999,'usd',false),('super_monthly_test','price_1UKcyhLeCACOzc7TIaJDoLJ2','super','monthly',1299,'usd',false),('super_yearly_test','price_1UKcyiLeCACOzc7TxIkkRIeA','super','yearly',8999,'usd',false)
+on conflict (key) do update set stripe_price_id=excluded.stripe_price_id, amount_cents=excluded.amount_cents;
+insert into public.app_config(key,value) values ('stripe_mode','test'),('portal_config_test','bpc_1UKcyjLeCACOzc7TnmKGXOSb'),('site_url','https://starsteps.zeroorigine.com')
+on conflict (key) do update set value=excluded.value, updated_at=now();
+select key, stripe_price_id, amount_cents from public.prices order by key;
