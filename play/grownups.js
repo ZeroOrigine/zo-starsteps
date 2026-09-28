@@ -1,8 +1,8 @@
-/* Star Steps website build: grown-ups layer (Phase A, 2026-09-26).
+/* Star Steps website build: grown-ups layer (Phase A 2026-09-26, parent area link 2026-09-28).
    1. Every route into the plan screen (which shows prices) asks a grown-up
       question first. Re-renders inside the plan screen are not gated.
-   2. A "For grown-ups" tile in the You tab and the Star Steps logo in the
-      top bar lead, through the same gate, to the parent page at the site root.
+   2. A "For grown-ups" tile in the You tab leads, through the same gate, to the
+      parent area (/parents/); the Star Steps logo in the top bar leads to the home page.
    Nothing here is stored or sent anywhere. */
 (function(){
   "use strict";
@@ -77,8 +77,8 @@
     var t=document.createElement("button");
     t.className="tool"; t.id="grownBtn";
     t.innerHTML='<div class="ti" style="background:var(--sky-soft)" aria-hidden="true">\u{1F46A}</div>'+
-      '<div><div class="tt">For grown-ups</div><div class="ts">Plans, privacy and help</div></div>';
-    t.onclick=function(){gate(function(){location.href="/?stay=1#parents";});};
+      '<div><div class="tt">For grown-ups</div><div class="ts">Parent account, plans and help</div></div>';
+    t.onclick=function(){gate(function(){location.href="/parents/";});};
     tools.appendChild(t);
   }
 })();
