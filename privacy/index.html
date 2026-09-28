@@ -36,19 +36,20 @@ th{font-family:var(--display)}
 <div class="wrap">
   <a class="back" href="/?stay=1">&larr; Star Steps</a>
   <h1>Privacy</h1>
-  <p class="muted">Last updated 26 September 2026</p>
+  <p class="muted">Last updated 28 September 2026</p>
 
   <div class="card">
     <b>In short</b>
     <ul>
-      <li>Star Steps does not collect personal information from children or from anyone else.</li>
-      <li>Your child's progress is saved in the browser on your device and is never uploaded.</li>
-      <li>There are no ads, no cookies and no third-party trackers.</li>
-      <li>We count how many times the app is opened each day and in which country, and nothing more.</li>
+      <li>Children can play with no account. Then nothing about them leaves the device.</li>
+      <li>If a parent creates an account, we store the parent's email and, for each child, a first name, a grade and their game progress. Nothing else about children.</li>
+      <li>We never ask children for an email, photo, location, voice or contact details, and we never show ads.</li>
+      <li>We do not sell or share personal information, and we use no advertising or tracking cookies.</li>
+      <li>A parent can see, download or delete everything at any time in the parent area.</li>
     </ul>
   </div>
 
-  <h2>What stays on your device</h2>
+  <h2>Playing without an account</h2>
   <table>
     <thead><tr><th>What</th><th>Why</th><th>Where</th></tr></thead>
     <tbody>
@@ -57,7 +58,7 @@ th{font-family:var(--display)}
       <tr><td>Settings such as language, sound and quiet mode</td><td>So choices stick</td><td>This browser only</td></tr>
     </tbody>
   </table>
-  <p style="margin-top:12px">None of this is sent to us. To erase it, open <b>You</b> in the game and choose <b>Start over</b>, or clear this site's data in your browser settings.</p>
+  <p style="margin-top:12px">Without a parent account none of this is sent to us. To erase it, open <b>You</b> in the game and choose <b>Start over</b>, or clear this site's data in your browser settings.</p>
 
   <h2>What we count</h2>
   <p>When the Star Steps page loads, our server adds one to a tally for that day and country. The tally records the date and a two-letter country code. It does not record a name, an IP address, a device identifier or a cookie, so it cannot tell who opened the app or link one visit to another.</p>
@@ -66,10 +67,32 @@ th{font-family:var(--display)}
   <p>The site is served by Netlify. Like every web host, Netlify receives each visitor's IP address in order to deliver the page and may keep it in its own server logs for security and operations, under <a href="https://www.netlify.com/privacy/" rel="noopener">Netlify's privacy policy</a>. We do not use those logs to identify anyone.</p>
 
   <h2>Children</h2>
-  <p>Star Steps is made for children aged 5 to 12. We do not ask children for an email address, a photo, a location or any other personal information, and we do not show them advertising. Plans and settings sit behind a question meant for grown-ups.</p>
+  <p>Star Steps is made for children aged 5 to 12. We do not ask children for an email address, a photo, a location or any other personal information, and we do not show them advertising. Plans, settings and the parent area sit behind a question meant for grown-ups, and only a parent can create an account or buy a plan.</p>
 
   <h2>Parent accounts</h2>
-  <p>Parent accounts are not available yet. Before they launch, this page will explain exactly what an account stores, who can see it, how long it is kept and how to delete it, and nothing will be collected before then.</p>
+  <p>A parent account is optional. It is for a parent or legal guardian aged 18 or older, who creates it and adds the children. Because the parent sets up each child profile, the parent gives consent for the little we keep about that child.</p>
+  <table>
+    <thead><tr><th>What we store</th><th>Why</th><th>Kept until</th></tr></thead>
+    <tbody>
+      <tr><td>Parent email and password (the password is stored only as a secure hash)</td><td>To log in, and to send account and billing emails</td><td>The account is deleted</td></tr>
+      <tr><td>Each child's first name and grade</td><td>So each child has their own profile and path</td><td>The profile or account is deleted</td></tr>
+      <tr><td>Each child's game progress: stars, crowns, streaks, settings and which questions were missed</td><td>So progress is saved and works on every device</td><td>The profile or account is deleted</td></tr>
+      <tr><td>Plan details: which plan, its status and renewal date, and the Stripe customer number</td><td>To give your family the plan you pay for</td><td>The account is deleted; payment records are kept as tax law requires</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px">We do not use children's information for advertising, profiling or anything other than running Star Steps for your family. Account emails are only about your account and plan: confirming your email, password resets, trial and payment notices. No marketing.</p>
+
+  <h2>Payments</h2>
+  <p>Paid plans are handled by <a href="https://stripe.com/privacy" rel="noopener">Stripe</a>. You type your card details on Stripe's secure page; we never see or store your full card number. Stripe tells us the plan, its status and the last payment result.</p>
+
+  <h2>Who helps us run Star Steps</h2>
+  <p>We use a few service providers, each only for its job and under its own privacy terms: Netlify (hosting the site), Supabase (the account database, hosted in Canada), Stripe (payments) and Resend (sending account emails). None of them may use your family's information for their own purposes.</p>
+
+  <h2>Security</h2>
+  <p>Everything travels over encrypted connections. Each family can only ever read its own data: the database enforces this on every request. Passwords are checked against known data breaches when they are set.</p>
+
+  <h2>Your choices</h2>
+  <p>In the parent area you can see each child's progress, change a name or grade, remove a child, download all of your family's data as a file, and delete your account. Deleting the account removes the parent account, every child profile and all progress straight away, and cancels any plan. Progress saved on a device stays there until you choose <b>Start over</b> or clear the browser's data. You can also email us to ask for any of this.</p>
 
   <h2>Contact</h2>
   <p>Questions about privacy: <a href="mailto:reply@zeroorigine.com">reply@zeroorigine.com</a>. Star Steps is looked after as part of <a href="https://zeroorigine.com" rel="noopener">ZeroOrigine</a>.</p>
