@@ -1,0 +1,5 @@
+insert into public.prices(key,stripe_price_id,tier,cycle,amount_cents,currency,livemode) values ('pro_monthly_live','price_1UKdUOLeCACOzc7TcnyL836S','pro','monthly',799,'usd',true),('pro_yearly_live','price_1UKdUPLeCACOzc7TyDO7WwF6','pro','yearly',5999,'usd',true),('super_monthly_live','price_1UKdUQLeCACOzc7TrbohMwes','super','monthly',1299,'usd',true),('super_yearly_live','price_1UKdURLeCACOzc7Ti7dEDzzd','super','yearly',8999,'usd',true)
+on conflict (key) do update set stripe_price_id=excluded.stripe_price_id, amount_cents=excluded.amount_cents;
+insert into public.app_config(key,value) values ('portal_config_live','bpc_1UKdUSLeCACOzc7TkhTKeYsm')
+on conflict (key) do update set value=excluded.value, updated_at=now();
+select key, stripe_price_id, amount_cents, livemode from public.prices order by livemode, key;
