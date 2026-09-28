@@ -22,3 +22,16 @@
 .topbar .brand[data-home]{cursor:pointer;border-radius:14px}
 .topbar .brand[data-home]:hover .brand-mark{transform:rotate(0) scale(1.06)}
 .topbar .brand[data-home]:active .brand-mark{transform:rotate(-6deg) scale(.94)}
+/* who is learning (accounts, 2026-09-28) */
+.who{width:min(460px,100%)}
+.who p{color:var(--ink)}
+.who-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:6px 0 14px}
+.who-kid{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px 14px;background:var(--card);color:var(--ink);
+  border:3px solid var(--edge);border-radius:var(--r-md,18px);box-shadow:4px 4px 0 var(--edge);cursor:pointer;font-family:var(--body)}
+.who-kid:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--edge)}
+.who-kid:focus-visible{outline:4px solid var(--sky);outline-offset:2px}
+.who-kid.cur{outline:4px solid var(--pick);outline-offset:2px}
+.who-av{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;font:800 28px var(--display);border:3px solid var(--edge)}
+.who-nm{font:800 18px var(--display);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who-sub{font-size:12.5px;font-weight:800;color:var(--muted)}
+.who-row{justify-content:space-between}
