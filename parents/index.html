@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Parent area · Star Steps</title>
+<meta name="description" content="Your Star Steps parent account: child profiles, saved progress and your plan.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://starsteps.zeroorigine.com/parents/">
+<meta name="theme-color" content="#6D3BE8">
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<style>
+:root{
+  --paper:#EEF0FE; --paper2:#DDDCF6; --card:#FFFFFF;
+  --ink:#221A3D; --edge:#221A3D; --muted:#5A5280; --faint:#CFCAE8;
+  --grape:#6D3BE8; --grape-soft:#E2D6FF; --sun:#F59E00; --sun-soft:#FFE6B0;
+  --berry:#FF4E7A; --berry-soft:#FFD4E0; --mint:#0FAE7E; --mint-soft:#C0F2E1;
+  --sky:#2F97FF; --sky-soft:#CCE3FF; --pick:#5B2FD6; --pick-deep:#3E1CA6; --danger:#C8264F;
+  --shadow:5px 5px 0 var(--edge); --shadow-sm:3px 3px 0 var(--edge);
+  --display:ui-rounded,"SF Pro Rounded","Baloo 2","Nunito","Quicksand","Trebuchet MS",system-ui,sans-serif;
+  --body:ui-rounded,"SF Pro Rounded","Nunito","Quicksand","Avenir Next",system-ui,sans-serif;
+  --data:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--paper:#171233; --paper2:#0E0B22; --card:#251E52; --ink:#F4F1FF; --edge:#0A0718; --muted:#B4A9E2; --faint:#473C7C;
+    --grape:#A98AFF; --grape-soft:#342866; --sun-soft:#453314; --berry-soft:#4A1F2E; --mint-soft:#12402F; --sky-soft:#12365E; --danger:#FF7B9B}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font-family:var(--body);font-weight:600;font-size:16.5px;line-height:1.55;background:var(--paper);min-height:100vh;
+  background-image:radial-gradient(900px 520px at 8% -8%, rgba(109,59,232,.14), transparent 62%);background-repeat:no-repeat}
+h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;letter-spacing:-.02em;line-height:1.15}
+p{margin:0}
+a{color:var(--grape);font-weight:800}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:4px solid var(--sky);outline-offset:3px;border-radius:8px}
+[hidden]{display:none!important}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.eyebrow{font-family:var(--data);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:2px solid color-mix(in srgb,var(--edge) 10%,transparent)}
+.top-in{display:flex;align-items:center;gap:12px;height:64px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink)}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--pick);border:3px solid var(--edge);display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+.brand-mark svg{width:24px;height:24px}
+.brand b{font-family:var(--display);font-size:19px}
+.brand small{display:block;font-size:12px;color:var(--muted);font-weight:800;margin-top:-3px}
+.top .sp{flex:1}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;min-height:48px;
+  font-family:var(--display);font-weight:800;font-size:17px;text-decoration:none;cursor:pointer;
+  border:3px solid var(--edge);border-radius:16px;transition:transform .1s, box-shadow .1s, filter .1s;background:var(--card);color:var(--ink)}
+.btn.primary{color:#fff;background:linear-gradient(180deg,#7B53EC 0%,var(--pick) 55%);box-shadow:0 5px 0 var(--pick-deep),0 5px 0 3px var(--edge)}
+.btn.primary:active{transform:translateY(4px);box-shadow:0 1px 0 var(--pick-deep),0 1px 0 3px var(--edge)}
+.btn.ghost{box-shadow:0 4px 0 var(--faint),0 4px 0 3px var(--edge)}
+.btn.ghost:active{transform:translateY(3px);box-shadow:0 1px 0 var(--faint),0 1px 0 3px var(--edge)}
+.btn.danger{color:#fff;background:var(--danger);box-shadow:0 4px 0 3px var(--edge)}
+.btn.link{border:0;background:none;box-shadow:none;color:var(--grape);padding:6px 4px;min-height:0;font-size:15px}
+.btn.sm{padding:8px 14px;min-height:40px;font-size:15px;border-radius:13px}
+.btn[disabled]{opacity:.55;cursor:progress}
+.btn.block{width:100%}
+
+.card{background:var(--card);border:3px solid var(--edge);border-radius:22px;box-shadow:var(--shadow);padding:20px}
+.stack>*+*{margin-top:14px}
+
+/* auth */
+.auth{max-width:440px;margin:34px auto 60px}
+.auth h1{font-size:clamp(28px,6vw,36px)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--paper2);border:3px solid var(--edge);border-radius:16px;padding:4px;margin:18px 0}
+.tabs button{border:0;background:none;padding:10px;border-radius:11px;font-family:var(--display);font-weight:800;cursor:pointer;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:0 0 0 2px var(--edge)}
+label.f{display:block;font-weight:800;font-size:14.5px;margin-bottom:6px}
+.inp{width:100%;padding:12px 14px;min-height:48px;border:3px solid var(--edge);border-radius:14px;background:var(--paper);font-weight:700;font-size:16px}
+.inp:focus{outline:4px solid var(--sky);outline-offset:1px}
+.pw{position:relative}
+.pw .inp{padding-right:74px}
+.pw button{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--grape);font-weight:800;cursor:pointer;padding:8px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.check input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--pick)}
+.msg{min-height:22px;font-size:14.5px;font-weight:800}
+.msg.err{color:var(--danger)} .msg.ok{color:var(--mint)}
+.hint{font-size:13.5px;color:var(--muted);font-weight:700;margin-top:6px}
+.intent{background:var(--sun-soft);border:3px solid var(--edge);border-radius:16px;padding:12px 14px;font-weight:800;font-size:15px}
+
+/* dashboard */
+.dash{padding:24px 0 70px}
+.hello{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px}
+.hello h1{font-size:clamp(28px,5vw,38px)}
+.banner{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;border:3px solid var(--edge);border-radius:18px;padding:14px 16px;margin-bottom:16px;font-weight:800;box-shadow:var(--shadow-sm)}
+.banner.good{background:var(--mint-soft)} .banner.warn{background:var(--sun-soft)} .banner.bad{background:var(--berry-soft)} .banner.info{background:var(--sky-soft)}
+.banner .b-txt{flex:1 1 260px}
+.banner .b-act{display:flex;gap:8px;flex-wrap:wrap}
+.sec{margin-top:26px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
+.sec-h h2{font-size:24px}
+.kids{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.kid{display:flex;flex-direction:column;gap:12px}
+.kid-top{display:flex;gap:12px;align-items:center}
+.av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;font:800 24px var(--display);border:3px solid var(--edge);flex:none}
+.kid h3{font-size:21px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{display:inline-block;font-size:12px;font-weight:800;padding:2px 8px;border-radius:99px;background:var(--mint-soft);border:2px solid var(--edge);margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.stats div{background:var(--paper);border-radius:12px;padding:8px 4px}
+.stats b{display:block;font-family:var(--display);font-size:20px}
+.stats span{font-size:12px;color:var(--muted);font-weight:800}
+.kid-row{display:flex;gap:8px;flex-wrap:wrap}
+.kid-row .btn{flex:1}
+.kid-row .btn.primary{flex:1 1 100%}
+.add{border-style:dashed;box-shadow:none;background:transparent}
+.row2{display:grid;grid-template-columns:1fr 130px;gap:10px}
+.planbox{display:grid;gap:16px}
+.now{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.now .ico{font-size:34px}
+.now h3{font-size:24px}
+.cycle{justify-self:start;display:inline-flex;gap:4px;background:var(--paper2);border:3px solid var(--edge);border-radius:14px;padding:4px}
+.cycle button{border:0;background:none;padding:8px 14px;border-radius:10px;font-weight:800;cursor:pointer;color:var(--muted)}
+.cycle button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 0 0 2px var(--edge)}
+.offers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.offer{border:3px solid var(--edge);border-radius:18px;padding:16px;background:var(--paper);display:flex;flex-direction:column;gap:8px}
+.offer.hi{background:var(--grape-soft)}
+.offer h3{font-size:21px}
+.offer .price{font-family:var(--display);font-weight:800;font-size:30px}
+.offer .price small{font-size:15px;color:var(--muted)}
+.offer ul{margin:0;padding-left:20px;font-size:14.5px}
+.offer .btn{margin-top:auto}
+.fine{font-size:13px;color:var(--muted);font-weight:700}
+.acct-list{display:grid;gap:10px}
+.acct-list .line{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:2px solid color-mix(in srgb,var(--edge) 12%,transparent)}
+.acct-list .line:last-child{border:0}
+footer{padding:26px 0 40px;font-size:14px;color:var(--muted)}
+footer a{margin-right:14px}
+
+/* dialog */
+.dlg-back{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px;background:color-mix(in srgb,var(--edge) 60%,transparent)}
+.dlg{width:min(430px,100%);background:var(--card);border:3px solid var(--edge);border-radius:22px;box-shadow:8px 8px 0 var(--edge);padding:22px}
+.dlg h2{font-size:23px;margin-bottom:8px}
+.dlg .acts{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
+.spin{display:inline-block;width:18px;height:18px;border:3px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-3px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.center{text-align:center;padding:80px 0}
+@media (max-width:520px){.hello .btn{width:100%}.row2{grid-template-columns:1fr}.card{padding:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="/?stay=1" aria-label="Star Steps home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.8l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.6l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" fill="#FFE17A" stroke="#221A3D" stroke-width="2" stroke-linejoin="round"/></svg></span>
+      <span><b>Star Steps</b><small>Parent area</small></span>
+    </a>
+    <span class="sp"></span>
+    <a class="btn primary sm" href="/play/" id="topPlay">Open the game</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="vLoading" class="center"><span class="spin" aria-hidden="true"></span> <span class="muted">Loading</span></div>
+
+  <!-- signed out -->
+  <section id="vAuth" class="auth" hidden>
+    <div class="eyebrow">For parents and guardians</div>
+    <h1 id="authTitle">Your parent account</h1>
+    <p class="muted" style="margin-top:8px">Save each child's progress, play on any device, and manage your plan. Children never need an email or password.</p>
+    <div id="intentBox" class="intent" style="margin-top:14px" hidden></div>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabSignup" aria-selected="true" aria-controls="fSignup">Create account</button>
+      <button role="tab" id="tabLogin" aria-selected="false" aria-controls="fLogin">Log in</button>
+    </div>
+    <form id="fSignup" class="card stack" novalidate>
+      <div><label class="f" for="suEmail">Your email</label><input class="inp" id="suEmail" type="email" autocomplete="email" required maxlength="254"></div>
+      <div><label class="f" for="suPw">Choose a password</label>
+        <div class="pw"><input class="inp" id="suPw" type="password" autocomplete="new-password" required minlength="8" maxlength="72"><button type="button" data-show="suPw">Show</button></div>
+        <div class="hint">At least 8 characters. Passwords found in known data breaches are refused.</div></div>
+      <label class="check"><input type="checkbox" id="suAgree"><span>I am the parent or legal guardian, I am 18 or older, and I agree to the <a href="/terms/" target="_blank">Terms</a> and <a href="/privacy/" target="_blank">Privacy notice</a>.</span></label>
+      <div class="msg" id="suMsg" role="alert" aria-live="polite"></div>
+      <button class="btn primary block" id="suGo" type="submit">Create account</button>
+    </form>
+    <form id="fLogin" class="card stack" novalidate hidden>
+      <div><label class="f" for="liEmail">Email</label><input class="inp" id="liEmail" type="email" autocomplete="email" required></div>
+      <div><label class="f" for="liPw">Password</label>
+        <div class="pw"><input class="inp" id="liPw" type="password" autocomplete="current-password" required><button type="button" data-show="liPw">Show</button></div></div>
+      <div class="msg" id="liMsg" role="alert" aria-live="polite"></div>
+      <button class="btn primary block" id="liGo" type="submit">Log in</button>
+      <button class="btn link" type="button" id="toForgot">Forgot your password?</button>
+    </form>
+  </section>
+
+  <section id="vForgot" class="auth" hidden>
+    <h1>Reset your password</h1>
+    <form id="fForgot" class="card stack" style="margin-top:18px" novalidate>
+      <p class="muted">Enter your account email and we will send a link to choose a new password.</p>
+      <div><label class="f" for="fpEmail">Email</label><input class="inp" id="fpEmail" type="email" autocomplete="email" required></div>
+      <div class="msg" id="fpMsg" role="alert" aria-live="polite"></div>
+      <button class="btn primary block" id="fpGo" type="submit">Send reset link</button>
+      <button class="btn link" type="button" data-to-login>Back to log in</button>
+    </form>
+  </section>
+
+  <section id="vCheck" class="auth" hidden>
+    <div class="card stack" style="text-align:center">
+      <div style="font-size:52px" aria-hidden="true">&#x1F4EC;</div>
+      <h1 style="font-size:28px">Check your email</h1>
+      <p id="checkTxt"></p>
+      <p class="small muted">The link works once and expires in an hour. Not there after a minute? Look in spam or promotions.</p>
+      <div class="msg" id="ckMsg" aria-live="polite"></div>
+      <button class="btn ghost block" id="ckResend" type="button">Send it again</button>
+      <button class="btn link" type="button" data-to-login>Back to log in</button>
+    </div>
+  </section>
+
+  <section id="vReset" class="auth" hidden>
+    <h1>Choose a new password</h1>
+    <form id="fReset" class="card stack" style="margin-top:18px" novalidate>
+      <div><label class="f" for="rpPw">New password</label>
+        <div class="pw"><input class="inp" id="rpPw" type="password" autocomplete="new-password" required minlength="8" maxlength="72"><button type="button" data-show="rpPw">Show</button></div>
+        <div class="hint">At least 8 characters.</div></div>
+      <div class="msg" id="rpMsg" role="alert" aria-live="polite"></div>
+      <button class="btn primary block" id="rpGo" type="submit">Save new password</button>
+    </form>
+  </section>
+
+  <section id="vBye" class="auth" hidden>
+    <div class="card stack" style="text-align:center">
+      <div style="font-size:52px" aria-hidden="true">&#x1F44B;</div>
+      <h1 style="font-size:28px">Your account is deleted</h1>
+      <p>Your parent account, your children's profiles and their saved progress are gone. A confirmation email is on its way.</p>
+      <a class="btn ghost block" href="/?stay=1">Back to Star Steps</a>
+    </div>
+  </section>
+
+  <!-- signed in -->
+  <section id="vDash" class="dash" hidden>
+    <div class="hello">
+      <div><div class="eyebrow">Parent area</div><h1>Your family</h1><p class="muted small" id="whoEmail"></p></div>
+    </div>
+    <div id="banners"></div>
+
+    <div class="sec">
+      <div class="sec-h"><h2>Children</h2><span class="muted small" id="kidCount"></span></div>
+      <div class="kids" id="kids"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h"><h2>Plan</h2></div>
+      <div class="card planbox" id="planBox"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h"><h2>Account</h2></div>
+      <div class="card acct-list">
+        <div class="line"><div><b>Email</b><div class="muted small" id="acEmail"></div></div></div>
+        <div class="line"><div><b>Password</b><div class="muted small">Change the password you use to log in.</div></div><button class="btn ghost sm" id="acPw">Change password</button></div>
+        <div class="line"><div><b>Your data</b><div class="muted small">Download everything we store about your family as a file.</div></div><button class="btn ghost sm" id="acExport">Download</button></div>
+        <div class="line"><div><b>Log out</b><div class="muted small">Progress is saved to your account first.</div></div><button class="btn ghost sm" id="acOut">Log out</button></div>
+        <div class="line"><div><b>Delete account</b><div class="muted small">Deletes your account, every child profile and all progress. Any paid plan is cancelled.</div></div><button class="btn ghost sm" id="acDel" style="color:var(--danger)">Delete account</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="wrap">
+  <a href="/?stay=1">Star Steps home</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="mailto:reply@zeroorigine.com">Help: reply@zeroorigine.com</a>
+</footer>
+
+<script src="/vendor/supabase-2.117.2.js"></script>
+<script src="/js/ss-account.js"></script>
+<script>
+(function(){
+"use strict";
+var A=window.SSAcct, SITE=location.origin;
+var $=function(id){return document.getElementById(id);};
+var PRICES={pro:{monthly:7.99,yearly:59.99},super:{monthly:12.99,yearly:89.99}};
+var NAMES={pro:"Pro",super:"Super",free:"Free"};
+var COLORS=["#FF8A5B","#5B8CFF","#2DBE8C","#B36BFF"];
+var PLAN_KEYS=["pro_monthly","pro_yearly","super_monthly","super_yearly"];
+var sb=null, user=null, kids=[], prog={}, plan=null, cycle="yearly";
+var qs=new URLSearchParams(location.search);
+var hash=new URLSearchParams(location.hash.replace(/^#/,""));
+var linkType=hash.get("type"), linkErr=hash.get("error_description")||hash.get("error");
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return "&#"+c.charCodeAt(0)+";";});}
+function money(n){return "$"+n.toFixed(2);}
+function day(d){if(!d)return "";try{return new Date(d).toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});}catch(e){return d;}}
+function ago(d){if(!d)return "Not played yet";var t=Date.now()-Date.parse(d),dd=Math.floor(t/864e5);
+  return dd<=0?"Played today":dd===1?"Played yesterday":"Played "+dd+" days ago";}
+function gradeName(g){return g===0?"Senior Kindergarten":"Grade "+g;}
+function view(id){["vLoading","vAuth","vForgot","vCheck","vReset","vBye","vDash"].forEach(function(v){$(v).hidden=v!==id;});
+  var h=$(id).querySelector("h1"); if(h){h.setAttribute("tabindex","-1");}}
+function busy(btn,on,label){if(!btn)return;if(on){btn.dataset.l=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spin" aria-hidden="true"></span> '+(label||"Working");}
+  else{btn.disabled=false;if(btn.dataset.l)btn.innerHTML=btn.dataset.l;}}
+function msg(id,text,ok){var m=$(id);m.textContent=text||"";m.className="msg "+(ok?"ok":"err");}
+function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);}
+
+/* ---------- plan intent carried through sign-up ---------- */
+var qp=qs.get("plan");
+if(PLAN_KEYS.indexOf(qp)>=0)A.put("ss.intent",{plan:qp,at:Date.now()});
+function intent(){var i=A.get("ss.intent");if(!i||Date.now()-i.at>2*864e5||PLAN_KEYS.indexOf(i.plan)<0)return null;return i.plan;}
+function planLabel(k){var p=k.split("_");return NAMES[p[0]]+" "+(p[1]==="yearly"?"yearly":"monthly");}
+function priceLabel(k){var p=k.split("_");return money(PRICES[p[0]][p[1]])+(p[1]==="yearly"?" a year":" a month");}
+
+/* ---------- errors in plain words ---------- */
+function authError(e){
+  var m=(e&&(e.message||e.msg))||"", c=e&&e.code;
+  if(c==="weak_password"||/pwned|breach|weak/i.test(m))return "This password is too easy to guess or has appeared in a data breach. Please choose another one.";
+  if(/invalid login|invalid_credentials/i.test(m)||c==="invalid_credentials")return "That email and password do not match.";
+  if(/not confirmed/i.test(m)||c==="email_not_confirmed")return "confirm";
+  if(/rate limit|too many|429/i.test(m)||c==="over_email_send_rate_limit"||c==="over_request_rate_limit")return "Too many tries. Please wait a minute and try again.";
+  if(/at least 8|password should be/i.test(m))return "Use at least 8 characters.";
+  if(/failed to fetch|network/i.test(m))return "No connection. Check the internet and try again.";
+  return m||"Something went wrong. Please try again.";
+}
+function fnError(e,body){var c=body&&body.error;
+  if(c==="email_not_confirmed")return "Please confirm your email first.";
+  if(c==="not_signed_in")return "Your session ended. Please log in again.";
+  if(c==="no_billing_account")return "There is no billing account yet.";
+  return "Billing is not reachable right now. Please try again in a minute.";}
+function callFn(name,body){
+  return sb.functions.invoke(name,{body:body}).then(function(r){
+    if(!r.error)return r.data;
+    var ctx=r.error.context;
+    return (ctx&&ctx.json?ctx.json().catch(function(){return null;}):Promise.resolve(null)).then(function(b){var err=new Error(fnError(r.error,b));err.code=b&&b.error;throw err;});
+  });
+}
+
+/* ---------- dialogs ---------- */
+function dialog(html,setup){
+  var back=document.createElement("div");back.className="dlg-back";
+  back.innerHTML='<div class="dlg" role="dialog" aria-modal="true">'+html+'</div>';
+  document.body.appendChild(back);
+  var close=function(){back.remove();};
+  back.addEventListener("click",function(e){if(e.target===back)close();});
+  back.addEventListener("keydown",function(e){if(e.key==="Escape")close();});
+  setup(back.querySelector(".dlg"),close);
+  var f=back.querySelector("input,button.btn.primary,button.btn");if(f)setTimeout(function(){f.focus();},30);
+  return close;
+}
+
+/* ---------- auth screens ---------- */
+function tab(which){
+  var su=which==="signup";
+  $("tabSignup").setAttribute("aria-selected",su);$("tabLogin").setAttribute("aria-selected",!su);
+  $("fSignup").hidden=!su;$("fLogin").hidden=su;
+  $("authTitle").textContent=su?"Create your parent account":"Welcome back";
+}
+$("tabSignup").onclick=function(){tab("signup");};
+$("tabLogin").onclick=function(){tab("login");};
+document.querySelectorAll("[data-show]").forEach(function(b){b.onclick=function(){var i=$(b.dataset.show);var s=i.type==="password";i.type=s?"text":"password";b.textContent=s?"Hide":"Show";};});
+document.querySelectorAll("[data-to-login]").forEach(function(b){b.onclick=function(){showAuth("login");};});
+$("toForgot").onclick=function(){$("fpEmail").value=$("liEmail").value;view("vForgot");};
+function showAuth(which){
+  var it=intent();
+  $("intentBox").hidden=!it;
+  if(it)$("intentBox").innerHTML="Next: a 7-day free trial of <b>"+esc(planLabel(it))+"</b> ("+esc(priceLabel(it))+" after the trial). Create your account or log in first.";
+  tab(which||"signup");view("vAuth");
+}
+var lastEmail="", lastKind="signup";
+function showCheck(email,kind){
+  lastEmail=email;lastKind=kind;
+  $("checkTxt").innerHTML=kind==="recovery"
+    ?"If an account exists for <b>"+esc(email)+"</b>, a link to reset the password is on its way."
+    :"We sent a confirmation link to <b>"+esc(email)+"</b>. Open it on any device to finish creating your account.";
+  msg("ckMsg","");view("vCheck");
+}
+$("fSignup").onsubmit=function(e){
+  e.preventDefault();
+  var em=$("suEmail").value.trim().toLowerCase(), pw=$("suPw").value;
+  if(!validEmail(em))return msg("suMsg","Please enter a valid email address.");
+  if(pw.length<8)return msg("suMsg","Use at least 8 characters for the password.");
+  if(!$("suAgree").checked)return msg("suMsg","Please tick the box to confirm you are the parent or guardian.");
+  msg("suMsg","");busy($("suGo"),true,"Creating");
+  sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:SITE+"/parents/"}}).then(function(r){
+    busy($("suGo"),false);
+    if(r.error)return msg("suMsg",authError(r.error));
+    if(r.data&&r.data.session)return enter(r.data.session.user);
+    showCheck(em,"signup");
+  },function(err){busy($("suGo"),false);msg("suMsg",authError(err));});
+};
+$("fLogin").onsubmit=function(e){
+  e.preventDefault();
+  var em=$("liEmail").value.trim().toLowerCase(), pw=$("liPw").value;
+  if(!validEmail(em)||!pw)return msg("liMsg","Enter your email and password.");
+  msg("liMsg","");busy($("liGo"),true,"Logging in");
+  sb.auth.signInWithPassword({email:em,password:pw}).then(function(r){
+    busy($("liGo"),false);
+    if(r.error){var t=authError(r.error);
+      if(t==="confirm"){$("liMsg").className="msg err";$("liMsg").innerHTML='Please confirm your email first. <button class="btn link" type="button" id="liResend">Send the link again</button>';
+        $("liResend").onclick=function(){resend(em,"liMsg");};return;}
+      return msg("liMsg",t);}
+    enter(r.data.user);
+  },function(err){busy($("liGo"),false);msg("liMsg",authError(err));});
+};
+function resend(em,box){
+  sb.auth.resend({type:"signup",email:em,options:{emailRedirectTo:SITE+"/parents/"}}).then(function(r){
+    if(r.error)return msg(box,authError(r.error));msg(box,"Sent. Check your inbox.",true);});
+}
+$("ckResend").onclick=function(){
+  var b=$("ckResend");busy(b,true,"Sending");
+  var p=lastKind==="recovery"?sb.auth.resetPasswordForEmail(lastEmail,{redirectTo:SITE+"/parents/"}):sb.auth.resend({type:"signup",email:lastEmail,options:{emailRedirectTo:SITE+"/parents/"}});
+  p.then(function(r){busy(b,false);if(r.error)return msg("ckMsg",authError(r.error));msg("ckMsg","Sent again.",true);});
+};
+$("fForgot").onsubmit=function(e){
+  e.preventDefault();var em=$("fpEmail").value.trim().toLowerCase();
+  if(!validEmail(em))return msg("fpMsg","Please enter a valid email address.");
+  busy($("fpGo"),true,"Sending");
+  sb.auth.resetPasswordForEmail(em,{redirectTo:SITE+"/parents/"}).then(function(r){
+    busy($("fpGo"),false);if(r.error)return msg("fpMsg",authError(r.error));showCheck(em,"recovery");});
+};
+$("fReset").onsubmit=function(e){
+  e.preventDefault();var pw=$("rpPw").value;
+  if(pw.length<8)return msg("rpMsg","Use at least 8 characters.");
+  busy($("rpGo"),true,"Saving");
+  sb.auth.updateUser({password:pw}).then(function(r){
+    busy($("rpGo"),false);if(r.error)return msg("rpMsg",authError(r.error));
+    note("good","Your new password is saved.");enter(r.data.user);});
+};
+
+/* ---------- dashboard ---------- */
+var notes=[];
+function note(kind,text,actions){notes.push({kind:kind,text:text,actions:actions||[]});drawNotes();}
+function drawNotes(){
+  var box=$("banners");box.innerHTML="";
+  notes.forEach(function(n,i){
+    var d=document.createElement("div");d.className="banner "+n.kind;d.setAttribute("role","status");
+    d.innerHTML='<div class="b-txt"></div><div class="b-act"></div>';
+    d.querySelector(".b-txt").innerHTML=n.text;
+    n.actions.forEach(function(a){var b=document.createElement("button");b.className="btn sm "+(a.primary?"primary":"ghost");b.textContent=a.label;
+      b.onclick=function(){a.run(b,function(){notes.splice(notes.indexOf(n),1);drawNotes();});};d.querySelector(".b-act").appendChild(b);});
+    var x=document.createElement("button");x.className="btn link";x.textContent="Dismiss";x.setAttribute("aria-label","Dismiss message");
+    x.onclick=function(){notes.splice(notes.indexOf(n),1);drawNotes();};d.querySelector(".b-act").appendChild(x);
+    box.appendChild(d);
+  });
+}
+function enter(u){
+  user=u;A.adoptSession(u.id);
+  $("whoEmail").textContent=u.email;$("acEmail").textContent=u.email;
+  view("vDash");
+  if(linkType==="signup"||linkType==="magiclink")note("good","Your email is confirmed. Welcome to Star Steps!");
+  if(linkType==="email_change")note("good","Your email address is updated.");
+  linkType=null;
+  return Promise.all([loadKids(),loadPlan()]).then(function(){
+    var ck=qs.get("checkout");
+    if(ck==="success")return afterCheckout();
+    if(ck==="cancel")note("info","Checkout was cancelled. Nothing was charged.");
+    if(qs.get("from")==="billing")return syncPlan();
+  }).then(function(){
+    if(qs.get("update_card")==="1"&&plan&&plan.status!=="none")openPortal(null,"payment_method_update");
+    offerIntent();
+    if(location.search||location.hash)history.replaceState(null,"","/parents/");
+  }).catch(function(){note("bad","Could not load your family. Check the connection and reload the page.");});
+}
+function loadKids(){
+  return sb.from("children").select("id,name,grade,created_at").order("created_at").then(function(r){
+    if(r.error)throw r.error;kids=r.data||[];
+    if(!kids.length){prog={};return;}
+    return sb.from("progress").select("child_id,rev,updated_at,stars:state->stars,streak:state->streak,lessons:state->lessonsDone,grade:state->grade").in("child_id",kids.map(function(k){return k.id;})).then(function(p){
+      prog={};(p.data||[]).forEach(function(x){prog[x.child_id]=x;});
+    });
+  }).then(drawKids);
+}
+function drawKids(){
+  var a=A.acct()||{}, box=$("kids");box.innerHTML="";
+  $("kidCount").textContent=kids.length+" of 4";
+  kids.forEach(function(k,i){
+    var p=prog[k.id], el=document.createElement("div");el.className="card kid";
+    var g=p&&typeof p.grade==="number"?p.grade:k.grade;
+    el.innerHTML='<div class="kid-top"><span class="av" style="background:'+COLORS[i%4]+'">'+esc(k.name.charAt(0).toUpperCase())+'</span>'+
+      '<div style="min-width:0"><h3>'+esc(k.name)+'</h3><div class="muted small">'+esc(gradeName(g))+' &middot; '+esc(ago(p&&p.updated_at))+'</div>'+
+      (a.childId===k.id?'<span class="tag">Playing on this device</span>':'')+'</div></div>'+
+      '<div class="stats"><div><b>'+(p?(+p.stars||0):0)+'</b><span>stars</span></div><div><b>'+(p?(+p.streak||0):0)+'</b><span>day streak</span></div><div><b>'+(p?(+p.lessons||0):0)+'</b><span>lessons</span></div></div>'+
+      '<div class="kid-row"><button class="btn primary sm" data-play>Play as '+esc(k.name)+'</button><button class="btn ghost sm" data-edit>Edit</button><button class="btn ghost sm" data-del aria-label="Remove '+esc(k.name)+'">Remove</button></div>';
+    el.querySelector("[data-play]").onclick=function(){playAs(k,this);};
+    el.querySelector("[data-edit]").onclick=function(){editKid(k);};
+    el.querySelector("[data-del]").onclick=function(){removeKid(k);};
+    box.appendChild(el);
+  });
+  if(kids.length<4){
+    var add=document.createElement("form");add.className="card add stack";add.noValidate=true;
+    add.innerHTML='<h3 style="font-size:20px">'+(kids.length?"Add another child":"Add your first child")+'</h3>'+
+      '<p class="muted small">First name only. Children do not need an email or password.</p>'+
+      '<div class="row2"><div><label class="f" for="nkName">First name</label><input class="inp" id="nkName" maxlength="20" autocomplete="off" required></div>'+
+      '<div><label class="f" for="nkGrade">Grade</label><select class="inp" id="nkGrade">'+gradeOpts(1)+'</select></div></div>'+
+      '<div class="msg" id="nkMsg" role="alert"></div><button class="btn primary block" id="nkGo" type="submit">Add child</button>';
+    add.onsubmit=function(e){e.preventDefault();addKid();};
+    box.appendChild(add);
+  }
+  var gi=A.guestInfo();
+  if(gi&&kids.length&&!document.getElementById("guestNote"))note("info",'<span id="guestNote"></span>This device has a game played without an account: <b>'+esc(gi.name)+'</b>, '+gi.stars+' stars, '+gi.lessons+' lessons. To keep it, press <b>Play as</b> for a child who has not played yet.');
+}
+function gradeOpts(sel){var s="";for(var g=0;g<=6;g++)s+='<option value="'+g+'"'+(g===sel?" selected":"")+'>'+(g===0?"Senior K":"Grade "+g)+'</option>';return s;}
+function nameProblem(n){if(!n)return "Please type a first name.";if(n.length>20)return "Keep the name to 20 characters.";if(/[<>@\/\\]/.test(n))return "Names cannot contain < > @ / or \\.";return "";}
+function addKid(){
+  var n=$("nkName").value.trim(), g=+$("nkGrade").value, pr=nameProblem(n);
+  if(pr)return msg("nkMsg",pr);
+  busy($("nkGo"),true,"Adding");
+  sb.from("children").insert({parent_id:user.id,name:n,grade:g}).select().then(function(r){
+    if(r.error){busy($("nkGo"),false);return msg("nkMsg",/up to 4/.test(r.error.message)?"A family can have up to 4 child profiles.":"Could not add the child. Please try again.");}
+    loadKids();
+  });
+}
+function editKid(k){
+  dialog('<h2>Edit '+esc(k.name)+'</h2><div class="stack"><div><label class="f" for="ekName">First name</label><input class="inp" id="ekName" maxlength="20" value="'+esc(k.name)+'"></div>'+
+    '<div><label class="f" for="ekGrade">Grade for new profiles</label><select class="inp" id="ekGrade">'+gradeOpts(k.grade)+'</select><div class="hint">Your child can also change grade inside the game.</div></div>'+
+    '<div class="msg" id="ekMsg" role="alert"></div></div><div class="acts"><button class="btn ghost" data-x>Cancel</button><button class="btn primary" data-ok>Save</button></div>',
+  function(d,close){
+    d.querySelector("[data-x]").onclick=close;
+    d.querySelector("[data-ok]").onclick=function(){
+      var n=$("ekName").value.trim(), g=+$("ekGrade").value, pr=nameProblem(n);if(pr)return msg("ekMsg",pr);
+      var b=this;busy(b,true,"Saving");
+      sb.from("children").update({name:n,grade:g}).eq("id",k.id).then(function(r){
+        if(r.error){busy(b,false);return msg("ekMsg","Could not save. Please try again.");}
+        var a=A.acct();if(a&&a.childId===k.id){a.childName=n;A.put("ss.acct",a);}
+        close();loadKids();});
+    };
+  });
+}
+function removeKid(k){
+  dialog('<h2>Remove '+esc(k.name)+'?</h2><p>'+esc(k.name)+'’s profile and all saved progress will be deleted from your account. This cannot be undone.</p>'+
+    '<div class="msg" id="rkMsg" role="alert"></div><div class="acts"><button class="btn ghost" data-x>Keep</button><button class="btn danger" data-ok>Remove</button></div>',
+  function(d,close){
+    d.querySelector("[data-x]").onclick=close;
+    d.querySelector("[data-ok]").onclick=function(){
+      var b=this;busy(b,true,"Removing");
+      sb.from("children").delete().eq("id",k.id).then(function(r){
+        if(r.error){busy(b,false);return msg("rkMsg","Could not remove. Please try again.");}
+        var a=A.acct();if(a&&a.childId===k.id){A.del("starsteps.v2");A.put("ss.acct",{uid:user.id});}
+        A.del("ss.stash."+k.id);
+        close();loadKids();});
+    };
+  });
+}
+function playAs(k,btn){
+  var go=function(choice){busy(btn,true,"Opening");
+    A.switchTo(sb,k,choice).then(function(){location.href="/play/";},function(){busy(btn,false);note("bad","Could not open "+esc(k.name)+"’s game. Check the connection and try again.");});};
+  var a=A.acct();
+  if(a&&a.childId===k.id){location.href="/play/";return;}
+  var gi=prog[k.id]?null:A.guestInfo();
+  if(!gi)return go();
+  dialog('<h2>Keep the game on this device?</h2><p>This device has a game played without an account: <b>'+esc(gi.name)+'</b>, '+gi.stars+' stars and '+gi.lessons+' lessons.</p><p style="margin-top:8px">Is it '+esc(k.name)+'’s? If so, it moves into '+esc(k.name)+'’s profile.</p>'+
+    '<div class="acts"><button class="btn ghost" data-no>No, start fresh</button><button class="btn primary" data-yes>Yes, it is '+esc(k.name)+'’s</button></div>',
+  function(d,close){d.querySelector("[data-yes]").onclick=function(){close();go("bring");};d.querySelector("[data-no]").onclick=function(){close();go("fresh");};});
+}
+
+/* ---------- plan ---------- */
+function loadPlan(){return A.refreshPlan(sb,user.id).then(function(p){plan=p;drawPlan();});}
+function syncPlan(){return callFn("billing",{action:"sync"}).catch(function(){}).then(loadPlan);}
+function afterCheckout(){
+  note("info",'<span class="spin" aria-hidden="true"></span> Confirming your plan with Stripe…');
+  var n=notes[notes.length-1], t0=Date.now();
+  function tick(){
+    return syncPlan().then(function(){
+      if(plan&&plan.entitled){notes.splice(notes.indexOf(n),1);
+        note("good",plan.status==="trialing"?"Your 7-day free trial of <b>"+NAMES[plan.tier]+"</b> has started for every child. First payment on "+esc(day(plan.trial_end))+". Cancel before then and nothing is charged."
+          :"<b>"+NAMES[plan.tier]+"</b> is on for every child. Thank you!");
+        A.del("ss.intent");return;}
+      if(Date.now()-t0>25000){notes.splice(notes.indexOf(n),1);note("warn","Payment received by Stripe, but your plan has not shown up yet. Reload this page in a minute. If it still says Free, email reply@zeroorigine.com.");return;}
+      return new Promise(function(r){setTimeout(r,2500);}).then(tick);
+    });
+  }
+  return tick();
+}
+function drawPlan(){
+  var box=$("planBox"), p=plan||{tier:"free",status:"none"}, html="";
+  var ent=p.entitled&&p.tier!=="free", key=p.tier+"_"+(p.cycle||"monthly"), price=PRICES[p.tier]&&PRICES[p.tier][p.cycle||"monthly"];
+  var per=p.cycle==="yearly"?"a year":"a month";
+  if(ent||p.status==="incomplete"){
+    var line="", kind="";
+    if(p.status==="trialing")line=p.cancel_at_period_end?"Free trial ends on <b>"+esc(day(p.trial_end))+"</b>. You cancelled, so nothing will be charged.":"Free trial until <b>"+esc(day(p.trial_end))+"</b>, then "+money(price)+" "+per+".";
+    else if(p.status==="active")line=p.cancel_at_period_end?"Cancelled. "+NAMES[p.tier]+" stays on until <b>"+esc(day(p.current_period_end))+"</b>.":"Renews on <b>"+esc(day(p.current_period_end))+"</b> for "+money(price)+" "+per+".";
+    else if(p.status==="past_due"||p.status==="unpaid"){line="<b>Your last payment failed.</b> Update your card to keep "+NAMES[p.tier]+".";kind="bad";}
+    else if(p.status==="incomplete"){line="<b>Your payment needs one more step.</b> Open billing to finish it.";kind="bad";}
+    html='<div class="now"><span class="ico" aria-hidden="true">'+(p.tier==="super"?"\u{1F451}":"\u{1F48E}")+'</span><div><div class="eyebrow">Your plan</div><h3>'+NAMES[p.tier]+' '+(p.cycle==="yearly"?"yearly":"monthly")+(p.status==="trialing"?" (free trial)":"")+'</h3>'+
+      '<p style="margin-top:4px"'+(kind?' class="msg err"':'')+'>'+line+'</p><p class="fine" style="margin-top:4px">Covers every child in your family, on every device.</p></div></div>'+
+      '<div class="kid-row">'+(kind?'<button class="btn primary" id="plCard">Update card</button>':'')+'<button class="btn '+(kind?"ghost":"primary")+'" id="plPortal">Manage billing</button></div>'+
+      '<p class="fine">In billing you can switch between Pro and Super or monthly and yearly, change your card, see invoices, and cancel. Billing is handled by Stripe.</p>';
+    box.innerHTML=html;
+    $("plPortal").onclick=function(){openPortal(this);};
+    if($("plCard"))$("plCard").onclick=function(){openPortal(this,"payment_method_update");};
+    return;
+  }
+  var trial=!p.had_trial;
+  html='<div class="now"><span class="ico" aria-hidden="true">⭐</span><div><div class="eyebrow">Your plan</div><h3>Free</h3><p style="margin-top:4px">Every lesson in every subject stays free. Paid plans add harder challenges and extras.</p></div></div>'+
+    '<div class="cycle" role="group" aria-label="Billing cycle"><button type="button" data-c="monthly">Monthly</button><button type="button" data-c="yearly">Yearly</button></div>'+
+    '<div class="offers">'+offer("pro",trial)+offer("super",trial)+'</div>'+
+    '<p class="fine">'+(trial?"The trial is free for 7 days and needs a card. We email you 3 days before it ends. Cancel any time in billing before then and nothing is charged. After the trial the plan renews automatically every month or year until you cancel. ":"Plans renew automatically every month or year until you cancel in billing. ")+
+    'Prices in US dollars; tax may be added where required. Payment is handled by Stripe. By continuing you agree to the <a href="/terms/">Terms</a>.</p>';
+  box.innerHTML=html;
+  box.querySelectorAll("[data-c]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.c===cycle));b.onclick=function(){cycle=b.dataset.c;drawPlan();};});
+  box.querySelectorAll("[data-buy]").forEach(function(b){b.onclick=function(){checkout(b.dataset.buy,b);};});
+}
+function offer(t,trial){
+  var m=PRICES[t].monthly, y=PRICES[t].yearly, pr=cycle==="yearly"?y:m;
+  var save=Math.round((1-y/(m*12))*100);
+  var feats=t==="pro"?["A Deep Dive in every subject","A Grade Exam for every grade","Drill any subject on demand","The hardest question settings"]
+    :["Everything in Pro","Unlimited hearts","Double stars","Personal Practice and progress reports"];
+  return '<div class="offer'+(t==="super"?" hi":"")+'"><h3>'+(t==="super"?"\u{1F451} ":"\u{1F48E} ")+NAMES[t]+'</h3>'+
+    '<div class="price">'+money(pr)+'<small> / '+(cycle==="yearly"?"year":"month")+'</small></div>'+
+    '<div class="fine">'+(cycle==="yearly"?money(y/12)+" a month, "+save+"% less than monthly":"or "+money(y)+" a year")+'</div>'+
+    '<ul>'+feats.map(function(f){return "<li>"+f+"</li>";}).join("")+'</ul>'+
+    '<button class="btn '+(t==="super"?"primary":"ghost")+' block" data-buy="'+t+"_"+cycle+'">'+(trial?"Start 7-day free trial":"Choose "+NAMES[t])+'</button></div>';
+}
+function checkout(key,btn){
+  busy(btn,true,"Opening checkout");
+  callFn("billing",{action:"checkout",plan:key}).then(function(r){location.href=r.url;},function(e){busy(btn,false);note("bad",esc(e.message));});
+}
+function openPortal(btn,flow){
+  busy(btn,true,"Opening billing");
+  callFn("billing",{action:"portal",flow:flow}).then(function(r){location.href=r.url;},function(e){busy(btn,false);note("bad",esc(e.message));});
+}
+function offerIntent(){
+  var it=intent();if(!it)return;
+  var p=plan||{};
+  if(p.entitled){
+    note("info","You already have <b>"+NAMES[p.tier]+"</b>. To switch to "+esc(planLabel(it))+", use Manage billing.",[{label:"Manage billing",primary:true,run:function(b){A.del("ss.intent");openPortal(b);}}]);
+    return;
+  }
+  var trial=!p.had_trial;
+  note("warn",(trial?"Next step: start your 7-day free trial of <b>":"Next step: subscribe to <b>")+esc(planLabel(it))+"</b>. "+esc(priceLabel(it))+(trial?" after 7 free days":"")+". Cancel any time.",
+    [{label:trial?"Start free trial":"Continue to checkout",primary:true,run:function(b){checkout(it,b);}},{label:"Not now",run:function(b,done){A.del("ss.intent");done();}}]);
+}
+
+/* ---------- account ---------- */
+$("acPw").onclick=function(){
+  dialog('<h2>Change password</h2><div class="stack"><div><label class="f" for="cpPw">New password</label><div class="pw"><input class="inp" id="cpPw" type="password" autocomplete="new-password" minlength="8" maxlength="72"><button type="button" data-show2>Show</button></div><div class="hint">At least 8 characters.</div></div><div class="msg" id="cpMsg" role="alert"></div></div>'+
+    '<div class="acts"><button class="btn ghost" data-x>Cancel</button><button class="btn primary" data-ok>Save</button></div>',
+  function(d,close){
+    d.querySelector("[data-show2]").onclick=function(){var i=$("cpPw");var s=i.type==="password";i.type=s?"text":"password";this.textContent=s?"Hide":"Show";};
+    d.querySelector("[data-x]").onclick=close;
+    d.querySelector("[data-ok]").onclick=function(){var pw=$("cpPw").value;if(pw.length<8)return msg("cpMsg","Use at least 8 characters.");
+      var b=this;busy(b,true,"Saving");
+      sb.auth.updateUser({password:pw}).then(function(r){busy(b,false);if(r.error)return msg("cpMsg",authError(r.error));close();note("good","Your new password is saved.");});};
+  });
+};
+$("acExport").onclick=function(){
+  var b=this;busy(b,true,"Preparing");
+  Promise.all([sb.from("parents").select("email,created_at"),sb.from("children").select("id,name,grade,created_at"),
+    sb.from("progress").select("child_id,state,rev,updated_at"),sb.from("subscriptions").select("tier,cycle,status,current_period_end,trial_end,cancel_at_period_end,updated_at")]).then(function(rs){
+    busy(b,false);
+    var bad=rs.filter(function(r){return r.error;});if(bad.length)return note("bad","Could not prepare the download. Please try again.");
+    var out={exported_at:new Date().toISOString(),service:"Star Steps (starsteps.zeroorigine.com)",parent:rs[0].data[0],children:rs[1].data,progress:rs[2].data,plan:rs[3].data[0]};
+    var blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"}), a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);a.download="star-steps-data-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1000);
+  });
+};
+$("acOut").onclick=function(){
+  var b=this;busy(b,true,"Saving progress");
+  A.pushActive().then(finish,function(){busy(b,false);
+    dialog('<h2>Some progress is not saved yet</h2><p>This device could not reach Star Steps, so the latest progress on it has not been uploaded. If you log out now, that progress is lost.</p><div class="acts"><button class="btn ghost" data-x>Stay logged in</button><button class="btn danger" data-ok>Log out anyway</button></div>',
+      function(d,close){d.querySelector("[data-x]").onclick=close;d.querySelector("[data-ok]").onclick=function(){close();finish();};});});
+  function finish(){A.forgetDevice();sb.auth.signOut({scope:"local"}).finally(function(){location.replace("/parents/?out=1");});}
+};
+$("acDel").onclick=function(){
+  var ent=plan&&plan.entitled;
+  dialog('<h2>Delete your account?</h2><p>This deletes your parent account, every child profile and all saved progress. It cannot be undone.'+(ent?" Your "+NAMES[plan.tier]+" plan is cancelled straight away with no further charges.":"")+'</p>'+
+    '<div style="margin-top:12px"><label class="f" for="delTxt">Type DELETE to confirm</label><input class="inp" id="delTxt" autocomplete="off" autocapitalize="characters"></div><div class="msg" id="delMsg" role="alert"></div>'+
+    '<div class="acts"><button class="btn ghost" data-x>Keep my account</button><button class="btn danger" data-ok>Delete everything</button></div>',
+  function(d,close){
+    d.querySelector("[data-x]").onclick=close;
+    d.querySelector("[data-ok]").onclick=function(){
+      if($("delTxt").value.trim().toUpperCase()!=="DELETE")return msg("delMsg","Type DELETE to confirm.");
+      var b=this;busy(b,true,"Deleting");
+      callFn("account",{action:"delete",confirm:"DELETE"}).then(function(){
+        /* the account no longer exists, so the session is simply forgotten on this device */
+        A.forgetDevice();A.del("ss.intent");A.del("sb-eidwmxkkfnrgsiuingtm-auth-token");
+      }).then(function(){close();user=null;view("vBye");},function(e){busy(b,false);msg("delMsg",e.code==="billing_unavailable"?"Billing could not be reached, so nothing was deleted. Please try again in a minute.":"Something went wrong, so nothing was deleted. Please try again.");});
+    };
+  });
+};
+
+/* ---------- start ---------- */
+if(!window.supabase||!A){$("vLoading").innerHTML='<p>The parent area could not load. Please check the connection and reload.</p>';return;}
+A.swReady().then(start);
+function start(){
+sb=A.client({detectSessionInUrl:true});
+sb.auth.onAuthStateChange(function(ev,s){
+  if(ev==="PASSWORD_RECOVERY")setTimeout(function(){view("vReset");},0);
+  if(ev==="SIGNED_OUT"&&user){user=null;showAuth("login");}
+});
+A.session(sb).then(function(s){
+  if(linkErr){showAuth("login");msg("liMsg",/expired|invalid/i.test(linkErr)?"That link has expired or was already used. Log in, or ask for a new link.":linkErr.replace(/\+/g," "));history.replaceState(null,"","/parents/");return;}
+  if(s&&linkType==="recovery"){view("vReset");history.replaceState(null,"","/parents/");return;}
+  if(s)return enter(s.user);
+  if(qs.get("out")==="1"){showAuth("login");msg("liMsg","You are logged out.",true);history.replaceState(null,"","/parents/");return;}
+  showAuth(intent()||qs.get("signup")?"signup":"login");
+},function(){showAuth("login");});
+}
+})();
+</script>
+</body>
+</html>
