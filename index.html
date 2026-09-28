@@ -94,6 +94,12 @@ img{max-width:100%;height:auto;display:block}
 .nav{display:flex;gap:4px}
 .nav a{padding:8px 11px;border-radius:10px;font-weight:800;font-size:15px;text-decoration:none;color:var(--muted)}
 .nav a:hover{color:var(--ink);background:var(--card)}
+.login{padding:8px 10px;border-radius:10px;font-weight:800;font-size:15px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.login:hover{background:var(--card)}
+.lg-s{display:none}
+.brand b,.top .btn{white-space:nowrap}
+@media (max-width:520px){.lg-l{display:none}.lg-s{display:inline}.top-in{gap:8px;padding:10px 14px}.login{padding:6px 4px}}
+@media (max-width:360px){.brand b{font-size:17px}.top .btn.small{padding:8px 11px}}
 @media (max-width:860px){.nav{display:none}}
 
 /* ── hero ── */
@@ -241,6 +247,7 @@ footer a:hover{text-decoration:underline}
       <a href="#plans">Plans</a>
       <a href="#faq">FAQ</a>
     </nav>
+    <a class="login" href="/parents/"><span class="lg-l">Parent login</span><span class="lg-s">Log in</span></a>
     <a class="btn primary small" href="/play/" data-play>Play free</a>
   </div>
 </header>
@@ -325,8 +332,8 @@ footer a:hover{text-decoration:underline}
       <div class="trust">
         <ul>
           <li><i aria-hidden="true">&#x1F6AB;</i><div><b>No ads, ever</b><span>Nothing is advertised to your child, inside or around the game.</span></div></li>
-          <li><i aria-hidden="true">&#x1F513;</i><div><b>No account needed to play</b><span>Your child can start straight away. No sign-up, no email, no photo. The first name your child types stays on the device.</span></div></li>
-          <li><i aria-hidden="true">&#x1F4F1;</i><div><b>Progress stays on your device</b><span>Lessons, stars and streaks are saved in this browser. Nothing about your child is uploaded.</span></div></li>
+          <li><i aria-hidden="true">&#x1F513;</i><div><b>No account needed to play</b><span>Your child can start straight away. No sign-up, no email, no photo. A parent account is optional.</span></div></li>
+          <li><i aria-hidden="true">&#x1F4F1;</i><div><b>You choose where progress lives</b><span>Without an account it stays in this browser. With a parent account it is saved to your family, first name and grade only.</span></div></li>
           <li><i aria-hidden="true">&#x1F36A;</i><div><b>No cookies, no trackers</b><span>No third-party scripts at all. We count app opens per day and country on our server, never who opened it.</span></div></li>
           <li><i aria-hidden="true">&#x1F46A;</i><div><b>Grown-up gate</b><span>Plans and settings sit behind a question a young child cannot answer. Children never see a price.</span></div></li>
           <li><i aria-hidden="true">&#x1F92B;</i><div><b>Quiet mode</b><span>No timer, no sound and no hearts lost, for children who need a calmer pace.</span></div></li>
@@ -334,15 +341,15 @@ footer a:hover{text-decoration:underline}
       </div>
       <div class="side">
         <div class="soon">
-          <div class="eyebrow">Coming next</div>
-          <h3>Parent accounts</h3>
+          <div class="eyebrow">Parent accounts</div>
+          <h3>Save progress on every device</h3>
           <ul>
-            <li>Keep progress safe across phone, tablet and computer</li>
             <li>Up to 4 child profiles, first name and grade only</li>
-            <li>Each child's progress in one place</li>
-            <li>Plans and billing you control</li>
+            <li>Progress saved and synced across phone, tablet and computer</li>
+            <li>Each child's stars, streak and lessons in one place</li>
+            <li>Plans and billing you control, cancel any time</li>
           </ul>
-          <p>Until then, nothing needs an account and nothing can be bought.</p>
+          <p><a class="btn primary small" href="/parents/?signup=1">Create a free parent account</a></p>
         </div>
         <div class="tip">
           <h3>Tip: add it to your home screen</h3>
@@ -391,7 +398,7 @@ footer a:hover{text-decoration:underline}
           <li>The hardest question settings</li>
           <li>Diamond Pip</li>
         </ul>
-        <span class="btn ghost" aria-disabled="true">Opens with parent accounts</span>
+        <a class="btn ghost" href="/parents/?plan=pro_yearly" data-buy="pro">Start 7-day free trial</a>
       </div>
       <div class="plan hi">
         <h3>&#x1F451; Super</h3>
@@ -406,10 +413,10 @@ footer a:hover{text-decoration:underline}
           <li>Legendary crowns</li>
           <li>Progress reports</li>
         </ul>
-        <span class="btn ghost" aria-disabled="true">Opens with parent accounts</span>
+        <a class="btn primary" href="/parents/?plan=super_yearly" data-buy="super">Start 7-day free trial</a>
       </div>
     </div>
-    <p class="plans-note"><b>Nothing can be bought yet.</b> Paid plans open when parent accounts launch. Prices are in US dollars.</p>
+    <p class="plans-note"><b>7 days free, then billed monthly or yearly.</b> A card is needed for the trial. Cancel any time in the parent area and nothing more is charged. One plan covers up to 4 children. Prices in US dollars.</p>
   </section>
 
   <section id="faq" aria-labelledby="faqTitle">
@@ -419,13 +426,15 @@ footer a:hover{text-decoration:underline}
     </div>
     <div class="faq">
       <details><summary>Is it really free?</summary>
-        <p>Yes. Every lesson in every subject and grade is free and stays free. Paid plans, when they open, add extra challenges and rewards on top.</p></details>
+        <p>Yes. Every lesson in every subject and grade is free and stays free. Pro and Super add extra challenges and rewards on top, with a 7-day free trial.</p></details>
       <details><summary>Does my child need an account?</summary>
-        <p>No. Open the game and play. Parent accounts are coming for families who want progress on more than one device.</p></details>
+        <p>No. Open the game and play. A free parent account is optional: it saves each child's progress and lets them play on any device. Children never need an email or password.</p></details>
       <details><summary>Where is progress saved?</summary>
-        <p>In the browser on the device your child uses. Clearing the browser's data erases it. On iPhone and iPad, adding Star Steps to the home screen stops Safari from clearing it after a week of not playing.</p></details>
+        <p>Without an account, in the browser on the device your child uses: clearing the browser's data erases it. With a parent account, it is also saved to your family's account, so it is safe if a device is lost or cleared.</p></details>
       <details><summary>What data do you collect?</summary>
-        <p>Nothing about your child. We count how many times the app is opened each day and in which country. We store no names, no IP addresses and no cookies. The full details are on the <a href="/privacy/">privacy page</a>.</p></details>
+        <p>Without an account, nothing about your child: we only count app opens per day and country. With a parent account, we store your email and each child's first name, grade and game progress, and nothing else. You can download or delete it all at any time. The full details are on the <a href="/privacy/">privacy page</a>.</p></details>
+      <details><summary>How do I cancel a paid plan?</summary>
+        <p>Log in to the parent area, open Plan, then Manage billing, and choose Cancel. The plan stays on until the end of the period you paid for and you are not charged again. If you cancel during the free trial, nothing is charged at all.</p></details>
       <details><summary>Which devices does it work on?</summary>
         <p>Any modern browser on phones, tablets and computers. After the first visit it also works with no internet connection.</p></details>
       <details><summary>What languages does it support?</summary>
@@ -486,6 +495,7 @@ footer a:hover{text-decoration:underline}
       var p=P[k][c], el=document.querySelector('[data-price="'+k+'"]'), per=document.querySelector('[data-per="'+k+'"]');
       el.textContent=p[0]; var sm=document.createElement("small"); sm.textContent=p[1]; el.appendChild(sm);
       per.textContent=c==="monthly"?"Billed monthly, cancel any time":p[2];
+      var buy=document.querySelector('[data-buy="'+k+'"]'); if(buy)buy.href="/parents/?plan="+k+"_"+c;
     });
   }
   btns.forEach(function(b){b.onclick=function(){setCycle(b.dataset.cyc);};});
