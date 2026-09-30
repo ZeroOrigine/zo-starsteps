@@ -207,5 +207,6 @@
   document.documentElement.classList.add("ss-ready");
   var orig=window.renderPath;
   window.renderPath=function(){ var r=orig.apply(this,arguments); try{apply();}catch(e){} named(); return r; };
+  window.SSUxApply=function(k){ try{apply(k);}catch(e){} };
   try{apply();}catch(e){} named();
 })();
