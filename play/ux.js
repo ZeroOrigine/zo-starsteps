@@ -15,6 +15,38 @@
     var path=here.closest(".path"), ban=path&&path.previousElementSibling;
     return {unit:ban&&ban.dataset.unit, id:here.getAttribute("aria-label")||""};
   }
+  /* bring the chosen subject into view: on a phone the chip row is sticky, so aim at the top of the path */
+  function scrollToSubject(jump){
+    var top;
+    if(getComputedStyle(jump).position==="sticky"){
+      var c=document.getElementById("courses"), h=document.querySelector(".topbar");
+      top=(c?c.getBoundingClientRect().bottom+scrollY:0)-(h?h.offsetHeight:0);
+    } else top=jump.getBoundingClientRect().top+scrollY-80;
+    if(scrollY>top)scrollTo({top:Math.max(0,top),behavior:REDUCED()?"auto":"smooth"});
+  }
+  /* mouse screens: arrows at both ends of the one-row subject bar */
+  var FINE=window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)");
+  function arrows(jump){
+    if(!FINE||!FINE.matches||jump.querySelector(".ux-arr"))return;
+    function mk(cls,label,dir){
+      var b=document.createElement("button"); b.type="button"; b.className="ux-arr "+cls;
+      b.setAttribute("aria-label",label); b.textContent=dir<0?"\u2039":"\u203A";
+      b.onclick=function(){ try{SFX.tap();}catch(e){} jump.scrollBy({left:dir*Math.max(200,jump.clientWidth*.7),behavior:REDUCED()?"auto":"smooth"}); };
+      return b;
+    }
+    var l=mk("l","Earlier subjects",-1), r=mk("r","More subjects",1);
+    jump.insertBefore(l,jump.firstChild); jump.appendChild(r);
+    jump._uxArr=function(){
+      var over=jump.scrollWidth>jump.clientWidth+4;
+      l.classList.toggle("off",!over||jump.scrollLeft<8);
+      r.classList.toggle("off",!over||jump.scrollLeft+jump.clientWidth>=jump.scrollWidth-8);
+    };
+    if(!jump.dataset.uxArr){ jump.dataset.uxArr="1";
+      jump.addEventListener("scroll",function(){ if(jump._uxArr)jump._uxArr(); },{passive:true});
+      var upd=function(){ if(jump._uxArr)jump._uxArr(); };
+      if(window.ResizeObserver)new ResizeObserver(upd).observe(jump); else addEventListener("resize",upd,{passive:true}); }
+    jump._uxArr();
+  }
   function apply(chosen){
     var body=document.getElementById("pathBody"), jump=document.getElementById("jump");
     if(!body||!jump)return;
@@ -34,14 +66,14 @@
       b.hidden=!on; if(p&&p.classList.contains("path"))p.hidden=!on;
       if(on)idx=i;
     });
-    [].slice.call(jump.children).forEach(function(btn,i){
+    arrows(jump);
+    [].slice.call(jump.children).filter(function(b){return !b.classList.contains("ux-arr");}).forEach(function(btn,i){
       var u=units[i]; if(!u)return;
       btn.setAttribute("aria-pressed",String(u.key===key));
       btn.onclick=function(){
         try{SFX.tap();}catch(e){}
         apply(u.key);
-        var top=jump.getBoundingClientRect().top+scrollY-80;
-        if(scrollY>top)scrollTo({top:top,behavior:"smooth"});
+        scrollToSubject(jump);
       };
     });
     var old=body.querySelector(".ux-next"); if(old)old.remove();
@@ -56,12 +88,13 @@
         try{SFX.tap();}catch(e){}
         apply(nextBan.dataset.unit);
         var c=jump.querySelector('[aria-pressed="true"]'); if(c&&c.scrollIntoView)c.scrollIntoView({inline:"center",block:"nearest"});
-        scrollTo({top:jump.getBoundingClientRect().top+scrollY-80,behavior:"smooth"});
+        scrollToSubject(jump);
       };
       var p=banners[idx].nextElementSibling;
       (p&&p.classList.contains("path")?p:banners[idx]).insertAdjacentElement("afterend",btn);
     }
     var cur=jump.querySelector('[aria-pressed="true"]');
+    setTimeout(function(){ if(jump._uxArr)jump._uxArr(); },0);
     if(cur&&jump.scrollWidth>jump.clientWidth)jump.scrollLeft=Math.max(0,cur.offsetLeft-(jump.clientWidth-cur.offsetWidth)/2);
   }
   /* Continue: open the subject that holds the next step, then show that step */
@@ -131,6 +164,17 @@
       try{var m=document.getElementById("meRank");if(m)m.textContent=m.textContent.replace(/Grade 0\b/,"Senior Kindergarten");}catch(e){}return r;};
     try{renderMe();}catch(e){}
   }
+  /* the sticky subject row sits right under the top bar, whatever its height */
+  var tb=document.querySelector(".topbar");
+  function tbh(){ if(tb)document.documentElement.style.setProperty("--tbh",tb.offsetHeight+"px"); }
+  tbh(); addEventListener("resize",tbh,{passive:true});
+  if(tb&&window.ResizeObserver)new ResizeObserver(tbh).observe(tb);
+  /* the subject row gets its frosted background only while it is stuck under the top bar */
+  var stuckTick=false;
+  function stuck(){ stuckTick=false; var j=document.getElementById("jump"); if(!j||!tb)return;
+    var on=getComputedStyle(j).position==="sticky"&&j.offsetParent!==null&&Math.abs(j.getBoundingClientRect().top-tb.getBoundingClientRect().bottom)<2&&scrollY>40;
+    j.classList.toggle("ux-stuck",on); }
+  addEventListener("scroll",function(){ if(!stuckTick){stuckTick=true;requestAnimationFrame(stuck);} },{passive:true});
   var orig=window.renderPath;
   window.renderPath=function(){ var r=orig.apply(this,arguments); try{apply();}catch(e){} named(); return r; };
   try{apply();}catch(e){} named();
