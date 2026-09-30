@@ -39,8 +39,15 @@ Always with the Netlify CLI (a file-digest API deploy drops the edge functions):
 
     NETLIFY_AUTH_TOKEN=<zo_config NETLIFY_API_TOKEN> netlify deploy --prod --no-build --dir public --site de6f5c47-4797-456a-a70d-cb8ad5a7f2d4
 
-Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v19. First visit (no saved state): the launch screen is skipped, Pip's welcome screen shows from the first paint, its buttons wait (dimmed) until the game script is ready (html.ss-ready).
+Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v20.
 netlify.toml also sets `Cache-Control: public, max-age=31536000, immutable` for /emoji/*.
+
+## v20 (2026-10-01): path rounds
+    public/play/rounds.js   after every step has a crown, the path runs again in rounds (Explorer, Silver, Gold,
+                            Diamond, Master; Legendary with Super). Round = 1 + lowest crown in the grade (bonus steps
+                            excluded). NEXT, Today's button and "Next step" follow the round. Round banner on the Path.
+                            4 round achievements. Nothing new stored. Grade 2 = 174 steps x 5 = 870 lessons; all grades
+                            1,262 steps, 6,310 lessons (7,572 with Super). Test: v17/rounds.mjs (10).
 
 ## v17 (2026-09-30): read aloud, levels, achievements, sky, chess set, games polish
     public/play/voice.js    read aloud (device voice, Web Speech API, nothing sent anywhere): speaker button on every
@@ -82,7 +89,9 @@ centred at 760px. Only one subject's path shows at a time.
    Move the game's big inline <script> into public/play/app.js. In its place put the small loader that,
    after the first frame, adds all of these at once (they download together and run in this order):
    /play/app.js, /play/account.js, /play/grownups.js, /play/ux.js, /play/fe.js, /play/voice.js, /play/rewards.js,
-   /play/chess.js, /play/sky.js. The head also preloads /play/app.js (fetchpriority low).
+   /play/chess.js, /play/sky.js, /play/rounds.js. The head also preloads /play/app.js (fetchpriority low).
+   The loader starts only after the browser reports first-contentful-paint (fallback 1.5 s): with a plain
+   frame callback Chrome sometimes held the first paint until the 1.46 MB script had run (lab LCP 4.8 s -> 1.6 s).
    Add `<link rel="stylesheet" href="/play/ux.css">` after the grownups.css link.
 4. Save as public/play/index.html.
 
