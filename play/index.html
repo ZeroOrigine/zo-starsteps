@@ -2500,7 +2500,7 @@ body[data-view="done"] .tabbar{display:none !important}
 <script>
 /* The launch screen above is drawn first; the game and its layers load right after,
    in order: app, accounts, grown-up gate, layout. */
-(function(){var q=["/play/app.js","/play/account.js","/play/grownups.js","/play/ux.js"];
+(function(){var q=["/play/app.js","/play/account.js","/play/grownups.js","/play/ux.js","/play/fe.js"];
 function next(){var f=q.shift();if(!f)return;var e=document.createElement("script");e.src=f;e.async=false;e.onload=next;e.onerror=next;document.body.appendChild(e);}
 requestAnimationFrame(function(){setTimeout(next,0);});})();
 </script>
