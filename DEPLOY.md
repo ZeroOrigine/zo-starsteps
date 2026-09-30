@@ -39,8 +39,15 @@ Always with the Netlify CLI (a file-digest API deploy drops the edge functions):
 
     NETLIFY_AUTH_TOKEN=<zo_config NETLIFY_API_TOKEN> netlify deploy --prod --no-build --dir public --site de6f5c47-4797-456a-a70d-cb8ad5a7f2d4
 
-Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v15.
+Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v16.
 netlify.toml also sets `Cache-Control: public, max-age=31536000, immutable` for /emoji/*.
+
+## Launch screen rule (v16, 2026-09-30)
+The launch animation is a welcome back, not a toll. It plays on the first open ever and after 30 minutes away
+(no tap/key since then, or the page hidden since then). Sooner comebacks (tab switch, reload, reopening the app)
+go straight in: a tiny inline script in play/index.html adds html.ss-warm when localStorage ss.seen is under
+30 minutes old; ux.css then freezes the splash and ux.js removes it as soon as the app is drawn. ux.js also wraps
+the game's comeBack() with the 30-minute check. Never during a lesson. Test: v15/splashtest.mjs (8 checks).
 
 ## Path layout (v15, 2026-09-30)
 One course bar on top, like the first design: chapter switch (beside the title on screens >=1100px), all grades in
