@@ -1,0 +1,47 @@
+/* Star Steps website build: layout layer (2026-09-30).
+   1. Every screen size shows one section at a time. Phones keep the bottom
+      tab bar; screens wider than 900px get the same tabs as a floating dock,
+      instead of one 30-screen scroll with no navigation.
+   2. The Path shows one subject at a time (the subject chips select it).
+   3. Small labels are at least 11-12px so young readers can read them. */
+@media (min-width:901px){
+  body .tabbar{display:flex;left:50%;right:auto;bottom:16px;transform:translateX(-50%);
+    width:min(640px,calc(100% - 32px));border:3px solid var(--edge);border-radius:22px;
+    box-shadow:5px 5px 0 var(--edge);padding-bottom:0;overflow:hidden}
+  body .tabbar .tab{min-height:62px;font-size:12.5px}
+  body .tabbar .tab .tico{font-size:21px}
+  body .tabbar .tab:hover{color:var(--ink)}
+  body .wrap{padding-bottom:124px}
+  body[data-view="play"] .wrap,body[data-view="done"] .wrap{padding-bottom:150px}
+  #viewPath[data-show="today"]    > [data-sec]:not([data-sec~="today"]),
+  #viewPath[data-show="path"]     > [data-sec]:not([data-sec~="path"]),
+  #viewPath[data-show="practice"] > [data-sec]:not([data-sec~="practice"]),
+  #viewPath[data-show="games"]    > [data-sec]:not([data-sec~="games"]),
+  #viewPath[data-show="rewards"]  > [data-sec]:not([data-sec~="rewards"]),
+  #viewPath[data-show="me"]       > [data-sec]:not([data-sec~="me"]){display:none}
+  #viewPath > .section-head:first-of-type{margin-top:4px}
+}
+/* the game's own rule hides the bar in lessons and on the intro; it stays hidden there */
+body[data-view="play"] .tabbar,body[data-view="done"] .tabbar,body[data-view="intro"] .tabbar{display:none !important}
+/* one subject at a time on the path */
+#pathBody [hidden]{display:none !important}
+.jump button[aria-pressed="false"]{opacity:.78}
+.jump button[aria-pressed="true"]{opacity:1;outline:3px solid var(--edge);outline-offset:2px}
+.ux-next{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin:18px 0 6px;
+  padding:14px 18px;min-height:56px;border:3px solid var(--edge);border-radius:18px;cursor:pointer;
+  font-family:var(--display);font-weight:800;font-size:17px;color:#fff;box-shadow:0 5px 0 var(--edge)}
+.ux-next:active{transform:translateY(4px);box-shadow:0 1px 0 var(--edge)}
+.ux-next:focus-visible{outline:4px solid var(--sky);outline-offset:3px}
+/* readable small labels */
+.diff{font-size:11px !important}
+.jn,.dl,.c-t,.ch-s,.ch-p,.sl,.wl{font-size:12px !important}
+.node-tag{font-size:11px !important}
+/* wide screens: Today uses two columns instead of one narrow strip */
+@media (min-width:1100px){
+  #viewPath.wrap[data-show="today"]{max-width:1060px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);column-gap:22px;align-items:start}
+  #viewPath[data-show="today"] > *{grid-column:1 / -1}
+  #viewPath[data-show="today"] > .pip-hero{grid-column:1;grid-row:1}
+  #viewPath[data-show="today"] > .cont-btn{grid-column:1;grid-row:2}
+  #viewPath[data-show="today"] > .weekcard{grid-column:2;grid-row:1}
+  #viewPath[data-show="today"] > .quests{grid-column:2;grid-row:2 / span 2}
+}
