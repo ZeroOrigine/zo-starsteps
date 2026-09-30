@@ -204,7 +204,30 @@ section{padding:10px 0 70px}
 .plans-note{margin-top:18px;padding:14px 18px;background:var(--card);border:3px dashed var(--faint);border-radius:var(--r-sm);
   font-size:15px;color:var(--muted)}
 .plans-note b{color:var(--ink)}
-@media (max-width:900px){.plans{grid-template-columns:1fr}}
+/* tablets: three narrower columns. phones: a swipeable row with Free / Pro / Super
+   buttons above it, instead of three tall stacked cards */
+.plan-pick{display:none}
+.swipe-hint{display:none}
+@media (min-width:641px) and (max-width:900px){
+  .plans{gap:12px}
+  .plan{padding:18px 14px}
+  .price{font-size:32px}
+  .plan ul{font-size:14px}
+  .plan .btn{font-size:14.5px;padding:12px 6px;white-space:nowrap}
+}
+@media (max-width:640px){
+  .plan-pick{display:flex;gap:6px;padding:5px;background:var(--card);border:3px solid var(--edge);border-radius:16px;
+    margin:0 0 14px;width:max-content;max-width:100%}
+  .plan-pick button{min-height:44px;padding:8px 16px;font-family:var(--display);font-weight:800;font-size:15px;color:var(--ink);
+    background:none;border:0;border-radius:11px;cursor:pointer}
+  .plan-pick button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .plans{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin:0 -20px;padding:4px 20px 14px;scroll-padding:0 20px;scrollbar-width:none}
+  .plans::-webkit-scrollbar{display:none}
+  .plan{flex:0 0 min(84%,370px);scroll-snap-align:center}
+  .plan .btn{font-size:16px;padding:13px 10px;white-space:nowrap}
+  .swipe-hint{display:block;margin:4px 0 0;font-size:13.5px;color:var(--muted);font-weight:700}
+}
 
 /* ── faq ── */
 .faq{display:grid;gap:12px;max-width:820px}
@@ -370,7 +393,12 @@ footer a:hover{text-decoration:underline}
       <button type="button" data-cyc="monthly" aria-pressed="false">Monthly</button>
       <button type="button" data-cyc="yearly" aria-pressed="true">Yearly</button>
     </div>
-    <div class="plans">
+    <div class="plan-pick" role="group" aria-label="Show a plan">
+      <button type="button" data-plan="0" aria-pressed="false">Free</button>
+      <button type="button" data-plan="1" aria-pressed="true">Pro</button>
+      <button type="button" data-plan="2" aria-pressed="false">Super</button>
+    </div>
+    <div class="plans" id="plansRow">
       <div class="plan">
         <h3>Free</h3>
         <p class="tagline">The whole course, for everyone.</p>
@@ -416,6 +444,7 @@ footer a:hover{text-decoration:underline}
         <a class="btn primary" href="/parents/?plan=super_yearly" data-buy="super">Start 7-day free trial</a>
       </div>
     </div>
+    <p class="swipe-hint">Swipe or tap Free, Pro and Super to compare.</p>
     <p class="plans-note"><b>7 days free, then billed monthly or yearly.</b> A card is needed for the trial. Cancel any time in the parent area and nothing more is charged. One plan covers up to 4 children. Prices in US dollars.</p>
   </section>
 
@@ -499,6 +528,20 @@ footer a:hover{text-decoration:underline}
     });
   }
   btns.forEach(function(b){b.onclick=function(){setCycle(b.dataset.cyc);};});
+  /* phones and tablets: Free / Pro / Super buttons and the swipe row stay in step */
+  var row=document.getElementById("plansRow"), picks=document.querySelectorAll(".plan-pick button");
+  if(row&&picks.length){
+    var cards=row.querySelectorAll(".plan"), reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var mark=function(i){picks.forEach(function(b){b.setAttribute("aria-pressed",String(+b.dataset.plan===i));});};
+    var go=function(i,smooth){var c=cards[i];if(!c)return;
+      row.scrollTo({left:c.offsetLeft-(row.clientWidth-c.offsetWidth)/2,behavior:smooth&&!reduce?"smooth":"auto"});mark(i);};
+    picks.forEach(function(b){b.onclick=function(){go(+b.dataset.plan,true);};});
+    var t=0;row.addEventListener("scroll",function(){clearTimeout(t);t=setTimeout(function(){
+      var mid=row.scrollLeft+row.clientWidth/2,best=0,bd=1e9;
+      cards.forEach(function(c,i){var d=Math.abs(c.offsetLeft+c.offsetWidth/2-mid);if(d<bd){bd=d;best=i;}});mark(best);},80);},{passive:true});
+    var start=function(){if(row.scrollWidth>row.clientWidth+4)go(1,false);};
+    start(); addEventListener("resize",function(){if(row.scrollWidth>row.clientWidth+4){var p=[].findIndex.call(picks,function(b){return b.getAttribute("aria-pressed")==="true";});go(p<0?1:p,false);}});
+  }
 })();
 if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}
 </script>
