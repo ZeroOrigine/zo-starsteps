@@ -17,6 +17,7 @@ Production: https://starsteps.zeroorigine.com (Netlify site de6f5c47-4797-456a-a
     public/play/account-pre.js  runs before the game loads its save: plan in the save = real plan
     public/play/account.js      game layer: server entitlement, save sync, "Who is learning?" picker, plan screen -> parent area
     public/vendor/supabase-2.117.2.js  self-hosted supabase-js UMD
+    public/play/app.js          the game script (moved out of index.html so the launch screen paints first)
     public/play/ux.css, ux.js   layout layer (2026-09-30): tabs on every screen size (floating dock above 900px),
                                 Today in two columns above 1100px, Path shows one subject at a time,
                                 readable small labels
@@ -38,9 +39,9 @@ Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes.
 2. Replace the PRICE table with the live prices (Pro 7.99/59.99, Super 12.99/89.99).
 3. Title "Play Star Steps", canonical /play/. In head: `<link rel="stylesheet" href="/play/grownups.css">`,
    `<script src="/js/ss-account.js"></script>`, `<script src="/play/account-pre.js"></script>`.
-   Right before the service worker registration script, in this order:
-   `<script src="/play/account.js"></script>`, `<script src="/play/grownups.js"></script>`, `<script src="/play/ux.js"></script>`,
-   and `<link rel="stylesheet" href="/play/ux.css">` after the grownups.css link.
+   Move the game's big inline <script> into public/play/app.js. In its place put the small loader that,
+   after the first frame, loads in order: /play/app.js, /play/account.js, /play/grownups.js, /play/ux.js.
+   Add `<link rel="stylesheet" href="/play/ux.css">` after the grownups.css link.
 4. Save as public/play/index.html.
 
 ## Installed apps
