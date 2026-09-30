@@ -67,13 +67,71 @@
   /* Continue: open the subject that holds the next step, then show that step */
   var cont=document.getElementById("contBtn");
   if(cont)cont.onclick=function(){
-    setTab("path");
     var body=document.getElementById("pathBody"), h=body&&hereInfo(body);
-    if(h&&h.unit)apply(h.unit);
     var here=body&&body.querySelector(".node.here");
+    if(here&&!here.classList.contains("locked")){ if(h&&h.unit)apply(h.unit); here.click(); return; }
+    setTab("path");
+    if(h&&h.unit)apply(h.unit);
     if(here)here.scrollIntoView({behavior:REDUCED()?"auto":"smooth",block:"center"});
   };
+  /* the sky's "Take me to ..." opens that subject on the path (only one subject shows at a time) */
+  var skyGo=document.getElementById("skyGo");
+  if(skyGo)skyGo.onclick=function(){
+    var key=skyGo.dataset.unit; setTab("path"); if(key)apply(key);
+    var t=document.querySelector('#pathBody [data-unit="'+key+'"]');
+    if(t)t.scrollIntoView({behavior:REDUCED()?"auto":"smooth",block:"start"});
+  };
+  /* Your sky: keep every subject name inside the picture and stop names printing on top of each other */
+  var cvs=document.createElement("canvas").getContext("2d");
+  function fixSky(){
+    var box=document.getElementById("skyBox"); if(!box)return;
+    var texts=[].slice.call(box.querySelectorAll("text.sl")); if(!texts.length)return;
+    var fam=getComputedStyle(texts[0]).fontFamily||"sans-serif";
+    cvs.font="800 41px "+fam;
+    var placed=[], H=4.3, VB_W=100, VB_H=84;
+    function rect(x,y,w){return {l:x-w/2,r:x+w/2,t:y-3.4,b:y+0.9};}
+    function hits(a){return placed.some(function(b){return a.l<b.r+1.6&&a.r>b.l-1.6&&a.t<b.b+0.2&&a.b>b.t-0.2;});}
+    texts.forEach(function(t){
+      var x=+t.getAttribute("x"), y=+t.getAttribute("y"), w=cvs.measureText(t.textContent).width/10;
+      if(x-w/2<1)x=1+w/2; if(x+w/2>VB_W-1)x=VB_W-1-w/2;
+      var tries=[[0,0],[0,H],[0,-H],[0,2*H],[0,-2*H],[-6,0],[6,0],[-6,H],[6,H],[0,3*H]], pick=null;
+      for(var i=0;i<tries.length&&!pick;i++){
+        var nx=Math.min(VB_W-1-w/2,Math.max(1+w/2,x+tries[i][0])), ny=y+tries[i][1];
+        if(ny<5||ny>VB_H-1)continue;
+        var r=rect(nx,ny,w); if(!hits(r))pick=[nx,ny,r];
+      }
+      if(!pick)pick=[x,y,rect(x,y,w)];
+      t.setAttribute("x",pick[0].toFixed(1)); t.setAttribute("y",pick[1].toFixed(1)); placed.push(pick[2]);
+    });
+  }
+  if(typeof window.renderSky==="function"){
+    var origSky=window.renderSky;
+    window.renderSky=function(){var r=origSky.apply(this,arguments);try{fixSky();}catch(e){}return r;};
+    try{fixSky();}catch(e){}
+  }
+  /* opening: the launch screen stays only while the app draws (at least 0.7 s), and
+     comebacks replay a short version, so learning starts sooner */
+  function hideSplash(){
+    var sp=document.getElementById("splash"); if(!sp||sp.classList.contains("gone"))return;
+    sp.classList.add("out");
+    var gone=function(){sp.classList.add("gone");try{splashUp=false;}catch(e){}};
+    sp.addEventListener("animationend",gone,{once:true}); setTimeout(gone,600);
+  }
+  try{ clearTimeout(spHideTimer); spHideTimer=setTimeout(hideSplash,REDUCED()?150:700); }catch(e){}
+  if(typeof window.runSplash==="function"){
+    var origRun=window.runSplash;
+    window.runSplash=function(){ var r=origRun.apply(this,arguments); try{clearTimeout(spHideTimer);spHideTimer=setTimeout(hideSplash,REDUCED()?150:1100);}catch(e){} return r; };
+  }
+  /* the name box on Today only shows until the child has a name */
+  function named(){ try{document.body.classList.toggle("ss-named",!!S.name&&S.name!=="Friend");}catch(e){} }
+  /* You: Senior Kindergarten is grade 0; say its name instead of "Grade 0" */
+  if(typeof window.renderMe==="function"){
+    var origMe=window.renderMe;
+    window.renderMe=function(){var r=origMe.apply(this,arguments);
+      try{var m=document.getElementById("meRank");if(m)m.textContent=m.textContent.replace(/Grade 0\b/,"Senior Kindergarten");}catch(e){}return r;};
+    try{renderMe();}catch(e){}
+  }
   var orig=window.renderPath;
-  window.renderPath=function(){ var r=orig.apply(this,arguments); try{apply();}catch(e){} return r; };
-  try{apply();}catch(e){}
+  window.renderPath=function(){ var r=orig.apply(this,arguments); try{apply();}catch(e){} named(); return r; };
+  try{apply();}catch(e){} named();
 })();
