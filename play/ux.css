@@ -419,3 +419,7 @@ html.ss-new #viewIntro.hide{display:flex !important}
 html.ss-new #viewPath{display:none !important}
 #viewIntro .intro-dots{min-height:12px}
 #rankLabel.brand-sub{font-size:12px}
+/* first visit: Pip's welcome screen is the greeting, so the launch screen is skipped (one hello, not two).
+   Until the game script is ready its buttons wait, softly dimmed. */
+html.ss-new #splash{display:none !important}
+html.ss-new:not(.ss-ready) #viewIntro .intro-go,html.ss-new:not(.ss-ready) #viewIntro .intro-skip{opacity:.55;pointer-events:none}
