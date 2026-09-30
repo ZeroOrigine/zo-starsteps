@@ -142,19 +142,42 @@
     window.renderSky=function(){var r=origSky.apply(this,arguments);try{fixSky();}catch(e){}return r;};
     try{fixSky();}catch(e){}
   }
-  /* opening: the launch screen stays only while the app draws (at least 0.7 s), and
-     comebacks replay a short version, so learning starts sooner */
+  /* The launch screen is a "welcome back", not a toll on every visit.
+     It plays only when the child has been away for 30 minutes or more (or on the very first open).
+     Away = no tap or key since then, or the page hidden since then. Coming back sooner (a tab switch,
+     a reload, reopening the app) goes straight to where they were. Never in the middle of a lesson. */
+  var AWAY_MS=30*60*1000, SEEN="ss.seen";
+  function readSeen(){try{return +localStorage.getItem(SEEN)||0;}catch(e){return 0;}}
+  var lastActive=Date.now(), wroteAt=0;
+  function mark(force){ lastActive=Date.now();
+    if(force||lastActive-wroteAt>10000){ wroteAt=lastActive; try{localStorage.setItem(SEEN,String(lastActive));}catch(e){} } }
+  var warm=document.documentElement.classList.contains("ss-warm");
   function hideSplash(){
     var sp=document.getElementById("splash"); if(!sp||sp.classList.contains("gone"))return;
     sp.classList.add("out");
     var gone=function(){sp.classList.add("gone");try{splashUp=false;}catch(e){}};
-    sp.addEventListener("animationend",gone,{once:true}); setTimeout(gone,600);
+    sp.addEventListener("animationend",gone,{once:true}); setTimeout(gone,warm?250:600);
   }
-  try{ clearTimeout(spHideTimer); spHideTimer=setTimeout(hideSplash,REDUCED()?150:700); }catch(e){}
+  /* first open of a visit: at least 0.7 s of launch screen; a warm open: gone as soon as the app is drawn */
+  try{ clearTimeout(spHideTimer); spHideTimer=setTimeout(hideSplash,warm?0:(REDUCED()?150:700)); }catch(e){}
   if(typeof window.runSplash==="function"){
     var origRun=window.runSplash;
     window.runSplash=function(){ var r=origRun.apply(this,arguments); try{clearTimeout(spHideTimer);spHideTimer=setTimeout(hideSplash,REDUCED()?150:1100);}catch(e){} return r; };
   }
+  /* the game calls comeBack() after a hidden gap or a long idle; replay only after a real absence */
+  if(typeof window.comeBack==="function"){
+    var origBack=window.comeBack;
+    window.comeBack=function(){
+      var away=Date.now()-lastActive;
+      if(away>=AWAY_MS){ document.documentElement.classList.remove("ss-warm"); warm=false; origBack.apply(this,arguments); }
+      mark(true);
+    };
+  }
+  /* bubble phase, so the game's own listeners (capture phase) see the old time first */
+  ["pointerdown","keydown"].forEach(function(t){document.addEventListener(t,function(){mark(false);},{passive:true});});
+  document.addEventListener("visibilitychange",function(){ if(document.hidden)mark(true); });
+  addEventListener("pagehide",function(){mark(true);});
+  mark(true);
   /* the name box on Today only shows until the child has a name */
   function named(){ try{document.body.classList.toggle("ss-named",!!S.name&&S.name!=="Friend");}catch(e){} }
   /* You: Senior Kindergarten is grade 0; say its name instead of "Grade 0" */
