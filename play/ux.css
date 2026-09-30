@@ -423,3 +423,17 @@ html.ss-new #viewPath{display:none !important}
    Until the game script is ready its buttons wait, softly dimmed. */
 html.ss-new #splash{display:none !important}
 html.ss-new:not(.ss-ready) #viewIntro .intro-go,html.ss-new:not(.ss-ready) #viewIntro .intro-skip{opacity:.55;pointer-events:none}
+
+/* ══ v20: path rounds (rounds.js) ══ */
+.rnd{display:flex;align-items:center;gap:14px;padding:12px 14px;margin:0 auto 16px;max-width:760px;border:3px solid var(--edge);
+  border-radius:20px;background:linear-gradient(135deg,color-mix(in srgb,var(--m1) 55%,var(--card)),var(--card) 75%);box-shadow:var(--shadow-sm)}
+.rnd-medal{flex:none;width:58px;height:58px;display:grid;place-items:center;border:3px solid var(--edge);border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff,var(--m1) 45%,var(--m2));box-shadow:0 4px 0 var(--edge);animation:rw-bob 3.4s ease-in-out infinite}
+.rnd-medal b{font-family:var(--display);font-weight:800;font-size:25px;color:var(--edge)}
+.rnd-tx{flex:1;min-width:0}
+.rnd-tx small{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.rnd-tx h3{font-family:var(--display);font-size:19px;margin:0 0 6px;line-height:1.1}
+.rnd-bar{height:12px;border:2.5px solid var(--edge);border-radius:999px;background:var(--paper2);overflow:hidden}
+.rnd-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--m2),var(--m1));transition:width 1s cubic-bezier(.3,1.3,.5,1)}
+.rnd-tx p{font-size:12.5px;font-weight:700;color:var(--muted);margin:6px 0 0;line-height:1.35}
+@media (prefers-reduced-motion:reduce){.rnd-medal{animation:none}}
