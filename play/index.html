@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Play Star Steps</title>
 <link rel="canonical" href="https://starsteps.zeroorigine.com/play/">
-<meta name="description" content="Little steps. Big climbs. A learning game for ages 5 to 12: sixteen subjects, every lesson free, works offline.">
+<meta name="description" content="Little steps. Big climbs. A learning game for ages 5 to 12: 26 subjects, 810 skills, every lesson free, works offline.">
 <meta name="theme-color" content="#6D3BE8">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" href="/icons/icon-192.png">
@@ -18,9 +18,10 @@
 <meta property="og:url" content="https://starsteps.zeroorigine.com/">
 <link rel="stylesheet" href="/play/grownups.css">
 <link rel="stylesheet" href="/play/ux.css">
+<link rel="preload" href="/play/app.js" as="script" fetchpriority="low">
 <script src="/js/ss-account.js"></script>
 <script src="/play/account-pre.js"></script>
-<script>/* used in the last 30 minutes: open straight to the app, no launch animation (see ux.js) */try{if(Date.now()-(+localStorage.getItem("ss.seen")||0)<18e5)document.documentElement.classList.add("ss-warm")}catch(e){}</script>
+<script>/* used in the last 30 minutes: open straight to the app, no launch animation (see ux.js) */try{if(Date.now()-(+localStorage.getItem("ss.seen")||0)<18e5)document.documentElement.classList.add("ss-warm");var o=JSON.parse(localStorage.getItem("starsteps.v2")||"null");if(!o||!o.onboarded)document.documentElement.classList.add("ss-new")}catch(e){}</script>
 </head>
 <body>
 <body>
@@ -2501,9 +2502,10 @@ body[data-view="done"] .tabbar{display:none !important}
 <script>
 /* The launch screen above is drawn first; the game and its layers load right after,
    in order: app, accounts, grown-up gate, layout. */
-(function(){var q=["/play/app.js","/play/account.js","/play/grownups.js","/play/ux.js","/play/fe.js"];
-function next(){var f=q.shift();if(!f)return;var e=document.createElement("script");e.src=f;e.async=false;e.onload=next;e.onerror=next;document.body.appendChild(e);}
-requestAnimationFrame(function(){setTimeout(next,0);});})();
+(function(){var q=["/play/app.js","/play/account.js","/play/grownups.js","/play/ux.js","/play/fe.js","/play/voice.js","/play/rewards.js","/play/chess.js","/play/sky.js"];
+/* all download at once, and still run in this order (async=false keeps insertion order) */
+function go(){q.forEach(function(f){var e=document.createElement("script");e.src=f;e.async=false;document.body.appendChild(e);});}
+requestAnimationFrame(function(){setTimeout(go,0);});})();
 </script>
 <script>
 if("serviceWorker" in navigator){addEventListener("load",()=>{navigator.serviceWorker.register("/sw.js").catch(()=>{});});}
