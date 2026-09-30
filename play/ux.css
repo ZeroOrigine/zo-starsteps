@@ -418,3 +418,4 @@ html.ss-new .topbar,html.ss-new .tabbar{display:none !important}
 html.ss-new #viewIntro.hide{display:flex !important}
 html.ss-new #viewPath{display:none !important}
 #viewIntro .intro-dots{min-height:12px}
+#rankLabel.brand-sub{font-size:12px}
