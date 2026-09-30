@@ -198,6 +198,12 @@
     var on=getComputedStyle(j).position==="sticky"&&j.offsetParent!==null&&Math.abs(j.getBoundingClientRect().top-tb.getBoundingClientRect().bottom)<2&&scrollY>40;
     j.classList.toggle("ux-stuck",on); }
   addEventListener("scroll",function(){ if(!stuckTick){stuckTick=true;requestAnimationFrame(stuck);} },{passive:true});
+  /* a first visit opens on the welcome screen: its top bar and tabs stay hidden from the first paint (no jump) */
+  if(typeof window.show==="function"){
+    var origShowNew=window.show;
+    window.show=function(v){ if(v!=="intro")document.documentElement.classList.remove("ss-new"); return origShowNew.apply(this,arguments); };
+  }
+  if(document.body.dataset.view&&document.body.dataset.view!=="intro")document.documentElement.classList.remove("ss-new");
   var orig=window.renderPath;
   window.renderPath=function(){ var r=orig.apply(this,arguments); try{apply();}catch(e){} named(); return r; };
   try{apply();}catch(e){} named();
