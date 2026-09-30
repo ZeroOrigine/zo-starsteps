@@ -1,7 +1,7 @@
 /* Star Steps service worker: the site works offline. Only this site's own files are cached;
    account and payment calls (other origins) always go to the network. */
-const V="starsteps-v14";
-const ASSETS=["/","/play/","/play/app.js","/play/grownups.js","/play/grownups.css","/play/account.js","/play/account-pre.js","/play/ux.js","/play/ux.css","/js/ss-account.js","/vendor/supabase-2.117.2.js","/parents/","/privacy/","/terms/","/manifest.webmanifest","/img/pip.webp","/img/app-path.webp","/img/app-lesson.webp","/icons/icon-192.png","/icons/icon-512.png","/icons/maskable-512.png","/icons/icon-180.png"];
+const V="starsteps-v15";
+const ASSETS=["/","/play/","/play/app.js","/play/grownups.js","/play/grownups.css","/play/account.js","/play/account-pre.js","/play/ux.js","/play/ux.css","/play/fe.js","/js/ss-account.js","/vendor/supabase-2.117.2.js","/parents/","/privacy/","/terms/","/manifest.webmanifest","/img/pip.webp","/img/app-path.webp","/img/app-lesson.webp","/icons/icon-192.png","/icons/icon-512.png","/icons/maskable-512.png","/icons/icon-180.png"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 /* pages ask which version is in control (the v7 worker cached other sites' replies, so pages wait it out) */
