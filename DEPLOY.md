@@ -39,8 +39,27 @@ Always with the Netlify CLI (a file-digest API deploy drops the edge functions):
 
     NETLIFY_AUTH_TOKEN=<zo_config NETLIFY_API_TOKEN> netlify deploy --prod --no-build --dir public --site de6f5c47-4797-456a-a70d-cb8ad5a7f2d4
 
-Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v16.
+Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v17.
 netlify.toml also sets `Cache-Control: public, max-age=31536000, immutable` for /emoji/*.
+
+## v17 (2026-09-30): read aloud, levels, achievements, sky, chess set, games polish
+    public/play/voice.js    read aloud (device voice, Web Speech API, nothing sent anywhere): speaker button on every
+                            lesson card; "Auto" (default up to Grade 1) reads each card and each tapped answer;
+                            You > Read aloud switches Auto / Tap the speaker (S.readAloud). Test: v15/voicetest.mjs (14)
+    public/play/rewards.js  levels from stars (level L needs 25*L*(L-1) stars), 11 more achievements pushed onto BADGES
+                            (35 total), Rewards page (level card, wallet, achievements with progress, closest 8 first),
+                            Today level strip, lesson-done level bar, one-time level-up celebration (S.levelSeen).
+                            Stickers already earned on first run are added silently. Test: v17/rw.mjs (8)
+    public/play/chess.js    one drawn chess set (6 SVG pieces, cream and plum) replacing font glyphs in boardHTML();
+                            fe.js no longer paints the chess board. Test: v17/chess.mjs (6)
+    public/play/sky.js      Your sky as a grid of subject stars (size and glow = the game's strength score), legend,
+                            tap a star to open the subject. Test: v17/sky.mjs (7)
+    ux.css                  games polish (score chips, Memory card backs and flip, Recall glow, Hanoi pole and discs),
+                            no reader text under 12px, done-screen tally boxes, first-visit welcome screen shown as
+                            plain HTML from the first paint (html.ss-new, set by the head script) so nothing jumps.
+    account.js              signed-in families: "Saved to your family account" instead of "this device only".
+    index.html (home)       26 subjects (was "16"): 20 tiles + "Grades 5 and 6 add six more", 3D icons; Advik's
+                            parent-managed YouTube/Instagram/Discord in "Built by a kid". The game itself has no links out.
 
 ## Launch screen rule (v16, 2026-09-30)
 The launch animation is a welcome back, not a toll. It plays on the first open ever and after 30 minutes away
@@ -61,7 +80,9 @@ centred at 760px. Only one subject's path shows at a time.
 3. Title "Play Star Steps", canonical /play/. In head: `<link rel="stylesheet" href="/play/grownups.css">`,
    `<script src="/js/ss-account.js"></script>`, `<script src="/play/account-pre.js"></script>`.
    Move the game's big inline <script> into public/play/app.js. In its place put the small loader that,
-   after the first frame, loads in order: /play/app.js, /play/account.js, /play/grownups.js, /play/ux.js, /play/fe.js.
+   after the first frame, adds all of these at once (they download together and run in this order):
+   /play/app.js, /play/account.js, /play/grownups.js, /play/ux.js, /play/fe.js, /play/voice.js, /play/rewards.js,
+   /play/chess.js, /play/sky.js. The head also preloads /play/app.js (fetchpriority low).
    Add `<link rel="stylesheet" href="/play/ux.css">` after the grownups.css link.
 4. Save as public/play/index.html.
 
