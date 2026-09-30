@@ -204,5 +204,11 @@
     window.renderMe=function(){ var r=origMe.apply(this,arguments);
       try{ var m=document.getElementById("meRank"); if(m&&m.textContent.indexOf("Level ")!==0)m.textContent="Level "+levelOf(S.stars)+" · "+m.textContent; }catch(e){} return r; };
   }
-  try{ render(); strip(); renderMe(); }catch(e){}
+  /* top bar (wide screens): "Level 4 · Explorer · Grade 2" */
+  if(typeof window.syncTop==="function"){
+    var origTop=window.syncTop;
+    window.syncTop=function(){ var r=origTop.apply(this,arguments);
+      try{ var rl=document.getElementById("rankLabel"); if(rl&&rl.textContent.indexOf("Level ")!==0)rl.textContent="Level "+levelOf(S.stars)+" \u00B7 "+rl.textContent; }catch(e){} return r; };
+  }
+  try{ render(); strip(); renderMe(); syncTop(); }catch(e){}
 })();
