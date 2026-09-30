@@ -225,7 +225,7 @@
       }
       var cur = get(ACCT), gs = parseGame();
       var fresh = guest === "bring" && gs && !(cur && cur.childId) ? gs : null;
-      var state = fresh || { name: child.name, grade: child.grade, onboarded: false };
+      var state = fresh || { name: child.name, grade: child.grade, onboarded: true };  /* the parent already gave name and grade */
       state.name = child.name;
       if (!fresh) state.grade = child.grade;
       put(GAME, state);
