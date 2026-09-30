@@ -39,7 +39,7 @@ Always with the Netlify CLI (a file-digest API deploy drops the edge functions):
 
     NETLIFY_AUTH_TOKEN=<zo_config NETLIFY_API_TOKEN> netlify deploy --prod --no-build --dir public --site de6f5c47-4797-456a-a70d-cb8ad5a7f2d4
 
-Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v18.
+Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v19. First visit (no saved state): the launch screen is skipped, Pip's welcome screen shows from the first paint, its buttons wait (dimmed) until the game script is ready (html.ss-ready).
 netlify.toml also sets `Cache-Control: public, max-age=31536000, immutable` for /emoji/*.
 
 ## v17 (2026-09-30): read aloud, levels, achievements, sky, chess set, games polish
