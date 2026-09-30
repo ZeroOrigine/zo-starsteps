@@ -136,9 +136,11 @@
       : '<p>There are no child profiles yet. A grown-up can add one in the parent area.</p>';
     var back = overlay('<div class="gate who" role="dialog" aria-modal="true" aria-labelledby="whoT">' +
       '<div class="g-kick">Star Steps</div><h2 id="whoT">Who is learning?</h2>' + body +
-      '<div class="g-row who-row"><button class="g-cancel" data-parent>Grown-ups</button>' +
+      '<div class="g-row who-row"><button class="g-cancel" data-parent>Parent area</button>' +
+      '<button class="g-cancel" data-logout>Log out</button>' +
       (closable ? '<button class="g-cancel" data-close>Not now</button>' : '') + '</div></div>');
     parentLink(back);
+    var lo = back.querySelector("[data-logout]"); if (lo) lo.onclick = function () { back.remove(); logOut(); };
     var c = back.querySelector("[data-close]"); if (c) c.onclick = function () { back.remove(); };
     back.querySelectorAll("[data-kid]").forEach(function (btn) {
       btn.onclick = function () { choose(kids[+btn.dataset.kid], back); };
@@ -174,16 +176,73 @@
       });
     });
   }
-  function switchTile() {
-    var tools = document.querySelector('.tools[data-sec="me"]'), a = A.acct();
-    if (!tools || $id("whoBtn") || !a || !a.childId) return;
-    var t = document.createElement("button");
-    t.className = "tool"; t.id = "whoBtn";
-    t.innerHTML = '<div class="ti" style="background:var(--mint-soft)" aria-hidden="true">\u{1F9D2}</div>' +
-      '<div><div class="tt">Switch player</div><div class="ts"></div></div>';
-    t.querySelector(".ts").textContent = "Playing as " + (a.childName || S.name);
-    t.onclick = function () { kidsWithStars().then(function (k) { picker(k, true); }, function () {}); };
-    var g = $id("grownBtn"); tools.insertBefore(t, g || null);
+  /* ---------- family: who is playing, switch player, parent area, log out ---------- */
+  function initial(n) { return esc((n || "?").trim().charAt(0).toUpperCase() || "?"); }
+  function famButton(a) {
+    var bar = document.querySelector(".topbar-in"); if (!bar) return;
+    var b = $id("famBtn");
+    if (!b) { b = document.createElement("button"); b.id = "famBtn"; b.className = "fam-btn"; bar.insertBefore(b, $id("soundBtn")); }
+    var name = a && a.childId ? (a.childName || S.name) : "";
+    b.innerHTML = name ? '<span class="fam-av">' + initial(name) + '</span>' : '<span class="fam-av fam-none" aria-hidden="true">?</span>';
+    b.setAttribute("aria-label", name ? "Playing as " + name + ". Switch player" : "Choose who is learning");
+    b.title = name ? "Playing as " + name : "Who is learning?";
+    b.onclick = function () { try { SFX.tap(); } catch (e) {} kidsWithStars().then(function (k) { picker(k, true); }, function () { offline(); }); };
+    document.body.classList.add("ss-family");
+  }
+  function famCard(kind, a, email) {
+    var head = document.querySelector('#viewPath > .section-head[data-sec="me"]'); if (!head) return;
+    var c = $id("famCard");
+    if (!c) { c = document.createElement("div"); c.id = "famCard"; c.className = "fam-card"; c.setAttribute("data-sec", "me"); head.insertAdjacentElement("afterend", c); }
+    var name = a && a.childId ? (a.childName || S.name) : "";
+    if (kind === "guest") {
+      c.innerHTML = '<div class="fam-top"><span class="fam-av fam-none" aria-hidden="true">\u{1F46A}</span><div><b>Keep this progress safe</b>' +
+        '<span>A free parent account saves each child\u2019s stars and lets them play on any device.</span></div></div>' +
+        '<div class="fam-acts"><button class="fam-go" data-act="signup">For grown-ups: create an account</button><button data-act="login">Parent log in</button></div>';
+    } else if (kind === "expired") {
+      c.innerHTML = '<div class="fam-top"><span class="fam-av fam-none" aria-hidden="true">\u{1F512}</span><div><b>Log in again to keep saving</b>' +
+        '<span>This device is not connected to your family account right now. Progress is kept here until you log in.</span></div></div>' +
+        '<div class="fam-acts"><button class="fam-go" data-act="login">Parent log in</button></div>';
+    } else {
+      c.innerHTML = '<div class="fam-top"><span class="fam-av">' + (name ? initial(name) : "?") + '</span><div><b>' + (name ? "Playing as " + esc(name) : "Who is learning?") + '</b>' +
+        '<span>Family account' + (email ? ' \u00B7 ' + esc(email) : '') + '</span></div></div>' +
+        '<div class="fam-acts"><button class="fam-go" data-act="switch">' + (name ? "Switch player" : "Choose player") + '</button>' +
+        '<button data-act="parent">Parent area</button><button data-act="logout">Log out</button></div>';
+    }
+    c.querySelectorAll("[data-act]").forEach(function (btn) {
+      btn.onclick = function () {
+        var act = btn.dataset.act;
+        if (act === "switch") kidsWithStars().then(function (k) { picker(k, true); }, function () { offline(); });
+        else if (act === "logout") logOut();
+        else window.ssGate(function () { location.href = act === "signup" ? "/parents/?signup=1" : "/parents/"; });
+      };
+    });
+  }
+  function offline() {
+    var back = overlay('<div class="gate who" role="dialog" aria-modal="true"><h2>No connection</h2><p>Switching players needs the internet. Your progress on this device is safe.</p><div class="g-row"><button class="g-ok" data-close>OK</button></div></div>');
+    back.querySelector("[data-close]").onclick = function () { back.remove(); };
+  }
+  /* log out on this device: a grown-up confirms, progress is uploaded first, then this family's data leaves the device */
+  function logOut() {
+    window.ssGate(function () {
+      var back = overlay('<div class="gate who" role="dialog" aria-modal="true" aria-labelledby="loT"><div class="g-kick">Family account</div><h2 id="loT">Log out on this device?</h2>' +
+        '<p>Progress is saved to your family account first. After logging out, this device plays without an account until a grown-up logs in again.</p>' +
+        '<div class="g-row"><button class="g-cancel" data-close>Cancel</button><button class="g-ok" data-yes>Log out</button></div></div>');
+      back.querySelector("[data-close]").onclick = function () { back.remove(); };
+      back.querySelector("[data-yes]").onclick = function () {
+        back.querySelector(".gate").innerHTML = "<h2>Saving progress\u2026</h2>";
+        var finish = function () {
+          A.forgetDevice();
+          var done = function () { location.reload(); };
+          (sb ? sb.auth.signOut({ scope: "local" }).catch(function () {}) : Promise.resolve()).then(done, done);
+        };
+        (sb ? A.pushActive() : Promise.resolve()).then(finish, function () {
+          back.querySelector(".gate").innerHTML = '<h2>Some progress is not saved yet</h2><p>This device could not reach Star Steps. If you log out now, the newest progress on this device is lost.</p>' +
+            '<div class="g-row"><button class="g-cancel" data-close>Stay logged in</button><button class="g-ok" data-yes>Log out anyway</button></div>';
+          back.querySelector("[data-close]").onclick = function () { back.remove(); };
+          back.querySelector("[data-yes]").onclick = finish;
+        });
+      };
+    });
   }
 
   /* ---------- 5. start ---------- */
@@ -191,18 +250,22 @@
   function afterSplash(fn) {
     (function wait() { try { if (splashUp) return setTimeout(wait, 300); } catch (e) {} fn(); })();
   }
-  if (!A.hasStoredSession()) return;
+  if (!A.hasStoredSession()) {
+    var ga = A.acct();
+    famCard(ga && ga.uid ? "expired" : "guest");
+    return;
+  }
   A.swReady().then(A.loadLib).then(function () {
     sb = A.client({ detectSessionInUrl: false });
     return A.session(sb);
   }).then(function (s) {
-    if (!s) return;
+    if (!s) { famCard("expired"); return; }
     A.adoptSession(s.user.id);
     plan();
     A.flushStashes();
     var a = A.acct();
+    famButton(a); famCard("family", a, s.user.email);
     if (a && a.childId) {
-      switchTile();
       return A.pullActive(sb, { onServerWins: serverState, onChildGone: childGone }).then(function (r) {
         if (r === "applied") serverState();
         if (r === "gone") afterSplash(function () { kidsWithStars().then(function (k) { picker(k, true); }); });
@@ -210,5 +273,5 @@
     }
     var shown = false; try { shown = sessionStorage.getItem("ss.picked") === "1"; sessionStorage.setItem("ss.picked", "1"); } catch (e) {}
     if (!shown) afterSplash(function () { kidsWithStars().then(function (k) { picker(k, true); }, function () {}); });
-  }).catch(function () {});
+  }).catch(function () { famCard("expired"); });
 })();
