@@ -35,3 +35,24 @@
 .who-nm{font:800 18px var(--display);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .who-sub{font-size:12.5px;font-weight:800;color:var(--muted)}
 .who-row{justify-content:space-between}
+/* family: who is playing (top bar) and the family card in You (2026-09-30) */
+.fam-btn{flex:none;width:40px;height:40px;padding:0;border:0;background:none;cursor:pointer;border-radius:50%}
+.fam-av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none;
+  background:#5B8CFF;color:#fff;font:800 19px var(--display);border:3px solid var(--edge);box-shadow:var(--shadow-sm)}
+.fam-av.fam-none{background:var(--paper2);color:var(--ink);font-size:20px}
+.fam-btn:focus-visible{outline:4px solid var(--sky);outline-offset:2px}
+.fam-btn:active .fam-av{transform:translate(2px,2px);box-shadow:none}
+.fam-card{padding:16px;margin-bottom:12px;background:var(--card);border:3px solid var(--edge);border-radius:var(--r-lg);box-shadow:var(--shadow)}
+.fam-top{display:flex;gap:12px;align-items:center}
+.fam-top b{display:block;font-family:var(--display);font-size:18px;line-height:1.2}
+.fam-top span:not(.fam-av){display:block;font-size:13.5px;color:var(--muted);font-weight:700;margin-top:2px;overflow-wrap:anywhere}
+.fam-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.fam-acts button{flex:1 1 auto;min-height:44px;padding:9px 14px;font:800 14.5px var(--display);color:var(--ink);background:var(--card);
+  border:3px solid var(--edge);border-radius:14px;box-shadow:0 3px 0 var(--edge);cursor:pointer}
+.fam-acts .fam-go{background:var(--pick);color:#fff}
+.fam-acts button:active{transform:translateY(3px);box-shadow:none}
+@media (max-width:560px){
+  .fam-btn,.fam-btn .fam-av{width:34px;height:34px}
+  .fam-btn .fam-av{font-size:16px}
+  body.ss-family .topbar #soundBtn{display:none}
+}
