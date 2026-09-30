@@ -21,6 +21,13 @@ Production: https://starsteps.zeroorigine.com (Netlify site de6f5c47-4797-456a-a
     public/play/ux.css, ux.js   layout layer (2026-09-30): tabs on every screen size (floating dock above 900px),
                                 Today in two columns above 1100px, Path shows one subject at a time,
                                 readable small labels
+    public/play/fe.js           3D cartoon emoji (2026-09-30, v15): paints every emoji in lessons, games and the done screen
+                                with Microsoft Fluent Emoji 3D art from /emoji/<codepoint>.webp. The emoji character stays
+                                in the page (pushed out of its box), so answers, reading and screen readers are unchanged.
+    public/emoji/               445 Fluent Emoji 3D webp files (MIT, emoji/LICENSE.txt), ~2 MB, served with a 1-year immutable
+                                cache header (netlify.toml). Binary, not archived here: rebuild from the npm package
+                                @lobehub/fluent-emoji-3d (files named by codepoint, 256px), using the MAP in fe.js, or
+                                download from https://starsteps.zeroorigine.com/emoji/<stem>.webp
     public/img/                 pip.webp, app-path.webp, app-lesson.webp (binary, not archived here:
                                 download from https://starsteps.zeroorigine.com/img/<name>)
     public/sw.js, manifest.webmanifest (start_url /play/), icons/, .well-known/assetlinks.json
@@ -32,7 +39,14 @@ Always with the Netlify CLI (a file-digest API deploy drops the edge functions):
 
     NETLIFY_AUTH_TOKEN=<zo_config NETLIFY_API_TOKEN> netlify deploy --prod --no-build --dir public --site de6f5c47-4797-456a-a70d-cb8ad5a7f2d4
 
-Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes.
+Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v15.
+netlify.toml also sets `Cache-Control: public, max-age=31536000, immutable` for /emoji/*.
+
+## Path layout (v15, 2026-09-30)
+One course bar on top, like the first design: chapter switch (beside the title on screens >=1100px), all grades in
+one row (numbers only below 1100px, with the chosen grade's ages under the row), then the subjects as ONE row that
+scrolls sideways and sticks under the top bar (arrow buttons on mouse screens, added by ux.js), then the path,
+centred at 760px. Only one subject's path shows at a time.
 
 ## Rebuilding the game from Advik's artifact
 1. Take the artifact body, strip the `[SS-launch] temporary timing probe`, apply the em dash rule.
@@ -40,7 +54,7 @@ Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes.
 3. Title "Play Star Steps", canonical /play/. In head: `<link rel="stylesheet" href="/play/grownups.css">`,
    `<script src="/js/ss-account.js"></script>`, `<script src="/play/account-pre.js"></script>`.
    Move the game's big inline <script> into public/play/app.js. In its place put the small loader that,
-   after the first frame, loads in order: /play/app.js, /play/account.js, /play/grownups.js, /play/ux.js.
+   after the first frame, loads in order: /play/app.js, /play/account.js, /play/grownups.js, /play/ux.js, /play/fe.js.
    Add `<link rel="stylesheet" href="/play/ux.css">` after the grownups.css link.
 4. Save as public/play/index.html.
 
