@@ -204,6 +204,7 @@
     window.show=function(v){ if(v!=="intro")document.documentElement.classList.remove("ss-new"); return origShowNew.apply(this,arguments); };
   }
   if(document.body.dataset.view&&document.body.dataset.view!=="intro")document.documentElement.classList.remove("ss-new");
+  document.documentElement.classList.add("ss-ready");
   var orig=window.renderPath;
   window.renderPath=function(){ var r=orig.apply(this,arguments); try{apply();}catch(e){} named(); return r; };
   try{apply();}catch(e){} named();
