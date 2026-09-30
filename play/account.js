@@ -188,6 +188,13 @@
     b.title = name ? "Playing as " + name : "Who is learning?";
     b.onclick = function () { try { SFX.tap(); } catch (e) {} kidsWithStars().then(function (k) { picker(k, true); }, function () { offline(); }); };
     document.body.classList.add("ss-family");
+    /* signed in: the "this device only" wording is no longer true */
+    var note = document.querySelector('#viewPath .section-head[data-sec="me"] .note');
+    if (note) note.textContent = "Saved to your family account";
+    var foot = document.querySelector('#viewPath .footnote[data-sec="me"]');
+    if (foot && !foot.dataset.fam) { foot.dataset.fam = "1";
+      var fe = foot.textContent.indexOf("Emoji art") >= 0 ? " Emoji art: Microsoft Fluent Emoji (MIT licence)." : "";
+      foot.textContent = "Star Steps keeps every lesson free. Progress is saved to your family account, so it follows your child to any device." + fe; }
   }
   function famCard(kind, a, email) {
     var head = document.querySelector('#viewPath > .section-head[data-sec="me"]'); if (!head) return;
