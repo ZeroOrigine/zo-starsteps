@@ -14594,10 +14594,10 @@ function introFor(node,lv){
   if(node.type==="endless")
     return {kind:"intro",mood:"cheer",title:"Endless Run",
       line:"No hearts and no finish line. Three wrong answers ends the run: how far can you get?"};
-  const where=node.step?": "+node.diff.toLowerCase()+" skill, step "+node.step+" of "+node.of+" in this unit":"";
+  const where=node.step?node.diff+" skill, step "+node.step+" of "+node.of+(node.unit&&node.unit.name?" in "+node.unit.name:"")+".":"";
   return lv===0
     ? {kind:"intro",mood:"happy",title:"Let's learn "+node.title+"!",
-       line:node.skill.teach[0].text+where}
+       line:(node.blurb?node.blurb.replace(/\.?$/,". "):"")+where}
     : {kind:"intro",mood:"happy",title:node.title+" again",
        line:lv>=LEGEND?"Legendary level. The hardest settings, and two extra questions."
             :"Crown "+lv+" of "+crownCap()+". The questions step up a little from here."};
