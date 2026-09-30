@@ -200,3 +200,8 @@ body.quiet .art .fe{animation:fe-pop .55s cubic-bezier(.34,1.56,.64,1) backwards
 #jump .ux-arr:hover{transform:scale(1.08)}
 #jump .ux-arr.off{opacity:0;pointer-events:none;visibility:hidden}
 #jump .ux-arr:focus-visible{outline:4px solid var(--sky);outline-offset:2px}
+
+/* ══ v16: a warm open (used in the last 30 minutes) shows the launch screen still, for the instant
+   the app takes to draw, and fades it out quickly; no animation replay ══ */
+html.ss-warm .splash *{animation-duration:0s !important;animation-delay:0s !important;transition:none !important}
+html.ss-warm .splash.out{animation-duration:.18s !important}
