@@ -34,7 +34,8 @@ body[data-view="play"] .tabbar,body[data-view="done"] .tabbar,body[data-view="in
 .ux-next:focus-visible{outline:4px solid var(--sky);outline-offset:3px}
 /* readable small labels */
 .diff{font-size:11px !important}
-.jn,.dl,.c-t,.ch-s,.ch-p,.sl,.wl{font-size:12px !important}
+.jn,.dl,.c-t,.ch-s,.ch-p,.me-stats .sl,.wallet .wl{font-size:12px !important}
+/* never touch the sky labels: they are SVG text sized in viewBox units */
 .node-tag{font-size:11px !important}
 /* wide screens: Today uses two columns instead of one narrow strip */
 @media (min-width:1100px){
@@ -45,3 +46,49 @@ body[data-view="play"] .tabbar,body[data-view="done"] .tabbar,body[data-view="in
   #viewPath[data-show="today"] > .weekcard{grid-column:2;grid-row:1}
   #viewPath[data-show="today"] > .quests{grid-column:2;grid-row:2 / span 2}
 }
+/* Your sky: a sensible size on wide screens */
+@media (min-width:901px){.sky-box{max-width:540px;margin:0 auto}}
+
+/* ══ 2026-09-30 premium pass ══ */
+/* phones: the top bar fits on one row (logo mark, hearts, stars, gems, streak, sound) */
+@media (max-width:560px){
+  body .topbar-in{flex-wrap:nowrap;gap:5px;padding:8px 10px}
+  body .brand{flex:none;margin-right:auto}
+  body .brand > div:not(.brand-mark){display:none}
+  body .brand-mark{width:34px;height:34px}
+  body .hearts{padding:4px 7px;gap:1px}
+  body .heart .dico{width:12px;height:12px}
+  body .topbar .chip{padding:3px 7px;gap:3px}
+  body .topbar .chip b{font-size:12.5px}
+  body .topbar .chip .dico{width:13px;height:13px}
+  body .topbar .iconbtn{width:34px;height:34px}
+}
+@media (max-width:350px){body .topbar #soundBtn{display:none}body .topbar .chip{padding:3px 5px}body .topbar .chip b{font-size:11.5px}
+  body .hearts{padding:4px 5px;gap:0}body .heart .dico{width:10.5px;height:10.5px}body .topbar-in{gap:4px;padding:8px 8px}}
+/* the name box lives in You once the child has a name */
+body.ss-named .pip-hero .namebar{display:none}
+/* readable step labels */
+.node-label small{font-size:12px}
+/* wide screens: one width for every tab and the top bar, and desktop layouts for Path, Games and You */
+@media (min-width:1100px){
+  body .topbar-in{max-width:1060px}
+  body #viewPath.wrap{max-width:1060px}
+  /* Path: course picker and subjects on the left, the path on the right */
+  #viewPath[data-show="path"]{display:grid;grid-template-columns:300px minmax(0,1fr);column-gap:30px;align-items:start}
+  #viewPath[data-show="path"] > [data-sec~="path"]{grid-column:1}
+  #viewPath[data-show="path"] > #pathBody{grid-column:2;grid-row:1 / span 8}
+  #viewPath[data-show="path"] .chapters{flex-direction:column}
+  #viewPath[data-show="path"] .courses{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible}
+  #viewPath[data-show="path"] .jump{flex-direction:column;overflow:visible;position:sticky;top:86px}
+  #viewPath[data-show="path"] .jump button{width:100%;justify-content:flex-start}
+  /* Games, Practice, Rewards: three cards per row */
+  #viewPath[data-show="games"] .tools,#viewPath[data-show="practice"] .tools,#viewPath[data-show="rewards"] .tools{grid-template-columns:repeat(3,1fr)}
+  /* You: two balanced columns */
+  #viewPath[data-show="me"]{column-count:2;column-gap:22px}
+  #viewPath[data-show="me"] > *{break-inside:avoid;display:block}
+  #viewPath[data-show="me"] > .section-head{column-span:all;display:flex}
+  #viewPath[data-show="me"] > .me-card{display:flex}
+  #viewPath[data-show="me"] > .me-stats,#viewPath[data-show="me"] > .tools{display:grid}
+}
+/* stat tiles: only the tile has a box, not the number and label inside it */
+.me-stats div div{padding:0;border:0;background:none;border-radius:0}
