@@ -73,14 +73,6 @@ body.ss-named .pip-hero .namebar{display:none}
 @media (min-width:1100px){
   body .topbar-in{max-width:1060px}
   body #viewPath.wrap{max-width:1060px}
-  /* Path: course picker and subjects on the left, the path on the right */
-  #viewPath[data-show="path"]{display:grid;grid-template-columns:300px minmax(0,1fr);column-gap:30px;align-items:start}
-  #viewPath[data-show="path"] > [data-sec~="path"]{grid-column:1}
-  #viewPath[data-show="path"] > #pathBody{grid-column:2;grid-row:1 / span 8}
-  #viewPath[data-show="path"] .chapters{flex-direction:column}
-  #viewPath[data-show="path"] .courses{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible}
-  #viewPath[data-show="path"] .jump{flex-direction:column;overflow:visible;position:sticky;top:86px}
-  #viewPath[data-show="path"] .jump button{width:100%;justify-content:flex-start}
   /* Games, Practice, Rewards: three cards per row */
   #viewPath[data-show="games"] .tools,#viewPath[data-show="practice"] .tools,#viewPath[data-show="rewards"] .tools{grid-template-columns:repeat(3,1fr)}
   /* You: two balanced columns */
@@ -92,3 +84,119 @@ body.ss-named .pip-hero .namebar{display:none}
 }
 /* stat tiles: only the tile has a box, not the number and label inside it */
 .me-stats div div{padding:0;border:0;background:none;border-radius:0}
+
+/* ══ 2026-09-30 v15: the Path, one compact course bar on top (like the first design) ══
+   Chapter switch, then all grades in one row, then the subjects as one scrolling row
+   that stays under the top bar, then the path itself in the middle. No side lists. */
+#chapters.chapters{gap:8px;margin-bottom:10px}
+#chapters .chapter{display:grid;grid-template-columns:auto auto;justify-content:center;align-items:baseline;
+  column-gap:8px;row-gap:0;padding:8px 10px;min-height:48px;text-align:center}
+#chapters .chapter .ch-n{grid-column:1;grid-row:1;font-size:15px}
+#chapters .chapter .ch-p{grid-column:2;grid-row:1}
+#chapters .chapter .ch-s{grid-column:1 / -1;grid-row:2}
+#courses.courses{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;overflow:visible;
+  margin-bottom:12px;padding:2px 0 4px}
+#courses .course{min-width:0;padding:8px 4px 7px;min-height:48px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center}
+#courses .course .c-n{font-size:21px}
+#courses .course .c-t{text-wrap:balance;line-height:1.25;margin-top:3px}
+#jump.jump{margin-bottom:10px}
+#jump.jump button{min-height:44px}
+/* up to small laptops: grade numbers only, with the chosen grade's ages written under the row */
+@media (max-width:1099px){
+  #courses.courses{position:relative;padding-bottom:26px;margin-bottom:6px}
+  #courses .course,#courses .course:hover,#courses .course[aria-pressed="true"]{transform:none}
+  #courses .course{min-height:46px;padding:6px 2px}
+  #courses .course .c-n{font-size:19px}
+  #courses .course .c-t{display:none}
+  #courses .course[aria-pressed="true"] .c-t{display:block;position:absolute;left:0;right:0;bottom:2px;
+    color:var(--muted) !important;opacity:1 !important;font-size:12.5px !important;margin:0}
+}
+/* every screen: the subjects are one row that scrolls sideways and stays under the top bar
+   while the path scrolls (20+ subjects in a grid would be a wall of buttons) */
+#jump.jump{position:sticky;top:var(--tbh,56px);z-index:5;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+  scroll-behavior:smooth;transition:background-color .2s}
+/* only once it is stuck under the top bar does it get a frosted background */
+#jump.jump.ux-stuck{background:color-mix(in srgb,var(--paper) 90%,transparent);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 6px 12px -10px rgba(34,26,61,.35)}
+#jump.jump::-webkit-scrollbar{display:none}
+@media (prefers-reduced-motion:reduce){#jump.jump{scroll-behavior:auto}}
+#viewPath{--wpad:16px}
+@media (max-width:560px){#viewPath{--wpad:13px}}
+@media (max-width:900px){
+  #jump.jump{margin:0 calc(-1 * var(--wpad,16px)) 10px;padding:8px var(--wpad,16px) 10px;
+    background:color-mix(in srgb,var(--paper) 90%,transparent);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 22px),transparent);
+            mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 22px),transparent)}
+}
+/* wide screens: title and chapter switch share a row, every subject is visible at once,
+   and the path sits in the middle at a comfortable width */
+@media (min-width:1100px){
+  #viewPath[data-show="path"]{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:24px;align-items:center}
+  #viewPath[data-show="path"] > *{grid-column:1 / -1}
+  #viewPath[data-show="path"] > .section-head[data-sec~="path"]{grid-column:1;grid-row:1;margin:4px 0 10px;display:block}
+  #viewPath[data-show="path"] > .section-head[data-sec~="path"] .note{display:block;margin-top:2px}
+  #viewPath[data-show="path"] > #chapters{grid-column:2;grid-row:1;margin:4px 0 10px;max-width:560px;justify-self:end;width:100%}
+  #chapters .chapter{grid-template-columns:auto auto auto}
+  #chapters .chapter .ch-s{grid-column:2;grid-row:1}
+  #chapters .chapter .ch-p{grid-column:3}
+  #jump.jump{gap:8px;padding:8px 2px 10px;margin-bottom:8px;border-radius:0 0 18px 18px}
+  #chapters .chapter .ch-s,#chapters .chapter .ch-n{white-space:nowrap}
+  #viewPath[data-show="path"] > #chapters{max-width:640px}
+  #pathBody{width:100%;max-width:760px;justify-self:center}
+}
+
+/* ══ 2026-09-30 v15: 3D cartoon emoji in lessons and games (fe.js) ══
+   The emoji character stays in the page for reading and answers; it is pushed out of
+   its box and the 3D picture is drawn in its place. */
+.fe{display:inline-block;width:1.2em;height:1.2em;vertical-align:-.22em;margin:0 .02em;
+  background:var(--fe) center/contain no-repeat;overflow:hidden;white-space:nowrap;
+  text-indent:200%;letter-spacing:0;line-height:1.2em;color:transparent}
+/* the big picture in a lesson: bigger, pops in one by one, then floats gently */
+.art .fe{width:1.45em;height:1.45em;margin:0 .06em;vertical-align:-.3em;
+  filter:drop-shadow(0 .07em 0 rgba(34,26,61,.16));
+  animation:fe-pop .55s cubic-bezier(.34,1.56,.64,1) backwards,fe-float 3.2s ease-in-out infinite;
+  animation-delay:calc(var(--i,0) * 70ms),calc(.6s + var(--i,0) * 190ms)}
+/* the lesson's own tile boxes must not box every emoji a second time */
+.art.tiles .fe{display:inline-block;min-width:0;padding:0;border:0;border-radius:0;
+  background:var(--fe) center/contain no-repeat;animation:fe-pop .55s cubic-bezier(.34,1.56,.64,1) backwards}
+/* the lesson picture gets a little stage of its own, with a soft floor; one to four things are drawn big */
+.stage .art:not(.tiles):not(:empty){position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:.12em;min-height:2.4em;padding:.35em .5em .45em;margin:14px auto;max-width:560px;border-radius:28px;
+  background:
+    radial-gradient(60% 22% at 50% 92%,rgba(34,26,61,.10),transparent 70%),
+    radial-gradient(90% 80% at 50% 20%,var(--sun-soft,#FFF4CC),transparent 75%),
+    linear-gradient(180deg,var(--grape-soft,#EFE8FF),var(--card));
+  border:3px solid color-mix(in srgb,var(--edge) 14%,transparent)}
+.art:has(.fe):not(.tiles):not(:has(.fe:nth-of-type(5))) .fe{width:1.9em;height:1.9em}
+/* one thing on its own: the star of the card, bouncing like a cartoon */
+.art:has(.fe):not(.tiles):not(:has(.fe:nth-of-type(2))) .fe{width:2.6em;height:2.6em;transform-origin:50% 100%;
+  animation:fe-pop .6s cubic-bezier(.34,1.56,.64,1) backwards,fe-boing 2.6s ease-in-out .6s infinite}
+@keyframes fe-boing{0%,100%{transform:translateY(0) scale(1,1)}12%{transform:translateY(0) scale(1.08,.9)}
+  32%{transform:translateY(-.16em) scale(.95,1.06)}52%{transform:translateY(0) scale(1.04,.96)}66%{transform:scale(1)}}
+.stage .art:not(.tiles):not(:empty)::before,.stage .art:not(.tiles):not(:empty)::after{content:"";position:absolute;width:.22em;height:.22em;
+  border-radius:50%;background:var(--sun,#FFC93C);opacity:.7;animation:fe-twinkle 2.4s ease-in-out infinite}
+.stage .art:not(.tiles):not(:empty)::before{top:.35em;left:12%}
+.stage .art:not(.tiles):not(:empty)::after{top:.6em;right:13%;width:.16em;height:.16em;background:var(--sky,#5CC8FF);animation-delay:1.1s}
+@keyframes fe-twinkle{0%,100%{transform:scale(.6);opacity:.35}50%{transform:scale(1.25);opacity:.9}}
+@keyframes fe-pop{from{opacity:0;transform:translateY(.3em) scale(.4) rotate(-12deg)}to{opacity:1;transform:none}}
+@keyframes fe-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-.07em) rotate(2deg)}}
+/* answers and questions: a little bigger than the words, a wiggle when pointed at */
+.opt .fe,.qtext .fe{width:1.35em;height:1.35em;vertical-align:-.3em}
+.opt:hover:not(:disabled) .fe{animation:fe-wiggle .5s ease-in-out}
+.opt.right .fe{animation:fe-yes .6s cubic-bezier(.34,1.8,.5,1)}
+@keyframes fe-wiggle{25%{transform:rotate(-10deg) scale(1.08)}75%{transform:rotate(8deg) scale(1.08)}}
+@keyframes fe-yes{40%{transform:scale(1.35) rotate(-8deg)}}
+@media (prefers-reduced-motion:reduce){.fe,.art .fe,.art.tiles .fe,.art::before,.art::after{animation:none !important}}
+body.quiet .art .fe{animation:fe-pop .55s cubic-bezier(.34,1.56,.64,1) backwards}
+/* mouse screens: arrow buttons at both ends of the subject row (ux.js adds them) */
+#jump .ux-arr{position:sticky;z-index:2;flex:none;display:grid;place-items:center;width:44px;height:44px;min-height:44px;
+  padding:0;align-self:center;border:3px solid var(--edge);border-radius:50%;background:var(--card);color:var(--ink);
+  cursor:pointer;font:800 24px/1 system-ui,sans-serif;box-shadow:0 0 0 6px color-mix(in srgb,var(--paper) 92%,transparent),var(--shadow-sm);
+  transition:opacity .15s,transform .12s}
+#jump .ux-arr.l{left:0;margin-right:-52px}
+#jump .ux-arr.r{right:0;margin-left:-52px}
+#jump .ux-arr:hover{transform:scale(1.08)}
+#jump .ux-arr.off{opacity:0;pointer-events:none;visibility:hidden}
+#jump .ux-arr:focus-visible{outline:4px solid var(--sky);outline-offset:2px}
