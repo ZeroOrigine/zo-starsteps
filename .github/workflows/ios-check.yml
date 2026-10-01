@@ -1,0 +1,22 @@
+# Checks that the iPhone/iPad project builds (simulator, no signing, no Apple account needed).
+name: iOS compile check
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: apps/ios
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npx cap sync ios
+      - run: |
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO build | tail -20
