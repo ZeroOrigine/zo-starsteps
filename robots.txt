@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://starsteps.zeroorigine.com/sitemap.xml
