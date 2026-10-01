@@ -269,6 +269,7 @@ main{min-height:calc(100vh - 64px)}
   <a href="/?stay=1">Star Steps home</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="mailto:reply@zeroorigine.com">Help: reply@zeroorigine.com</a>
 </footer>
 
+<script src="/js/ss-store.js"></script>
 <script src="/vendor/supabase-2.117.2.js"></script>
 <script src="/js/ss-account.js"></script>
 <script>
@@ -568,6 +569,12 @@ function afterCheckout(){
 }
 function drawPlan(){
   var box=$("planBox"), p=plan||{tier:"free",status:"none"}, html="";
+  if(window.SS_STORE){
+    /* store apps sell nothing: show the plan the family has, with no buying or billing buttons */
+    var on=p.entitled&&p.tier!=="free";
+    box.innerHTML='<div class="now"><span class="ico" aria-hidden="true">'+(on?(p.tier==="super"?"\u{1F451}":"\u{1F48E}"):"\u2B50")+'</span><div><div class="eyebrow">Your plan</div><h3>'+(on?NAMES[p.tier]:"Free")+'</h3><p style="margin-top:4px">'+(on?"Active for every child in your family, on every device.":"Every lesson in every subject is free.")+'</p></div></div>';
+    return;
+  }
   var ent=p.entitled&&p.tier!=="free", key=p.tier+"_"+(p.cycle||"monthly"), price=PRICES[p.tier]&&PRICES[p.tier][p.cycle||"monthly"];
   var per=p.cycle==="yearly"?"a year":"a month";
   if(ent||p.status==="incomplete"){

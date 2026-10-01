@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script src="/js/ss-store.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>
 /* An installed app (home screen, Android app) opens straight into the game.
@@ -150,7 +151,7 @@ section{padding:10px 0 70px}
 
 /* ── subjects ── */
 .subjects{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.subj{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--card);
+.subj{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;padding:13px 14px;background:var(--card);
   border:3px solid var(--edge);border-radius:var(--r-sm);box-shadow:var(--shadow-sm)}
 .subj i{width:44px;height:44px;flex:none;display:grid;place-items:center;font-style:normal;font-size:22px;
   border:3px solid var(--edge);border-radius:13px;background:var(--c)}
@@ -160,6 +161,7 @@ section{padding:10px 0 70px}
 @media (max-width:420px){.subj{padding:11px}.subj i{width:38px;height:38px;font-size:19px}.subj b{font-size:15px}}
 
 .subj i img{width:30px;height:30px;display:block;filter:drop-shadow(0 2px 0 rgba(34,26,61,.18))}
+.subj-all{margin:18px 0 0;font-size:17px}.subj-all a{display:inline-flex;align-items:center;min-height:44px}
 .subj-more{font-family:var(--display);font-size:20px;margin:26px 0 12px}
 .subjects-more .subj{border-style:dashed}
 @media (max-width:480px){#subjects .subj small{display:none}#subjects .subj{min-height:60px}}
@@ -334,36 +336,37 @@ footer a:hover{text-decoration:underline}
       <p>The basics every child needs, and the things school rarely has time for: money, health, feelings, how machines work, and how smart machines think.</p>
     </div>
     <div class="subjects">
-      <div class="subj" style="--c:#F7A522"><i aria-hidden="true"><img src="/emoji/1f9ee.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Numbers</b><small>Counting to fractions</small></div></div>
-      <div class="subj" style="--c:#FF5C8A"><i aria-hidden="true"><img src="/emoji/1f4d6.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Words</b><small>Phonics to grammar</small></div></div>
-      <div class="subj" style="--c:#1FC98D"><i aria-hidden="true"><img src="/emoji/1f52c.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Science</b><small>Living things, matter, forces</small></div></div>
-      <div class="subj" style="--c:#3B9BFF"><i aria-hidden="true"><img src="/emoji/1f9e0.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Thinking</b><small>Patterns and logic</small></div></div>
-      <div class="subj" style="--c:#12B8C6"><i aria-hidden="true"><img src="/emoji/1f30d.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>World</b><small>Places and people</small></div></div>
-      <div class="subj" style="--c:#E056B4"><i aria-hidden="true"><img src="/emoji/1f3a8.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Art &amp; Music</b><small>Colour, rhythm, sound</small></div></div>
-      <div class="subj" style="--c:#7C6CF0"><i aria-hidden="true"><img src="/emoji/1f4bb.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Coding</b><small>Steps, loops, Python</small></div></div>
-      <div class="subj" style="--c:#FFC53D"><i aria-hidden="true"><img src="/emoji/1f4b0.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Money</b><small>Coins to budgets</small></div></div>
-      <div class="subj" style="--c:#FF6B6B"><i aria-hidden="true"><img src="/emoji/1f34e.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Health</b><small>Body, food, sleep</small></div></div>
-      <div class="subj" style="--c:#57C75A"><i aria-hidden="true"><img src="/emoji/1f33f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Nature</b><small>Plants, animals, weather</small></div></div>
-      <div class="subj" style="--c:#A46BF0"><i aria-hidden="true"><img src="/emoji/26bd.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Sport</b><small>Games, rules, teamwork</small></div></div>
-      <div class="subj" style="--c:#FF9040"><i aria-hidden="true"><img src="/emoji/1f5e3-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Languages</b><small>Words from around the world</small></div></div>
-      <div class="subj" style="--c:#9DB8FF"><i aria-hidden="true"><img src="/emoji/1f680.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Space</b><small>Planets and stars</small></div></div>
-      <div class="subj" style="--c:#D79A5C"><i aria-hidden="true"><img src="/emoji/1f9ed.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Life Skills</b><small>Time, safety, choices</small></div></div>
-      <div class="subj" style="--c:#8FA6B8"><i aria-hidden="true"><img src="/emoji/1f527.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>How Things Work</b><small>Machines and buildings</small></div></div>
-      <div class="subj" style="--c:#A9DC2B"><i aria-hidden="true"><img src="/emoji/1f916.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Smart Machines</b><small>How AI learns</small></div></div>
-      <div class="subj" style="--c:#FF8FB1"><i aria-hidden="true"><img src="/emoji/1f4da.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Stories</b><small>Listening, retelling, meaning</small></div></div>
-      <div class="subj" style="--c:#6FA8FF"><i aria-hidden="true"><img src="/emoji/1f9e9.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Puzzles</b><small>Shapes, mazes, logic</small></div></div>
-      <div class="subj" style="--c:#F29BD8"><i aria-hidden="true"><img src="/emoji/2702-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Making</b><small>Build, cut, design</small></div></div>
-      <div class="subj" style="--c:#FFD166"><i aria-hidden="true"><img src="/emoji/1f49b.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Feelings</b><small>Naming and handling feelings</small></div></div>
+      <a class="subj" href="/learn/math/" style="--c:#F7A522"><i aria-hidden="true"><img src="/emoji/1f9ee.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Numbers</b><small>Counting to fractions</small></div></a>
+      <a class="subj" href="/learn/reading-and-writing/" style="--c:#FF5C8A"><i aria-hidden="true"><img src="/emoji/1f4d6.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Words</b><small>Phonics to grammar</small></div></a>
+      <a class="subj" href="/learn/science/" style="--c:#1FC98D"><i aria-hidden="true"><img src="/emoji/1f52c.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Science</b><small>Living things, matter, forces</small></div></a>
+      <a class="subj" href="/learn/thinking-skills/" style="--c:#3B9BFF"><i aria-hidden="true"><img src="/emoji/1f9e0.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Thinking</b><small>Patterns and logic</small></div></a>
+      <a class="subj" href="/learn/world/" style="--c:#12B8C6"><i aria-hidden="true"><img src="/emoji/1f30d.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>World</b><small>Places and people</small></div></a>
+      <a class="subj" href="/learn/art-and-music/" style="--c:#E056B4"><i aria-hidden="true"><img src="/emoji/1f3a8.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Art &amp; Music</b><small>Colour, rhythm, sound</small></div></a>
+      <a class="subj" href="/learn/coding/" style="--c:#7C6CF0"><i aria-hidden="true"><img src="/emoji/1f4bb.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Coding</b><small>Steps, loops, Python</small></div></a>
+      <a class="subj" href="/learn/money/" style="--c:#FFC53D"><i aria-hidden="true"><img src="/emoji/1f4b0.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Money</b><small>Coins to budgets</small></div></a>
+      <a class="subj" href="/learn/health/" style="--c:#FF6B6B"><i aria-hidden="true"><img src="/emoji/1f34e.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Health</b><small>Body, food, sleep</small></div></a>
+      <a class="subj" href="/learn/nature/" style="--c:#57C75A"><i aria-hidden="true"><img src="/emoji/1f33f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Nature</b><small>Plants, animals, weather</small></div></a>
+      <a class="subj" href="/learn/sport-and-movement/" style="--c:#A46BF0"><i aria-hidden="true"><img src="/emoji/26bd.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Sport</b><small>Games, rules, teamwork</small></div></a>
+      <a class="subj" href="/learn/languages/" style="--c:#FF9040"><i aria-hidden="true"><img src="/emoji/1f5e3-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Languages</b><small>Words from around the world</small></div></a>
+      <a class="subj" href="/learn/space/" style="--c:#9DB8FF"><i aria-hidden="true"><img src="/emoji/1f680.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Space</b><small>Planets and stars</small></div></a>
+      <a class="subj" href="/learn/life-skills/" style="--c:#D79A5C"><i aria-hidden="true"><img src="/emoji/1f9ed.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Life Skills</b><small>Time, safety, choices</small></div></a>
+      <a class="subj" href="/learn/how-things-work/" style="--c:#8FA6B8"><i aria-hidden="true"><img src="/emoji/1f527.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>How Things Work</b><small>Machines and buildings</small></div></a>
+      <a class="subj" href="/learn/ai-for-kids/" style="--c:#A9DC2B"><i aria-hidden="true"><img src="/emoji/1f916.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Smart Machines</b><small>How AI learns</small></div></a>
+      <a class="subj" href="/learn/stories/" style="--c:#FF8FB1"><i aria-hidden="true"><img src="/emoji/1f4da.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Stories</b><small>Listening, retelling, meaning</small></div></a>
+      <a class="subj" href="/learn/puzzles/" style="--c:#6FA8FF"><i aria-hidden="true"><img src="/emoji/1f9e9.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Puzzles</b><small>Shapes, mazes, logic</small></div></a>
+      <a class="subj" href="/learn/making/" style="--c:#F29BD8"><i aria-hidden="true"><img src="/emoji/2702-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Making</b><small>Build, cut, design</small></div></a>
+      <a class="subj" href="/learn/feelings/" style="--c:#FFD166"><i aria-hidden="true"><img src="/emoji/1f49b.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Feelings</b><small>Naming and handling feelings</small></div></a>
     </div>
     <h3 class="subj-more">Grades 5 and 6 add six more</h3>
     <div class="subjects subjects-more">
-      <div class="subj" style="--c:#9DB8FF"><i aria-hidden="true"><img src="/emoji/269b-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Physics</b><small>Forces, energy, light</small></div></div>
-      <div class="subj" style="--c:#57C75A"><i aria-hidden="true"><img src="/emoji/1f9ea.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Chemistry</b><small>Materials and reactions</small></div></div>
-      <div class="subj" style="--c:#12B8C6"><i aria-hidden="true"><img src="/emoji/1f3db-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>History</b><small>People and the past</small></div></div>
-      <div class="subj" style="--c:#FFC53D"><i aria-hidden="true"><img src="/emoji/1f5fa-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Geography</b><small>Maps, climate, countries</small></div></div>
-      <div class="subj" style="--c:#FF9040"><i aria-hidden="true"><img src="/emoji/1f3a4.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Debate</b><small>Reasons and evidence</small></div></div>
-      <div class="subj" style="--c:#3B9BFF"><i aria-hidden="true"><img src="/emoji/1f4ca.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Statistics</b><small>Data, charts, chance</small></div></div>
+      <a class="subj" href="/learn/physics/" style="--c:#9DB8FF"><i aria-hidden="true"><img src="/emoji/269b-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Physics</b><small>Forces, energy, light</small></div></a>
+      <a class="subj" href="/learn/chemistry/" style="--c:#57C75A"><i aria-hidden="true"><img src="/emoji/1f9ea.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Chemistry</b><small>Materials and reactions</small></div></a>
+      <a class="subj" href="/learn/history/" style="--c:#12B8C6"><i aria-hidden="true"><img src="/emoji/1f3db-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>History</b><small>People and the past</small></div></a>
+      <a class="subj" href="/learn/geography/" style="--c:#FFC53D"><i aria-hidden="true"><img src="/emoji/1f5fa-fe0f.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Geography</b><small>Maps, climate, countries</small></div></a>
+      <a class="subj" href="/learn/debate/" style="--c:#FF9040"><i aria-hidden="true"><img src="/emoji/1f3a4.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Debate</b><small>Reasons and evidence</small></div></a>
+      <a class="subj" href="/learn/statistics/" style="--c:#3B9BFF"><i aria-hidden="true"><img src="/emoji/1f4ca.webp" alt="" width="30" height="30" loading="lazy" decoding="async"></i><div><b>Statistics</b><small>Data, charts, chance</small></div></a>
     </div>
+    <p class="subj-all"><a href="/learn/">See every skill, grade by grade &rarr;</a></p>
   </section>
 
   <section id="how" aria-labelledby="howTitle">
@@ -537,6 +540,7 @@ footer a:hover{text-decoration:underline}
     <span>&copy; 2026 Star Steps &middot; part of ZeroOrigine</span>
     <nav aria-label="Footer">
       <a href="/play/">Play</a>
+      <a href="/learn/">Grades and subjects</a>
       <a href="/privacy/">Privacy</a>
       <a href="mailto:reply@zeroorigine.com">Contact</a>
       <a href="https://zeroorigine.com" rel="noopener">ZeroOrigine</a>
