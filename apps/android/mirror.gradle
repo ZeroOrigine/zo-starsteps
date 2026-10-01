@@ -1,0 +1,6 @@
+def M = 'https://maven-central.storage-download.googleapis.com/maven2/'
+beforeSettings { s -> s.pluginManagement { repositories { maven { url M }; google(); gradlePluginPortal() } } }
+allprojects {
+  buildscript { repositories { maven { url M } } }
+  repositories { maven { url M } }
+}

@@ -1,0 +1,4 @@
+{ "name": "star-steps-ios", "version": "1.0.0", "private": true,
+  "description": "Star Steps iPhone and iPad app: a native shell around https://starsteps.zeroorigine.com/play/ (store mode).",
+  "dependencies": { "@capacitor/core": "8.5.2", "@capacitor/ios": "8.5.2" },
+  "devDependencies": { "@capacitor/cli": "8.5.2" } }

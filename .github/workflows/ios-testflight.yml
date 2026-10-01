@@ -1,0 +1,50 @@
+# Builds the Star Steps iPhone/iPad app on a Mac in the cloud and uploads it to App Store Connect (TestFlight).
+# Run it by hand: GitHub > Actions > "iOS build to TestFlight" > Run workflow.
+# Needs four repository secrets (Settings > Secrets and variables > Actions):
+#   APPLE_TEAM_ID   your 10-character Apple team ID (developer.apple.com > Membership)
+#   ASC_KEY_ID      App Store Connect API key ID     (App Store Connect > Users and Access > Integrations > Keys)
+#   ASC_ISSUER_ID   App Store Connect issuer ID      (same page)
+#   ASC_KEY_P8      the full text of the downloaded AuthKey_XXXX.p8 file
+name: iOS build to TestFlight
+on:
+  workflow_dispatch:
+jobs:
+  ios:
+    runs-on: macos-15
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: apps/ios
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npx cap sync ios
+      - name: App Store Connect key
+        env:
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/keys"
+          printf '%s' "$ASC_KEY_P8" > "$RUNNER_TEMP/keys/AuthKey_${ASC_KEY_ID}.p8"
+      - name: Archive
+        env:
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+          KID: ${{ secrets.ASC_KEY_ID }}
+          ISS: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
+            -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/App.xcarchive" archive \
+            DEVELOPMENT_TEAM="$TEAM" CODE_SIGN_STYLE=Automatic CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
+            -allowProvisioningUpdates -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey_${KID}.p8" \
+            -authenticationKeyID "$KID" -authenticationKeyIssuerID "$ISS"
+      - name: Upload to App Store Connect
+        env:
+          KID: ${{ secrets.ASC_KEY_ID }}
+          ISS: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/App.xcarchive" -exportOptionsPlist ExportOptions.plist \
+            -exportPath "$RUNNER_TEMP/out" -allowProvisioningUpdates -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey_${KID}.p8" \
+            -authenticationKeyID "$KID" -authenticationKeyIssuerID "$ISS"

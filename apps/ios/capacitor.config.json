@@ -1,0 +1,15 @@
+{
+  "appId": "com.zeroorigine.starsteps",
+  "appName": "Star Steps",
+  "webDir": "www",
+  "server": {
+    "url": "https://starsteps.zeroorigine.com/play/?src=ios",
+    "allowNavigation": ["starsteps.zeroorigine.com"]
+  },
+  "ios": {
+    "appendUserAgent": "StarStepsApp/1.0",
+    "contentInset": "never",
+    "backgroundColor": "#EEF0FE",
+    "limitsNavigationsToAppBoundDomains": true
+  }
+}
