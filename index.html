@@ -295,6 +295,20 @@ footer a:hover{text-decoration:underline}
 .door-dark{background:#0E1018;color:#EDE9F5;border-color:#0E1018}
 .door-dark .door-sub{color:#F2C46D}.door-dark p{color:#A29EB5}.door-dark .door-go{color:#F2C46D}
 @media (max-width:860px){.door-grid{grid-template-columns:1fr}}
+
+/* header v24: brand · three doors · sections · account */
+.top-in{max-width:1180px;gap:10px}
+.doorsnav{display:flex;gap:2px;padding:3px;border:3px solid var(--edge);border-radius:999px;background:var(--card);box-shadow:3px 3px 0 var(--edge)}
+.doorsnav a{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;font-weight:800;font-size:14px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.doorsnav a span{font-size:15px;line-height:1}
+.doorsnav a:hover{background:color-mix(in srgb,var(--pick) 12%,transparent)}
+.doorsnav a[aria-current="page"]{background:var(--pick);color:#fff}
+.nav{gap:0;margin-left:4px}
+.nav a{padding:8px 9px;font-size:14px;white-space:nowrap}
+.login{margin-left:auto}
+@media (max-width:1120px){.nav{display:none}}
+@media (max-width:860px){.doorsnav a span{display:none}.doorsnav a{padding:7px 10px;font-size:13px}}
+@media (max-width:640px){.doorsnav{display:none}}
 </style>
 </head>
 <body>
@@ -305,12 +319,15 @@ footer a:hover{text-decoration:underline}
       <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.8l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.6l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" fill="#FFE17A" stroke="#221A3D" stroke-width="2" stroke-linejoin="round"/></svg></span>
       <b>Star Steps</b>
     </a>
+    <nav class="doorsnav" aria-label="Three ways in">
+      <a href="/play/" data-play><span aria-hidden="true">🎮</span>Play</a>
+      <a href="/library/"><span aria-hidden="true">📚</span>Library</a>
+      <a href="/edge/"><span aria-hidden="true">🔭</span>Edge of Knowing</a>
+    </nav>
     <nav class="nav" aria-label="Sections">
-      <a href="/library/">Library</a>
-      <a href="/edge/">Edge of Knowing</a>
       <a href="#subjects">Subjects</a>
       <a href="#how">How it works</a>
-      <a href="#parents">For parents</a>
+      <a href="#parents">Parents</a>
       <a href="#plans">Plans</a>
       <a href="#faq">FAQ</a>
     </nav>

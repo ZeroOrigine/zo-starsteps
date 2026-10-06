@@ -35,6 +35,7 @@ for(const w of [1440,390]){
  // progress saved
  const pr=await p.evaluate(()=>JSON.parse(localStorage.getItem('ss.lib')));ck(w+': bookmark saved',pr&&Object.values(pr)[0].p>0,JSON.stringify(pr));
  await p.evaluate(()=>document.getElementById('rdClose').click());await p.waitForTimeout(400);
+ const closed=await p.evaluate(()=>getComputedStyle(document.querySelector('.rd')).display==='none');ck(w+': reader really disappears on close',closed,'still displayed');
  const cont=await p.evaluate(()=>({shown:!document.getElementById('cont').hidden,txt:document.getElementById('cont').textContent.slice(0,80),prog:document.querySelectorAll('.cov .prog').length}));
  ck(w+': Keep reading row + progress bar on cover',cont.shown&&cont.prog>=1,JSON.stringify(cont));
  // deep link

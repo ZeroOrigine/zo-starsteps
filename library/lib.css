@@ -2,6 +2,7 @@
 :root{--paper:#fbf7ef;--paper2:#f3ecdd;--ink:#1d1b33;--muted:#6b6880;--line:#e6dfcf;--accent:#5b4ee0;--accent2:#e07a2a;--star:#F2C46D;--card:#fff;
  --display:ui-rounded,"SF Pro Rounded","Baloo 2","Nunito","Quicksand","Trebuchet MS",system-ui,sans-serif;--body:ui-rounded,"SF Pro Rounded","Nunito","Quicksand","Avenir Next",system-ui,sans-serif;--mono:ui-rounded,"SF Pro Rounded","Nunito",system-ui,sans-serif}
 *{box-sizing:border-box}html{background:var(--paper);scroll-behavior:smooth}
+[hidden]{display:none!important}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 img{max-width:100%}button{font:inherit;cursor:pointer}
 button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}

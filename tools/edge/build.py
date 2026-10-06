@@ -221,6 +221,20 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
 _i=a.index('</style>',a.index('.settings{display:flex;'))
 a=a[:_i]+tidycss+'\n'+a[_i:]
 
+
+# ---------- no-WebGL fallback: the library, gallery and journey still work without the 3D films ----------
+m_sh=_re.search(r"const SHELVES=(\[.*?\]\]\]);",a,_re.S); m_g=_re.search(r"const G=(\[\['bang'.*?\]\]);",a,_re.S)
+assert m_sh and m_g
+no3d='<script>\n(function(){function go(){if(!document.querySelector(".err"))return;/* 3D failed: build the shelves and gallery here */\n'+\
+ 'var SHELVES='+m_sh.group(1)+';var G='+m_g.group(1)+';\n'+\
+ 'document.querySelectorAll(".bar,#cfg,#films,#reel,#about,.aboutg").forEach(function(e){e.style.display="none";});\n'+\
+ 'var err=document.querySelector(".err");err.innerHTML="<div><p style=\\"font-size:18px;color:#EDE9F5;margin:0 0 6px\\">The 3D films need a device with WebGL graphics.</p><p style=\\"margin:0\\">Everything else works: scroll down for the journey through time, the 28 books and the gallery.</p></div>";\n'+\
+ 'var sh=document.getElementById("shelves");if(sh&&!sh.children.length)SHELVES.forEach(function(pair){var row=document.createElement("div");row.className="shelf";row.innerHTML="<h3></h3><div class=\\"books\\"></div>";row.firstChild.textContent=pair[0];pair[1].forEach(function(id){var b=BOOKS[id];if(!b)return;var btn=document.createElement("button");btn.className="bookc";btn.id="book-"+id;btn.innerHTML="<span class=\\"cov\\"><i></i><b></b></span><small></small>";btn.querySelector(".cov").style.background="linear-gradient(160deg,"+b.c[0]+","+b.c[1]+")";btn.querySelector("b").textContent=b.t;btn.querySelector("small").textContent=b.s+" · "+b.pages.length+" chapters";btn.addEventListener("click",function(){Book.open(id);});row.lastChild.appendChild(btn);});sh.appendChild(row);});\n'+\
+ 'var gal=document.getElementById("gal");if(gal&&!gal.children.length){var tiles=[];G.forEach(function(g,n){var b=document.createElement("button");b.className="tile";b.id="tile-"+g[0];b.innerHTML="<canvas aria-hidden=\\"true\\"></canvas><span><b></b><small>OPEN THE BOOK →</small></span>";b.querySelector("b").textContent=g[2];b.addEventListener("click",function(){Book.open(g[3]);});gal.appendChild(b);tiles.push({cv:b.querySelector("canvas"),sc:ART.scenes[g[0]],st:ART.scenes[g[0]].init(ART.h.rng(n*97+5)),t0:g[1]});});var start=performance.now();(function draw(now){requestAnimationFrame(draw);var d=Math.min(1.5,devicePixelRatio||1);tiles.forEach(function(t){var w=t.cv.clientWidth,h=Math.round(w*.75);if(!w)return;if(t.cv.width!==Math.round(w*d)){t.cv.width=Math.round(w*d);t.cv.height=Math.round(h*d);}var c=t.cv.getContext("2d");c.setTransform(d,0,0,d,0,0);c.save();try{t.sc.draw(c,w,h,t.t0+(now-start)/1000,t.st);}catch(e){}c.restore();});})(performance.now());}\n'+\
+ 'var q=new URLSearchParams(location.search).get("book");if(q&&window.Book&&Book.has(q))setTimeout(function(){Book.open(q);},300);}\n'+\
+ 'setTimeout(go,400);})();\n</script>\n'
+a=a.replace('\n'+jscript,'\n'+no3d+jscript,1)
+
 assert a.count('id="jsky"')==1 and 'id="journey"' in a and '/edge/vendor/three.min.js' in a
 OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(a)
 print('wrote',OUT,len(a),'bytes; journey css',len(jcss),'js',len(js))

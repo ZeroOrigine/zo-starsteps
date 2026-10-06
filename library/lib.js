@@ -67,13 +67,14 @@ function stats(){const n=CAT.length,pg=CAT.reduce((a,b)=>a+b.pages,0),w=CAT.redu
 /* ---------- reader ---------- */
 let ov,bk,L,R,leaf,lf,lb,pages=[],i=0,busy=false,cur=null,reading=false,fs=16;
 const single=()=>window.matchMedia('(max-width:760px)').matches;
+const baseFs=()=>cur?(cur.grade<=2?19:cur.grade>=5?15:16):16;
 function build(){if(ov)return;ov=document.createElement('div');ov.className='rd';ov.hidden=true;ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Book');
  ov.innerHTML='<div class="rd-bar"><b class="rd-title"></b><span class="rd-cnt"></span><button class="rd-btn" id="rdSmall" aria-label="Smaller text">A−</button><button class="rd-btn" id="rdBig" aria-label="Bigger text">A+</button><button class="rd-btn" id="rdRead">🔊 Read aloud</button><button class="rd-btn rd-x" id="rdClose" aria-label="Close book">×</button></div>'+
  '<div class="rd-stage"><button class="rd-nav" id="rdPrev" aria-label="Previous page">‹</button><div class="bk"><div class="pg pg-l"></div><div class="pg pg-r"></div><div class="leaf" hidden><div class="face front"></div><div class="face back"></div></div></div><button class="rd-nav" id="rdNext" aria-label="Next page">›</button></div>'+
  '<p class="hint">Tap the right side or swipe to turn the page · ← → keys · Esc closes</p>';
  document.body.appendChild(ov);bk=$('.bk',ov);L=$('.pg-l',ov);R=$('.pg-r',ov);leaf=$('.leaf',ov);lf=$('.front',ov);lb=$('.back',ov);
  $('#rdClose',ov).onclick=close;$('#rdNext',ov).onclick=()=>turn(1);$('#rdPrev',ov).onclick=()=>turn(-1);$('#rdRead',ov).onclick=read;
- $('#rdSmall',ov).onclick=()=>{fs=Math.max(13,fs-1);bk.style.setProperty('--fs',fs+'px');};$('#rdBig',ov).onclick=()=>{fs=Math.min(24,fs+1);bk.style.setProperty('--fs',fs+'px');};
+  $('#rdSmall',ov).onclick=()=>{fs=Math.max(13,fs-1);bk.style.setProperty('--fs',fs+'px');};$('#rdBig',ov).onclick=()=>{fs=Math.min(26,fs+1);bk.style.setProperty('--fs',fs+'px');};
  ov.addEventListener('click',e=>{if(e.target===ov)close();});
  let sx=null,sy=null;bk.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
  bk.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)turn(dx<0?1:-1);sx=sy=null;});
@@ -110,12 +111,12 @@ function turn(d){if(busy)return;const s=single(),step=s?1:2,ni=i+d*step;if(ni<0|
  if(d>0){lf.innerHTML=s?html(pages[i],i+1):html(pages[i+1],i+2);lb.innerHTML=s?'':html(pages[ni],ni+1);R.innerHTML=s?html(pages[ni],ni+1):html(pages[ni+1],ni+2);}
  else{lf.innerHTML=html(pages[i],i+1);lb.innerHTML=s?'':html(pages[ni+1],ni+2);if(s)R.innerHTML=html(pages[ni],ni+1);else L.innerHTML=html(pages[ni],ni+1);}
  hook(bk);leaf.getBoundingClientRect();leaf.classList.add('turning');
- setTimeout(()=>{i=ni;leaf.hidden=true;leaf.className='leaf';show();busy=false;},720);}
+ setTimeout(()=>{i=ni;leaf.hidden=true;leaf.className='leaf';lf.innerHTML='';lb.innerHTML='';show();busy=false;},720);}
 function stopRead(){if(reading){Voice.cancel();reading=false;$('#rdRead',ov).textContent='🔊 Read aloud';}}
 function read(){if(reading){stopRead();return;}if(!Voice.ok){$('#rdRead',ov).textContent='No voice on this device';return;}
  const s=single();const t=s?txt(pages[i]):txt(pages[i])+' '+txt(pages[i+1]);reading=true;$('#rdRead',ov).textContent='■ Stop';Voice.speak(t,()=>{reading=false;$('#rdRead',ov).textContent='🔊 Read aloud';});}
 async function openBook(id){const meta=CAT.find(b=>b.id===id);if(!meta)return;build();let data;try{data=await (await fetch('/library/books/'+id+'.json')).json();}catch(e){alert('That book could not load. Check your connection and try again.');return;}
- cur=data;pages=pagesFor(data);KIDBOOK=data.grade<=2;bk.className='bk g'+data.grade+(KIDBOOK?' kid':'');const pr=PROG[id]||{};i=pr.done?0:Math.min(pr.p||0,pages.length-1);if(!single())i=i-(i%2);
+ cur=data;pages=pagesFor(data);KIDBOOK=data.grade<=2;bk.className='bk g'+data.grade+(KIDBOOK?' kid':'');fs=baseFs();bk.style.removeProperty('--fs');const pr=PROG[id]||{};i=pr.done?0:Math.min(pr.p||0,pages.length-1);if(!single())i=i-(i%2);
  $('.rd-title',ov).textContent=data.title;ov.hidden=false;document.documentElement.style.overflow='hidden';show();Snd.open();$('#rdNext',ov).focus();
  try{history.replaceState(null,'','/library/?book='+id);}catch(e){}}
 function close(){stopRead();ov.hidden=true;document.documentElement.style.overflow='';renderShelves();stats();try{history.replaceState(null,'','/library/');}catch(e){}}

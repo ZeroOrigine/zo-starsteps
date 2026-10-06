@@ -14,7 +14,7 @@ for(const w of [390,1440]){
  const cur=await p.evaluate(()=>document.querySelector('#tabbar .tab[aria-current]')?.dataset.tab);ck(w+': tabs still switch',cur==='games',cur);
  ck(w+': no JS errors',errs.length===0,errs.join('|'));
  await p.goto(BASE+'/',{waitUntil:'networkidle'});await p.waitForTimeout(800);
- const h=await p.evaluate(()=>({doors:document.querySelectorAll('.door').length,hs:document.documentElement.scrollWidth>innerWidth,nav:[...document.querySelectorAll('.nav a')].map(a=>a.textContent).join(',')}));
+ const h=await p.evaluate(()=>({doors:document.querySelectorAll('.door').length,hs:document.documentElement.scrollWidth>innerWidth,nav:[...document.querySelectorAll('.doorsnav a')].map(a=>a.textContent).join(',')}));
  ck(w+': home shows three doors',h.doors===3&&!h.hs&&/Library/.test(h.nav),JSON.stringify(h));
  await p.evaluate(()=>document.getElementById('doors').scrollIntoView());await p.waitForTimeout(300);await p.screenshot({path:`libtest/home_${w}.png`});
  await p.close();}
