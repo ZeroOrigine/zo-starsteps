@@ -148,7 +148,7 @@ settings=grab(r'<div class="settings">.*?</div>\n'); vhelp=grab(r'<details class
 about=grab(r'<div class="sect-h" id="about">.*?</div></div>\n\n')
 for x in (settings,vhelp,reel,about): a=a.replace(x,'',1)
 drawer=('<details class="cfg" id="cfg"><summary><span>⚙ Voices and picture quality</span><small>narrator · Nova · 4K / HD / Smooth</small></summary>\n'+settings+vhelp+'</details>\n')
-films_h='<div class="sub-h" id="films"><h3>All 14 films</h3><p class="muted">Jump to any film. They play in order and each ends with a quiz.</p></div>\n'
+films_h='<div class="sub-h" id="allfilms"><h3>All 14 films</h3><p class="muted">Jump to any film. They play in order and each ends with a quiz.</p></div>\n'
 a=a.replace('</section>\n\n',  '</section>\n\n'+about+films_h+reel+drawer+'\n',1)
 assert a.count('id="reel"')==1 and a.count('id="cfg"')==1
 # journey cards: a fixed layout; one note for all the pictures
@@ -229,14 +229,14 @@ a=a[:_i]+tidycss+'\n'+a[_i:]
 # 1. the section menu becomes a real tab bar
 _oldnav=grab(r'<nav class="topnav" id="topnav" aria-label="Sections">.*?</nav>\n')
 assert '<button id="navNova">Ask Nova</button>' in _oldnav
-def _tab(key,n,label,sub,sel):
+def _tab(key,n,label,sub,sel,th):
     return ('<button class="tab" role="tab" id="tab-'+key+'" data-tab="'+key+'" aria-selected="'+('true' if sel else 'false')+'" aria-controls="p-'+key+'"'+('' if sel else ' tabindex="-1"')+
-            '><i>'+n+'</i><span><b>'+label+'</b><small>'+sub+'</small></span></button>')
+            '><span class="th"><canvas data-th="'+th+'" aria-hidden="true"></canvas><i>'+n+'</i></span><span class="tx"><b>'+label+'</b><small>'+sub+'</small></span></button>')
 _newnav=('<nav class="topnav" id="topnav" role="tablist" aria-label="Sections">'+
- _tab('films','01','Films','14 in 3D · facts · quizzes',True)+
- _tab('journey','02','Journey','21 stops through time',False)+
- _tab('library','03','Library','28 illustrated books',False)+
- _tab('gallery','04','Gallery','20 living pictures',False)+
+ _tab('films','01','Films','14 films in 3D',True,'hole')+
+ _tab('journey','02','Journey','21 stops in time',False,'kilonova')+
+ _tab('library','03','Library','28 illustrated books',False,'shelf')+
+ _tab('gallery','04','Gallery','20 living pictures',False,'saturnart')+
  '<button id="navNova">✦ Ask Nova</button></nav>\n')
 a=a.replace(_oldnav,_newnav,1)
 # 2. wrap the blocks into panels (ids and order untouched, so the film, journey and gallery scripts find everything)
@@ -268,24 +268,34 @@ tabcss=r"""
 /* ---- v26 tabs ---- */
 .panel{display:grid;gap:16px}
 .panel[hidden]{display:none!important}
-.topnav{top:46px;display:flex;flex-wrap:nowrap;align-items:stretch;gap:4px;padding:8px 0 0;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.topnav{top:46px;display:flex;flex-wrap:nowrap;align-items:stretch;gap:6px;padding:10px 0 0;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
 .topnav::-webkit-scrollbar{display:none}
-.topnav .tab{flex:1 1 0;min-width:0;margin:0;display:flex;align-items:center;gap:10px;padding:10px 14px 12px;border:0;border-radius:12px 12px 0 0;background:none;color:var(--muted);cursor:pointer;text-align:left;position:relative;font-family:var(--body);min-height:58px}
-.topnav .tab i{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--star);width:28px;height:28px;border-radius:9px;border:1px solid var(--line);display:grid;place-items:center;flex:0 0 auto;margin:0;opacity:1;transition:background .2s,color .2s}
-.topnav .tab span{display:grid;min-width:0}
-.topnav .tab b{font-family:var(--display);font-weight:400;font-size:21px;line-height:1.05;color:var(--ink)}
-.topnav .tab small{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);letter-spacing:.02em}
-.topnav .tab:hover{background:rgba(255,255,255,.04)}
-.topnav .tab:focus-visible{outline:2px solid var(--star);outline-offset:-2px}
-.topnav .tab[aria-selected="true"]{background:var(--panel)}
-.topnav .tab[aria-selected="true"]::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:3px;border-radius:3px;background:var(--star)}
-.topnav .tab[aria-selected="true"] i{background:var(--star);color:#1b1206;border-color:var(--star)}
-.topnav #navNova{flex:0 0 auto;align-self:center;margin:0 0 8px 10px}
+.topnav .tab{--acc:#F2C46D;--acc-rgb:242,196,109;flex:1 1 0;min-width:0;margin:0 0 -1px;display:flex;align-items:center;gap:12px;padding:10px 14px 12px 10px;border:1px solid transparent;border-bottom:0;border-radius:14px 14px 0 0;background:none;color:var(--muted);cursor:pointer;text-align:left;position:relative;font-family:var(--body);min-height:68px;transition:background .25s}
+.topnav .tab[data-tab="journey"]{--acc:#8fb8ff;--acc-rgb:143,184,255}
+.topnav .tab[data-tab="library"]{--acc:#9ff5c9;--acc-rgb:159,245,201}
+.topnav .tab[data-tab="gallery"]{--acc:#ffb28a;--acc-rgb:255,178,138}
+.topnav .tab .th{position:relative;flex:0 0 auto;width:70px;height:48px;border-radius:10px;overflow:hidden;background:#0d0f18;box-shadow:0 0 0 1px var(--line);filter:saturate(.7) brightness(.8);transition:filter .3s,box-shadow .3s,transform .3s}
+.topnav .tab .th canvas{display:block;width:100%;height:100%}
+.topnav .tab .th i{position:absolute;left:4px;top:4px;font:600 10px/1 var(--mono);font-style:normal;color:#1b1206;background:var(--acc);padding:3px 5px;border-radius:6px;letter-spacing:.04em;margin:0;opacity:1}
+.topnav .tab .tx{display:grid;min-width:0}
+.topnav .tab b{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.05;color:var(--ink);opacity:.78;transition:opacity .25s}
+.topnav .tab small{font:12px/1.3 var(--mono);color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.02em}
+.topnav .tab:hover{background:rgba(255,255,255,.035)}
+.topnav .tab:hover .th{filter:saturate(1) brightness(1)}
+.topnav .tab:hover b{opacity:1}
+.topnav .tab:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.topnav .tab[aria-selected="true"]{background:linear-gradient(180deg,rgba(var(--acc-rgb),.17),rgba(var(--acc-rgb),.04) 70%,rgba(var(--acc-rgb),0));border-color:rgba(var(--acc-rgb),.32)}
+.topnav .tab[aria-selected="true"]::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--acc);box-shadow:0 0 16px rgba(var(--acc-rgb),.75)}
+.topnav .tab[aria-selected="true"] .th{filter:none;box-shadow:0 0 0 1px rgba(var(--acc-rgb),.65),0 10px 24px -8px rgba(var(--acc-rgb),.8);transform:scale(1.05)}
+.topnav .tab[aria-selected="true"] b{opacity:1}
+.topnav .tab[aria-selected="true"] small{color:var(--acc)}
+.topnav #navNova{flex:0 0 auto;align-self:center;margin:0 0 10px 10px}
 #watch,#journey,#library,#gallery{border-top:0;margin-top:0;padding-top:14px}
 .gallery{padding-top:0}
 #about{padding-top:34px}
-@media (max-width:900px){.topnav .tab{padding:10px 10px 12px;gap:8px;min-height:52px}.topnav .tab b{font-size:18px}.topnav .tab small{display:none}}
-@media (max-width:640px){.topnav{gap:0;padding-top:4px}.topnav .tab{flex:1 1 0;justify-content:center;padding:9px 4px 11px;min-height:46px}.topnav .tab i{display:none}.topnav .tab b{font-size:15px;font-family:var(--body);font-weight:700;color:var(--muted)}.topnav .tab[aria-selected="true"] b{color:var(--ink)}.topnav .tab[aria-selected="true"]::after{left:8px;right:8px}.topnav #navNova{display:none}#watch,#journey,#library,#gallery{padding-top:10px}}
+@media (max-width:900px){.topnav .tab{gap:10px;padding:8px 10px 10px 8px;min-height:60px}.topnav .tab .th{width:58px;height:40px}.topnav .tab b{font-size:18px}.topnav .tab small{display:none}}
+@media (max-width:640px){.topnav{gap:2px;padding-top:6px}.topnav .tab{flex:1 1 0;flex-direction:column;justify-content:flex-start;gap:5px;padding:6px 3px 9px;min-height:0;border-radius:10px 10px 0 0}.topnav .tab .th{width:min(100%,76px);height:34px;border-radius:8px}.topnav .tab .th i{display:none}.topnav .tab .tx{display:block}.topnav .tab b{font:700 13px/1.1 var(--body);text-align:center;display:block;opacity:.75}.topnav .tab[aria-selected="true"] .th{transform:none}.topnav .tab[aria-selected="true"]::after{left:8px;right:8px}.topnav #navNova{display:none}#watch,#journey,#library,#gallery{padding-top:10px}}
+@media (prefers-reduced-motion:reduce){.topnav .tab,.topnav .tab .th,.topnav .tab b{transition:none}}
 """
 _i=a.index('</style>',a.index('/* ---- v24 tidy ---- */'))
 a=a[:_i]+tabcss+'\n'+a[_i:]
@@ -303,16 +313,44 @@ function setTab(t,o){o=o||{};t=panels[t]?t:'films';if(t===cur)return;const prev=
  if(prev==='journey'&&window.EdgeJourney)try{EdgeJourney.stop();}catch(e){}
  if(!o.silent)try{history.replaceState(null,'',location.pathname+location.search+'#'+t);}catch(e){}
  try{window.dispatchEvent(new Event('resize'));}catch(e){}
- if(o.scroll){const h=document.querySelector('header');if(h){const y=h.getBoundingClientRect().bottom+scrollY-48;if(scrollY>y)scrollTo({top:y,behavior:'auto'});}}
+ if(o.scroll){const h=document.querySelector('header');if(h){const y=h.getBoundingClientRect().bottom+scrollY-48;if(o.force||scrollY>y)scrollTo({top:y,behavior:'auto'});}}
  if(o.focus){const b=tabs.find(x=>x.dataset.tab===t);if(b)b.focus();}
 }
 tabs.forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab,{scroll:true})));
 $('topnav').addEventListener('keydown',e=>{const i=tabs.findIndex(b=>b===document.activeElement);if(i<0)return;let n=null;if(e.key==='ArrowRight')n=(i+1)%tabs.length;if(e.key==='ArrowLeft')n=(i+tabs.length-1)%tabs.length;if(e.key==='Home')n=0;if(e.key==='End')n=tabs.length-1;if(n!==null){e.preventDefault();setTab(tabs[n].dataset.tab,{scroll:true,focus:true});}});
 const fromHash=()=>alias[location.hash.replace('#','')]||null;
 const q=new URLSearchParams(location.search).get('book');
-setTab(fromHash()||(q?'library':'films'),{silent:true});
+const h0=fromHash();setTab(h0||(q?'library':'films'),{silent:true});
+if(h0)addEventListener('load',()=>setTimeout(()=>{const h=document.querySelector('header');if(h)scrollTo({top:h.getBoundingClientRect().bottom+scrollY-48,behavior:'auto'});},60));
 addEventListener('hashchange',()=>{const t=fromHash();if(t)setTab(t,{scroll:true});});
 window.EdgeTabs={set:setTab,current:()=>cur};
+})();
+/* living thumbnails on the tabs: a black hole, colliding stars, a shelf of books, Saturn; drawn by the same code as the gallery */
+(function(){
+const cvs=[...document.querySelectorAll('#topnav canvas[data-th]')];if(!cvs.length)return;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rr=(c,x,y,w,h,r)=>{c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();};
+const BOOKC=[['#ffcf7a','#c2421c'],['#7fc0ff','#0b2a55'],['#9ff5c9','#04303a'],['#c9b6ff','#3a1d6b'],['#ffd65a','#3a1a10'],['#e07a4a','#4a1a0e'],['#cfe0ff','#3b4aa0']];
+const CUSTOM={shelf(c,w,h,t){const g0=c.createLinearGradient(0,0,0,h);g0.addColorStop(0,'#1a1626');g0.addColorStop(1,'#0c0a14');c.fillStyle=g0;c.fillRect(0,0,w,h);
+ const n=BOOKC.length,bw=(w*.86)/n,x0=w*.07;
+ for(let i=0;i<n;i++){const x=x0+i*bw,bh=h*.56+Math.sin(i*1.9+.4)*h*.07,y=h*.86-bh;const g=c.createLinearGradient(x,y,x+bw,y+bh);g.addColorStop(0,BOOKC[i][0]);g.addColorStop(1,BOOKC[i][1]);c.fillStyle=g;rr(c,x+.6,y,bw-1.6,bh,1.6);c.fill();c.fillStyle='rgba(255,255,255,.28)';c.fillRect(x+bw*.22,y+bh*.14,bw*.56,1);c.fillRect(x+bw*.22,y+bh*.14+3,bw*.56,1);}
+ c.fillStyle='#7a5a2e';c.fillRect(0,h*.86,w,h*.05);c.fillStyle='rgba(0,0,0,.35)';c.fillRect(0,h*.91,w,h*.09);
+ if(!reduce){const gx=(((t*.18)%1.6)-.3)*w;const gg=c.createLinearGradient(gx-14,0,gx+14,0);gg.addColorStop(0,'rgba(255,255,255,0)');gg.addColorStop(.5,'rgba(255,255,255,.16)');gg.addColorStop(1,'rgba(255,255,255,0)');c.fillStyle=gg;c.fillRect(0,0,w,h*.86);}}};
+const items=cvs.map((cv,n)=>({cv,k:cv.dataset.th,n,st:null,sc:null,real:false}));
+let vis=true;try{new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting;}),{rootMargin:'60px'}).observe(document.getElementById('topnav'));}catch(e){}
+let last=0;const t0=performance.now();
+function paint(now){const d=Math.min(2,devicePixelRatio||1),t=(now-t0)/1000;
+ items.forEach(it=>{const w=it.cv.clientWidth,h=it.cv.clientHeight;if(!w||!h)return;if(it.cv.width!==Math.round(w*d)||it.cv.height!==Math.round(h*d)){it.cv.width=Math.round(w*d);it.cv.height=Math.round(h*d);}
+  const c=it.cv.getContext('2d');c.setTransform(d,0,0,d,0,0);c.save();
+  try{if(CUSTOM[it.k]){CUSTOM[it.k](c,w,h,t);it.real=true;}
+   else if(window.ART&&ART.scenes&&ART.scenes[it.k]){if(!it.st){it.sc=ART.scenes[it.k];it.st=it.sc.init(ART.h.rng(it.n*131+7));}it.sc.draw(c,w,h,reduce?1.5:(it.k==='kilonova'?.4+t%5.5:t+4),it.st);it.real=true;}
+   else{const g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,'#1a1830');g.addColorStop(1,'#0a0b14');c.fillStyle=g;c.fillRect(0,0,w,h);}}catch(e){}
+  c.restore();});}
+function draw(now){requestAnimationFrame(draw);if(!vis||document.hidden)return;if(now-last<50)return;last=now;if(reduce&&items.every(i=>i.real))return;paint(now);}
+requestAnimationFrame(draw);
+/* a first picture even before the first animation frame (hidden tabs, screenshots): paint on a timer until the real scenes exist */
+const first=setInterval(()=>{paint(performance.now());if(items.every(i=>i.real))clearInterval(first);},400);setTimeout(()=>clearInterval(first),15000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)paint(performance.now());});
 })();
 </script>
 """
@@ -322,7 +360,7 @@ assert a.count(_fm)==1
 a=a.replace(_fm,'</section>\n'+tabjs+'<p class="foot"><b>How these pictures are made.</b>',1)
 # without JS nothing on this page works anyway, but the Films panel is at least visible from the first byte
 a=a.replace('id="p-films" role="tabpanel" aria-labelledby="tab-films" hidden>','id="p-films" role="tabpanel" aria-labelledby="tab-films">',1)
-assert a.count('id="p-films"')==1 and 'EdgeTabs' in a
+assert a.count('id="p-films"')==1 and 'EdgeTabs' in a and a.count('data-th=')==4
 
 
 # ---------- no-WebGL fallback: the library, gallery and journey still work without the 3D films ----------
@@ -330,7 +368,7 @@ m_sh=_re.search(r"const SHELVES=(\[.*?\]\]\]);",a,_re.S); m_g=_re.search(r"const
 assert m_sh and m_g
 no3d='<script>\n(function(){function go(){if(!document.querySelector(".err"))return;/* 3D failed: build the shelves and gallery here */\n'+\
  'var SHELVES='+m_sh.group(1)+';var G='+m_g.group(1)+';\n'+\
- 'document.querySelectorAll(".bar,#cfg,#films,#reel,#about,.aboutg").forEach(function(e){e.style.display="none";});\n'+\
+ 'document.querySelectorAll(".bar,#cfg,#allfilms,#reel,#about,.aboutg").forEach(function(e){e.style.display="none";});\n'+\
  'var err=document.querySelector(".err");err.innerHTML="<div><p style=\\"font-size:18px;color:#EDE9F5;margin:0 0 6px\\">The 3D films need a device with WebGL graphics.</p><p style=\\"margin:0\\">Everything else works: use the tabs above for the journey through time, the 28 books and the gallery.</p></div>";\n'+\
  'var sh=document.getElementById("shelves");if(sh&&!sh.children.length)SHELVES.forEach(function(pair){var row=document.createElement("div");row.className="shelf";row.innerHTML="<h3></h3><div class=\\"books\\"></div>";row.firstChild.textContent=pair[0];pair[1].forEach(function(id){var b=BOOKS[id];if(!b)return;var btn=document.createElement("button");btn.className="bookc";btn.id="book-"+id;btn.innerHTML="<span class=\\"cov\\"><i></i><b></b></span><small></small>";btn.querySelector(".cov").style.background="linear-gradient(160deg,"+b.c[0]+","+b.c[1]+")";btn.querySelector("b").textContent=b.t;btn.querySelector("small").textContent=b.s+" · "+b.pages.length+" chapters";btn.addEventListener("click",function(){Book.open(id);});row.lastChild.appendChild(btn);});sh.appendChild(row);});\n'+\
  'var gal=document.getElementById("gal");if(gal&&!gal.children.length){var tiles=[];G.forEach(function(g,n){var b=document.createElement("button");b.className="tile";b.id="tile-"+g[0];b.innerHTML="<canvas aria-hidden=\\"true\\"></canvas><span><b></b><small>OPEN THE BOOK →</small></span>";b.querySelector("b").textContent=g[2];b.addEventListener("click",function(){Book.open(g[3]);});gal.appendChild(b);tiles.push({cv:b.querySelector("canvas"),sc:ART.scenes[g[0]],st:ART.scenes[g[0]].init(ART.h.rng(n*97+5)),t0:g[1]});});var start=performance.now();(function draw(now){requestAnimationFrame(draw);var d=Math.min(1.5,devicePixelRatio||1);tiles.forEach(function(t){var w=t.cv.clientWidth,h=Math.round(w*.75);if(!w)return;if(t.cv.width!==Math.round(w*d)){t.cv.width=Math.round(w*d);t.cv.height=Math.round(h*d);}var c=t.cv.getContext("2d");c.setTransform(d,0,0,d,0,0);c.save();try{t.sc.draw(c,w,h,t.t0+(now-start)/1000,t.st);}catch(e){}c.restore();});})(performance.now());}\n'+\

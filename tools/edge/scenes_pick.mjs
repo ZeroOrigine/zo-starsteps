@@ -1,0 +1,11 @@
+import { chromium } from '/home/claude/.npm-global/lib/node_modules/playwright/index.mjs';
+const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium',args:['--no-sandbox','--disable-webgl','--disable-3d-apis','--proxy-server='+process.env.HTTPS_PROXY,'--proxy-bypass-list=localhost;127.0.0.1']});
+const p=await (await b.newContext({viewport:{width:1200,height:600},deviceScaleFactor:2})).newPage();
+await p.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
+await p.goto('http://localhost:8767/edge/',{waitUntil:'load'}); await p.waitForTimeout(1500);
+await p.evaluate(()=>{const keys=Object.keys(ART.scenes);const box=document.createElement('div');box.id='pick';box.style.cssText='position:fixed;inset:0;background:#111;z-index:9999;display:flex;flex-wrap:wrap;gap:8px;padding:10px;align-content:flex-start';
+ keys.forEach((k,n)=>{const d=document.createElement('div');d.style.cssText='display:grid;gap:2px;font:11px monospace;color:#ccc;text-align:center';const cv=document.createElement('canvas');cv.style.cssText='width:70px;height:48px;border-radius:10px;display:block';cv.width=140;cv.height=96;d.appendChild(cv);d.appendChild(document.createTextNode(k));box.appendChild(d);
+  const sc=ART.scenes[k];const st=sc.init(ART.h.rng(n*131+7));[1.5,4,7].forEach((t,i)=>{const c2=i?document.createElement('canvas'):cv;if(i){c2.style.cssText=cv.style.cssText;c2.width=140;c2.height=96;d.insertBefore(c2,d.lastChild);}const c=c2.getContext('2d');c.setTransform(2,0,0,2,0,0);try{sc.draw(c,70,48,t,st);}catch(e){c.fillStyle='red';c.fillRect(0,0,70,48);}});});
+ document.body.appendChild(box);});
+await p.screenshot({path:'edge/scenes_pick.png',clip:{x:0,y:0,width:1200,height:600}});
+await b.close();
