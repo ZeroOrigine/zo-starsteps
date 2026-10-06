@@ -394,6 +394,29 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
 .gal .tile small,.bk-cover .bk-lib,.bk-fact b,.bk-big b{font-size:11px!important}
 @media (max-width:560px){.ss-doors .ss-home span{display:none}.hero-stats b{font-size:17px}.time{display:none}.nova-btn{bottom:14px}.topnav a{padding:7px 10px}.sect-h{padding-top:32px}}
 
+
+/* ---- v26 tabs ---- */
+.panel{display:grid;gap:16px}
+.panel[hidden]{display:none!important}
+.topnav{top:46px;display:flex;flex-wrap:nowrap;align-items:stretch;gap:4px;padding:8px 0 0;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.topnav::-webkit-scrollbar{display:none}
+.topnav .tab{flex:1 1 0;min-width:0;margin:0;display:flex;align-items:center;gap:10px;padding:10px 14px 12px;border:0;border-radius:12px 12px 0 0;background:none;color:var(--muted);cursor:pointer;text-align:left;position:relative;font-family:var(--body);min-height:58px}
+.topnav .tab i{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--star);width:28px;height:28px;border-radius:9px;border:1px solid var(--line);display:grid;place-items:center;flex:0 0 auto;margin:0;opacity:1;transition:background .2s,color .2s}
+.topnav .tab span{display:grid;min-width:0}
+.topnav .tab b{font-family:var(--display);font-weight:400;font-size:21px;line-height:1.05;color:var(--ink)}
+.topnav .tab small{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);letter-spacing:.02em}
+.topnav .tab:hover{background:rgba(255,255,255,.04)}
+.topnav .tab:focus-visible{outline:2px solid var(--star);outline-offset:-2px}
+.topnav .tab[aria-selected="true"]{background:var(--panel)}
+.topnav .tab[aria-selected="true"]::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:3px;border-radius:3px;background:var(--star)}
+.topnav .tab[aria-selected="true"] i{background:var(--star);color:#1b1206;border-color:var(--star)}
+.topnav #navNova{flex:0 0 auto;align-self:center;margin:0 0 8px 10px}
+#watch,#journey,#library,#gallery{border-top:0;margin-top:0;padding-top:14px}
+.gallery{padding-top:0}
+#about{padding-top:34px}
+@media (max-width:900px){.topnav .tab{padding:10px 10px 12px;gap:8px;min-height:52px}.topnav .tab b{font-size:18px}.topnav .tab small{display:none}}
+@media (max-width:640px){.topnav{gap:0;padding-top:4px}.topnav .tab{flex:1 1 0;justify-content:center;padding:9px 4px 11px;min-height:46px}.topnav .tab i{display:none}.topnav .tab b{font-size:15px;font-family:var(--body);font-weight:700;color:var(--muted)}.topnav .tab[aria-selected="true"] b{color:var(--ink)}.topnav .tab[aria-selected="true"]::after{left:8px;right:8px}.topnav #navNova{display:none}#watch,#journey,#library,#gallery{padding-top:10px}}
+
 </style>
 
 <div class="wrap">
@@ -404,8 +427,9 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
 <ul class="hero-stats" aria-label="What is here"><li><b>14</b>films in 3D</li><li><b>21</b>stops through time</li><li><b>28</b>illustrated books</li><li><b>20</b>living pictures</li><li><b>1</b>guide, Nova</li></ul>
   <p class="byline">Made by <b>Advik</b> with help from Claude, for Star Steps. Every picture is built live in your browser: no videos, no photos.</p>
 </header>
-<nav class="topnav" id="topnav" aria-label="Sections"><a href="#watch" data-s="watch"><i>01</i>Watch</a><a href="#about" data-s="about"><i>02</i>Facts</a><a href="#journey" data-s="journey"><i>03</i>Journey</a><a href="#library" data-s="library"><i>04</i>Library</a><a href="#gallery" data-s="gallery"><i>05</i>Gallery</a><button id="navNova">Ask Nova</button></nav>
-<div class="sect-h" id="watch"><div class="eyebrow">01 · Watch</div><h2>14 films in four parts</h2><p class="muted">Press play and they run in order, from the first second of time to the inside of an atom. Or jump to any film below. Each ends with a pop quiz.</p></div>
+<nav class="topnav" id="topnav" role="tablist" aria-label="Sections"><button class="tab" role="tab" id="tab-films" data-tab="films" aria-selected="true" aria-controls="p-films"><i>01</i><span><b>Films</b><small>14 in 3D · facts · quizzes</small></span></button><button class="tab" role="tab" id="tab-journey" data-tab="journey" aria-selected="false" aria-controls="p-journey" tabindex="-1"><i>02</i><span><b>Journey</b><small>21 stops through time</small></span></button><button class="tab" role="tab" id="tab-library" data-tab="library" aria-selected="false" aria-controls="p-library" tabindex="-1"><i>03</i><span><b>Library</b><small>28 illustrated books</small></span></button><button class="tab" role="tab" id="tab-gallery" data-tab="gallery" aria-selected="false" aria-controls="p-gallery" tabindex="-1"><i>04</i><span><b>Gallery</b><small>20 living pictures</small></span></button><button id="navNova">✦ Ask Nova</button></nav>
+<section class="panel" id="p-films" role="tabpanel" aria-labelledby="tab-films">
+<div class="sect-h" id="watch"><div class="eyebrow">01 · Films</div><h2>14 films in four parts</h2><p class="muted">Press play and they run in order, from the first second of time to the inside of an atom. The facts and the full film list are below the screen. Each film ends with a pop quiz.</p></div>
 
 <section class="screen" aria-label="3D film player">
   <canvas id="gl"></canvas>
@@ -426,7 +450,7 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
   </div>
 </section>
 
-<div class="sect-h" id="about"><div class="eyebrow">02 · Facts</div><h2 id="aboutH">About: The Big Bang</h2><p class="muted">Numbers, evidence, extra facts and the people behind the film that is playing. It changes with every film.</p></div>
+<div class="sect-h" id="about"><div class="eyebrow">Facts · about the film playing</div><h2 id="aboutH">About: The Big Bang</h2><p class="muted">Numbers, evidence, extra facts and the people behind the film that is playing. It changes with every film.</p></div>
 <div class="aboutg"><div class="card tabcard"><div class="tabs" role="tablist" aria-label="About this film"><button role="tab" id="t-num" aria-selected="true" data-p="pNum">Numbers</button><button role="tab" id="t-how" aria-selected="false" data-p="pHow">How we know</button><button role="tab" id="t-more" aria-selected="false" data-p="pMore">Deep dive</button><button role="tab" id="t-ppl" aria-selected="false" data-p="pPeople">Key people</button><button role="tab" id="t-real" aria-selected="false" data-p="pReal">Is it real?</button></div>
 <div class="tpanel" id="pNum" role="tabpanel"><table id="facts"></table></div><div class="tpanel" id="pHow" role="tabpanel" hidden><ol id="how"></ol></div><div class="tpanel" id="pMore" role="tabpanel" hidden><ul class="more" id="more"></ul></div><div class="tpanel" id="pPeople" role="tabpanel" hidden><dl class="ppl" id="people"></dl></div><div class="tpanel" id="pReal" role="tabpanel" hidden><div class="meter" id="meter"><i></i><i></i><i></i><i></i></div><p><b id="lvl"></b> <span id="note"></span></p></div></div>
 <div class="side"><article class="card you"><h3>Where were YOU?</h3><p id="you"></p></article>
@@ -444,7 +468,9 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
 </details>
 
 
-<div class="sect-h" id="journey"><div class="eyebrow">03 · Journey</div><h2>Before You Were You</h2><p class="muted">The atoms in your body are 13.8 billion years old. Follow them two ways: from the Big Bang to you, or out beyond Earth to black holes, alien worlds and the end of everything. At every stop, look for one question: where were <em>you</em>?</p></div>
+</section>
+<section class="panel" id="p-journey" role="tabpanel" aria-labelledby="tab-journey" hidden>
+<div class="sect-h" id="journey"><div class="eyebrow">02 · Journey</div><h2>Before You Were You</h2><p class="muted">The atoms in your body are 13.8 billion years old. Follow them two ways: from the Big Bang to you, or out beyond Earth to black holes, alien worlds and the end of everything. At every stop, look for one question: where were <em>you</em>?</p></div>
 <div class="journey">
 <div class="stage">
   <canvas id="jsky" aria-label="Live drawing of the current moment in cosmic history" role="img"></canvas>
@@ -479,9 +505,40 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
 
 </div>
 
-<div class="sect-h" id="library"><div class="eyebrow">04 · Library</div><h2>The Library</h2><p class="muted">28 illustrated books on five shelves. Every chapter has a living picture, and every book has a philosopher's page. Tap a cover to open it.</p></div>
+</section>
+<section class="panel" id="p-library" role="tabpanel" aria-labelledby="tab-library" hidden>
+<div class="sect-h" id="library"><div class="eyebrow">03 · Library</div><h2>The Library</h2><p class="muted">28 illustrated books on five shelves. Every chapter has a living picture, and every book has a philosopher's page. Tap a cover to open it.</p></div>
 <div class="shelves" id="shelves"></div>
-<section class="gallery" aria-labelledby="galH"><div class="sect-h" id="gallery"><div class="eyebrow">05 · Gallery</div><h2 id="galH">Moments of the Universe</h2><p class="muted">Twenty living pictures, drawn by code as you watch. Tap any one to open its illustrated book.</p></div><div class="gal" id="gal"></div></section>
+</section>
+<section class="panel" id="p-gallery" role="tabpanel" aria-labelledby="tab-gallery" hidden>
+<section class="gallery" aria-labelledby="galH"><div class="sect-h" id="gallery"><div class="eyebrow">04 · Gallery</div><h2 id="galH">Moments of the Universe</h2><p class="muted">Twenty living pictures, drawn by code as you watch. Tap any one to open its illustrated book.</p></div><div class="gal" id="gal"></div></section>
+</section>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const tabs=[...document.querySelectorAll('#topnav .tab')];
+const panels={films:$('p-films'),journey:$('p-journey'),library:$('p-library'),gallery:$('p-gallery')};
+const alias={films:'films',watch:'films',about:'films',reel:'films',cfg:'films',journey:'journey',library:'library',shelves:'library',gallery:'gallery',gal:'gallery'};
+let cur=null;
+function setTab(t,o){o=o||{};t=panels[t]?t:'films';if(t===cur)return;const prev=cur;cur=t;
+ tabs.forEach(b=>{const on=b.dataset.tab===t;b.setAttribute('aria-selected',on?'true':'false');if(on)b.removeAttribute('tabindex');else b.tabIndex=-1;});
+ for(const k in panels)panels[k].hidden=k!==t;
+ if(prev==='films'&&window.EdgeFilm)try{EdgeFilm.pause();}catch(e){}
+ if(prev==='journey'&&window.EdgeJourney)try{EdgeJourney.stop();}catch(e){}
+ if(!o.silent)try{history.replaceState(null,'',location.pathname+location.search+'#'+t);}catch(e){}
+ try{window.dispatchEvent(new Event('resize'));}catch(e){}
+ if(o.scroll){const h=document.querySelector('header');if(h){const y=h.getBoundingClientRect().bottom+scrollY-48;if(scrollY>y)scrollTo({top:y,behavior:'auto'});}}
+ if(o.focus){const b=tabs.find(x=>x.dataset.tab===t);if(b)b.focus();}
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab,{scroll:true})));
+$('topnav').addEventListener('keydown',e=>{const i=tabs.findIndex(b=>b===document.activeElement);if(i<0)return;let n=null;if(e.key==='ArrowRight')n=(i+1)%tabs.length;if(e.key==='ArrowLeft')n=(i+tabs.length-1)%tabs.length;if(e.key==='Home')n=0;if(e.key==='End')n=tabs.length-1;if(n!==null){e.preventDefault();setTab(tabs[n].dataset.tab,{scroll:true,focus:true});}});
+const fromHash=()=>alias[location.hash.replace('#','')]||null;
+const q=new URLSearchParams(location.search).get('book');
+setTab(fromHash()||(q?'library':'films'),{silent:true});
+addEventListener('hashchange',()=>{const t=fromHash();if(t)setTab(t,{scroll:true});});
+window.EdgeTabs={set:setTab,current:()=>cur};
+})();
+</script>
 <p class="foot"><b>How these pictures are made.</b> Nothing here is a photo or a video file. Every scene is drawn by code, live in your browser, from science data and maths, so it moves and changes every time you visit. Sizes and distances are squeezed so things fit on screen; the real numbers are in the tables. Where scientists still argue, the "Is it real?" meter says so.</p>
 </div>
 
@@ -1746,7 +1803,6 @@ load(0);resize();requestAnimationFrame(tick);
 document.querySelectorAll('.tabs [role=tab]').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tabs [role=tab]').forEach(x=>x.setAttribute('aria-selected',String(x===t)));document.querySelectorAll('.tpanel').forEach(p=>p.hidden=p.id!==t.dataset.p);}));
 (function(){const sh=$('shelves');SHELVES.forEach(([name,ids])=>{const row=document.createElement('div');row.className='shelf';row.innerHTML='<h3></h3><div class="books"></div>';row.firstChild.textContent=name;ids.forEach(id=>{const b=BOOKS[id];if(!b)return;const btn=document.createElement('button');btn.className='bookc';btn.id='book-'+id;btn.innerHTML='<span class="cov"><i></i><b></b></span><small></small>';btn.querySelector('.cov').style.background='linear-gradient(160deg,'+b.c[0]+','+b.c[1]+')';btn.querySelector('b').textContent=b.t;btn.querySelector('small').textContent=b.s+' · '+b.pages.length+' chapters';btn.addEventListener('click',()=>{if(playing)$('play').click();Book.open(id);});row.lastChild.appendChild(btn);});sh.appendChild(row);});})();
 $('navNova').addEventListener('click',()=>$('novaBtn').click());
-(function(){const links=[...document.querySelectorAll('#topnav a')];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.dataset.s===e.target.id));}),{rootMargin:'-40% 0px -55% 0px'});['watch','about','journey','library','gallery'].forEach(id=>{const el=$(id);if(el)io.observe(el);});})();
 function begin(withSound){$('gate').hidden=true;if(withSound){if(!Snd.on)$('sound').click();if(!voice)$('voice').click();}load(0);playing=true;syncPlay();Snd.pause(false);}
 ['home','mars','saturn','sun'].forEach((id,k)=>setTimeout(()=>{const f=FILMS.find(x=>x.id===id);if(f&&!built[id]&&!$('gate').hidden)built[id]=f.build();},900+k*500));
 $('begin').addEventListener('click',()=>begin(true));$('quiet').addEventListener('click',()=>begin(false));
@@ -1769,7 +1825,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 (function(){function go(){if(!document.querySelector(".err"))return;/* 3D failed: build the shelves and gallery here */
 var SHELVES=[['Beginnings',['nothing','bang','light','stars']],['Galaxies & strange objects',['galaxy','andromeda','hole','waves','kilonova','pulsar']],['The Sun & planets',['sun','solar','jupiter','saturn','mars','comet']],['The Moon & Earth',['moonfull','moon','home','life','cambrian','dino','fire']],['Inside you & beyond',['atom','transit','voyager','giant','fade']]];var G=[['bang',.6,'The Big Bang','bang'],['light',8,'The first light','light'],['stars',6,'First stars','stars'],['galaxy',3,'Our galaxy','galaxy'],['hole',3,'A black hole','hole'],['kilonova',5.8,'The gold factory','kilonova'],['sun',5,'The Sun is born','solar'],['moon',4.6,'The Moon is made','moon'],['life',8,'First life','life'],['cambrian',4,'Life goes wild','cambrian'],['dino',4.8,'The worst day','dino'],['mars',3,'Mars, once blue','mars'],['jupiter',3,'Jupiter\'s storm','jupiter'],['voyager',2,'Voyager','voyager'],['atomart',2,'Inside you','atom'],['saturnart',3,'Saturn\'s rings','saturn'],['giant',3,'The Sun grows old','giant'],['cometart',9,'A comet\'s tails','comet'],['pulsarart',2,'A pulsar','pulsar'],['fade',8,'The end?','fade']];
 document.querySelectorAll(".bar,#cfg,#films,#reel,#about,.aboutg").forEach(function(e){e.style.display="none";});
-var err=document.querySelector(".err");err.innerHTML="<div><p style=\"font-size:18px;color:#EDE9F5;margin:0 0 6px\">The 3D films need a device with WebGL graphics.</p><p style=\"margin:0\">Everything else works: scroll down for the journey through time, the 28 books and the gallery.</p></div>";
+var err=document.querySelector(".err");err.innerHTML="<div><p style=\"font-size:18px;color:#EDE9F5;margin:0 0 6px\">The 3D films need a device with WebGL graphics.</p><p style=\"margin:0\">Everything else works: use the tabs above for the journey through time, the 28 books and the gallery.</p></div>";
 var sh=document.getElementById("shelves");if(sh&&!sh.children.length)SHELVES.forEach(function(pair){var row=document.createElement("div");row.className="shelf";row.innerHTML="<h3></h3><div class=\"books\"></div>";row.firstChild.textContent=pair[0];pair[1].forEach(function(id){var b=BOOKS[id];if(!b)return;var btn=document.createElement("button");btn.className="bookc";btn.id="book-"+id;btn.innerHTML="<span class=\"cov\"><i></i><b></b></span><small></small>";btn.querySelector(".cov").style.background="linear-gradient(160deg,"+b.c[0]+","+b.c[1]+")";btn.querySelector("b").textContent=b.t;btn.querySelector("small").textContent=b.s+" · "+b.pages.length+" chapters";btn.addEventListener("click",function(){Book.open(id);});row.lastChild.appendChild(btn);});sh.appendChild(row);});
 var gal=document.getElementById("gal");if(gal&&!gal.children.length){var tiles=[];G.forEach(function(g,n){var b=document.createElement("button");b.className="tile";b.id="tile-"+g[0];b.innerHTML="<canvas aria-hidden=\"true\"></canvas><span><b></b><small>OPEN THE BOOK →</small></span>";b.querySelector("b").textContent=g[2];b.addEventListener("click",function(){Book.open(g[3]);});gal.appendChild(b);tiles.push({cv:b.querySelector("canvas"),sc:ART.scenes[g[0]],st:ART.scenes[g[0]].init(ART.h.rng(n*97+5)),t0:g[1]});});var start=performance.now();(function draw(now){requestAnimationFrame(draw);var d=Math.min(1.5,devicePixelRatio||1);tiles.forEach(function(t){var w=t.cv.clientWidth,h=Math.round(w*.75);if(!w)return;if(t.cv.width!==Math.round(w*d)){t.cv.width=Math.round(w*d);t.cv.height=Math.round(h*d);}var c=t.cv.getContext("2d");c.setTransform(d,0,0,d,0,0);c.save();try{t.sc.draw(c,w,h,t.t0+(now-start)/1000,t.st);}catch(e){}c.restore();});})(performance.now());}
 var q=new URLSearchParams(location.search).get("book");if(q&&window.Book&&Book.has(q))setTimeout(function(){Book.open(q);},300);}
@@ -2016,6 +2072,7 @@ let jvis=true;try{new IntersectionObserver(es=>es.forEach(e=>{jvis=e.isIntersect
 function loop(now){if(jvis)frame(now);requestAnimationFrame(loop);}
 
 function stop(){playing=false;clearInterval(timer);$('jplay').textContent='▶ Take the tour';$('jplay').setAttribute('aria-pressed','false');}
+window.EdgeJourney={stop(){stop();try{Snd.stopBed();}catch(e){}}};
 $('jplay').addEventListener('click',()=>{if(playing){stop();return;}if(window.EdgeFilm)EdgeFilm.pause();playing=true;$('jplay').textContent='❚❚ Pause tour';$('jplay').setAttribute('aria-pressed','true');timer=setInterval(()=>go(cur+1),11000);});
 $('jsound').addEventListener('click',()=>{const o=Snd.toggle();if(o&&window.EdgeFilm)EdgeFilm.pause();$('jsound').setAttribute('aria-pressed',String(o));$('jsound').textContent=o?'🔊 Sound on':'🔇 Sound off';if(o)startSound();else Snd.stopBed();});
 const BMAP={earth:'home',sun:'solar'};

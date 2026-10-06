@@ -57,6 +57,10 @@ js=js.replace("$('jplay').addEventListener('click',()=>{if(playing){stop();retur
  "$('jplay').addEventListener('click',()=>{if(playing){stop();return;}if(window.EdgeFilm)EdgeFilm.pause();playing=true;")
 js=js.replace("$('jsound').addEventListener('click',()=>{const o=Snd.toggle();","$('jsound').addEventListener('click',()=>{const o=Snd.toggle();if(o&&window.EdgeFilm)EdgeFilm.pause();")
 assert "$('jsky')" in js or "getElementById('jsky')" in js
+# v26 tabs: let the tab bar stop the tour and its sound when the reader leaves the Journey tab
+_jstop="function stop(){playing=false;clearInterval(timer);$('jplay').textContent='▶ Take the tour';$('jplay').setAttribute('aria-pressed','false');}"
+assert _jstop in js
+js=js.replace(_jstop,_jstop+"\nwindow.EdgeJourney={stop(){stop();try{Snd.stopBed();}catch(e){}}};",1)
 jscript='<script>\n'+js+'\n</script>'
 
 # ---------- A: assemble ----------
@@ -221,6 +225,105 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
 _i=a.index('</style>',a.index('.settings{display:flex;'))
 a=a[:_i]+tidycss+'\n'+a[_i:]
 
+# ---------- v26 tabs: four panels (Films · Journey · Library · Gallery) instead of one long scroll ----------
+# 1. the section menu becomes a real tab bar
+_oldnav=grab(r'<nav class="topnav" id="topnav" aria-label="Sections">.*?</nav>\n')
+assert '<button id="navNova">Ask Nova</button>' in _oldnav
+def _tab(key,n,label,sub,sel):
+    return ('<button class="tab" role="tab" id="tab-'+key+'" data-tab="'+key+'" aria-selected="'+('true' if sel else 'false')+'" aria-controls="p-'+key+'"'+('' if sel else ' tabindex="-1"')+
+            '><i>'+n+'</i><span><b>'+label+'</b><small>'+sub+'</small></span></button>')
+_newnav=('<nav class="topnav" id="topnav" role="tablist" aria-label="Sections">'+
+ _tab('films','01','Films','14 in 3D · facts · quizzes',True)+
+ _tab('journey','02','Journey','21 stops through time',False)+
+ _tab('library','03','Library','28 illustrated books',False)+
+ _tab('gallery','04','Gallery','20 living pictures',False)+
+ '<button id="navNova">✦ Ask Nova</button></nav>\n')
+a=a.replace(_oldnav,_newnav,1)
+# 2. wrap the blocks into panels (ids and order untouched, so the film, journey and gallery scripts find everything)
+def _wrap_before(marker,key,label):
+    global a
+    assert a.count(marker)==1, marker[:50]
+    a=a.replace(marker,'<section class="panel" id="p-'+key+'" role="tabpanel" aria-labelledby="tab-'+key+'" hidden>\n'+marker,1)
+def _close_before(marker):
+    global a
+    assert a.count(marker)==1, marker[:50]
+    a=a.replace(marker,'</section>\n'+marker,1)
+_wrap_before('<div class="sect-h" id="watch">','films','Films')
+_close_before('<div class="sect-h" id="journey">'); _wrap_before('<div class="sect-h" id="journey">','journey','Journey')
+_close_before('<div class="sect-h" id="library">'); _wrap_before('<div class="sect-h" id="library">','library','Library')
+_close_before('<section class="gallery" aria-labelledby="galH">'); _wrap_before('<section class="gallery" aria-labelledby="galH">','gallery','Gallery')
+_close_before('<p class="foot"><b>How these pictures are made.</b>')
+assert a.count('class="panel"')==4
+# chapter numbers follow the tabs; Facts is a part of Films
+a=a.replace('<div class="sect-h" id="watch"><div class="eyebrow">01 · Watch</div><h2>14 films in four parts</h2><p class="muted">Press play and they run in order, from the first second of time to the inside of an atom. Or jump to any film below. Each ends with a pop quiz.</p>',
+ '<div class="sect-h" id="watch"><div class="eyebrow">01 · Films</div><h2>14 films in four parts</h2><p class="muted">Press play and they run in order, from the first second of time to the inside of an atom. The facts and the full film list are below the screen. Each film ends with a pop quiz.</p>')
+a=a.replace('<div class="sect-h" id="about"><div class="eyebrow">02 · Facts</div>','<div class="sect-h" id="about"><div class="eyebrow">Facts · about the film playing</div>')
+a=a.replace('<div class="sect-h" id="journey"><div class="eyebrow">03 · Journey</div>','<div class="sect-h" id="journey"><div class="eyebrow">02 · Journey</div>')
+a=a.replace('<div class="sect-h" id="library"><div class="eyebrow">04 · Library</div>','<div class="sect-h" id="library"><div class="eyebrow">03 · Library</div>')
+a=a.replace('<div class="sect-h" id="gallery"><div class="eyebrow">05 · Gallery</div>','<div class="sect-h" id="gallery"><div class="eyebrow">04 · Gallery</div>')
+# the old scroll-spy has nothing to highlight any more
+_spy=grab(r"\(function\(\)\{const links=\[\.\.\.document\.querySelectorAll\('#topnav a'\)\];.*?\}\)\(\);\n")
+a=a.replace(_spy,'',1)
+tabcss=r"""
+/* ---- v26 tabs ---- */
+.panel{display:grid;gap:16px}
+.panel[hidden]{display:none!important}
+.topnav{top:46px;display:flex;flex-wrap:nowrap;align-items:stretch;gap:4px;padding:8px 0 0;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.topnav::-webkit-scrollbar{display:none}
+.topnav .tab{flex:1 1 0;min-width:0;margin:0;display:flex;align-items:center;gap:10px;padding:10px 14px 12px;border:0;border-radius:12px 12px 0 0;background:none;color:var(--muted);cursor:pointer;text-align:left;position:relative;font-family:var(--body);min-height:58px}
+.topnav .tab i{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--star);width:28px;height:28px;border-radius:9px;border:1px solid var(--line);display:grid;place-items:center;flex:0 0 auto;margin:0;opacity:1;transition:background .2s,color .2s}
+.topnav .tab span{display:grid;min-width:0}
+.topnav .tab b{font-family:var(--display);font-weight:400;font-size:21px;line-height:1.05;color:var(--ink)}
+.topnav .tab small{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);letter-spacing:.02em}
+.topnav .tab:hover{background:rgba(255,255,255,.04)}
+.topnav .tab:focus-visible{outline:2px solid var(--star);outline-offset:-2px}
+.topnav .tab[aria-selected="true"]{background:var(--panel)}
+.topnav .tab[aria-selected="true"]::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:3px;border-radius:3px;background:var(--star)}
+.topnav .tab[aria-selected="true"] i{background:var(--star);color:#1b1206;border-color:var(--star)}
+.topnav #navNova{flex:0 0 auto;align-self:center;margin:0 0 8px 10px}
+#watch,#journey,#library,#gallery{border-top:0;margin-top:0;padding-top:14px}
+.gallery{padding-top:0}
+#about{padding-top:34px}
+@media (max-width:900px){.topnav .tab{padding:10px 10px 12px;gap:8px;min-height:52px}.topnav .tab b{font-size:18px}.topnav .tab small{display:none}}
+@media (max-width:640px){.topnav{gap:0;padding-top:4px}.topnav .tab{flex:1 1 0;justify-content:center;padding:9px 4px 11px;min-height:46px}.topnav .tab i{display:none}.topnav .tab b{font-size:15px;font-family:var(--body);font-weight:700;color:var(--muted)}.topnav .tab[aria-selected="true"] b{color:var(--ink)}.topnav .tab[aria-selected="true"]::after{left:8px;right:8px}.topnav #navNova{display:none}#watch,#journey,#library,#gallery{padding-top:10px}}
+"""
+_i=a.index('</style>',a.index('/* ---- v24 tidy ---- */'))
+a=a[:_i]+tabcss+'\n'+a[_i:]
+tabjs=r"""<script>
+(function(){
+const $=id=>document.getElementById(id);
+const tabs=[...document.querySelectorAll('#topnav .tab')];
+const panels={films:$('p-films'),journey:$('p-journey'),library:$('p-library'),gallery:$('p-gallery')};
+const alias={films:'films',watch:'films',about:'films',reel:'films',cfg:'films',journey:'journey',library:'library',shelves:'library',gallery:'gallery',gal:'gallery'};
+let cur=null;
+function setTab(t,o){o=o||{};t=panels[t]?t:'films';if(t===cur)return;const prev=cur;cur=t;
+ tabs.forEach(b=>{const on=b.dataset.tab===t;b.setAttribute('aria-selected',on?'true':'false');if(on)b.removeAttribute('tabindex');else b.tabIndex=-1;});
+ for(const k in panels)panels[k].hidden=k!==t;
+ if(prev==='films'&&window.EdgeFilm)try{EdgeFilm.pause();}catch(e){}
+ if(prev==='journey'&&window.EdgeJourney)try{EdgeJourney.stop();}catch(e){}
+ if(!o.silent)try{history.replaceState(null,'',location.pathname+location.search+'#'+t);}catch(e){}
+ try{window.dispatchEvent(new Event('resize'));}catch(e){}
+ if(o.scroll){const h=document.querySelector('header');if(h){const y=h.getBoundingClientRect().bottom+scrollY-48;if(scrollY>y)scrollTo({top:y,behavior:'auto'});}}
+ if(o.focus){const b=tabs.find(x=>x.dataset.tab===t);if(b)b.focus();}
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab,{scroll:true})));
+$('topnav').addEventListener('keydown',e=>{const i=tabs.findIndex(b=>b===document.activeElement);if(i<0)return;let n=null;if(e.key==='ArrowRight')n=(i+1)%tabs.length;if(e.key==='ArrowLeft')n=(i+tabs.length-1)%tabs.length;if(e.key==='Home')n=0;if(e.key==='End')n=tabs.length-1;if(n!==null){e.preventDefault();setTab(tabs[n].dataset.tab,{scroll:true,focus:true});}});
+const fromHash=()=>alias[location.hash.replace('#','')]||null;
+const q=new URLSearchParams(location.search).get('book');
+setTab(fromHash()||(q?'library':'films'),{silent:true});
+addEventListener('hashchange',()=>{const t=fromHash();if(t)setTab(t,{scroll:true});});
+window.EdgeTabs={set:setTab,current:()=>cur};
+})();
+</script>
+"""
+# the tab script sits right after the panels, so it runs as soon as they exist and long before the film boots
+_fm='</section>\n<p class="foot"><b>How these pictures are made.</b>'
+assert a.count(_fm)==1
+a=a.replace(_fm,'</section>\n'+tabjs+'<p class="foot"><b>How these pictures are made.</b>',1)
+# without JS nothing on this page works anyway, but the Films panel is at least visible from the first byte
+a=a.replace('id="p-films" role="tabpanel" aria-labelledby="tab-films" hidden>','id="p-films" role="tabpanel" aria-labelledby="tab-films">',1)
+assert a.count('id="p-films"')==1 and 'EdgeTabs' in a
+
 
 # ---------- no-WebGL fallback: the library, gallery and journey still work without the 3D films ----------
 m_sh=_re.search(r"const SHELVES=(\[.*?\]\]\]);",a,_re.S); m_g=_re.search(r"const G=(\[\['bang'.*?\]\]);",a,_re.S)
@@ -228,7 +331,7 @@ assert m_sh and m_g
 no3d='<script>\n(function(){function go(){if(!document.querySelector(".err"))return;/* 3D failed: build the shelves and gallery here */\n'+\
  'var SHELVES='+m_sh.group(1)+';var G='+m_g.group(1)+';\n'+\
  'document.querySelectorAll(".bar,#cfg,#films,#reel,#about,.aboutg").forEach(function(e){e.style.display="none";});\n'+\
- 'var err=document.querySelector(".err");err.innerHTML="<div><p style=\\"font-size:18px;color:#EDE9F5;margin:0 0 6px\\">The 3D films need a device with WebGL graphics.</p><p style=\\"margin:0\\">Everything else works: scroll down for the journey through time, the 28 books and the gallery.</p></div>";\n'+\
+ 'var err=document.querySelector(".err");err.innerHTML="<div><p style=\\"font-size:18px;color:#EDE9F5;margin:0 0 6px\\">The 3D films need a device with WebGL graphics.</p><p style=\\"margin:0\\">Everything else works: use the tabs above for the journey through time, the 28 books and the gallery.</p></div>";\n'+\
  'var sh=document.getElementById("shelves");if(sh&&!sh.children.length)SHELVES.forEach(function(pair){var row=document.createElement("div");row.className="shelf";row.innerHTML="<h3></h3><div class=\\"books\\"></div>";row.firstChild.textContent=pair[0];pair[1].forEach(function(id){var b=BOOKS[id];if(!b)return;var btn=document.createElement("button");btn.className="bookc";btn.id="book-"+id;btn.innerHTML="<span class=\\"cov\\"><i></i><b></b></span><small></small>";btn.querySelector(".cov").style.background="linear-gradient(160deg,"+b.c[0]+","+b.c[1]+")";btn.querySelector("b").textContent=b.t;btn.querySelector("small").textContent=b.s+" · "+b.pages.length+" chapters";btn.addEventListener("click",function(){Book.open(id);});row.lastChild.appendChild(btn);});sh.appendChild(row);});\n'+\
  'var gal=document.getElementById("gal");if(gal&&!gal.children.length){var tiles=[];G.forEach(function(g,n){var b=document.createElement("button");b.className="tile";b.id="tile-"+g[0];b.innerHTML="<canvas aria-hidden=\\"true\\"></canvas><span><b></b><small>OPEN THE BOOK →</small></span>";b.querySelector("b").textContent=g[2];b.addEventListener("click",function(){Book.open(g[3]);});gal.appendChild(b);tiles.push({cv:b.querySelector("canvas"),sc:ART.scenes[g[0]],st:ART.scenes[g[0]].init(ART.h.rng(n*97+5)),t0:g[1]});});var start=performance.now();(function draw(now){requestAnimationFrame(draw);var d=Math.min(1.5,devicePixelRatio||1);tiles.forEach(function(t){var w=t.cv.clientWidth,h=Math.round(w*.75);if(!w)return;if(t.cv.width!==Math.round(w*d)){t.cv.width=Math.round(w*d);t.cv.height=Math.round(h*d);}var c=t.cv.getContext("2d");c.setTransform(d,0,0,d,0,0);c.save();try{t.sc.draw(c,w,h,t.t0+(now-start)/1000,t.st);}catch(e){}c.restore();});})(performance.now());}\n'+\
  'var q=new URLSearchParams(location.search).get("book");if(q&&window.Book&&Book.has(q))setTimeout(function(){Book.open(q);},300);}\n'+\

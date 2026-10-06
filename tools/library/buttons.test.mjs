@@ -70,7 +70,7 @@ const click=async(p,sel,name,opt)=>{try{await p.click(sel,Object.assign({timeout
  await E('#novaX','Nova close',()=>document.getElementById('nova').hidden);
  await E('#navNova','Nova from nav',()=>!document.getElementById('nova').hidden);await p.evaluate(()=>document.getElementById('novaX').click());
  // journey
- await p.evaluate(()=>document.getElementById('journey').scrollIntoView());await p.waitForTimeout(400);
+ await E('#tab-journey','Journey tab',()=>getComputedStyle(document.getElementById('p-journey')).display!=='none'&&getComputedStyle(document.getElementById('p-films')).display==='none');
  await E('#jnext','journey next',()=>/fog/.test(document.getElementById('jera').textContent));
  await E('#jprev','journey prev',()=>/Big Bang/.test(document.getElementById('jera').textContent));
  await E('#jrail button:nth-child(5)','journey rail stop',()=>/Milky Way|galaxy/i.test(document.getElementById('jera').textContent));
@@ -78,8 +78,10 @@ const click=async(p,sel,name,opt)=>{try{await p.click(sel,Object.assign({timeout
  await E('#jplay','take the tour',()=>document.getElementById('jplay').getAttribute('aria-pressed')==='true');await p.evaluate(()=>document.getElementById('jplay').click());
  await E('#jsound','journey sound',()=>document.getElementById('jsound').getAttribute('aria-pressed')==='true');
  await E('#jbookBtn','journey book button',()=>!document.querySelector('.bk-ov').hidden);await p.evaluate(()=>document.getElementById('bkClose').click());
+ await E('#tab-library','Library tab',()=>getComputedStyle(document.getElementById('p-library')).display!=='none'&&location.hash==='#library');
  await E('#book-bang','library shelf cover',()=>!document.querySelector('.bk-ov').hidden&&document.querySelector('.bk-title').textContent==='The Big Bang');await p.evaluate(()=>document.getElementById('bkClose').click());
+ await E('#tab-gallery','Gallery tab',()=>getComputedStyle(document.getElementById('p-gallery')).display!=='none');
  await E('#tile-hole','gallery tile',()=>!document.querySelector('.bk-ov').hidden&&document.querySelector('.bk-title').textContent==='Black Holes');await p.evaluate(()=>document.getElementById('bkClose').click());
- await E('#topnav a[data-s="library"]','chapter nav link',()=>Math.abs(document.getElementById('library').getBoundingClientRect().top)<200);
+ await E('#tab-films','Films tab back',()=>getComputedStyle(document.getElementById('p-films')).display!=='none'&&getComputedStyle(document.getElementById('p-gallery')).display==='none');
  ck('edge: no JS errors',errs.length===0,errs.join('|'));await p.close();}
 console.log(res.filter(Boolean).length+'/'+res.length);await b.close();
