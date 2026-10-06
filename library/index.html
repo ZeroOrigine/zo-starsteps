@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Books Library: 32 illustrated science books for kids, Kindergarten to Grade 7 · Star Steps</title>
+<meta name="description" content="Free illustrated books for children aged 4 to 12+, in grade order: physics, chemistry, biology, Earth, space, the human body, inventions and maths. Every page has a living picture drawn by code, read-aloud, quizzes and bookmarks.">
+<link rel="canonical" href="https://starsteps.zeroorigine.com/library/">
+<meta property="og:title" content="Star Steps Books Library"><meta property="og:description" content="32 illustrated science books for kids, Kindergarten to Grade 7, with living pictures and read-aloud. Free."><meta property="og:image" content="https://starsteps.zeroorigine.com/img/og-library.jpg"><meta property="og:type" content="website"><meta property="og:url" content="https://starsteps.zeroorigine.com/library/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/icon-180.png"><meta name="theme-color" content="#fbf7ef">
+<link rel="manifest" href="/manifest.webmanifest">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Star Steps Books Library","url":"https://starsteps.zeroorigine.com/library/","description":"Free illustrated science books for children, Kindergarten to Grade 7.","isPartOf":{"@type":"WebSite","name":"Star Steps","url":"https://starsteps.zeroorigine.com/"},"audience":{"@type":"EducationalAudience","educationalRole":"student"},"publisher":{"@type":"Organization","name":"ZeroOrigine","url":"https://zeroorigine.com"}}</script>
+<link rel="stylesheet" href="/js/doors.css"><link rel="stylesheet" href="/library/lib.css">
+</head><body>
+<nav class="ss-doors light" aria-label="Star Steps"><a class="ss-home" href="/"><img src="/icons/icon-192.png" alt="" width="26" height="26"><span>Star Steps</span></a><div class="ss-doors-links"><a href="/play/">Play</a><a href="/library/" aria-current="page">Library</a><a href="/edge/">Edge of Knowing</a></div></nav>
+
+<header class="wrap hero">
+  <div>
+    <div class="eyebrow">Star Steps Books Library</div>
+    <h1>Real science, <i>told like a story</i>.</h1>
+    <p>Illustrated books in grade order, from Senior Kindergarten to Grade 7 and up: physics, chemistry, biology, Earth, space, the human body, inventions and maths. Every page has a picture that moves, drawn live by code. Tap a cover to start reading; the book remembers your page.</p>
+    <div class="stats"><span><b id="stBooks">–</b>books</span><span><b id="stPages">–</b>pages</span><span><b id="stWords">–</b>words</span><span><b id="stDone">0</b>finished by you</span></div>
+  </div>
+  <div class="hero-art" aria-hidden="true"><canvas data-s="prism" data-k="hero" data-t="2"></canvas><span>drawn live by code</span></div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="chips" id="gchips" role="group" aria-label="Grade"></div>
+  <select class="sel" id="subj" aria-label="Subject"><option value="all">All subjects</option></select>
+  <label class="search"><span aria-hidden="true">🔍</span><input id="q" type="search" placeholder="Search books: volcano, magnet, cell…" aria-label="Search books"></label>
+</div></div>
+
+<main class="wrap">
+  <section class="cont" id="cont" hidden aria-label="Keep reading"></section>
+  <div id="shelves" aria-live="polite"><p class="empty">Opening the library…</p></div>
+
+  <section class="edge-shelf" aria-labelledby="edgeH">
+    <div><div class="eyebrow" style="color:var(--star)">From The Edge of Knowing</div><h2 id="edgeH">28 more books, written by <i>Advik</i></h2><p>Short illustrated books about the universe: the Big Bang, black holes, the first life, the end of everything. Each has living pictures, words to know, and a philosopher's page. They open inside The Edge of Knowing.</p></div>
+    <a href="/edge/#library">Open the Edge library →</a>
+    <div class="edge-books" id="edgeBooks"></div>
+  </section>
+</main>
+
+<footer class="wrap lf"><p>The Books Library is part of <a href="/">Star Steps</a>, free for every child. Books were written for Star Steps and checked for accuracy; if you find a mistake, write to <a href="mailto:reply@zeroorigine.com">reply@zeroorigine.com</a>. <a href="/play/">Play</a> · <a href="/edge/">The Edge of Knowing</a> · <a href="/privacy/">Privacy</a></p></footer>
+
+<script src="/library/art-core.js"></script><script src="/library/art-life.js"></script><script src="/library/art-world.js"></script><script src="/library/art-space.js"></script>
+<script src="/library/lib.js"></script>
+<script>
+fetch('/library/edge-books.json').then(r=>r.json()).then(list=>{const h=document.getElementById('edgeBooks');h.innerHTML=list.map(b=>'<a href="/edge/?book='+b.id+'#library"><span class="ecov" style="background:linear-gradient(160deg,'+b.c[0]+','+b.c[1]+')"><b>'+b.t.replace(/</g,'&lt;')+'</b></span><small>'+b.n+' chapters</small></a>').join('');}).catch(function(){});
+if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}
+</script>
+</body></html>

@@ -15,7 +15,7 @@
 }catch(e){}})();
 </script>
 <title>Star Steps: free learning game for kids 5 to 12 (Kindergarten to Grade 6)</title>
-<meta name="description" content="Free learning game for kids 5 to 12: 810 skills in math, reading, science, coding and 22 more subjects, Kindergarten to Grade 6. No ads, no account needed.">
+<meta name="description" content="Free learning for kids 5 to 12: a game with 810 skills in 26 subjects, a library of 32 illustrated science books, and a 3D science cinema. Kindergarten to Grade 7. No ads, no account needed.">
 <link rel="canonical" href="https://starsteps.zeroorigine.com/">
 <meta name="theme-color" content="#6D3BE8">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -279,6 +279,22 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justif
 footer nav{display:flex;flex-wrap:wrap;gap:6px 18px}
 footer a{font-weight:800;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 footer a:hover{text-decoration:underline}
+
+/* three doors (2026-10-06) */
+.doors{padding:6px 0 10px}
+.door-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.door{display:flex;flex-direction:column;gap:6px;padding:22px 22px 20px;background:var(--card,#fff);color:var(--ink);text-decoration:none;
+  border:3px solid var(--edge);border-radius:var(--r);box-shadow:6px 6px 0 var(--edge);transition:transform .15s,box-shadow .15s;min-width:0}
+.door:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--edge)}
+.door:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--edge)}
+.door-ico{font-size:34px;line-height:1;margin-bottom:6px}
+.door b{font-family:var(--display);font-size:26px;line-height:1.1}
+.door-sub{font-weight:800;color:var(--pick);font-size:14px}
+.door p{margin:6px 0 10px;color:var(--muted);font-size:15px;line-height:1.5}
+.door-go{margin-top:auto;font-weight:900;color:var(--ink)}
+.door-dark{background:#0E1018;color:#EDE9F5;border-color:#0E1018}
+.door-dark .door-sub{color:#F2C46D}.door-dark p{color:#A29EB5}.door-dark .door-go{color:#F2C46D}
+@media (max-width:860px){.door-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -290,6 +306,8 @@ footer a:hover{text-decoration:underline}
       <b>Star Steps</b>
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="/library/">Library</a>
+      <a href="/edge/">Edge of Knowing</a>
       <a href="#subjects">Subjects</a>
       <a href="#how">How it works</a>
       <a href="#parents">For parents</a>
@@ -307,7 +325,7 @@ footer a:hover{text-decoration:underline}
     <div>
       <div class="eyebrow">Ages 5 to 12 &middot; Senior Kindergarten to Grade 6</div>
       <h1>Little steps.<br><span class="hl">Big climbs.</span></h1>
-      <p class="lede">A learning game with 810 skills across 26 subjects. Every lesson is free, there are no ads, and your child can start playing now, with no account.</p>
+      <p class="lede">A learning game with 810 skills across 26 subjects, a library of 32 illustrated science books, and a 3D science cinema. All free, no ads, and your child can start now, with no account.</p>
       <div class="cta">
         <a class="btn primary" href="/play/" id="heroPlay" data-play>Play free now</a>
         <a class="btn ghost" href="#parents">For parents</a>
@@ -320,6 +338,31 @@ footer a:hover{text-decoration:underline}
       <img class="pip-hero" src="/img/pip.webp" alt="" width="482" height="497">
     </div>
   </div>
+
+
+  <section class="doors" id="doors" aria-labelledby="doorsTitle">
+    <div class="sec-head"><h2 id="doorsTitle">Three ways in</h2><p>All free, nothing to install, no account needed.</p></div>
+    <div class="door-grid">
+      <a class="door" href="/play/" data-play>
+        <span class="door-ico" aria-hidden="true">🎮</span>
+        <b>Play</b><span class="door-sub">Games and learning</span>
+        <p>Pip explains, then short questions practise it. 810 skills in 26 subjects, five rounds per grade, 11 thinking games.</p>
+        <span class="door-go">Start playing &rarr;</span>
+      </a>
+      <a class="door" href="/library/">
+        <span class="door-ico" aria-hidden="true">📚</span>
+        <b>Library</b><span class="door-sub">Illustrated books, in grade order</span>
+        <p>32 books on physics, chemistry, biology, Earth, space, the body, inventions and maths. Pictures drawn live by code, read-aloud, quizzes, bookmarks.</p>
+        <span class="door-go">Open the library &rarr;</span>
+      </a>
+      <a class="door door-dark" href="/edge/">
+        <span class="door-ico" aria-hidden="true">🔭</span>
+        <b>The Edge of Knowing</b><span class="door-sub">A science cinema, made by Advik</span>
+        <p>14 films in 3D, a 21-stop journey from the Big Bang to you, 28 illustrated books, pop quizzes and a guide who answers questions.</p>
+        <span class="door-go">Begin the voyage &rarr;</span>
+      </a>
+    </div>
+  </section>
 
   <div class="facts" role="list">
     <div class="fact" role="listitem"><b>810</b><span>skills</span></div>
@@ -540,6 +583,8 @@ footer a:hover{text-decoration:underline}
     <span>&copy; 2026 Star Steps &middot; part of ZeroOrigine</span>
     <nav aria-label="Footer">
       <a href="/play/">Play</a>
+      <a href="/library/">Library</a>
+      <a href="/edge/">The Edge of Knowing</a>
       <a href="/learn/">Grades and subjects</a>
       <a href="/privacy/">Privacy</a>
       <a href="mailto:reply@zeroorigine.com">Contact</a>

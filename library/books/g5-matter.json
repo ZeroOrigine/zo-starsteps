@@ -1,0 +1,192 @@
+{
+ "id": "g5-matter",
+ "title": "Everything Is Made of Something",
+ "subtitle": "Atoms, molecules, mixtures, reactions, and how to stay safe around them",
+ "grade": 5,
+ "subject": "Chemistry",
+ "minutes": 40,
+ "cover": {"scene": "reaction", "c": ["#6a1b9a", "#26c6da"]},
+ "pages": [
+  {"k":"ch", "h":"Everything is made of something", "p":[
+   "Take one glass of water. It holds more molecules than there are glasses of water in all the oceans on Earth. That sounds impossible. It is true, because molecules are unbelievably small.",
+   "Everything you can touch is made of atoms: the glass, the water, the table, your hand. Atoms are the building blocks of all matter, and matter is anything that takes up space and has mass.",
+   "How small? A single atom is about 0.1 nanometres across. Line up 10 million of them and the row is just 1 millimetre long. A sheet of paper is about a million atoms thick.",
+   "People first suggested that atoms must exist about 2,400 years ago, just by thinking about how things mix and break. The first pictures of single atoms were not made until the 1950s."
+  ], "art":{"s":"space:atomart"}, "cap":"An atom: a tiny nucleus with a cloud of electrons around it."},
+
+  {"k":"ch", "h":"Inside an atom: mostly nothing", "p":[
+   "If an atom were as big as a sports stadium, its nucleus would be a pea on the centre spot. Everything else is almost empty space with a few electrons buzzing through it. You, your chair and the floor are mostly nothing.",
+   "The nucleus holds protons, which have a positive charge, and neutrons, which have none. Electrons, with a negative charge, whizz around the outside. A proton is about 1,800 times heavier than an electron, so nearly all of an atom's mass is packed into that tiny pea.",
+   "The number of protons decides what the atom is. One proton: hydrogen. Six: carbon. Eight: oxygen. Seventy-nine: gold. Change the count and you have a different element.",
+   "So why do you not fall through the floor? The electrons in your feet push away the electrons in the floor. Electric force, not solid stuff, holds you up."
+  ], "art":{"s":"compare","v":{"a":90,"b":5,"la":"Atom","lb":"Nucleus","ca":"#3b7dd8","cb":"#d9463a","title":"Atom and nucleus (the real gap is far bigger)"}}, "cap":"If the atom were a stadium, the nucleus would be a pea."},
+
+  {"k":"ch", "h":"118 kinds of atom", "p":[
+   "There are 118 known elements, and that is the whole alphabet. Every substance in the universe, from a strawberry to a star, is spelled with those 118 letters. About 94 of them are found in nature. The rest were made in labs a few atoms at a time, and most vanish in seconds.",
+   "Hydrogen is the simplest and by far the most common. About 74 percent of all the ordinary matter in the universe is hydrogen. Helium is next. Everything else together is a thin sprinkle on top.",
+   "Your body is different. By mass you are about 65 percent oxygen, 18 percent carbon, 10 percent hydrogen and 3 percent nitrogen. Most of that oxygen and hydrogen is water.",
+   "The elements are arranged in a chart called the periodic table. Read across a row and the atoms get heavier. Read down a column and they behave alike."
+  ], "art":{"s":"timeline","v":{"title":"Finding the elements","items":[["Ancient","Gold, copper, iron, tin"],["1669","Phosphorus, first found by a chemist"],["1869","Mendeleev arranges the periodic table"],["1898","Marie Curie finds radium"],["1940","Plutonium made in a lab"],["2016","Four newest elements named"]]}}, "cap":"People have been finding elements for thousands of years."},
+
+  {"k":"big", "h":"You are made of star dust", "p":["Every atom of carbon, oxygen and iron in your body was cooked inside a star that died before the Sun was born. Only your hydrogen is older than that."], "art":{"s":"space:stars"}},
+
+  {"k":"quiz", "q":"What decides which element an atom is?", "opts":["How many protons it has","How big it is","What colour it is"], "a":0, "why":"The number of protons sets the element: six protons is always carbon, eight is always oxygen."},
+
+  {"k":"ch", "h":"Molecules: atoms that hold hands", "p":[
+   "Atoms rarely stay alone. They join up into groups called molecules, and a group often behaves nothing like its parts.",
+   "Hydrogen is a gas that burns. Oxygen is a gas that makes things burn. Join two hydrogen atoms to one oxygen atom and you get water, which puts fires out. Chemists write it as H2O.",
+   "Some molecules are tiny. Oxygen in the air floats around in pairs, O2. Carbon dioxide is one carbon with two oxygens, CO2. Others are giants. A single molecule of table sugar has 45 atoms: 12 carbon, 22 hydrogen and 11 oxygen. A molecule of DNA in one of your cells can hold billions of atoms in a single chain.",
+   "Molecules are held together by shared electrons, like two children each holding one end of a skipping rope. Chemistry is mostly the story of ropes being joined, swapped and let go."
+  ], "art":{"s":"molecule"}, "cap":"One oxygen atom and two hydrogen atoms make a water molecule."},
+
+  {"k":"ch", "h":"Solid, liquid, gas: it is all about wiggling", "p":[
+   "An ice cube, a glass of water and the steam from a kettle are the same molecules. H2O every time. The only difference is how much they wiggle.",
+   "In a solid, the molecules are packed tight and only vibrate in place, like students sitting at desks. The solid keeps its shape. In a liquid, they have enough energy to slide past each other, like a crowd in a hallway. A liquid flows and takes the shape of its cup. In a gas, they fly free and bounce off the walls, like children let out onto a playground. A gas spreads to fill any space.",
+   "Heat is what makes molecules move faster. Add enough and a solid melts; add more and the liquid boils. For water, that happens at 0 °C and 100 °C at sea level.",
+   "Cool it down and the whole story runs backwards."
+  ], "art":{"s":"states"}, "cap":"Same molecules, three ways to move."},
+
+  {"k":"ch", "h":"Everything melts, if you get it hot enough", "p":[
+   "Iron seems like the most solid thing there is. Heat it to 1,538 °C and it pours like water. Rock melts at around 1,200 °C and flows out of volcanoes as lava. Even diamond gives in, at more than 3,500 °C.",
+   "Go the other way and the air itself turns to liquid. Oxygen becomes a pale blue liquid at minus 183 °C. Nitrogen, which makes up most of the air, boils at minus 196 °C, and scientists use it to freeze things instantly.",
+   "Every pure substance has its own melting point and boiling point, and at the same air pressure they never change. That is one way chemists tell substances apart. Chocolate melts at about 34 °C, just below body temperature, which is exactly why it melts in your mouth.",
+   "Only one metal is liquid at room temperature: mercury. It freezes at minus 39 °C."
+  ], "art":{"s":"heat"}, "cap":"Add enough heat and even iron will flow."},
+
+  {"k":"try", "h":"Try it: the ice cube race", "p":["Find out what makes ice melt fastest."], "steps":[
+   "Put one ice cube on a plate in the fridge, one on a plate on the counter, one in a cup of cold tap water and one in a cup of warm tap water.",
+   "Guess the order they will melt in. Write it down.",
+   "Check every two minutes and note the time each one is gone.",
+   "Think about it: the cubes in water beat the cubes in air. Water carries heat into ice much faster than air does."
+  ], "art":{"s":"states","v":{"state":"solid"}}, "cap":"Four ice cubes, four different speeds.", "safe":"Use warm tap water, never boiling water."},
+
+  {"k":"ch", "h":"Why ice floats", "p":[
+   "Almost everything shrinks when it freezes. Water does the opposite. It grows by about 9 percent, which is why a full bottle of water in the freezer cracks, and why ice floats on a lake.",
+   "As water cools toward 0 °C, its molecules start lining up into a six-sided pattern with holes in it. That open pattern takes more room than the crowded liquid, so ice is lighter than the water it came from. Snowflakes have six arms for the same reason.",
+   "This odd habit keeps fish alive. A lake freezes from the top down, and the ice becomes a lid that protects the water underneath. If ice sank, lakes would freeze solid from the bottom up and nothing could live through winter.",
+   "An iceberg floats with about nine tenths of itself under water. The part you see is only the tip."
+  ], "art":{"s":"iceberg"}, "cap":"Ice is lighter than water, so it floats, mostly hidden."},
+
+  {"k":"quiz", "q":"Which of these is a molecule?", "opts":["A single oxygen atom","Water, H2O","A proton"], "a":1, "why":"A molecule is two or more atoms joined together; H2O is three atoms in one group."},
+
+  {"k":"ch", "h":"Mixtures: together but not changed", "p":[
+   "Stir sand into water. It goes cloudy, but wait a minute and the sand settles. Pour the water off and you have your sand back, unchanged. That is a mixture: things together, but not joined.",
+   "Air is a mixture. It is about 78 percent nitrogen, 21 percent oxygen and 1 percent argon, with a pinch of carbon dioxide and water vapour. None of those gases is bonded to the others. They just share the room.",
+   "Sea water, soil, milk, a bowl of cereal and the metal in a coin are all mixtures. Mixtures can be sorted apart by things like filters, magnets, settling or drying. No new substance is ever made.",
+   "The test is simple. If you can get the original things back with a sieve, a filter or just patience, it was a mixture."
+  ], "art":{"s":"graph","v":{"title":"What is in air (%)","bars":[["Nitrogen",78],["Oxygen",21],["Argon",1],["Other",0.1]]}}, "cap":"Air is a mixture of gases that are not joined to each other."},
+
+  {"k":"ch", "h":"Dissolving: hiding in plain sight", "p":[
+   "Stir a spoon of salt into a glass of water and it disappears. The water looks the same but tastes salty. The salt is still there. It has just been pulled apart into bits far too small to see.",
+   "Water molecules act like tiny magnets, with a slightly positive end and a slightly negative end. They crowd around each piece of salt, tug it loose and carry it away. A substance that does this is said to dissolve, and the mixture is called a solution.",
+   "Water is an excellent dissolver. One litre at room temperature can hold about 360 grams of salt before it is full. Warm water holds more sugar than cold water, which is why hot chocolate works and cold chocolate milk goes gritty.",
+   "Let the water dry away and the salt comes back as crystals. Nothing new was made. Dissolving is a mixture, not a reaction."
+  ], "art":{"s":"dissolve"}, "cap":"Water molecules pull salt apart, piece by piece."},
+
+  {"k":"ch", "h":"Reactions: something new is made", "p":[
+   "Leave an iron nail outside for a year. It turns orange and crumbly. That is not the nail getting dirty. It is the iron joining with oxygen from the air to make a brand new substance called rust.",
+   "A chemical reaction is when atoms let go of old partners and take new ones. The things you start with, the reactants, vanish. The things you end with, the products, appear. Usually you cannot simply sort them back out.",
+   "Signs that a reaction is happening: a colour change, a gas bubbling up, heat coming out or going in, a smell, or a solid forming in a liquid. Baking soda meeting vinegar gives you bubbles, fizz and a chill all at once.",
+   "Cooking an egg is a reaction. The clear runny white becomes solid and white. No amount of cooling will make it clear and runny again."
+  ], "art":{"s":"reaction"}, "cap":"Two things mix, and something that was not there before appears."},
+
+  {"k":"big", "h":"Mix. Fizz. New stuff.", "p":["Baking soda meets vinegar and makes a gas that did not exist a second earlier: carbon dioxide. That is the difference between a mixture and a reaction."], "art":{"s":"reaction"}},
+
+  {"k":"ch", "h":"Burning: the fire triangle", "p":[
+   "A candle flame burns at about 1,000 °C, hot enough to melt silver. Yet the wax is not what burns. The flame melts the wax, the wick soaks it up, and the heat turns it into a gas. The gas is what catches fire.",
+   "Burning is a chemical reaction with oxygen. Fuel plus oxygen makes carbon dioxide and water, and gives out heat and light. Yes, water: hold a cold glass above a candle and it fogs up.",
+   "Fire needs three things, which firefighters call the fire triangle: fuel, oxygen and heat. Take any one away and the fire goes out. A lid on a pan removes oxygen. Water removes heat. A firebreak removes fuel.",
+   "Put a jar over a candle and it dies in a few seconds. The flame used up too much of the oxygen in the jar, and nothing else can take its place."
+  ], "art":{"s":"candle"}, "cap":"Oxygen goes in, gases come out, and the wax slowly vanishes."},
+
+  {"k":"quiz", "q":"Which of these is a chemical reaction?", "opts":["Sugar dissolving in tea","Ice melting","A nail rusting"], "a":2, "why":"Rust is a new substance made from iron and oxygen; dissolving and melting make nothing new and can be undone."},
+
+  {"k":"ch", "h":"Where does a burnt log go?", "p":[
+   "Burn a 5 kg log and you are left with a handful of ash weighing perhaps 50 grams. Where did the other 4.95 kg go? It did not disappear. It flew up the chimney as gas.",
+   "In the 1770s the French chemist Antoine Lavoisier weighed everything before and after reactions, including the air. He found a rule that has never been broken: in a chemical reaction, the total mass stays exactly the same. Atoms are rearranged, never created or destroyed.",
+   "The log's carbon joined with oxygen from the air to make carbon dioxide. Its hydrogen joined with oxygen to make water vapour. Add up the log and the oxygen it used, and you get the ash, the carbon dioxide and the water vapour. Same mass.",
+   "That carbon dioxide may later be caught by a tree and become wood again. Atoms are reused, forever."
+  ], "art":{"s":"scale"}, "cap":"Weigh everything in and everything out: the totals always match."},
+
+  {"k":"ch", "h":"Acids: sour and sharp", "p":[
+   "Lemon juice, vinegar, fizzy drinks and the sting of an ant bite have something in common. They are all acids. Acids taste sour, and strong ones can eat through metal.",
+   "Chemists measure how acidic something is with the pH scale, which runs from 0 to 14. Pure water sits in the middle at 7. Anything below 7 is an acid, and the lower the number, the stronger it is. Lemon juice is about pH 2. Vinegar is about 2.5. Each step down the scale means ten times more acid.",
+   "Your stomach makes hydrochloric acid with a pH of about 1.5 to 3.5. It is strong enough to help break down a steak, and your stomach lining replaces itself every few days so it does not get eaten too.",
+   "Acid in rain, mostly from burning coal, can slowly dissolve stone statues and sour whole lakes."
+  ], "art":{"s":"rainbow"}, "cap":"A pH indicator shows acids and bases as a rainbow of colours."},
+
+  {"k":"ch", "h":"Bases: slippery and bitter", "p":[
+   "Soap feels slippery because it is a base. Bases are the opposite of acids. They taste bitter, feel soapy, and sit above 7 on the pH scale. Baking soda in water is a mild base at about pH 8. Household bleach is a strong one at about pH 12. Drain cleaner can reach pH 14.",
+   "When an acid and a base meet, they cancel each other out. Chemists call it neutralising. The products are usually water and a salt. That is why an antacid tablet, which is a base, calms an acid stomach.",
+   "Your body keeps your blood at a pH of almost exactly 7.4. Move it just half a point either way and you would be in hospital. Your lungs and kidneys adjust it every minute.",
+   "Strong acids and strong bases both burn skin. The label says corrosive. Gloves and goggles are not optional."
+  ], "art":{"s":"dissolve"}, "cap":"Soap is a base; it grabs grease and lets water carry it away."},
+
+  {"k":"try", "h":"Try it: red cabbage rainbow", "p":["Make your own pH indicator from a vegetable."], "steps":[
+   "Ask an adult to chop a quarter of a red cabbage and soak it in hot water for 10 minutes. Pour off the purple liquid and let it cool.",
+   "Put a little purple liquid into four cups.",
+   "Add lemon juice to one, vinegar to another, and a spoon of baking soda stirred into water to the third. Leave the fourth alone.",
+   "Watch the colours. Red or pink means acid. Blue or green means base. Purple means neutral."
+  ], "art":{"s":"reaction"}, "cap":"Purple cabbage juice changes colour with pH.", "safe":"Never test bleach, drain cleaner or anything from under the sink."},
+
+  {"k":"ch", "h":"Chemistry in your kitchen", "p":[
+   "A kitchen is a chemistry lab with better smells. Every time you bake, fry or toast, you are running reactions.",
+   "Bread rises because yeast eats sugar and breathes out carbon dioxide. The gas gets trapped in the stretchy dough and makes thousands of tiny bubbles. In the oven the bubbles set, and the bread stays fluffy.",
+   "Toast turns brown at about 140 °C, when sugars and proteins in the bread react together. That browning reaction makes hundreds of new molecules that smell wonderful. It is the same reaction that browns a steak, roasts coffee beans and crisps the skin on a roast chicken.",
+   "Heat sugar alone to 170 °C and it melts, then turns golden, then dark: caramel. Push it past 200 °C and it becomes bitter black carbon. Burnt toast is just sugar that went all the way."
+  ], "art":{"s":"heat"}, "cap":"Heat drives the reactions that turn dough into bread."},
+
+  {"k":"quiz", "q":"Pure water has a pH of 7. Lemon juice has a pH of about 2. Lemon juice is:", "opts":["A base","An acid","Neutral"], "a":1, "why":"Anything below 7 on the pH scale is an acid, and 2 is a fairly strong one."},
+
+  {"k":"ch", "h":"Fast and slow", "p":[
+   "Some reactions take years. An iron gate rusts over decades. Others are over in a flash. A lightning bolt heats the air to about 30,000 °C, five times hotter than the surface of the Sun, and in that instant nitrogen and oxygen in the air react to make compounds that fall in the rain and feed plants.",
+   "Three things speed a reaction up. Heat makes molecules move faster and crash harder. Stirring brings fresh molecules together. And more surface area means more places for the reaction to happen.",
+   "That last one is why a log burns slowly while sawdust can explode. In flour mills, a cloud of fine flour dust in the air has blown up whole buildings. The same flour sitting in a bag is perfectly safe.",
+   "Chemists also use helpers called catalysts. A catalyst speeds a reaction up without being used up. Your body runs on thousands of them."
+  ], "art":{"s":"lightning"}, "cap":"Lightning runs a reaction in the air in a fraction of a second."},
+
+  {"k":"ch", "h":"Metals: the shiny three quarters", "p":[
+   "About three quarters of all the elements are metals. They shine, they bend without breaking, and they carry heat and electricity. That is because their outer electrons are loose and shared across the whole piece, like a sea that the atoms float in.",
+   "Push on a metal and the atoms slide into new positions without losing their grip. Gold is so bendable that one gram can be hammered into a sheet about 1 square metre across. It is also one of the few metals that never rusts or tarnishes, which is why 3,000-year-old gold still gleams.",
+   "Copper carries electricity so well that almost every wire in your house is made of it. Iron is strong and cheap, so it builds bridges, but it rusts. Mix in a little chromium and you get stainless steel, which does not.",
+   "Mixing metals makes an alloy. Bronze, brass and steel are all alloys, and all stronger than their parts."
+  ], "art":{"s":"circuit","v":{"on":true}}, "cap":"Loose electrons let metals carry electricity through a wire."},
+
+  {"k":"big", "h":"Diamond and pencil lead are the same element", "p":["Both are pure carbon. In diamond every atom grips four neighbours in a stiff frame. In pencil graphite the atoms sit in loose sheets that slide apart. Arrangement matters as much as ingredients."], "art":{"s":"space:atomart"}},
+
+  {"k":"ch", "h":"Plastics: molecules a mile long", "p":[
+   "The world makes about 400 million tonnes of plastic every year, about the mass of every person alive put together. All of it begins as small molecules that have been linked into enormous chains.",
+   "A plastic molecule can hold 100,000 atoms or more, like a bead necklace that never seems to end. Chemists call these chains polymers. Tangle the chains and you get a soft, stretchy plastic like a bag. Line them up neatly and you get a hard, stiff one like a bottle cap.",
+   "Nature made polymers first. Wood, cotton, rubber, silk and the proteins in your muscles are all long chains of repeating parts. Chemists copied the idea in the 1900s and now make hundreds of kinds.",
+   "The problem is that most plastics do not rot. A bottle can last 450 years. That is why sorting, recycling and simply using less matter so much."
+  ], "art":{"s":"molecule"}, "cap":"Small molecules linked in a long chain make a plastic."},
+
+  {"k":"ch", "h":"A chemist's rules for staying safe", "p":[
+   "Chemists do not stay safe by being brave. They stay safe by following a few boring rules, every single time.",
+   "Never mix cleaning products. Bleach mixed with ammonia, or with vinegar, makes poisonous gases. People end up in hospital from cleaning a bathroom this way. Read labels, and learn the warning symbols: a flame means it burns, a skull means poison, a hand being eaten away means corrosive.",
+   "Never taste anything to find out what it is. Never sniff a bottle straight on; wave the air toward your nose instead. Wear goggles when anything can splash. Tie back long hair near a flame.",
+   "Keep a carbon monoxide alarm in the house. That gas comes from fuel burning badly, has no smell, and hurts hundreds of Canadians every year. The alarm costs around 30 dollars and does the smelling for you."
+  ], "art":{"s":"candle"}, "cap":"A flame is a reaction: respect fuel, oxygen and heat."},
+
+  {"k":"words", "items":[
+   ["atom","the smallest piece of an element; everything is built from atoms"],
+   ["element","one kind of atom, like gold or oxygen; there are 118"],
+   ["molecule","two or more atoms joined together"],
+   ["nucleus","the tiny heavy centre of an atom"],
+   ["mixture","things together but not joined; you can sort them apart"],
+   ["solution","a mixture where one thing has dissolved in another"],
+   ["reaction","atoms swapping partners to make new substances"],
+   ["acid","a sour substance below 7 on the pH scale"],
+   ["base","a bitter, slippery substance above 7 on the pH scale"],
+   ["pH","the 0 to 14 scale for acids and bases; 7 is neutral"],
+   ["polymer","a giant molecule made of a long chain of repeating parts"],
+   ["corrosive","able to eat away metal or skin; handle with gloves and goggles"]
+  ]},
+
+  {"k":"think", "qs":[
+   "Atoms are never destroyed, only rearranged. Where do you think the atoms in your breakfast were a thousand years ago?",
+   "Ice floating keeps lakes alive in winter. What else in the world might be different if ice sank?",
+   "Diamond and pencil graphite are both pure carbon. What other things in your life are made of the same parts but arranged differently?"
+  ]}
+ ]
+}

@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><style>body{margin:0;background:#222;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px}figure{margin:0;color:#fff;font:11px sans-serif}canvas{width:100%;display:block;aspect-ratio:2/1;border-radius:6px}</style>
+<script src="/library/art-core.js"></script><script src="/library/art-life.js"></script><script src="/library/art-world.js"></script>
+<body></body><script>
+const names=Object.keys(LART.scenes);const T=+(new URLSearchParams(location.search).get('t')||3);
+for(const n of names){const f=document.createElement('figure');const cv=document.createElement('canvas');cv.width=600;cv.height=300;f.appendChild(cv);const cap=document.createElement('figcaption');cap.textContent=n;f.appendChild(cap);document.body.appendChild(f);
+ const sc=LART.scenes[n];const st=sc.init(LART.h.rng(7),{});const c=cv.getContext('2d');try{sc.draw(c,600,300,T,st,{});}catch(e){cap.textContent=n+' ERROR '+e.message;cap.style.color='#f66';console.error(n,e);}}
+document.title=names.length+' scenes';
+</script>

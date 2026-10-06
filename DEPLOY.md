@@ -39,8 +39,44 @@ Always with the Netlify CLI (a file-digest API deploy drops the edge functions):
 
     NETLIFY_AUTH_TOKEN=<zo_config NETLIFY_API_TOKEN> netlify deploy --prod --no-build --dir public --site de6f5c47-4797-456a-a70d-cb8ad5a7f2d4
 
-Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v20.
+Bump the cache name in sw.js (starsteps-vN) whenever a cached file changes. Current: starsteps-v23.
 netlify.toml also sets `Cache-Control: public, max-age=31536000, immutable` for /emoji/*.
+
+## v23 (2026-10-06): three doors, Books Library, The Edge of Knowing
+Home page: "Three ways in" section (Play · Library · Edge of Knowing), nav + footer links, new meta description.
+Shared bar for the two new pages: js/doors.css (.ss-doors, .light variant).
+
+### Books Library (/library/)
+- library/index.html, lib.css, lib.js: grade shelves (SK..Grade 7+), grade chips, subject select, search,
+  "Keep reading" row, 28-book shelf linking to /edge/?book=<id>. Reader: two-page spread >760px, one page on
+  phones, 3D leaf turn, swipe/keys/tap zones, A-/A+ text size, read-aloud (Web Speech), quizzes with feedback,
+  bookmarks + finished flag in localStorage "ss.lib" (per book: p=page index, done, t, quiz results).
+- Pictures: library/art-core.js (helpers + physics + chemistry), art-life.js (life, body, Earth, weather),
+  art-world.js (history, inventions, maths, people): 72 scenes, each init(r,v)/draw(c,w,h,t,s,v), 2:1.
+  art-space.js = Advik's 25 ART scenes copied from the edge page; books use them as "space:<name>".
+  Covers/big spreads render at 2:1 with labels off (data-fit=cover, data-nl=1; label() checks c.__nl).
+- Books: library/books/<id>.json (32 books, 27–39 pages each incl. cover/contents/end; 89,956 words).
+  Schema + rules: $SP/libtest/BRIEF.md. Validator: node $SP/libtest/validate.mjs <file> (page counts 23–54,
+  word budget per grade, scene names, page kinds). Catalog: node $SP/libtest/catalog.mjs -> catalog.json.
+  Every book was written by one agent per grade, then fact-checked page by page by a second agent (about 90
+  corrections applied; all re-validated).
+- Game: play/books.js adds a "Books" tab link (/library/?from=play) and a Today card that remembers the open book.
+- Tests: $SP/libtest/lib.mjs (20 checks, 1440 + 390), $SP/libtest/play.mjs (tab + home doors), gallery
+  screenshots via libtest/gallery.html.
+
+### The Edge of Knowing (/edge/)
+- Built by $SP/edge/build.py from Advik's two artifacts in $SP/edge/src: A.html ("The Edge of Knowing",
+  base: 14 Three.js films, quizzes, Numbers/How we know/Deep dive/Key people/Is it real tabs, 28 books,
+  gallery, Nova) + B.html ("Before You Were You": 2D stage, two paths of 13 + 8 stops, cosmic calendar,
+  five cards, the four "why" ideas, per-stop sounds) spliced in as the "Journey" section (ids prefixed j*,
+  CSS scoped under .journey, its own Snd instance, draws only when on screen, pauses the film via window.EdgeFilm).
+- Three.js r128 + examples self-hosted in edge/vendor/ (8 files). The film player boots after first paint
+  (edgeFilmBoot) so the page shows at once; the preloaded planet textures still take a few seconds of CPU.
+- Nova runs offline (notes + calculator): no Claude sampling on the site; hints point to the Library.
+- ?book=<id> opens a book on load. Test: $SP/edge/test.mjs (18 checks; NOSHOT=1 skips screenshots, needed
+  on software WebGL where frames take seconds; the film canvas renders white there and in hidden tabs).
+- Social cards: img/og-library.jpg, img/og-edge.jpg (rendered from the live scenes).
+Sitemap: 40 URLs (+ /library/, /edge/). sw.js precaches the library files and catalog; books cache on first open.
 
 ## v20 (2026-10-01): path rounds
     public/play/rounds.js   after every step has a crown, the path runs again in rounds (Explorer, Silver, Gold,

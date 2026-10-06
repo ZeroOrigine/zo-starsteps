@@ -1,0 +1,16 @@
+/* Star Steps: the three doors bar (Play · Library · Edge of Knowing), shared by /edge/ and /library/. */
+.ss-doors{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:10px;padding:8px 16px;background:rgba(6,7,12,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08);font-family:"Figtree","Segoe UI",system-ui,sans-serif}
+.ss-doors a{text-decoration:none;color:#A29EB5;font-weight:600;font-size:14px;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ss-doors a:hover{color:#EDE9F5;background:rgba(255,255,255,.06)}
+.ss-doors a[aria-current="page"]{color:#1b1206;background:#F2C46D}
+.ss-doors .ss-home{display:flex;align-items:center;gap:8px;color:#EDE9F5;font-weight:800;font-size:16px;padding-left:0;margin-right:auto}
+.ss-doors .ss-home img{width:26px;height:26px;border-radius:7px}
+.ss-doors-links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.ss-doors-links::-webkit-scrollbar{display:none}
+.ss-doors.light{background:rgba(255,253,247,.94);border-bottom-color:rgba(20,20,40,.08)}
+.ss-doors.light a{color:#5c5a72}.ss-doors.light a:hover{color:#1d1b33;background:rgba(0,0,0,.05)}
+.ss-doors.light .ss-home{color:#1d1b33}
+.ss-doors.light a[aria-current="page"]{color:#fff;background:#5b4ee0}
+.ss-foot{color:#A29EB5;font-size:14px;max-width:1180px;margin:24px auto 0;padding:18px 16px 0;border-top:1px solid rgba(255,255,255,.08);font-family:"Figtree","Segoe UI",system-ui,sans-serif}
+.ss-foot a{color:#F2C46D}
+@media (max-width:480px){.ss-doors .ss-home span{display:none}.ss-doors a{font-size:13px;padding:6px 8px}}

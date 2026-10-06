@@ -2506,7 +2506,7 @@ body[data-view="done"] .tabbar{display:none !important}
 <script>
 /* The launch screen above is drawn first; the game and its layers load right after,
    in order: app, accounts, grown-up gate, layout. */
-(function(){var q=["/play/app.js","/play/account.js","/play/grownups.js","/play/ux.js","/play/fe.js","/play/voice.js","/play/rewards.js","/play/chess.js","/play/sky.js","/play/rounds.js","/play/store.js"];
+(function(){var q=["/play/app.js","/play/account.js","/play/grownups.js","/play/ux.js","/play/fe.js","/play/voice.js","/play/rewards.js","/play/chess.js","/play/sky.js","/play/rounds.js","/play/store.js","/play/books.js"];
 /* all download at once, and still run in this order (async=false keeps insertion order) */
 function go(){q.forEach(function(f){var e=document.createElement("script");e.src=f;e.async=false;document.body.appendChild(e);});}
 /* wait for the browser to have really painted the first screen (first-contentful-paint), then load;

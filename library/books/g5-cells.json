@@ -1,0 +1,193 @@
+{
+ "id": "g5-cells",
+ "title": "The Tiny Cities Inside You",
+ "subtitle": "Cells, DNA, germs, and the microscopes that found them",
+ "grade": 5,
+ "subject": "Biology",
+ "minutes": 40,
+ "cover": {"scene": "cell", "c": ["#2e7d32", "#f9a825"]},
+ "pages": [
+  {"k":"ch", "h":"You are a city of 37 trillion", "p":[
+   "Right now, about 37 trillion tiny living things are working together to read this page. They are your cells. You are not one thing. You are a city.",
+   "A cell is the smallest piece of you that is alive on its own. Each one eats, breathes, makes things, cleans up and, when needed, splits in two. Nothing smaller than a cell is alive. Nothing alive is made of anything else.",
+   "Thirty-seven trillion is 37,000,000,000,000. If you counted one cell every second, day and night, it would take more than a million years. Every one of them is doing a job right now: a skin cell keeping water in, a muscle cell pulling, a nerve cell carrying this sentence to your brain.",
+   "In this book you will walk through the city: its walls, its power plants, its library, and the strangers at the gates."
+  ], "art":{"s":"cell"}, "cap":"One cell: the smallest living piece of you."},
+
+  {"k":"ch", "h":"How small is small?", "p":[
+   "Pull out one hair and look at its edge. It is about 80 micrometres wide. A micrometre is one thousandth of a millimetre. Most of your cells are 10 to 30 micrometres across, so you could line up four or five of them across that one hair.",
+   "A grain of salt is about 300 micrometres. The full stop at the end of this sentence could hide around 100 cells.",
+   "Not every cell is tiny. The yolk of a chicken egg is a single cell you can hold in your hand. An ostrich egg yolk, often called the biggest cell on Earth, is the size of a tennis ball. Some of your own nerve cells stretch from your lower back to your toes, nearly a metre, thinner than a thread the whole way.",
+   "Small cells are the rule because food and oxygen must soak in through the surface. Too big, and the middle would starve."
+  ], "art":{"s":"compare","v":{"a":80,"b":20,"la":"Hair","lb":"Cell","ca":"#8b5a2b","cb":"#e07a5f","title":"Width in micrometres"}}, "cap":"A single hair is about four cells wide."},
+
+  {"k":"ch", "h":"The wall with gates", "p":[
+   "Every city needs a wall, and every cell has one. It is called the cell membrane, and it is only about 7 nanometres thick, more than 10,000 times thinner than a sheet of paper. Yet it decides everything that enters and leaves.",
+   "The membrane is made of two layers of oily molecules standing head to tail, like a crowd packed shoulder to shoulder. Water and oil do not mix, so most things cannot simply slip through. Instead, the membrane is studded with protein gates and pumps. Each one opens for a specific guest: sugar through one door, salt through another. Oxygen is small enough to soak through almost anywhere.",
+   "Some gates use energy to pump things against the crowd, the way a bouncer pushes people out of a full room. A nerve cell spends most of its energy just running its pumps.",
+   "Break the membrane and the city dies in seconds. Everything spills."
+  ], "art":{"s":"cell"}, "cap":"The membrane lets some things in and keeps others out."},
+
+  {"k":"big", "h":"Every living thing is made of cells. Everything.", "p":["A blue whale is about 100 quadrillion cells. A bacterium is one. There is nothing alive on Earth that is built any other way."], "art":{"s":"space:life"}},
+
+  {"k":"quiz", "q":"Which of these is NOT true about cells?", "opts":["Most are too small to see","Every living thing is made of them","They are all the same size"], "a":2, "why":"Cells range from a bacterium 1 micrometre across to an egg yolk you can hold in your hand."},
+
+  {"k":"ch", "h":"City hall: the nucleus", "p":[
+   "In the middle of most of your cells sits a round room about 6 micrometres across. It has its own double wall with thousands of tiny pores. This is the nucleus, and inside it is the one thing the cell cannot live without: its instructions.",
+   "The nucleus stores DNA, the recipe for building and running the whole body. It does not let that recipe leave. Instead, when the cell needs to make something, a copy of just the right page is written out and sent through a pore to the factories outside. The original stays safe.",
+   "Think of it as city hall with a very careful librarian. Workers come to the door, ask for a page, and are handed a photocopy.",
+   "A few cells give up their nucleus to do their job better. Red blood cells throw theirs out to make room for oxygen, and live only about four months afterwards."
+  ], "art":{"s":"cell"}, "cap":"The nucleus holds the instructions and guards them."},
+
+  {"k":"ch", "h":"DNA: two metres in every cell", "p":[
+   "Inside each nucleus is a thread so thin you could never see it, and so long that it seems impossible. Unwound and stretched out, the DNA in one of your cells would measure about 2 metres. Packed back up, it fits in a space smaller than a speck of dust.",
+   "DNA is a twisted ladder, a double helix. The rungs are made of four chemical letters: A, T, C and G. A always pairs with T, and C always pairs with G. Your recipe is about 3 billion letter pairs long. Read aloud at one letter a second, it would take almost 100 years.",
+   "The thread is cut into 46 pieces called chromosomes, 23 from your mother and 23 from your father. That is why you look a little like both.",
+   "Almost every cell in your body, from toe to eyebrow, carries the same complete copy."
+  ], "art":{"s":"dna"}, "cap":"The double helix: a twisted ladder with four kinds of rung."},
+
+  {"k":"ch", "h":"Genes: one page of the recipe", "p":[
+   "Your DNA is 3 billion letters long, but it is not one long story. It is a cookbook with about 20,000 recipes. Each recipe is called a gene, and most genes describe how to build one protein.",
+   "Proteins are the workers of the cell. One protein carries oxygen. Another breaks down sugar. Another gives your eyes their colour, and another lets you taste bitter things. About 20,000 recipes, about 20,000 kinds of worker.",
+   "Only about 1.5 percent of your DNA is actual recipes. The rest is spacing, switches that turn recipes on and off, and long stretches that scientists are still trying to understand. Some of it may do nothing at all. Researchers argue about how much.",
+   "You share about 99.9 percent of your letters with every other person on Earth. The last 0.1 percent, about 3 million letters, is what makes you you."
+  ], "art":{"s":"dna"}, "cap":"A gene is a short stretch of the DNA ladder with one job."},
+
+  {"k":"try", "h":"Try it: pull DNA out of a strawberry", "p":["You can see real DNA with things from the kitchen."], "steps":[
+   "Put a strawberry in a zip bag, seal it, and squash it to mush for two minutes.",
+   "Mix 100 mL of water, a teaspoon of salt and a teaspoon of dish soap. Add two spoonfuls to the bag and squash gently for one more minute.",
+   "Pour the mush through a coffee filter into a glass.",
+   "Slowly pour an equal amount of very cold rubbing alcohol down the side of the glass. Wait one minute.",
+   "White stringy stuff floats up. That is DNA from millions of strawberry cells. Lift it out with a toothpick."
+  ], "art":{"s":"dna"}, "cap":"The white strands are real DNA.", "safe":"Rubbing alcohol is poisonous to drink. Ask an adult to pour it."},
+
+  {"k":"ch", "h":"Power plants: the mitochondria", "p":[
+   "A cell burns fuel just like a car, but slowly and without a flame. The burning happens in hundreds or thousands of sausage-shaped power plants called mitochondria.",
+   "Mitochondria take in sugar from your food and oxygen from your breath and combine them, step by careful step. Out comes energy in a form the cell can spend, plus carbon dioxide and water as waste. Every breath in is really a delivery to these power plants, and every breath out is their exhaust.",
+   "A muscle cell in your heart may hold 5,000 mitochondria, because it never stops working. The heat they give off is what keeps your body at 37 °C.",
+   "Here is the strange part. Mitochondria have their own small loop of DNA, separate from the nucleus. Scientists think they were once free-living bacteria that moved into bigger cells about 2 billion years ago and never left."
+  ], "art":{"s":"heat"}, "cap":"Mitochondria burn sugar slowly to power the cell and warm you."},
+
+  {"k":"quiz", "q":"Where is the DNA kept in most of your cells?", "opts":["In the nucleus","In the membrane","It floats outside the cell"], "a":0, "why":"The nucleus stores the DNA and sends out copies of single pages when they are needed."},
+
+  {"k":"ch", "h":"Factories: the ribosomes", "p":[
+   "A single cell can hold around 10 million tiny machines called ribosomes. Each one does one job: read a copied page of the recipe and build the protein it describes, one piece at a time.",
+   "A ribosome adds several pieces every second. A medium protein of 400 pieces is finished in about a minute. The new protein then folds itself into a precise shape, like a strip of paper that knows how to become a crane. The shape is the whole point. A protein shaped to grab oxygen will grab oxygen. One folded wrong does nothing, or does harm.",
+   "Finished proteins are sorted and shipped. Some stay inside. Some are packed into bubbles and pushed out through the membrane, like a van leaving the factory gate. Tears, sweat and the juices that digest your lunch all leave cells this way.",
+   "Many antibiotics work by jamming bacterial ribosomes while leaving yours alone."
+  ], "art":{"s":"cell"}, "cap":"Ribosomes build proteins from the recipe's copied pages."},
+
+  {"k":"ch", "h":"Many kinds, one recipe", "p":[
+   "Your body has about 200 different kinds of cell, and they look nothing alike. A muscle cell is a long rope that pulls. A nerve cell has branches like a tree. A red blood cell is a flat disc. A fat cell is a round bag of oil. A skin cell is a flat tile.",
+   "Yet every one of them carries the same 20,000 recipes. The difference is which pages are open. A muscle cell has its pulling-protein pages switched on and its tasting pages switched off. A tongue cell does the opposite.",
+   "This choosing starts before you are born. You began as one cell. It divided into two, then four, then eight, all identical. After a few weeks, the cells had started picking jobs, and once picked, most never change.",
+   "It is like a class of 30 children who all own the same textbook but each read a different chapter."
+  ], "art":{"s":"people","v":{"title":"Same recipe, different jobs"}}, "cap":"Many kinds of cell, all reading the same book."},
+
+  {"k":"ch", "h":"Delivery vans: red blood cells", "p":[
+   "You have about 25 trillion red blood cells, more than any other kind. Their only job is delivery. Each one is a tiny dented disc, 8 micrometres across, stuffed with a protein called haemoglobin that grabs oxygen.",
+   "In your lungs, each haemoglobin picks up four oxygen molecules. One cell holds about 270 million haemoglobins, so a single red blood cell can carry about a billion oxygen molecules. It drops them off wherever cells are working hard and picks up carbon dioxide for the trip back.",
+   "A full lap of your body takes about a minute. A red blood cell makes roughly 170,000 laps before it wears out, after about 120 days. Your bones then make new ones at about 2 million every second.",
+   "Iron is what makes haemoglobin work, and iron is what makes blood red. Too little iron and you feel tired, because the vans run half empty."
+  ], "art":{"s":"lungs"}, "cap":"Red blood cells load up with oxygen in the lungs."},
+
+  {"k":"big", "h":"Your bones make 2 million new red blood cells every second", "p":["That is about 170 billion a day, built inside the soft marrow in the middle of your bones. Each one is a delivery van with a 120-day licence."], "art":{"s":"heart"}},
+
+  {"k":"ch", "h":"One becomes two", "p":[
+   "A cell has no parents. It has only a mother cell that split in half. Every cell in you came from one cell, dividing again and again.",
+   "Before it divides, a cell copies its entire DNA, all 3 billion letters, with a mistake rate of about one in a billion. Then the 46 chromosomes, now doubled, line up across the middle of the cell. Fibres pull one full set to each end. The membrane pinches in like a belt tightening, and there are two cells where there was one, each with a complete recipe.",
+   "Scientists call this mitosis. In many human cells the whole cycle takes about 24 hours, with the actual split lasting only about an hour.",
+   "Cells divide to grow you, to heal you, and to replace what wears out. When a cell ignores the signals to stop dividing, that is what cancer is."
+  ], "art":{"s":"space:life"}, "cap":"Copy the recipe, line it up, pull apart, pinch: two cells."},
+
+  {"k":"quiz", "q":"A cell is about to divide. What must it do first?", "opts":["Throw away its nucleus","Copy all of its DNA","Double its size for a year"], "a":1, "why":"Each new cell needs a full copy of the recipe, so the DNA is copied before the split."},
+
+  {"k":"ch", "h":"Growing and healing", "p":[
+   "You started as a single cell smaller than a full stop. To reach 37 trillion, that cell only had to double about 45 times. One, two, four, eight: after 20 doublings there are a million; after 40, a trillion.",
+   "Growth is cells dividing faster than they die. A ten-year-old makes new bone at the ends of the long bones in the legs and arms, in thin growth plates that keep adding cells until the mid to late teens. Then they close, and you stop getting taller.",
+   "Healing is the same trick on a small scale. Scrape your knee and skin cells at the edges start dividing within hours, marching inward until the gap is closed, usually within a week. Bone heals too, which is why a broken arm mends in about six weeks.",
+   "Even without injury, your skeleton is quietly taken apart and rebuilt. Every ten years or so, you have a new one."
+  ], "art":{"s":"bones"}, "cap":"Bone cells rebuild your whole skeleton about every ten years."},
+
+  {"k":"ch", "h":"Three hundred billion goodbyes a day", "p":[
+   "Your body replaces about 330 billion cells every day, close to 4 million a second. Most are blood cells and the lining of your gut. You are never the same collection of cells two days running.",
+   "Different cells last different times. The lining of your stomach and intestines takes such a beating from acid and food that it is replaced about every 5 days. Skin cells last 2 to 4 weeks before they flake off; a lot of house dust is you. Red blood cells last about 120 days. Liver cells last a year or more.",
+   "A few cells almost never get replaced. Most of the nerve cells in your brain are the ones you were born with, and they must last your whole life. Protect your head.",
+   "Worn-out cells do not just fall apart. They shut themselves down neatly and are eaten by cleanup cells, so the parts can be reused."
+  ], "art":{"s":"graph","v":{"title":"How long cells last (days)","bars":[["Gut lining",5],["Skin",28],["Red blood",120],["Liver",365]]}}, "cap":"Some cells last days; some last your whole life."},
+
+  {"k":"try", "h":"Try it: cells you can see", "p":["Most cells are tiny, but not all. Find the big ones."], "steps":[
+   "Peel a thin, see-through layer from inside an onion. Hold it up to a window.",
+   "Look through a magnifying glass. The faint brick pattern is rows of single cells, each up to half a millimetre long.",
+   "Crack an egg into a bowl. The whole yolk is one single cell, the biggest you will ever hold.",
+   "Look at a slice of orange. Each tiny juice sack is a packet of cells you can see with just your eyes."
+  ], "art":{"s":"telescope"}, "cap":"A magnifying glass is a one-lens microscope.", "safe":"Ask before using the kitchen, and wash your hands after touching raw egg."},
+
+  {"k":"ch", "h":"Neighbours: the bacteria", "p":[
+   "You are never alone. Living on your skin, in your mouth and especially in your gut are about 38 trillion bacteria, slightly more than your own cells. If you could weigh them all, they would come to about 200 grams, the mass of a large apple.",
+   "A bacterium is a single cell, usually 1 to 2 micrometres long, ten times smaller than one of yours. It has no nucleus; its DNA floats loose inside. It can divide every 20 minutes when food is plentiful, so one can become a billion overnight.",
+   "Most bacteria are harmless or helpful. The ones in your gut break down food you cannot digest, make vitamins, and crowd out the dangerous kinds. Yoghurt and cheese are made by bacteria on purpose.",
+   "A few hundred kinds cause disease: strep throat, food poisoning, tooth decay. For those, antibiotics work by attacking parts that bacteria have and your cells do not."
+  ], "art":{"s":"germs"}, "cap":"Bacteria: single cells, mostly friendly, some not."},
+
+  {"k":"ch", "h":"Viruses: not even a cell", "p":[
+   "A virus is not alive in the way a cell is. It does not eat, grow or divide. It is a package: a few genes wrapped in a protein coat. A typical virus is about 100 nanometres across, hundreds of times smaller than one of your cells.",
+   "On its own, a virus can do nothing. But if it bumps into a cell with the right lock on its membrane, it slips inside and hands over its genes. The cell, which cannot tell the difference, builds thousands of new viruses with its own ribosomes. Then they burst out and look for more cells.",
+   "Colds, flu, chickenpox and COVID-19 are all caused by viruses. Antibiotics do nothing against them, because there is no bacterial machinery to attack. Your immune system has to win on its own, or get a head start from a vaccine.",
+   "Scientists still argue about whether viruses count as living things."
+  ], "art":{"s":"compare","v":{"a":100,"b":10,"la":"Your cell","lb":"Bacterium","ca":"#e07a5f","cb":"#3b7dd8","title":"Widths compared; a virus would be a dot too small to draw"}}, "cap":"Cell, bacterium, virus: each far smaller than the last."},
+
+  {"k":"quiz", "q":"Why do antibiotics not cure a cold?", "opts":["Colds are caused by viruses, not bacteria","Colds are too mild","Antibiotics only work on skin"], "a":0, "why":"Antibiotics attack bacterial parts; a virus has none of them, so there is nothing to hit."},
+
+  {"k":"ch", "h":"The defenders: white blood cells", "p":[
+   "Patrolling your blood and tissues are about 25 billion white blood cells, the army of the city. When a germ gets in through a cut, the first ones arrive within minutes.",
+   "Some are eaters. They wrap around a bacterium and dissolve it. Some are spotters. They examine every stranger and raise the alarm when they find one they do not recognise. And some are makers. They build antibodies, Y-shaped proteins that stick to one specific germ and tag it for destruction.",
+   "A fever is part of the fight. Raising your temperature to 39 °C slows many germs down and speeds your defenders up.",
+   "Once a germ has been beaten, a few memory cells remember its shape for years, sometimes for life. A vaccine shows the army a harmless piece of a germ so the memory is ready before the real thing ever arrives."
+  ], "art":{"s":"germs"}, "cap":"A white blood cell hunts germs that get past the gates."},
+
+  {"k":"ch", "h":"The tool that found the city", "p":[
+   "Cells were invisible for all of human history until 1665. That year an English scientist named Robert Hooke looked at a thin slice of cork through a microscope he built himself. He saw rows of tiny boxes that reminded him of monks' rooms, which were called cells. The name stuck.",
+   "A decade later, a Dutch cloth seller named Antonie van Leeuwenhoek ground lenses so fine they magnified about 270 times. He looked at pond water, plaque from his own teeth and blood, and became the first person to see bacteria and other single cells swimming about. Nobody believed him at first.",
+   "A good school microscope today magnifies about 400 times, enough to see your own cheek cells. Electron microscopes, invented in 1931, use beams of electrons instead of light and can magnify 1,000,000 times, enough to see the ribosomes inside.",
+   "Every fact in this book was seen first through a lens."
+  ], "art":{"s":"timeline","v":{"title":"Seeing the very small","items":[["1590","First compound microscope"],["1665","Hooke names the cell"],["1676","Leeuwenhoek sees bacteria"],["1838","All living things are made of cells"],["1931","Electron microscope"],["1953","Shape of DNA worked out"]]}}, "cap":"Four hundred years of looking closer."},
+
+  {"k":"big", "h":"A single drop of pond water holds thousands of living things", "p":["Leeuwenhoek saw them first in 1676: whole cells swimming, eating and splitting in a drop that looked empty. He called them little animals."], "art":{"s":"germs"}},
+
+  {"k":"ch", "h":"Plant cells: the same, with extras", "p":[
+   "A plant is a city too, but its cells have two things yours do not. The first is a stiff outer wall of cellulose around the membrane. It is why celery snaps and trees stand up without bones.",
+   "The second is chloroplasts, green discs that catch sunlight. A single leaf cell may hold up to 100 of them. Inside, light, water and carbon dioxide are turned into sugar, with oxygen let out as waste. Every breath of oxygen you have ever taken was made this way, by plants, algae or tiny ocean microbes.",
+   "Like mitochondria, chloroplasts have their own DNA and were probably once free-living bacteria that moved in for good.",
+   "Plant cells also keep a large bag of water in the middle, called the vacuole, which presses outward and keeps the plant firm. Forget to water a plant and the bags shrink. That is wilting."
+  ], "art":{"s":"seed"}, "cap":"Every green cell in a leaf is a sugar factory run on sunlight."},
+
+  {"k":"ch", "h":"Cells that talk: the nerve signal", "p":[
+   "Touch something hot and your hand is moving before you have decided to move it. The message travelled from fingertip to spinal cord and back at up to 120 metres per second, faster than a racing car.",
+   "Nerve cells, or neurons, are built for speed. Each has a long thin cable called an axon, wrapped in fatty insulation like an electrical wire. A signal runs along it as a tiny pulse of electricity. At the end, the cable stops just short of the next cell, leaving a gap thousands of times thinner than a hair. The signal jumps the gap as a puff of chemical, and the next neuron fires.",
+   "Your brain holds about 86 billion neurons, each connected to thousands of others. That is more connections than there are stars in our galaxy.",
+   "Neurons do not divide to replace themselves the way skin cells do, so the ones you have must last."
+  ], "art":{"s":"neuron"}, "cap":"A signal jumps the gap between two neurons as a puff of chemical."},
+
+  {"k":"words", "items":[
+   ["cell","the smallest living piece of any plant, animal or person"],
+   ["membrane","the thin wall around a cell that controls what goes in and out"],
+   ["nucleus","the room in the cell that stores and guards the DNA"],
+   ["DNA","the long twisted ladder that holds the recipe for a living thing"],
+   ["gene","one recipe in the DNA, usually for one protein"],
+   ["protein","a worker molecule built by the cell to do one job"],
+   ["mitochondria","the power plants that turn sugar and oxygen into energy"],
+   ["ribosome","a tiny machine that builds proteins from a copied recipe"],
+   ["bacteria","single-celled living things, mostly harmless, some not"],
+   ["virus","a package of genes that must hijack a cell to copy itself"],
+   ["antibody","a Y-shaped protein that sticks to one kind of germ"],
+   ["microscope","a tool with lenses that makes tiny things look big"]
+  ]},
+
+  {"k":"think", "qs":[
+   "You replace billions of cells every day. Are you still the same person you were last year? What makes you you?",
+   "Mitochondria were probably once bacteria that moved in and stayed. Is that a friendship, a trade, or something else?",
+   "Scientists disagree about whether a virus is alive. What would your rule for being alive be, and would a virus pass it?"
+  ]}
+ ]
+}

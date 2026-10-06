@@ -437,3 +437,16 @@ html.ss-new:not(.ss-ready) #viewIntro .intro-go,html.ss-new:not(.ss-ready) #view
 .rnd-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--m2),var(--m1));transition:width 1s cubic-bezier(.3,1.3,.5,1)}
 .rnd-tx p{font-size:12.5px;font-weight:700;color:var(--muted);margin:6px 0 0;line-height:1.35}
 @media (prefers-reduced-motion:reduce){.rnd-medal{animation:none}}
+
+/* Books (v23): tab link + Today card */
+#tabbar .tab-books{text-decoration:none}
+#tabbar .tab-books .tico svg{width:21px;height:21px;display:block}
+.book-card{display:flex;align-items:center;gap:14px;width:100%;text-align:left;margin:-2px 0 14px;padding:13px 17px;background:var(--card,#fff);color:var(--ink);
+  border:3px solid var(--edge);border-radius:var(--r);box-shadow:var(--shadow);text-decoration:none}
+.book-card:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--edge)}
+.bc-ico{flex:none;width:44px;height:44px;display:grid;place-items:center;background:#EFEAFF;border-radius:12px}
+.bc-ico svg{width:30px;height:30px}
+.bc-txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
+.bc-txt b{font-size:16px}.bc-txt span{font-size:13px;color:var(--muted)}
+.bc-go{font-weight:900;font-size:20px;color:var(--muted)}
+html.ss-store .book-card{display:flex}

@@ -1,0 +1,207 @@
+{
+ "id": "g5-solar-system",
+ "title": "Eight Worlds and a Star",
+ "subtitle": "The Sun, the planets, their moons, and the robots we sent to meet them",
+ "grade": 5,
+ "subject": "Space",
+ "minutes": 45,
+ "cover": {"scene": "space:saturnart", "c": ["#0b1a3a", "#f4b942"]},
+ "pages": [
+  {"k":"ch", "h":"A star and its family", "p":[
+   "Almost everything in the Solar System is the Sun. Add up the eight planets, hundreds of moons, millions of asteroids and all the comets, and together they make just 0.2 percent of the total mass. The Sun is the other 99.8 percent.",
+   "The Solar System is the Sun plus everything that orbits it. Closest in are four small rocky planets: Mercury, Venus, Earth and Mars. Beyond them are four giants: Jupiter, Saturn, Uranus and Neptune. Scattered among and beyond them are dwarf planets, moons, icy comets and rocky asteroids.",
+   "The whole family formed together about 4.6 billion years ago from one spinning cloud of gas and dust. The centre squeezed itself into a star. The leftovers clumped into everything else.",
+   "Light from the Sun takes 8 minutes to reach Earth and more than 4 hours to reach Neptune. This book travels the same way: outward."
+  ], "art":{"s":"orbit"}, "cap":"Everything in the Solar System orbits the Sun."},
+
+  {"k":"ch", "h":"The Sun: a star close enough to feel", "p":[
+   "The Sun is an ordinary star. It only looks special because it is close: 150 million km away, while the next nearest star is about 270,000 times farther. Step outside on a sunny day and you can feel a star on your face.",
+   "It is 1.4 million km across, wide enough to line up 109 Earths. You could pour 1.3 million Earths inside it. Its surface is about 5,500 °C and its core about 15 million °C. In that core, 600 million tonnes of hydrogen are squeezed into helium every second, and the tiny bit of mass that goes missing becomes light.",
+   "The Sun has been doing this for 4.6 billion years and has enough hydrogen for about 5 billion more. Then it will swell into a red giant and swallow Mercury and Venus, and probably Earth.",
+   "Never look straight at it. Even a few seconds can burn the back of your eye."
+  ], "art":{"s":"space:sun"}, "cap":"A ball of glowing gas, 109 Earths wide."},
+
+  {"k":"big", "h":"The Sun is 99.8 percent of everything", "p":["If the Sun were a basketball, Earth would be a peppercorn 26 metres away. Jupiter would be a large marble at the far end of a sports field."], "art":{"s":"compare","v":{"a":100,"b":2,"la":"Sun","lb":"Earth","ca":"#f9a825","cb":"#3b7dd8","title":"Sun and Earth to scale"}}},
+
+  {"k":"ch", "h":"Mercury: the fastest, not the hottest", "p":[
+   "Mercury races around the Sun in just 88 days, faster than any other planet, at about 170,000 km/h. Yet it turns so slowly that one of its days, sunrise to sunrise, lasts 176 Earth days. On Mercury you could have two birthdays before a single sunset.",
+   "It is the smallest planet, only 4,880 km across, barely bigger than our Moon. It has almost no air, so there is nothing to hold heat in or spread it around. The sunlit side bakes at about 430 °C. The night side drops to minus 180 °C. No planet swings further between hot and cold.",
+   "You might expect the closest planet to be the hottest. It is not. That title goes to Venus, next door, as you will see.",
+   "Mercury's surface is covered in craters, like the Moon, and there is ice hiding in deep craters at its poles that never see the Sun."
+  ], "art":{"s":"daynight"}, "cap":"On Mercury, sunrise to sunrise takes 176 Earth days."},
+
+  {"k":"quiz", "q":"Which is the smallest planet?", "opts":["Mars","Mercury","Pluto"], "a":1, "why":"Mercury is 4,880 km across. Pluto is smaller, but it has been a dwarf planet, not a planet, since 2006."},
+
+  {"k":"ch", "h":"Venus: the hottest, and it spins backwards", "p":[
+   "Venus is almost Earth's twin in size, 12,100 km across next to our 12,700. That is where the likeness ends. Its surface is about 465 °C, hot enough to melt lead, hotter than Mercury even though it is twice as far from the Sun.",
+   "The reason is air. Venus has a crushing atmosphere of carbon dioxide, 90 times thicker than ours, that traps the Sun's heat like a blanket and never lets it out. Above it float clouds of sulphuric acid. The pressure at the surface is like being 900 metres under the sea.",
+   "Venus spins the wrong way, so the Sun rises in the west. It spins so slowly that one turn takes 243 Earth days, longer than its 225-day year. A Venus day is longer than a Venus year.",
+   "It is the brightest thing in our sky after the Sun and Moon, which is why people sometimes report it as a UFO."
+  ], "art":{"s":"space:transit"}, "cap":"Venus crossing the face of the Sun; the next crossing is in 2117."},
+
+  {"k":"ch", "h":"Earth: the water world", "p":[
+   "From space, Earth is mostly blue. Water covers 71 percent of its surface, and it is the only planet we know where liquid water sits in the open, under the sky. That one fact is why it is the only place we know of with life.",
+   "Earth is 12,742 km across and spins once every 24 hours, which gives us day and night. It leans over at 23.4 degrees, and that tilt is what gives us seasons: when your half of the planet leans toward the Sun, it is summer.",
+   "The air is 78 percent nitrogen and 21 percent oxygen, and nearly all of that oxygen was made by living things. A magnetic field, made by the churning iron core, shields us from the Sun's wind of charged particles.",
+   "Earth is also the only planet not named after a god. The name just means the ground."
+  ], "art":{"s":"space:earth"}, "cap":"Our planet at night, with city lights below and satellites above."},
+
+  {"k":"ch", "h":"The Moon: made by a crash", "p":[
+   "About 4.5 billion years ago, a planet the size of Mars slammed into the young Earth. The splash of molten rock went into orbit and cooled into the Moon. That is why Moon rock brought home by astronauts is so much like Earth rock.",
+   "The Moon is 3,474 km across, about a quarter of Earth's width, and 384,000 km away. Light takes 1.3 seconds to get there. It has no air, so footprints left in 1969 are still perfectly sharp.",
+   "The Moon always shows us the same face because it spins exactly once per orbit, every 27.3 days. Its phases, from new to full and back, are just sunlight hitting a ball from different sides as it travels around us.",
+   "It is slowly leaving. Every year the Moon moves about 3.8 cm farther away, the speed your fingernails grow. A billion years from now, total eclipses will be impossible."
+  ], "art":{"s":"space:moon"}, "cap":"A Mars-sized world hits Earth, and the splash becomes the Moon."},
+
+  {"k":"try", "h":"Try it: make the Moon's phases", "p":["All you need is a ball, a lamp and a dark room."], "steps":[
+   "Put a lamp on a table in a dark room. The lamp is the Sun.",
+   "Hold a ball at arm's length, a little above your head. Your head is Earth; the ball is the Moon.",
+   "Stand facing the lamp. The ball's lit side faces away from you: new Moon.",
+   "Turn slowly to your left. Watch a crescent grow into a half, then a full Moon when the lamp is behind you.",
+   "Keep turning. The Moon shrinks back to new. One full turn is about one month."
+  ], "art":{"s":"moonphases"}, "cap":"Eight phases, one ball, one lamp."},
+
+  {"k":"ch", "h":"Mars: the red desert with old riverbeds", "p":[
+   "Mars is red because it is rusty. Its soil is full of iron that joined with oxygen long ago, and fine red dust blows everywhere, sometimes in storms that cover the entire planet for weeks.",
+   "It is a small world, half Earth's width, and cold: on average about minus 60 °C. The air is thin carbon dioxide, less than one percent as thick as ours, so a glass of water would boil away even while it was freezing. Yet from orbit you can see dry river valleys, old lake beds and deltas. Three to four billion years ago, Mars had rain, rivers and seas.",
+   "It also has the tallest volcano in the Solar System, Olympus Mons, 22 km high, about two and a half times Mount Everest.",
+   "A Mars day is 24 hours and 37 minutes, close enough to ours that rover drivers on Earth live on Mars time for months."
+  ], "art":{"s":"space:mars"}, "cap":"Mars had rivers and lakes; now it is a cold desert."},
+
+  {"k":"quiz", "q":"Why is Venus hotter than Mercury, even though Mercury is closer to the Sun?", "opts":["Venus is bigger","Venus has a thick blanket of carbon dioxide that traps heat","Venus spins backwards"], "a":1, "why":"Venus's thick atmosphere holds the heat in; Mercury has almost no air and loses its heat every night."},
+
+  {"k":"ch", "h":"The asteroid belt: builder's leftovers", "p":[
+   "Between Mars and Jupiter is a wide ring of rocks called the asteroid belt. There are more than a million asteroids bigger than 1 km, and countless smaller ones. They are rubble left over from building the planets, pieces that Jupiter's gravity never let clump together.",
+   "Movies show asteroid belts as crowded. The real one is nearly empty. The average gap between asteroids is about a million kilometres. Space probes fly through it without steering around anything.",
+   "Add every asteroid together and you would get a ball only about 3 percent of the mass of our Moon. The biggest, Ceres, is 940 km across and round enough to be called a dwarf planet. It has water ice under its crust.",
+   "Now and then one leaves the belt. Sixty-six million years ago, a rock about 10 km wide struck what is now Mexico and ended the age of the dinosaurs."
+  ], "art":{"s":"space:dino"}, "cap":"One asteroid, 10 km wide, ended 160 million years of dinosaurs."},
+
+  {"k":"ch", "h":"Jupiter: the king", "p":[
+   "Jupiter is bigger than all the other planets put together, twice over. It is 140,000 km across, eleven Earths side by side, and has 318 times Earth's mass. If it were about 80 times heavier still, it would have caught fire and become a second Sun.",
+   "There is no ground. Jupiter is a ball of hydrogen and helium gas that gets thicker and thicker until, deep down, it is squeezed into liquid metal. What we see is the top of the clouds, striped in bands by winds that blow at 500 km/h.",
+   "The Great Red Spot is a storm wider than Earth that has been raging for at least 190 years. It is slowly shrinking, and scientists are not sure why.",
+   "The giant spins fast: one day is just under 10 hours. It has at least 95 moons, and a faint ring you could never see from Earth."
+  ], "art":{"s":"space:jupiter"}, "cap":"Jupiter and its Red Spot, with Earth drawn to scale."},
+
+  {"k":"big", "h":"You could fit 1,300 Earths inside Jupiter", "p":["The Great Red Spot alone could swallow our planet whole. Jupiter is so large that its gravity bends the paths of comets passing a hundred million kilometres away."], "art":{"s":"compare","v":{"a":100,"b":9,"la":"Jupiter","lb":"Earth","ca":"#d98c4a","cb":"#3b7dd8","title":"Jupiter and Earth to scale"}}},
+
+  {"k":"ch", "h":"Jupiter's moons: a solar system in miniature", "p":[
+   "In January 1610 Galileo pointed a new telescope at Jupiter and saw four tiny stars beside it. Night after night they moved. He realised they were moons circling another planet, the first proof that not everything orbits Earth. Those four are still the giants of Jupiter's family.",
+   "Io is the most volcanic place known. Jupiter's gravity kneads it like dough, and hundreds of volcanoes spray sulphur 300 km into space. Europa is the opposite: an ice shell with a salty ocean beneath it holding about twice as much water as all of Earth's oceans. Scientists think it may be the best place to look for life beyond Earth.",
+   "Ganymede is the largest moon in the Solar System, bigger than the planet Mercury.",
+   "NASA's Europa Clipper left Earth in 2024 and arrives at Jupiter in 2030 to find out what is under the ice."
+  ], "art":{"s":"telescope"}, "cap":"Galileo saw four moons beside Jupiter in 1610."},
+
+  {"k":"ch", "h":"Saturn: rings of ice", "p":[
+   "Saturn's rings are 280,000 km across, wide enough to stretch most of the way from Earth to the Moon. Yet in most places they are only about 10 metres thick. If the rings were a sheet of paper, it would be more than a kilometre wide.",
+   "They are not solid. They are billions of pieces of nearly pure water ice, from dust grains to chunks the size of a house, each one orbiting Saturn on its own. Sunlight bouncing off all that ice is what makes them shine. Scientists disagree about their age: some say they formed with Saturn, others that they are only about 100 million years old.",
+   "Saturn itself is a gas giant, 120,000 km across, nine Earths wide. It is so light for its size that it would float in a bathtub, if you had one big enough.",
+   "It has more moons than any other planet: over 270 at the last count."
+  ], "art":{"s":"space:saturnart"}, "cap":"Rings wider than the distance to the Moon, thinner than a house is tall."},
+
+  {"k":"quiz", "q":"What are Saturn's rings made of?", "opts":["Solid metal","Billions of pieces of ice","Gas"], "a":1, "why":"The rings are countless chunks of water ice, each orbiting Saturn on its own."},
+
+  {"k":"ch", "h":"Titan and Enceladus: moons with weather", "p":[
+   "Saturn's biggest moon, Titan, is the only moon with a thick atmosphere, thicker than Earth's. It is so cold, minus 180 °C, that water there is as hard as rock. Instead, methane and ethane, which are gases on Earth, fall as rain, run in rivers and pool in lakes. Titan has a full weather cycle, just with the wrong liquid.",
+   "In 2005 a probe called Huygens parachuted down through the orange haze and landed on a damp plain of ice pebbles. It was the farthest landing ever made. A new NASA mission, a flying drone called Dragonfly, is due to launch in 2028 to hop across Titan's dunes.",
+   "Enceladus is tiny, only 500 km across, and bright white. From cracks at its south pole, jets of water spray hundreds of kilometres into space. They come from a salty ocean under the ice that holds the ingredients for life."
+  ], "art":{"s":"watercycle"}, "cap":"On Titan, methane rains, flows and evaporates, the way water does here."},
+
+  {"k":"ch", "h":"Uranus: the planet on its side", "p":[
+   "Every other planet spins like a top. Uranus rolls like a ball. It is tipped over by 98 degrees, so it orbits the Sun lying on its side. Scientists think something huge hit it long ago.",
+   "That tilt makes the strangest seasons anywhere. Each pole points at the Sun for 21 years of daylight, then away for 21 years of night, in a year that lasts 84 Earth years. If you were born at the north pole of Uranus, you might see your first sunset as a grown-up.",
+   "It is an ice giant, four times wider than Earth, blue-green from methane in its cold air. At minus 224 °C in its upper clouds, it is the coldest planet, colder even than Neptune farther out.",
+   "Uranus was the first planet found with a telescope, by William Herschel in 1781. Only one spacecraft has ever visited: Voyager 2, for a few hours in 1986."
+  ], "art":{"s":"tilt"}, "cap":"A tilt of 98 degrees: Uranus rolls around the Sun on its side."},
+
+  {"k":"ch", "h":"Neptune: found with a pencil", "p":[
+   "Neptune is the only planet discovered by maths before anyone saw it. In the 1840s, astronomers noticed Uranus was being tugged off course by something. Two of them, working separately, calculated where the tugging planet must be. In 1846 a telescope was pointed at that spot, and there it was.",
+   "It is a deep blue ice giant, almost a twin of Uranus, 30 times farther from the Sun than Earth. Sunlight there is 900 times weaker. Yet it has the fastest winds in the Solar System, roaring at up to 2,000 km/h, faster than the speed of sound on Earth. Nobody fully understands where the energy for those winds comes from.",
+   "One Neptune year is 165 Earth years. It only completed its first full orbit since its discovery in 2011.",
+   "Its big moon Triton orbits backwards and spits geysers of nitrogen. It was probably captured from farther out."
+  ], "art":{"s":"tornado"}, "cap":"Neptune's winds would tear an Earth tornado apart."},
+
+  {"k":"quiz", "q":"Which planet spins on its side?", "opts":["Uranus","Neptune","Saturn"], "a":0, "why":"Uranus is tipped 98 degrees, so each pole gets 21 years of light and then 21 years of dark."},
+
+  {"k":"ch", "h":"Pluto and the frozen edge", "p":[
+   "Past Neptune the Sun shrinks to a bright star, and the Solar System does not end. It turns into a wide belt of icy worlds called the Kuiper Belt. Pluto is the most famous of them.",
+   "Pluto was called the ninth planet from 1930 until 2006. Then astronomers found other icy worlds nearly as big, including Eris, and had to decide: were they all planets, or none? They wrote a new rule. A planet must clear its own orbit of other junk. Pluto shares its lane with thousands of neighbours, so it became a dwarf planet. Some scientists still disagree with that choice.",
+   "In 2015 the New Horizons probe flew past after a nine-year trip and found a world nobody expected: mountains of water ice as tall as the Rockies, a giant heart-shaped plain of frozen nitrogen, and a thin blue sky. Pluto is 2,377 km across, smaller than our Moon, and minus 230 °C."
+  ], "art":{"s":"space:nothing"}, "cap":"Far out, the Sun is just the brightest star in a black sky."},
+
+  {"k":"ch", "h":"Comets: snowballs with two tails", "p":[
+   "A comet is a chunk of ice and dust a few kilometres across, left over from the birth of the Solar System and kept in deep freeze far beyond Neptune. Most never come near us. A few fall inward on long, stretched orbits.",
+   "As a comet nears the Sun, its ice turns straight to gas and carries dust with it. The gas and dust stream away to form tails that can stretch 100 million km, farther than Earth is from the Sun. There are two: a straight blue gas tail pushed by the Sun's wind, and a curved white dust tail. Both point away from the Sun, so when the comet heads back out, its tails go first.",
+   "Halley's Comet comes round every 76 years. It last passed in 1986 and returns in 2061. Many people reading this will see it.",
+   "Each pass wears away more ice. A comet lasts only a few thousand visits."
+  ], "art":{"s":"space:cometart"}, "cap":"Two tails, both pointing away from the Sun."},
+
+  {"k":"ch", "h":"Shooting stars and falling rocks", "p":[
+   "Every day, about 44 tonnes of rock and dust from space fall onto Earth. Almost all of it burns up high in the air as shooting stars. A shooting star is usually a grain no bigger than a pea, hitting the air at 60 km per second and glowing white hot 80 km up.",
+   "When Earth crosses the dusty trail of a comet, we get a meteor shower. The Perseids every August can give you a streak a minute.",
+   "A rock big enough to reach the ground is called a meteorite. Most are fist-sized and land unnoticed in the sea or a desert. Once in a while, one is bigger. In 2013 a rock 20 metres wide exploded over Chelyabinsk, Russia, with a flash brighter than the Sun and a bang that broke windows across the city.",
+   "Astronomers now track more than 35,000 asteroids that pass near Earth, so big ones rarely surprise us."
+  ], "art":{"s":"space:cometart"}, "cap":"Meteor showers are Earth crossing the dust trail of a comet."},
+
+  {"k":"big", "h":"Right now, 44 tonnes of space rock a day are landing on Earth", "p":["Nearly all of it is dust that burns up high above the clouds. Look up on a clear, dark night, wait a while, and you will probably see one go."], "art":{"s":"space:earth"}},
+
+  {"k":"ch", "h":"Robots that went for us", "p":[
+   "No person has travelled farther than the Moon. Everything we know about the planets up close came from robots.",
+   "Voyager 1 left Earth in 1977, flew past Jupiter and Saturn, and kept going. It is now about 25 billion km away, the farthest human-made object ever, and still sends back a whisper of data that takes 23 hours to arrive. Its power is fading, and its last instruments will be switched off around 2030.",
+   "Cassini circled Saturn for 13 years before diving into it in 2017. Juno has orbited Jupiter since 2016. New Horizons flew past Pluto in 2015 and is still heading outward. The Parker Solar Probe has flown through the Sun's outer atmosphere, the first spacecraft to touch a star, and in 2024 hit 690,000 km/h, faster than any object before it.",
+   "None of them carries a crew, air or a way home. They were built to go one way, and they went."
+  ], "art":{"s":"space:voyager"}, "cap":"Voyager 1 leaving the Sun's neighbourhood, still sending data."},
+
+  {"k":"quiz", "q":"What is a comet's tail made of?", "opts":["Fire","Gas and dust pushed away from the Sun","Solid rock"], "a":1, "why":"Sunlight turns the comet's ice to gas, and the Sun's wind and light push the gas and dust into tails."},
+
+  {"k":"ch", "h":"Mars rovers and the road ahead", "p":[
+   "Six robot rovers have driven on Mars so far. The newest, Perseverance, landed in 2021 in an old river delta and has been drilling out pencil-sized cores of rock, sealing them in tubes and leaving them on the ground. The hope is to bring them home in the 2030s, if the money and rockets can be found.",
+   "Perseverance brought a passenger: Ingenuity, a 1.8 kg helicopter. Nobody knew if flight was possible in air one percent as thick as ours. It flew 72 times before a rotor broke.",
+   "People are next, maybe. Several space agencies plan to land astronauts on the Moon again before 2030 and practise there for Mars. A Mars trip takes about seven months each way, and the travellers must bring every breath of air and drop of water.",
+   "Mars is the only other planet where a person in a suit could stand on the ground and survive the day."
+  ], "art":{"s":"rocket"}, "cap":"Every journey to another world starts with a rocket leaving this one."},
+
+  {"k":"ch", "h":"How far is far", "p":[
+   "The distances are the hardest part to picture. Numbers help, but the best tool is light. Light moves at 300,000 km per second, the fastest anything can go, and even light is slow out here.",
+   "Sunlight takes 8 minutes to reach Earth. It takes 43 minutes to reach Jupiter, 80 minutes to reach Saturn and 4 hours to reach Neptune. A radio message from Earth to Voyager 1 takes 23 hours. And the nearest star beyond the Sun, Proxima Centauri, is 4.2 years away at the speed of light, about 40 trillion km.",
+   "In the basketball model from earlier, where the Sun is 24 cm wide and Earth is 26 metres away, Neptune is 780 metres down the road. Proxima Centauri is another basketball about 7,000 km away, farther than Toronto is from London, England.",
+   "The whole Solar System is a village. The spaces between the stars are the sea."
+  ], "art":{"s":"timeline","v":{"title":"How long sunlight takes to arrive","items":[["8 min","Earth"],["43 min","Jupiter"],["80 min","Saturn"],["4 h","Neptune"],["23 h","Voyager 1"],["4.2 yr","Nearest star"]]}}, "cap":"Even light takes hours to cross the Solar System."},
+
+  {"k":"try", "h":"Try it: walk the Solar System", "p":["Build a scale model where one step is 10 million kilometres."], "steps":[
+   "Put a tennis ball on the ground as the Sun. At this scale it should really be about 10 cm wide.",
+   "Take 6 steps and drop a grain of sand: Mercury. At 11 steps from the Sun, Venus. At 15 steps, Earth, another grain of sand. At 23 steps, Mars.",
+   "Walk on to 78 steps for Jupiter, a pea. Saturn is at 143 steps, Uranus at 287, and Neptune at 450.",
+   "Look back at the tennis ball from Neptune. That is how big the Sun looks from there."
+  ], "art":{"s":"numberline","v":{"max":450,"hop":50}}, "cap":"Each hop on the line is 500 million kilometres.", "safe":"Use a park or a long quiet path, and bring a grown-up along."},
+
+  {"k":"ch", "h":"Is there a ninth planet?", "p":[
+   "Some astronomers think the Solar System is still hiding a planet. Far beyond Neptune, a handful of icy worlds follow orbits that all seem to lean the same way, as if something big were herding them. The sums suggest a planet five to ten times Earth's mass, so far away that it would take 10,000 years or more to circle the Sun once.",
+   "Others say the pattern is a fluke, caused by where telescopes happened to look. Nobody has seen the planet. Scientists disagree, and that is honest science: a prediction waiting for a test.",
+   "The test is coming. A new observatory in Chile, named after the astronomer Vera Rubin, began photographing the entire southern sky every few nights in 2025. If a ninth planet is out there, it may show up in those pictures within a few years.",
+   "Four hundred years ago we knew six planets. The map is still being drawn."
+  ], "art":{"s":"telescope"}, "cap":"Looking for a world no one has ever seen."},
+
+  {"k":"words", "items":[
+   ["star","a huge ball of hot gas that makes its own light; the Sun is one"],
+   ["planet","a big round world that orbits a star and has cleared its own path"],
+   ["dwarf planet","a round world too small to clear its orbit, like Pluto or Ceres"],
+   ["orbit","the path one thing follows around another"],
+   ["moon","a natural object that orbits a planet"],
+   ["asteroid","a rocky leftover from the birth of the planets"],
+   ["comet","a chunk of ice and dust that grows tails near the Sun"],
+   ["atmosphere","the layer of gas around a planet or moon"],
+   ["gas giant","a huge planet made mostly of gas, with no solid ground"],
+   ["tilt","how far a planet leans over as it spins; it makes seasons"],
+   ["probe","a robot spacecraft sent to explore with no people aboard"],
+   ["light-year","the distance light travels in a year, about 9.5 trillion km"]
+  ]},
+
+  {"k":"think", "qs":[
+   "Pluto was a planet for 76 years and then was not. Should a word change when we learn more, or should the old meaning stay?",
+   "Europa may have an ocean with life in it. If we found tiny living things there, what should we do next, and what should we never do?",
+   "Voyager 1 will drift between the stars for millions of years. If you could put one object on it to speak for Earth, what would you choose?"
+  ]}
+ ]
+}

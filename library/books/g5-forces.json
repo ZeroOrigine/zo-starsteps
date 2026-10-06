@@ -1,0 +1,190 @@
+{
+ "id": "g5-forces",
+ "title": "Forces and Motion",
+ "subtitle": "Newton's three laws, and why rockets, orbits and seat belts work",
+ "grade": 5,
+ "subject": "Physics",
+ "minutes": 40,
+ "cover": {"scene": "rocket", "c": ["#1f3a93", "#ff6f3c"]},
+ "pages": [
+  {"k":"ch", "h":"Everything that moves was pushed", "p":[
+   "A soccer ball sitting on the grass will sit there all day. It will never roll by itself. Something has to push it. That push is a force.",
+   "A force is just a push or a pull. Kicking a ball is a push. A dog tugging a leash is a pull. Gravity pulling you down a slide is a pull too, even though nothing touches you.",
+   "Scientists measure force in newtons, named after Isaac Newton. One newton (1 N) is about the weight of a small apple resting in your hand. A good kick on a soccer ball is around 1,000 N, but only for a tiny slice of a second.",
+   "Every single thing that starts moving, stops moving, speeds up, slows down or turns a corner does it because a force acted on it. There are no exceptions. Not one."
+  ], "art":{"s":"ramp"}, "cap":"A ball will not roll until something pushes it.", "fact":"Did you know? The unit is written newton with a small n, but its symbol N is a capital letter."},
+
+  {"k":"ch", "h":"Things keep doing what they are doing", "p":[
+   "Slide a hockey puck across smooth ice and it glides a long way. Slide it across a carpet and it stops almost at once. The puck is the same. What changed is how much the floor grabs it.",
+   "Newton's first law says: a moving thing keeps moving in a straight line at the same speed unless a force changes that. A still thing stays still unless a force moves it. This stubbornness is called inertia.",
+   "On Earth it is hard to see, because friction and air always push against moving things. So they slow down, and we think stopping is natural. It is not. Stopping needs a force too.",
+   "The Voyager 1 space probe was launched in 1977. Since its last swing past Saturn in 1980, nothing has pushed it, and it is still moving at about 61,000 km/h. It will keep going for millions of years."
+  ], "art":{"s":"ramp"}, "cap":"On ice the puck keeps going; on carpet, friction stops it."},
+
+  {"k":"big", "h":"In empty space, nothing ever stops", "p":["Throw a ball in deep space and it travels forever at the same speed. No friction, no air, no floor. That is Newton's first law with nothing in the way."], "art":{"s":"space:voyager"}},
+
+  {"k":"ch", "h":"Push harder, go faster. Push heavier, go slower", "p":[
+   "Push an empty shopping cart and it zooms. Push the same cart loaded with ten bags of potatoes and it crawls. Same push, different result.",
+   "Newton's second law puts it in one line: the more force, the more a thing speeds up; the more mass, the less it speeds up. Scientists write it as F = m x a. Force equals mass times acceleration. Acceleration just means how quickly speed changes.",
+   "Here is the number behind the newton. One newton is the force that makes 1 kilogram speed up by 1 metre per second, every second. A 1,000 kg car needs a push of 1,000 N to speed up that fast.",
+   "This is why a big truck needs an engine ten times stronger than a small car to pull away from the lights just as quickly."
+  ], "art":{"s":"compare","v":{"a":60,"b":20,"la":"Loaded cart","lb":"Empty cart","ca":"#8b5a2b","cb":"#3b7dd8","title":"Same push, different mass"}}, "cap":"The heavier cart speeds up less from the same push."},
+
+  {"k":"quiz", "q":"A ball is rolling across perfectly smooth ice with no friction and no air. What happens next?", "opts":["It slowly stops on its own","It keeps rolling at the same speed","It speeds up"], "a":1, "why":"With no force to slow it, Newton's first law says it keeps going at the same speed, forever."},
+
+  {"k":"ch", "h":"Every push pushes back", "p":[
+   "Stand on a skateboard and throw a heavy ball forward. You roll backward. You pushed the ball, and the ball pushed you just as hard the other way.",
+   "This is Newton's third law. Forces always come in pairs. When one thing pushes on a second thing, the second pushes back on the first with the same strength, in the opposite direction. Always.",
+   "Right now your feet press down on the floor. The floor presses up on your feet with exactly the same force. For a child with a mass of 35 kg, that push is about 340 N. If the floor pushed less, you would sink. If it pushed more, you would float up.",
+   "Walking works the same way. Your foot pushes the ground backward. The ground pushes you forward. On slippery ice there is nothing to push against, so you go nowhere."
+  ], "art":{"s":"rocket"}, "cap":"Gas pushed down, rocket pushed up: forces come in pairs."},
+
+  {"k":"ch", "h":"The force that grabs: friction", "p":[
+   "Look at a smooth metal spoon under a microscope and it looks like a mountain range. Every surface has bumps. When two surfaces slide, the bumps catch on each other. That catching is friction.",
+   "Friction always pushes against motion. It is why a bike slows when you stop pedalling, and why socks on a wooden floor turn into a sport.",
+   "Scientists compare friction with a number called the coefficient. Rubber tyres on dry road score about 0.7, which is high. Ice sliding on ice scores about 0.03, more than twenty times less. That is why a car can brake hard on dry road and slides helplessly on ice.",
+   "Friction is not the enemy. Without it you could not hold a pencil, tie a knot or climb stairs. A world with no friction would be a world where everything slides away."
+  ], "art":{"s":"wheel"}, "cap":"Wheels roll instead of sliding, so friction is much smaller.", "fact":"Did you know? Curling players sweep the ice to warm its surface, which lowers friction and makes the stone travel farther."},
+
+  {"k":"try", "h":"Try it: the friction race", "p":["Find out which surface grabs hardest."], "steps":[
+   "Make a ramp with a tray or a hard book propped on a stack of other books.",
+   "Put a coin or an eraser at the top and let it slide. Mark where it stops.",
+   "Cover the ramp with a towel, then with kitchen foil, then with a plastic bag. Test each one the same way, from the same height.",
+   "Rank the surfaces from grabbiest to slipperiest. Which one gave the longest slide? Why do you think so?"
+  ], "art":{"s":"ramp"}, "cap":"Same ramp, different surfaces, different slides.", "safe":"Do this on the floor, not near a table edge."},
+
+  {"k":"ch", "h":"Friction makes heat", "p":[
+   "Rub your hands together fast for ten seconds. They get warm. Friction turns the energy of movement into heat, every time.",
+   "That can be useful. Striking a match works because friction heats the tip to a couple of hundred degrees, hot enough to start it burning. Brakes on a bike work the same way: rubber pads squeeze the wheel, motion becomes heat, and the bike stops.",
+   "Sometimes it is dangerous. A space capsule coming home hits the air at about 28,000 km/h. The air in front cannot get out of the way and is squeezed so hard it glows. The outside of the capsule reaches around 1,600 °C. Only a thick heat shield keeps the people inside cool.",
+   "Shooting stars are the same thing. A grain of rock the size of a pea hits the air so fast that it burns to nothing in one bright streak."
+  ], "art":{"s":"heat"}, "cap":"Rubbing turns motion into heat you can measure."},
+
+  {"k":"ch", "h":"Why a feather falls slowly", "p":[
+   "Drop a feather and a coin together. The coin wins easily. For 2,000 years people thought heavy things simply fall faster. They were wrong.",
+   "The feather is slow because of air. As it falls, it pushes air out of the way, and the air pushes back. This is air resistance, a kind of friction with the air. A wide, light feather feels a lot of it. A small, heavy coin barely notices.",
+   "The faster you go, the harder air pushes back. A skydiver falls faster and faster until the air pushes up as hard as gravity pulls down. Then the speed stops changing. That top speed is about 200 km/h, and it is called terminal velocity.",
+   "Open a parachute and the huge area catches far more air. Terminal velocity drops to about 20 km/h, slow enough to land on your feet."
+  ], "art":{"s":"wing"}, "cap":"Air pushes back on anything moving through it."},
+
+  {"k":"quiz", "q":"You stand on a skateboard and throw a heavy ball forward. Which way do you roll?", "opts":["Forward, with the ball","Backward","You do not move"], "a":1, "why":"The ball pushes back on you with equal force in the opposite direction: Newton's third law."},
+
+  {"k":"ch", "h":"The pull that never turns off", "p":[
+   "You cannot switch gravity off. You cannot block it with a wall. Every object in the universe pulls on every other object, and the bigger the mass, the stronger the pull. Earth is enormous, so its pull is the one you notice.",
+   "Near the ground, gravity makes falling things speed up by 9.8 metres per second, every second. After one second a dropped stone is moving at 9.8 m/s. After two seconds, 19.6 m/s. After three, 29.4 m/s. That is already 106 km/h.",
+   "Gravity does not care what a thing is made of. With no air in the way, a bowling ball and a marble fall side by side and land together. Heavy things are pulled harder, but they are also harder to get moving, and the two effects cancel out exactly.",
+   "Gravity gets weaker with distance. Far from Earth its pull fades, but it never quite reaches zero."
+  ], "art":{"s":"orbit"}, "cap":"Earth pulls on everything near it, and the pull never stops."},
+
+  {"k":"ch", "h":"Mass is not weight", "p":[
+   "People say a bag of sugar weighs 1 kilogram. A scientist would say it has a mass of 1 kilogram and a weight of about 9.8 newtons. The difference matters a lot once you leave Earth.",
+   "Mass is how much stuff a thing is made of. It never changes, wherever you go. Weight is the force of gravity pulling on that mass. Change the gravity, and the weight changes.",
+   "On the Moon, gravity is about one sixth of Earth's. A 36 kg child who weighs 353 N on Earth would weigh only 59 N there and could jump six times higher. On Jupiter the same child would weigh about 2.5 times more, and climbing stairs would feel like carrying a friend.",
+   "In orbit, astronauts seem to weigh nothing at all. Their mass has not changed by one gram. You will see why a few pages on."
+  ], "art":{"s":"scale"}, "cap":"A balance compares mass; a spring scale measures weight."},
+
+  {"k":"big", "h":"On the Moon, a hammer and a feather land together", "p":["In 1971 astronaut David Scott dropped both at once. With no air to slow the feather, they hit the dust at exactly the same moment. Gravity pulls everything the same way."], "art":{"s":"space:moon"}},
+
+  {"k":"ch", "h":"Why a truck is hard to stop", "p":[
+   "A bicycle rolling at 20 km/h is easy to stop with your hands. A truck rolling at the same speed would flatten you. Same speed, very different amount of motion. Scientists call that amount momentum.",
+   "Momentum is mass times speed. Double the mass, double the momentum. Double the speed, double the momentum. A 10 kg bike at 5 m/s has 50 units. A 10,000 kg truck at the same speed has 50,000 units, a thousand times more.",
+   "To change momentum you need a force acting for some time. A big force for a short time, or a small force for a long time, does the same job. That is why a truck needs huge brakes and a long stretch of road to stop.",
+   "Momentum is never lost. When two things bump, momentum passes between them, but the total stays the same."
+  ], "art":{"s":"compare","v":{"a":70,"b":14,"la":"Truck","lb":"Bike","ca":"#c0392b","cb":"#27ae60","title":"Same speed, different momentum"}}, "cap":"At the same speed, the truck has far more momentum."},
+
+  {"k":"ch", "h":"Crumple zones and seat belts", "p":[
+   "Crashing a car into a wall at 50 km/h is like driving it off a three-storey building, about 10 metres straight down. Stopping that suddenly is what hurts.",
+   "Remember the rule: changing momentum takes force times time. If a crash takes longer, the force is smaller. So car makers design the front of a car to crumple slowly, like a cushion made of metal. The crash stretches from a few thousandths of a second to about a tenth of a second, and the force on you drops.",
+   "A seat belt does the same job for your body. Without it, Newton's first law takes over: the car stops but you keep going at 50 km/h until the windscreen stops you. With it, you slow down with the car.",
+   "Airbags, bike helmets and the padding in a playground all work by the same trick: make the stop take longer."
+  ], "art":{"s":"bridge"}, "cap":"Engineers design cars and bridges to spread forces out."},
+
+  {"k":"quiz", "q":"Which has more momentum: a 2 kg ball moving at 3 m/s, or a 1 kg ball moving at 5 m/s?", "opts":["The 2 kg ball","The 1 kg ball","They are equal"], "a":0, "why":"Momentum is mass times speed: 2 x 3 = 6, and 1 x 5 = 5, so the heavier ball has slightly more."},
+
+  {"k":"ch", "h":"When pushes cancel", "p":[
+   "A book lies still on a table. Is any force acting on it? Yes, two. Gravity pulls it down with about 10 N. The table pushes it up with about 10 N. The forces are balanced, so nothing happens.",
+   "In a tug of war, both teams may pull with 2,000 N. The rope goes nowhere, even though everyone is straining. The instant one side pulls a little harder, the forces are unbalanced and the rope moves.",
+   "An aeroplane cruising level at a steady speed is the same story. The engines pull forward and the air drags back, and they match. The wings lift up and gravity pulls down, and they match. Four big forces, all balanced, and the plane sails along at 900 km/h without speeding up or falling.",
+   "Balanced does not mean no forces. It means the forces add up to zero."
+  ], "art":{"s":"lever"}, "cap":"A seesaw balances when both sides push equally hard."},
+
+  {"k":"ch", "h":"Machines that trade force for distance", "p":[
+   "With a long enough stick and something to rest it on, a child can lift a piano. The stick is a lever, one of the oldest machines on Earth.",
+   "Simple machines do not create force. They trade it. Push the long end of a lever down 1 metre with 100 N, and the short end lifts a 1,000 N load by 10 centimetres. Less force, more distance. The work done is the same.",
+   "A ramp does the same trade. Lifting a 500 N box straight up 1 metre takes 500 N of lift. Pushing it up a smooth 5-metre ramp takes only 100 N, but you push for 5 metres.",
+   "Pulleys, gears, screws and wheels are all the same deal. The ancient Egyptians dragged 2,500 kg stones up ramps to build the pyramids. No cranes, just a good trade."
+  ], "art":{"s":"pulley"}, "cap":"A pulley lets a small pull lift a heavy load."},
+
+  {"k":"try", "h":"Try it: lift a book with one finger", "p":["Build a lever and feel the trade between force and distance."], "steps":[
+   "Lay a 30 cm ruler across a pencil so the pencil sits near one end of the ruler.",
+   "Put a heavy book on the short end.",
+   "Press the long end down with one finger. Notice how easy it is, and how little the book rises.",
+   "Move the pencil to the middle of the ruler and try again. Now you need more force, but the book rises higher."
+  ], "art":{"s":"lever"}, "cap":"The closer the pencil is to the load, the easier the lift."},
+
+  {"k":"ch", "h":"Why rockets work", "p":[
+   "A rocket does not push against the air. It cannot, because most of its trip is through empty space. So what does it push against? Its own exhaust.",
+   "Inside the engine, fuel burns and makes a huge amount of hot gas. The gas blasts out of the nozzle at about 3 km per second. The rocket pushes the gas down; the gas pushes the rocket up. Newton's third law, on a grand scale.",
+   "The Saturn V rocket that carried people to the Moon pushed with about 35 million newtons at liftoff, roughly the weight of 3,500 cars. It burned about 13,000 kg of fuel every second for the first two and a half minutes.",
+   "A balloon let go without a knot is the same machine. Air rushes out one way, and the balloon zooms the other."
+  ], "art":{"s":"rocket"}, "cap":"Hot gas goes down, so the rocket goes up."},
+
+  {"k":"ch", "h":"How fast is fast enough?", "p":[
+   "To reach orbit you do not need to go very high. You need to go very fast, sideways.",
+   "The International Space Station circles only about 400 km above the ground, about the road distance from Toronto to Ottawa. But it travels at 7.7 km every second, which is 28,000 km/h. At that speed it loops the whole planet in about 92 minutes and sees 16 sunrises a day.",
+   "Getting to that speed is the hard part. About 90 percent of a rocket's mass at launch is fuel. The rest is tanks, engines and a small cargo at the tip. That is why rockets drop their empty stages on the way up: it is cheaper to carry less.",
+   "To leave Earth entirely and never fall back, you need 11.2 km per second. That is called escape velocity."
+  ], "art":{"s":"orbit"}, "cap":"Fast enough sideways, and you never come down."},
+
+  {"k":"ch", "h":"An orbit is falling and missing", "p":[
+   "Imagine a cannon on a very tall mountain. Fire a ball gently and it lands nearby. Fire it harder and it lands farther. Fire it hard enough and something odd happens: the ball falls, but Earth's surface curves away beneath it at the same rate. It keeps falling and never lands.",
+   "Isaac Newton drew this picture in the 1680s. It is exactly what an orbit is. The Space Station is not floating. It is falling toward Earth every second, and missing.",
+   "Gravity up there is still strong, about 90 percent of what you feel on the ground. The astronauts float only because they and their station are falling together. The floor falls away as fast as they do, so it never presses on their feet.",
+   "That is why scientists say weightless, not gravity-free."
+  ], "art":{"s":"space:earth"}, "cap":"The station falls around Earth, 400 km up, 16 times a day."},
+
+  {"k":"big", "h":"The Moon is falling right now", "p":["It has been falling toward Earth for 4.5 billion years while moving sideways at 3,700 km/h. It always misses. That is an orbit."], "art":{"s":"orbit"}},
+
+  {"k":"ch", "h":"Momentum passes along", "p":[
+   "Line up five steel balls on strings, pull one back and let it swing. It hits the row and stops dead, and the ball at the far end flies out. The middle balls hardly move.",
+   "The first ball handed all its momentum to the next, which passed it along, like a message down a line. Pull two balls back and two fly out. The momentum coming in always equals the momentum going out.",
+   "Pool players use this on every shot. The white ball hits a coloured ball straight on, stops, and the coloured one rolls away with the speed the white one had.",
+   "A pendulum shows something else: timing. A pendulum 1 metre long takes almost exactly 2 seconds to swing there and back, no matter how heavy the ball is. Clockmakers used this for 300 years to keep time."
+  ], "art":{"s":"pendulum","v":{"len":0.7}}, "cap":"A metre-long pendulum swings there and back every 2 seconds."},
+
+  {"k":"quiz", "q":"Why do astronauts on the Space Station float?", "opts":["There is no gravity up there","They are falling around Earth together with the station","The station pushes them up"], "a":1, "why":"Gravity there is still about 90 percent of Earth's; they float because everything is falling together."},
+
+  {"k":"ch", "h":"Three hundred years and still right", "p":[
+   "Isaac Newton published his three laws in 1687. Engineers still use them every day to build bridges, cars, aeroplanes and rockets. When a probe swings past Jupiter after a seven-year trip, Newton's laws told it where to go.",
+   "In 1905 Albert Einstein found that the laws bend at extreme speeds, close to the speed of light, which is 300,000 km per second. Near huge masses, like a black hole, they bend too. Newton was not wrong. His laws are the everyday version of something bigger, and for anything slower than a few thousand kilometres per second they are perfect.",
+   "GPS satellites move fast enough and high enough that engineers must use Einstein's corrections. Without them, your map would drift by about 10 km a day.",
+   "Good science works like that. It does not get thrown out. It gets a bigger frame."
+  ], "art":{"s":"timeline","v":{"title":"Forces through time","items":[["1687","Newton publishes his three laws"],["1783","First balloon flight"],["1905","Einstein's relativity"],["1957","Sputnik orbits Earth"],["1969","People walk on the Moon"],["1977","Voyager launched"]]}}, "cap":"From Newton's book to a probe leaving the Solar System."},
+
+  {"k":"ch", "h":"Forces in one ordinary day", "p":[
+   "Count the forces before breakfast. Gravity holds you in bed. Friction keeps the blanket from sliding off. You push the floor down; it pushes you up. Your toast stays put until the toaster pops it: inertia, then a force.",
+   "On the bus, every stop throws you forward. Nothing pushes you. The bus slows and your body keeps going. First law.",
+   "Kicking a ball at recess: the harder the kick, the faster it leaves. Second law. The ball pushes your foot back, which is why a hard kick stings. Third law.",
+   "Scientists like to say physics is everywhere. That is not a slogan. In one day your heart pushes blood about 100,000 times, you take about 20,000 breaths and thousands of steps, and Newton's three short laws explain every push, pull and balance in all of them."
+  ], "art":{"s":"wheel"}, "cap":"A bus stop, a push, a pull: Newton rides with you."},
+
+  {"k":"words", "items":[
+   ["force","a push or a pull, measured in newtons"],
+   ["newton","the unit of force; about the weight of a small apple"],
+   ["inertia","the habit of things to keep doing what they are doing"],
+   ["mass","how much stuff a thing is made of; it never changes"],
+   ["weight","the force of gravity pulling on a mass"],
+   ["friction","the force that grabs when surfaces rub"],
+   ["acceleration","how quickly speed changes"],
+   ["momentum","mass times speed; how hard a thing is to stop"],
+   ["gravity","the pull between all masses; Earth's is the one you feel"],
+   ["orbit","falling around something and always missing"]
+  ]},
+
+  {"k":"think", "qs":[
+   "If friction suddenly vanished for one minute, what is the first thing that would go wrong in your classroom?",
+   "The Space Station is falling all the time. Is it fair to call it floating? What would you call it?",
+   "Seat belts and crumple zones make a crash take longer. Where else in your life would making something slower make it safer?"
+  ]}
+ ]
+}

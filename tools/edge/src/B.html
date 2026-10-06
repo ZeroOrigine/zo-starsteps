@@ -1,0 +1,1082 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Before You Were You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Literata:opsz,wght@7..72,400;7..72,700&family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one live stage (a canvas that redraws the universe) + a time rail + a cosmic-calendar strip + the story of where YOUR atoms were. Single dark "space" look on purpose. */
+:root{
+  --void:#07080D; --panel:#0E1018; --ink:#ECE8F4; --muted:#A19DB4; --line:#24263A;
+  --star:#F2C46D; --plasma:#FF7A45; --cool:#8FB2FF;
+  --proven:#7FD6A4; --strong:#8FB2FF; --guess:#F2C46D; --unknown:#FF8A8A;
+  --display:"Instrument Serif","Georgia",serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Menlo",monospace;
+  color-scheme:dark;
+}
+html{background:var(--void)}
+body{background:var(--void);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:16px;padding-block:0 72px}
+.wrap{max-width:1080px;margin-inline:auto;display:grid;gap:22px}
+header{padding-block:44px 6px;display:grid;gap:12px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--star)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(46px,9vw,104px);line-height:.92;margin:0;letter-spacing:-.015em;text-wrap:balance}
+h1 i{color:var(--star)}
+.lede{margin:0;max-width:60ch;color:var(--muted);font-size:18px}
+
+.stage{position:relative;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}
+canvas{display:block;width:100%;height:clamp(340px,62vh,640px)}
+.overlay{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 20px;display:grid;gap:4px;background:linear-gradient(to top,rgba(7,8,13,.92),rgba(7,8,13,0));pointer-events:none}
+.count{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--star)}
+.era{font-family:var(--display);font-size:clamp(34px,6vw,64px);line-height:1;margin:0;text-wrap:balance}
+.when{font-family:var(--mono);font-size:14px;color:var(--ink);opacity:.85}
+.navbtn{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(7,8,13,.55);color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center}
+.navbtn:hover{background:rgba(7,8,13,.85)}
+#prev{left:12px} #next{right:12px}
+.snd{right:auto!important;left:14px}
+.play{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:8px 14px;border-radius:999px;border:1px solid rgba(242,196,109,.6);background:rgba(7,8,13,.6);color:var(--star);cursor:pointer}
+button:focus-visible{outline:3px solid var(--star);outline-offset:2px}
+
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.paths button{font-family:var(--body);font-size:15px;font-weight:600;text-align:left;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer}
+.paths button[aria-selected="true"]{color:var(--ink);border-color:var(--star);background:radial-gradient(140% 160% at 0% 0%,#2a2012,var(--panel) 65%)}
+@media (max-width:560px){.paths{grid-template-columns:1fr}}
+.rail{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.rail button{flex:0 0 auto;font-family:var(--mono);font-size:12px;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer;white-space:nowrap}
+.rail button[aria-current="true"]{color:var(--void);background:var(--star);border-color:var(--star);font-weight:600}
+
+.cal{display:grid;gap:8px;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.cal-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:baseline}
+.cal-head b{font-family:var(--display);font-weight:400;font-size:26px;color:var(--star)}
+.cal-head span{font-size:14px;color:var(--muted)}
+.months{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px}
+.months div{font-family:var(--mono);font-size:10px;color:var(--muted);text-align:center;padding-block:10px 4px;border-top:4px solid var(--line)}
+.months div.lit{border-top-color:#4a3b20}
+.marker{position:absolute;top:-6px;width:3px;height:16px;background:var(--star);border-radius:2px;box-shadow:0 0 12px var(--star);transition:left .8s cubic-bezier(.2,.8,.2,1);transform:translateX(-1px)}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--panel);display:grid;gap:8px;align-content:start;min-width:0}
+.card h3{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.card p{margin:0}
+.you{grid-column:1/-1;background:radial-gradient(120% 140% at 0% 0%,#2a2012 0%,var(--panel) 60%);border-color:#4a3b20}
+.you h3{color:var(--star)}
+.you p{font-family:var(--display);font-size:clamp(24px,3.4vw,34px);line-height:1.2}
+.unknown p{font-family:var(--display);font-style:italic;font-size:24px;line-height:1.25}
+.meter{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.meter i{height:8px;border-radius:2px;background:var(--line)}
+.meter-label{font-weight:700}
+ol.clues{margin:0;padding-left:20px;display:grid;gap:6px}
+.why{grid-column:1/-1}
+.why ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.why li{border:1px dashed #3a3c55;border-radius:10px;padding:12px;font-size:15px;min-width:0}
+.why li b{display:block;font-family:var(--display);font-weight:400;font-size:20px;color:var(--star);margin-bottom:2px}
+.foot{color:var(--muted);font-size:14px;max-width:70ch}
+@media (max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .why ul{grid-template-columns:1fr 1fr}
+  .navbtn{top:62px;transform:none;width:40px;height:40px}
+  #prev{left:12px} #next{left:60px;right:auto}
+  .months div{font-size:8px}
+}
+@media (max-width:420px){.why ul{grid-template-columns:1fr}}
+
+/* ---- book ---- */
+.bk-ov{position:fixed;inset:0;z-index:60;background:rgba(4,4,9,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(12px + env(safe-area-inset-bottom,0px))}
+.bk-bar{width:min(1060px,100%);display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;color:#EDE9F5}
+.bk-title{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:26px;margin-right:auto}
+.bk-cnt{font-family:"JetBrains Mono",monospace;font-size:12px;color:#A29EB5}
+.bk-vl{display:flex;align-items:center;gap:6px;font-family:"JetBrains Mono",monospace;font-size:11px;color:#A29EB5;min-width:0}
+.bk-voice,.voice-pick{max-width:220px;min-width:0;font:13px "Figtree",system-ui,sans-serif;background:#14121a;color:#EDE9F5;border:1px solid #3a3550;border-radius:8px;padding:6px 8px}
+.bk-read,.bk-x{font:600 13px "Figtree",system-ui,sans-serif;border-radius:999px;border:1px solid #F2C46D;background:#1b1610;color:#F2C46D;padding:8px 14px;cursor:pointer}
+.bk-x{border-color:#3a3550;color:#EDE9F5;font-size:20px;line-height:1;padding:6px 12px}
+.bk-stage{display:flex;align-items:center;gap:10px;width:min(1120px,100%);justify-content:center}
+.bk-nav{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:1px solid #3a3550;background:#14121a;color:#EDE9F5;font-size:26px;cursor:pointer;line-height:1}
+.bk-nav:disabled{opacity:.25;cursor:default}
+.bk{position:relative;display:grid;grid-template-columns:1fr 1fr;width:min(1000px,calc(100vw - 130px));height:min(640px,calc(100vh - 170px));perspective:2400px;filter:drop-shadow(0 30px 50px rgba(0,0,0,.6))}
+.bk.one{grid-template-columns:1fr;width:min(520px,calc(100vw - 110px))}
+.bk-page,.bk-face{position:relative;overflow:hidden;background:#f3ead4;background-image:radial-gradient(120% 90% at 50% 40%,#f8f1df 0%,#efe3c6 70%,#e5d5b2 100%);color:#2b2216;font-family:"Literata",Georgia,serif}
+.bk-l{border-radius:10px 2px 2px 10px;box-shadow:inset -26px 0 30px -18px rgba(90,60,20,.45)}
+.bk-r{border-radius:2px 10px 10px 2px;box-shadow:inset 26px 0 30px -18px rgba(90,60,20,.45)}
+.bk.one .bk-r{border-radius:10px;box-shadow:inset 18px 0 24px -18px rgba(90,60,20,.4)}
+.bk-leaf{position:absolute;top:0;bottom:0;width:50%;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.45,.05,.3,1);z-index:3}
+.bk-leaf.go-next{right:0;transform-origin:left center}
+.bk-leaf.go-prev{left:0;transform-origin:right center}
+.bk-leaf.one{width:100%;left:0;right:auto}
+.bk-leaf.go-next.turning{transform:rotateY(-180deg)}
+.bk-leaf.go-prev.turning{transform:rotateY(180deg)}
+.bk-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.bk-front{border-radius:2px 10px 10px 2px}
+.bk-back{transform:rotateY(180deg);border-radius:10px 2px 2px 10px}
+.bk-leaf.go-prev .bk-front{border-radius:10px 2px 2px 10px}.bk-leaf.go-prev .bk-back{border-radius:2px 10px 10px 2px}
+.bk-in{position:absolute;inset:0;padding:clamp(22px,4vw,44px) clamp(20px,3.6vw,46px) 44px;overflow-y:auto;display:grid;gap:12px;align-content:start}
+.bk-eye{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9a5a1c}
+.bk-in h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(28px,3.2vw,38px);line-height:1.05;margin:0;color:#21180e;text-wrap:balance}
+.bk-in p{margin:0;font-size:clamp(15px,1.45vw,17px);line-height:1.62}
+.bk-drop::first-letter{float:left;font-family:"Instrument Serif",Georgia,serif;font-size:3.4em;line-height:.82;padding:4px 8px 0 0;color:#9a3b12}
+.bk-fact{border-left:3px solid #c98a2e;background:rgba(201,138,46,.12);padding:10px 12px;border-radius:0 8px 8px 0;font-size:15px;line-height:1.5}
+.bk-fact b{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#9a5a1c;margin-bottom:2px}
+.bk-num{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:"JetBrains Mono",monospace;font-size:11px;color:#8a7454}
+.bk-cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:30px}
+.bk-cover h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(40px,5vw,62px);line-height:.95;margin:0;color:#21180e}
+.bk-orb{width:clamp(90px,14vw,150px);aspect-ratio:1;border-radius:50%;box-shadow:0 0 50px rgba(201,138,46,.5);margin-bottom:8px}
+.bk-lib{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;color:#9a5a1c}
+.bk-sub{font-style:italic;font-size:18px;margin:0;color:#5a4630}
+.bk-for{font-family:"JetBrains Mono",monospace;font-size:11px;color:#8a7454;margin:18px 0 0}
+.bk-toc{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px;font-size:16px}
+.bk-toc li{display:flex;align-items:baseline;gap:8px}.bk-toc i{flex:1;border-bottom:1px dotted #a8916b}.bk-toc em{font-style:normal;font-family:"JetBrains Mono",monospace;font-size:13px}
+.bk-dl{margin:0;display:grid;gap:4px}.bk-dl dt{font-weight:700;margin-top:8px}.bk-dl dd{margin:0;font-size:15px;line-height:1.5}
+.bk-q{margin:0;padding-left:22px;display:grid;gap:12px;font-size:16px;line-height:1.5}
+.bk-note{font-size:14px!important;color:#6a5638;font-style:italic}
+.bk-hint{margin:0;font-family:"JetBrains Mono",monospace;font-size:11px;color:#A29EB5}
+.book-btn{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 16px;border-radius:12px;border:1px solid #4a3b20;background:linear-gradient(100deg,#2a2012,#0E1018 70%);color:#EDE9F5;cursor:pointer;font:inherit}
+.book-btn .ic{width:42px;height:52px;flex:0 0 auto;border-radius:3px 7px 7px 3px;background:linear-gradient(90deg,#7a4a1c 0 12%,#c98a2e 12% 100%);box-shadow:inset -4px 0 0 rgba(0,0,0,.2),0 4px 14px rgba(201,138,46,.35)}
+.book-btn b{display:block;font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:22px;line-height:1.1}
+.book-btn small{font-family:"JetBrains Mono",monospace;font-size:11px;color:#F2C46D;letter-spacing:.08em}
+@media (max-width:760px){.bk{height:min(600px,calc(100vh - 190px))}.bk-nav{width:38px;height:38px}.bk-title{font-size:22px;width:100%}.bk-vl span{display:none}}
+@media (prefers-reduced-motion:reduce){.bk-leaf{transition:none}}
+
+.bk-fig{margin:2px 0 4px;display:grid;gap:6px}
+.bk-fig canvas{display:block;width:100%;height:auto;align-self:start;aspect-ratio:2/1;border-radius:8px;background:#000;box-shadow:0 6px 18px rgba(60,40,10,.35),0 0 0 1px rgba(60,40,10,.25)}
+.bk-fig figcaption{font-family:"Literata",Georgia,serif;font-style:italic;font-size:13px;color:#6a5638}
+canvas.bk-orb{display:block;flex:0 0 auto;width:clamp(90px,14vw,150px);height:clamp(90px,14vw,150px);background:#000;border:4px solid #d9c49a}
+
+.bk-phil blockquote{margin:4px 0;font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:clamp(22px,2.4vw,28px);line-height:1.25;color:#2b1d10;border-left:3px solid #9a3b12;padding-left:14px}
+.bk-big{background:#2b2216;color:#f3ead4;border-radius:10px;padding:12px 14px;font-size:16px;line-height:1.5}
+.bk-big b{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#F2C46D;margin-bottom:4px}
+
+
+.bookrow{grid-column:1/-1}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">An experiment in time · every picture drawn live, never the same twice</div>
+  <h1>Before You <i>Were</i> You</h1>
+  <p class="lede">The atoms in your body are 13.8 billion years old. Follow them two ways: from the Big Bang to you, or out beyond Earth to black holes, alien worlds and the end of everything. At every stop, look for one question: where were <em>you</em>?</p>
+</header>
+
+<div class="stage">
+  <canvas id="sky" aria-label="Live drawing of the current moment in cosmic history" role="img"></canvas>
+  <button class="play" id="play" aria-pressed="false">▶ Take the tour</button>
+  <button class="play snd" id="sound" aria-pressed="false">🔇 Sound off</button>
+  <button class="navbtn" id="prev" aria-label="Earlier">←</button>
+  <button class="navbtn" id="next" aria-label="Later">→</button>
+  <div class="overlay">
+    <div class="count" id="count">02 / 13</div>
+    <h2 class="era" id="era">The Big Bang</h2>
+    <div class="when" id="when">13.8 billion years ago</div>
+  </div>
+</div>
+
+<div class="paths" role="tablist" aria-label="Choose a path"><button id="path-earth" role="tab" aria-selected="true" data-p="earth">Our story · Big Bang to you</button><button id="path-space" role="tab" aria-selected="false" data-p="space">Beyond Earth · black holes, alien worlds, the end</button></div>
+<nav class="rail" id="rail" aria-label="Jump to a moment"></nav>
+
+<section class="cal" aria-label="Cosmic calendar">
+  <div class="cal-head"><b id="calDate">January 1 · 12:00 AM</b><span>If all 13.8 billion years were squeezed into one calendar year</span></div>
+  <div class="months" id="months"><span class="marker" id="marker"></span></div>
+</section>
+
+<section class="grid" id="info">
+  <article class="card you"><h3>Where were YOU?</h3><p id="you"></p></article>
+  <div class="bookrow"><button class="book-btn" id="bookBtn"><span class="ic"></span><span><small>OPEN THE BOOK FOR THIS STOP</small><b id="bookName">The Big Bang</b><small id="bookMeta" style="color:var(--muted)">chapters · words to know · questions</small></span></button></div>
+  <article class="card"><h3>What happened</h3><p id="what"></p></article>
+  <article class="card"><h3>How do we know?</h3><div id="how"></div></article>
+  <article class="card"><h3>Is it real?</h3><div class="meter" id="meter"><i></i><i></i><i></i><i></i></div><p><span class="meter-label" id="realLabel"></span> <span id="realNote"></span></p></article>
+  <article class="card unknown"><h3>Still unknown</h3><p id="unknown"></p></article>
+  <article class="card why" id="whyCard" hidden><h3>So why did it start? Nobody knows. Here are four ideas scientists take seriously</h3><ul id="why"></ul></article>
+</section>
+
+<p class="foot">These pictures are not photos. Each scene is drawn by code, live, from what science says that moment looked like, so it moves and changes every time you visit. Where scientists still argue, the "Is it real?" meter says so.</p>
+</div>
+
+<script>
+/* ---- ART: every picture is drawn live by code ---- */
+window.ART=(function(){
+const TAU=Math.PI*2;
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function glow(c,x,y,r,col,a){if(r<=0)return;const g=c.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,'rgba('+col+','+a+')');g.addColorStop(1,'rgba('+col+',0)');c.fillStyle=g;c.beginPath();c.arc(x,y,r,0,TAU);c.fill();}
+const lerp=(a,b,f)=>a+(b-a)*f;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const smooth=(a,b,v)=>{const x=clamp((v-a)/(b-a),0,1);return x*x*(3-2*x);};
+function bg(c,w,h,top,bot){const g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,top);g.addColorStop(1,bot);c.fillStyle=g;c.fillRect(0,0,w,h);}
+
+/* ---------- SCENES ---------- */
+const scenes={
+cometart:{init(r){return{st:Array.from({length:300},()=>({x:r(),y:r(),a:r()*.7})),d:Array.from({length:700},()=>({u:r(),o:(r()-.5),z:.6+r()*1.5})),io:Array.from({length:400},()=>({u:r(),o:(r()-.5)*.15,z:.5+r()}))};},
+ draw(c,w,h,t,s){c.fillStyle='#03040b';c.fillRect(0,0,w,h);for(const q of s.st){c.fillStyle='rgba(220,225,255,'+q.a+')';c.fillRect(q.x*w,q.y*h,1,1);}
+  const T=t%16,grow=smooth(1,9,T),sx=-w*.05,sy=h*.5;glow(c,sx,sy,h*.5,'255,200,110',.6);
+  const nx=w*.32+Math.sin(t*.2)*6,ny=h*.55,L=w*.75*grow;c.globalCompositeOperation='lighter';
+  for(const p of s.io){const x=nx+p.u*L,y=ny-p.u*L*.08+p.o*h*p.u;c.fillStyle='rgba(120,180,255,'+(.6*(1-p.u))+')';c.fillRect(x,y,p.z,p.z);}
+  for(const p of s.d){const x=nx+p.u*L*.85,y=ny+p.u*p.u*h*.35+p.o*h*.12*p.u;c.fillStyle='rgba(255,226,170,'+(.55*(1-p.u))+')';c.fillRect(x,y,p.z,p.z);}
+  glow(c,nx,ny,20+40*grow,'200,230,255',.7);c.globalCompositeOperation='source-over';c.fillStyle='#3a3530';c.beginPath();c.ellipse(nx,ny,5,3.5,.4,0,TAU);c.fill();}},
+pulsarart:{init(r){return{st:Array.from({length:300},()=>({x:r(),y:r(),a:r()*.7}))};},
+ draw(c,w,h,t,s){c.fillStyle='#02030a';c.fillRect(0,0,w,h);for(const q of s.st){c.fillStyle='rgba(220,225,255,'+q.a+')';c.fillRect(q.x*w,q.y*h,1,1);}
+  const cx=w/2,cy=h/2,R=Math.min(w,h),a=t*2.2;c.strokeStyle='rgba(140,170,255,.25)';c.lineWidth=1.2;for(let k=1;k<=4;k++){c.beginPath();c.ellipse(cx-k*R*.06,cy,k*R*.06,k*R*.1,0,0,TAU);c.stroke();c.beginPath();c.ellipse(cx+k*R*.06,cy,k*R*.06,k*R*.1,0,0,TAU);c.stroke();}
+  c.globalCompositeOperation='lighter';for(const sg of[1,-1]){const ang=a+(sg>0?0:Math.PI);const g=c.createLinearGradient(cx,cy,cx+Math.cos(ang)*R*.7,cy+Math.sin(ang)*R*.35);g.addColorStop(0,'rgba(200,220,255,.85)');g.addColorStop(1,'rgba(120,150,255,0)');c.fillStyle=g;c.beginPath();c.moveTo(cx,cy);c.lineTo(cx+Math.cos(ang-.12)*R*.7,cy+Math.sin(ang-.12)*R*.35);c.lineTo(cx+Math.cos(ang+.12)*R*.7,cy+Math.sin(ang+.12)*R*.35);c.closePath();c.fill();}
+  const face=Math.pow(Math.max(0,Math.cos(a)),40);if(face>.02){c.fillStyle='rgba(200,220,255,'+(face*.35)+')';c.fillRect(0,0,w,h);}
+  glow(c,cx,cy,R*.08,'190,215,255',1);glow(c,cx,cy,R*.025,'255,255,255',1);c.globalCompositeOperation='source-over';}},
+
+saturnart:{init(r){return{st:Array.from({length:260},()=>({x:r(),y:r(),a:r()*.7})),band:Array.from({length:14},(_,i)=>['#e8d2a4','#d1b07a','#f2e2bf','#c49c62'][i%4]),ring:Array.from({length:90},(_,i)=>({k:i/90,a:(i>56&&i<62)?.03:.12+.55*Math.abs(Math.sin(i*1.7+r()))})),m:[[2.9,.5,0],[3.5,.3,2],[4.2,.2,4]]};},
+ draw(c,w,h,t,s){c.fillStyle='#04040a';c.fillRect(0,0,w,h);for(const q of s.st){c.fillStyle='rgba(220,225,255,'+q.a+')';c.fillRect(q.x*w,q.y*h,1,1);}
+  const cx=w/2,cy=h/2,R=Math.min(w*.2,h*.3),T=t%20,tilt=.05+.33*Math.abs(Math.cos(T/20*Math.PI)),rot=-.22;
+  function rings(back){for(const q of s.ring){const rr=R*(1.25+q.k*1.05);c.strokeStyle='rgba(232,212,172,'+q.a+')';c.lineWidth=Math.max(1,R*.014);c.beginPath();c.ellipse(cx,cy,rr,rr*tilt,rot,back?Math.PI:0,back?TAU:Math.PI);c.stroke();}}
+  rings(true);c.save();c.beginPath();c.arc(cx,cy,R,0,TAU);c.clip();c.save();c.translate(cx,cy);c.rotate(rot);s.band.forEach((b,i)=>{c.fillStyle=b;c.fillRect(-R*1.2,-R+i*(2*R/14),R*2.4,2*R/14+1);});c.restore();
+  const g=c.createRadialGradient(cx-R*.4,cy-R*.4,R*.2,cx,cy,R*1.05);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.65)');c.fillStyle=g;c.fillRect(cx-R,cy-R,2*R,2*R);c.restore();rings(false);
+  for(const[rr,sp,ph]of s.m){const a=t*sp+ph,x=cx+Math.cos(a)*R*rr,y=cy+Math.sin(a)*R*rr*tilt;glow(c,x,y,5,'255,240,210',.9);}}},
+
+atomart:{init(r){return{p:Array.from({length:2600},()=>{const k=r();let x,y;if(k<.3){const d=-Math.log(r()*r()+1e-6)*.05,a=r()*TAU;x=Math.cos(a)*d;y=Math.sin(a)*d;}else if(k<.6){const d=.22+(r()+r()+r()-1.5)*.05,a=r()*TAU;x=Math.cos(a)*d;y=Math.sin(a)*d;}else{const sg=r()<.5?-1:1,d=.12+r()*.22,sp=(r()-.5)*.5;const vert=k>.8;x=vert?sp*d:sg*d;y=vert?sg*d:sp*d;}return{x,y,c:k<.3?'140,240,255':k<.6?'90,140,255':k<.8?'215,115,255':'255,130,200',z:.8+r()*1.4};}),n:Array.from({length:12},(_,i)=>({a:i*2.4,d:.02+(i%3)*.012,red:i%2}))};},
+ draw(c,w,h,t,s){c.fillStyle='#07050f';c.fillRect(0,0,w,h);const cx=w/2,cy=h/2,R=Math.min(w,h)*1.05;c.globalCompositeOperation='lighter';
+  for(const p of s.p){const j=Math.sin(t*3+p.x*50)*.004;c.fillStyle='rgba('+p.c+',.55)';c.fillRect(cx+(p.x+j)*R,cy+(p.y-j)*R,p.z,p.z);}
+  glow(c,cx,cy,R*.09,'255,170,140',.9);c.globalCompositeOperation='source-over';
+  for(const q of s.n){const x=cx+Math.cos(q.a+t*.5)*q.d*R+Math.sin(t*9+q.a)*1.2,y=cy+Math.sin(q.a+t*.5)*q.d*R;const g=c.createRadialGradient(x-2,y-2,1,x,y,R*.022);g.addColorStop(0,q.red?'#ff9a8a':'#c9d8ff');g.addColorStop(1,q.red?'#a3221a':'#3b5a9a');c.fillStyle=g;c.beginPath();c.arc(x,y,R*.022,0,TAU);c.fill();}
+  for(let k=0;k<6;k++){const a=t*(1.3+k*.4)+k,d=(k<2?.07:k<4?.22:.3)*R;glow(c,cx+Math.cos(a*1.7)*d,cy+Math.sin(a)*d*(k>3?.4:1),7,'255,255,255',1);}}},
+
+nothing:{init(r){return{p:Array.from({length:320},()=>({x:r(),y:r(),ph:r()*TAU,rate:.6+r()*2.4}))};},
+ draw(c,w,h,t,s){c.fillStyle='#000';c.fillRect(0,0,w,h);
+  for(const p of s.p){const a=Math.pow(Math.max(0,Math.sin(t*p.rate+p.ph)),14);if(a>.02){c.fillStyle='rgba(200,210,255,'+a+')';c.fillRect(p.x*w,p.y*h,1.6,1.6);}}}},
+
+bang:{init(r){const cols=['255,250,235','255,214,140','255,150,80','255,110,60','180,200,255'];return{p:Array.from({length:900},()=>({a:r()*TAU,s:.15+r()*1.1,c:cols[(r()*cols.length)|0],z:.6+r()*1.8}))};},
+ draw(c,w,h,t,s){const T=t%10;c.fillStyle='#000';c.fillRect(0,0,w,h);const cx=w/2,cy=h/2,M=Math.hypot(w,h)/2;
+  const R=M*(1-Math.exp(-T*.65))+2,k=Math.exp(-T*.22);
+  const g=c.createRadialGradient(cx,cy,0,cx,cy,R);g.addColorStop(0,'rgba(255,255,255,'+k+')');g.addColorStop(.22,'rgba(255,228,165,'+(.9*k)+')');g.addColorStop(.6,'rgba(255,110,50,'+(.55*k)+')');g.addColorStop(1,'rgba(120,20,40,0)');c.fillStyle=g;c.fillRect(0,0,w,h);
+  c.globalCompositeOperation='lighter';
+  for(const p of s.p){const d=R*p.s;c.fillStyle='rgba('+p.c+','+(.85*Math.min(1,k+.25))+')';c.fillRect(cx+Math.cos(p.a)*d,cy+Math.sin(p.a)*d,p.z,p.z);}
+  c.globalCompositeOperation='source-over';
+  if(T<.35){c.fillStyle='rgba(255,255,255,'+(1-T/.35)+')';c.fillRect(0,0,w,h);}}},
+
+light:{init(r){const o=document.createElement('canvas');o.width=900;o.height=450;const x=o.getContext('2d');
+  x.fillStyle='rgb(150,170,205)';x.fillRect(0,0,900,450);
+  const stops=[[0,[30,50,150]],[.33,[100,165,230]],[.5,[235,228,205]],[.68,[245,155,60]],[1,[190,35,30]]];
+  function col(v){for(let i=1;i<stops.length;i++){if(v<=stops[i][0]){const a=stops[i-1],b=stops[i],f=(v-a[0])/(b[0]-a[0]);return a[1].map((q,j)=>Math.round(lerp(q,b[1][j],f))).join(',');}}return'190,35,30';}
+  for(let i=0;i<3400;i++){const px=r()*900,py=r()*450,rad=3+Math.pow(r(),2)*30;glow(x,px,py,rad,col(r()),.42);}
+  return{o};},
+ draw(c,w,h,t,s){const T=t%11;c.fillStyle='#000';c.fillRect(0,0,w,h);
+  const rx=Math.min(w*.46,h*.86),ry=rx/2,cx=w/2,cy=h*.46;
+  c.save();c.beginPath();c.ellipse(cx,cy,rx,ry,0,0,TAU);c.clip();
+  const pan=Math.sin(t*.07)*30;c.drawImage(s.o,cx-rx-40+pan,cy-ry-20,rx*2+80,ry*2+40);
+  c.restore();
+  c.strokeStyle='rgba(255,255,255,.28)';c.lineWidth=1;c.beginPath();c.ellipse(cx,cy,rx,ry,0,0,TAU);c.stroke();
+  const fog=.92*(1-smooth(.5,4.5,T));if(fog>0){c.fillStyle='rgba(255,140,60,'+fog+')';c.fillRect(0,0,w,h);}}},
+
+stars:{init(r){return{p:Array.from({length:160},()=>{const big=r()<.16,b=r()*8;return{x:r(),y:r(),b,big,ex:big?b+2+r()*3:99,z:.6+r()};})};},
+ draw(c,w,h,t,s){const T=t%13;bg(c,w,h,'#02030a','#070a1c');c.globalCompositeOperation='lighter';
+  for(const p of s.p){if(T<p.b)continue;const x=p.x*w,y=p.y*h,br=Math.min(1,(T-p.b)/1.2);
+   if(T>p.ex){const e=T-p.ex,a=Math.max(0,1-e/2.6);if(a<=0)continue;c.strokeStyle='rgba(255,150,80,'+a+')';c.lineWidth=2;c.beginPath();c.arc(x,y,e*55,0,TAU);c.stroke();glow(c,x,y,60*a,'255,190,120',a);continue;}
+   glow(c,x,y,(p.big?26:9)*br*p.z,p.big?'170,200,255':'210,220,255',.9*br);c.fillStyle='rgba(255,255,255,'+br+')';c.fillRect(x-1,y-1,2,2);}
+  c.globalCompositeOperation='source-over';}},
+
+galaxy:{init(r){const p=[];for(let i=0;i<3200;i++){const arm=r()<.5?0:1,rr=Math.pow(r(),.75);const th=arm*Math.PI+rr*5.4+(r()-.5)*(.9-rr*.4);const col=rr<.25?'255,226,175':rr<.55?'230,215,255':'150,180,255';p.push({rr,th,col,z:.8+r()*1.2});}
+  const halo=Array.from({length:350},()=>({x:r(),y:r(),a:r()*.6}));return{p,halo};},
+ draw(c,w,h,t,s){c.fillStyle='#03040b';c.fillRect(0,0,w,h);for(const q of s.halo){c.fillStyle='rgba(220,225,255,'+q.a+')';c.fillRect(q.x*w,q.y*h,1,1);}
+  const cx=w/2,cy=h*.47,R=Math.min(w*.46,h*.9),tilt=.5;c.globalCompositeOperation='lighter';
+  for(const p of s.p){const a=p.th+t*.22/(.25+p.rr);c.fillStyle='rgba('+p.col+',.75)';c.fillRect(cx+Math.cos(a)*p.rr*R,cy+Math.sin(a)*p.rr*R*tilt,p.z,p.z);}
+  glow(c,cx,cy,R*.28,'255,215,150',.75);glow(c,cx,cy,R*.08,'255,245,220',1);c.globalCompositeOperation='source-over';}},
+
+sun:{init(r){return{p:Array.from({length:2200},()=>({r0:.12+Math.pow(r(),.8)*.88,a:r()*TAU,z:.6+r()*1.4,o:.25+r()*.5})),pl:[.32,.48,.66,.86].map(v=>({r0:v,a:r()*TAU}))};},
+ draw(c,w,h,t,s){const T=t%14;c.fillStyle='#050308';c.fillRect(0,0,w,h);const cx=w/2,cy=h*.5,R=Math.min(w*.47,h*1.05),tilt=.3;
+  c.globalCompositeOperation='lighter';
+  for(const p of s.p){const a=p.a+t*.25/Math.pow(p.r0,1.5);c.fillStyle='rgba(225,150,90,'+p.o+')';c.fillRect(cx+Math.cos(a)*p.r0*R,cy+Math.sin(a)*p.r0*R*tilt,p.z,p.z);}
+  const grow=.35+.65*smooth(0,6,T);glow(c,cx,cy,R*.3*grow,'255,190,100',.8);glow(c,cx,cy,R*.07*grow,'255,250,225',1);
+  for(const q of s.pl){const a=q.a+t*.25/Math.pow(q.r0,1.5);const x=cx+Math.cos(a)*q.r0*R,y=cy+Math.sin(a)*q.r0*R*tilt;glow(c,x,y,9,'255,210,170',.9);}
+  c.globalCompositeOperation='source-over';}},
+
+moon:{init(r){return{d:Array.from({length:600},()=>({a:r()*TAU,rad:1.5+r()*1.4,z:.8+r()*1.6,sp:.6+r()*.6}))};},
+ draw(c,w,h,t,s){const T=t%13;c.fillStyle='#030307';c.fillRect(0,0,w,h);const ex=w*.42,ey=h*.52,er=Math.min(w,h)*.17;
+  const eg=c.createRadialGradient(ex-er*.35,ey-er*.35,er*.1,ex,ey,er);eg.addColorStop(0,'#ffb35c');eg.addColorStop(.5,'#c2421c');eg.addColorStop(1,'#3a0b06');c.fillStyle=eg;c.beginPath();c.arc(ex,ey,er,0,TAU);c.fill();glow(c,ex,ey,er*1.5,'255,90,40',.25);
+  if(T<3){const f=T/3,tx=lerp(w+er,ex+er*1.25,f),ty=lerp(h*.1,ey-er*.35,f),tr=er*.55;const tg=c.createRadialGradient(tx-tr*.3,ty-tr*.3,1,tx,ty,tr);tg.addColorStop(0,'#c9b8a5');tg.addColorStop(1,'#4a3c35');c.fillStyle=tg;c.beginPath();c.arc(tx,ty,tr,0,TAU);c.fill();}
+  else{const e=T-3,spread=smooth(0,2.2,e),fade=1-.85*smooth(5,8,T);const ix=ex+er*.8,iy=ey-er*.4;c.globalCompositeOperation='lighter';
+   for(const p of s.d){const a=p.a+e*p.sp/p.rad;const ox=ex+Math.cos(a)*er*p.rad,oy=ey+Math.sin(a)*er*p.rad*.45;c.fillStyle='rgba(255,170,100,'+(.7*fade)+')';c.fillRect(lerp(ix,ox,spread),lerp(iy,oy,spread),p.z,p.z);}
+   c.globalCompositeOperation='source-over';
+   if(e<1){glow(c,ix,iy,er*3*(1-e*.4),'255,245,220',1-e);}
+   const m=smooth(5,9,T);if(m>0){const ma=t*.3,mx=ex+Math.cos(ma)*er*2.8,my=ey+Math.sin(ma)*er*1.2,mr=er*.27*m;const mg=c.createRadialGradient(mx-mr*.3,my-mr*.3,1,mx,my,mr);mg.addColorStop(0,'#e8e4dc');mg.addColorStop(1,'#5b5650');c.fillStyle=mg;c.beginPath();c.arc(mx,my,mr,0,TAU);c.fill();}}}},
+
+life:{init(r){const memo={};function pos(i,g){const k=i+':'+g;if(memo[k])return memo[k];if(g===0)return memo[k]={x:0,y:0};const par=pos(i>>1,g-1);const rr=rng(i*7919+g*104729)();const a=rr*TAU;const st=95/(1+g*.55);return memo[k]={x:par.x+Math.cos(a)*st,y:par.y+Math.sin(a)*st*.8};}
+  return{pos,rays:Array.from({length:6},()=>({x:r(),w:.04+r()*.08,ph:r()*TAU})),snow:Array.from({length:120},()=>({x:r(),y:r(),s:.01+r()*.03}))};},
+ draw(c,w,h,t,s){const T=t%15;bg(c,w,h,'#06414a','#011317');
+  for(const ry of s.rays){const x=(ry.x+Math.sin(t*.2+ry.ph)*.03)*w;c.fillStyle='rgba(180,255,240,.05)';c.beginPath();c.moveTo(x-ry.w*w*.3,0);c.lineTo(x+ry.w*w*.3,0);c.lineTo(x+ry.w*w*2,h);c.lineTo(x-ry.w*w*.6,h);c.fill();}
+  for(const q of s.snow){c.fillStyle='rgba(220,255,245,.35)';c.fillRect(q.x*w,((q.y+t*q.s)%1)*h,1.5,1.5);}
+  const sc=Math.min(w,h)/420,cx=w/2,cy=h*.46;const gf=T/1.7,g=Math.min(7,Math.floor(gf)),f=g<7?smooth(.55,1,gf-g):0;
+  const n=g<7?Math.pow(2,g+1):Math.pow(2,7);const rad=26/(1+g*.3)*sc;
+  for(let i=0;i<n;i++){let p;if(g<7){const a=s.pos(i>>1,g),b=s.pos(i,g+1);p={x:lerp(a.x,b.x,f),y:lerp(a.y,b.y,f)};}else p=s.pos(i,7);
+   const x=cx+p.x*sc+Math.sin(t*.8+i)*2,y=cy+p.y*sc+Math.cos(t*.7+i)*2;
+   c.fillStyle='rgba(120,235,185,.22)';c.strokeStyle='rgba(160,255,210,.75)';c.lineWidth=1.4;c.beginPath();c.arc(x,y,rad,0,TAU);c.fill();c.stroke();
+   c.fillStyle='rgba(200,255,225,.85)';c.beginPath();c.arc(x+rad*.2,y-rad*.15,rad*.28,0,TAU);c.fill();}}},
+
+cambrian:{init(r){return{k:Array.from({length:58},()=>({x0:r(),y0:.1+r()*.8,sp:(.012+r()*.03)*(r()<.5?1:-1),z:6+r()*16,hue:(r()*360)|0,ty:(r()*3)|0,f:.5+r()*1.5,ph:r()*TAU})),snow:Array.from({length:140},()=>({x:r(),y:r(),s:.005+r()*.02}))};},
+ draw(c,w,h,t,s){bg(c,w,h,'#0a3456','#020a14');for(const q of s.snow){c.fillStyle='rgba(220,235,255,.3)';c.fillRect(q.x*w,((q.y+t*q.s)%1)*h,1.4,1.4);}
+  for(const p of s.k){let fx=((p.x0+t*p.sp)%1.2+1.2)%1.2-.1;const x=fx*w,y=p.y0*h+Math.sin(t*p.f+p.ph)*16,z=p.z,dir=p.sp>0?1:-1,col='hsla('+p.hue+',75%,62%,.85)',wig=Math.sin(t*6*p.f+p.ph);
+   c.save();c.translate(x,y);c.scale(dir,1);c.fillStyle=col;c.strokeStyle=col;c.lineWidth=1.2;
+   if(p.ty===0){c.beginPath();c.arc(0,0,z*.7,Math.PI,0);c.fill();for(let i=-2;i<=2;i++){c.beginPath();c.moveTo(i*z*.25,0);c.quadraticCurveTo(i*z*.25+wig*4,z*.8,i*z*.25,z*1.6);c.stroke();}}
+   else if(p.ty===1){c.beginPath();c.ellipse(0,0,z,z*.4,0,0,TAU);c.fill();c.beginPath();c.moveTo(-z*.9,0);c.lineTo(-z*1.6,-z*.4+wig*3);c.lineTo(-z*1.6,z*.4+wig*3);c.fill();c.fillStyle='#fff';c.beginPath();c.arc(z*.55,-z*.08,z*.12,0,TAU);c.fill();}
+   else{for(let i=0;i<5;i++){c.beginPath();c.ellipse(-i*z*.32+z*.6,0,z*.22,z*.55*(1-i*.1),0,0,TAU);c.fill();}c.beginPath();c.moveTo(z*.8,-z*.2);c.lineTo(z*1.4,-z*.6+wig*2);c.moveTo(z*.8,z*.2);c.lineTo(z*1.4,z*.6-wig*2);c.stroke();}
+   c.restore();}}},
+
+dino:{init(r){return{ferns:Array.from({length:9},()=>({x:r(),hgt:.12+r()*.14}))};},
+ draw(c,w,h,t,s){const T=t%13,gy=h*.74;bg(c,w,h,'#2b3a67','#f3a65b');
+  const ax=w*.7,ay=gy-6;
+  if(T<3.6){const f=T/3.6,x=lerp(w*1.02,ax,f),y=lerp(-30,ay,f*f*.2+f*.8);const tg=c.createLinearGradient(x,y,x+w*.25,y-h*.35);tg.addColorStop(0,'rgba(255,240,200,.95)');tg.addColorStop(1,'rgba(255,140,60,0)');c.strokeStyle=tg;c.lineWidth=5;c.beginPath();c.moveTo(x,y);c.lineTo(x+w*.25,y-h*.35);c.stroke();glow(c,x,y,22,'255,230,180',1);}
+  else{const e=T-3.6;const fr=Math.min(w*.55,e*w*.14);const fg=c.createRadialGradient(ax,ay,0,ax,ay,fr);fg.addColorStop(0,'rgba(255,240,190,'+Math.max(0,1-e/5)+')');fg.addColorStop(.4,'rgba(255,120,40,'+Math.max(0,.9-e/6)+')');fg.addColorStop(1,'rgba(120,20,10,0)');c.fillStyle=fg;c.beginPath();c.arc(ax,ay,fr,Math.PI,TAU);c.fill();
+   c.fillStyle='rgba(30,10,5,'+Math.min(.82,e/4)+')';c.fillRect(0,0,w,h);if(e<.6){c.fillStyle='rgba(255,255,255,'+(1-e/.6)+')';c.fillRect(0,0,w,h);}}
+  c.fillStyle='#120a08';c.beginPath();c.moveTo(0,h);c.lineTo(0,gy);for(let x=0;x<=w;x+=20)c.lineTo(x,gy+Math.sin(x*.01)*8+Math.sin(x*.037)*4);c.lineTo(w,h);c.fill();
+  c.strokeStyle='#120a08';c.lineWidth=2;for(const f of s.ferns){const x=f.x*w,ht=f.hgt*h;c.beginPath();c.moveTo(x,gy+4);c.lineTo(x,gy-ht);c.stroke();for(let i=0;i<7;i++){const a=i/7*Math.PI;c.beginPath();c.moveTo(x,gy-ht);c.quadraticCurveTo(x+Math.cos(a)*ht*.4,gy-ht-Math.sin(a)*ht*.35,x+Math.cos(a)*ht*.55,gy-ht+ht*.15);c.stroke();}}
+  const dx=w*.28,dy=gy-h*.09,u=Math.min(w,h)/420,bob=Math.sin(t*1.5)*1.5;c.fillStyle='#120a08';
+  c.beginPath();c.ellipse(dx,dy+bob,60*u,26*u,0,0,TAU);c.fill();
+  c.lineCap='round';c.strokeStyle='#120a08';c.lineWidth=15*u;c.beginPath();c.moveTo(dx+45*u,dy-8*u+bob);c.quadraticCurveTo(dx+80*u,dy-60*u,dx+105*u,dy-95*u+Math.sin(t)*3);c.stroke();
+  c.beginPath();c.ellipse(dx+112*u,dy-98*u+Math.sin(t)*3,14*u,8*u,.2,0,TAU);c.fill();
+  c.lineWidth=12*u;c.beginPath();c.moveTo(dx-50*u,dy+bob);c.quadraticCurveTo(dx-110*u,dy+5*u,dx-150*u,dy+25*u+Math.sin(t*1.2)*5);c.stroke();
+  c.lineWidth=13*u;for(const lx of[-30,-12,22,40]){c.beginPath();c.moveTo(dx+lx*u,dy+15*u+bob);c.lineTo(dx+lx*u,gy+2);c.stroke();}c.lineCap='butt';}},
+
+fire:{init(r){return{st:Array.from({length:420},()=>({a:r()*TAU,d:Math.sqrt(r()),z:.5+r()*1.3})),fl:Array.from({length:200},()=>({ph:r(),sp:.6+r()*.9,xo:(r()-.5)*2})),pp:[-1,1,1.8].map(v=>v)};},
+ draw(c,w,h,t,s){bg(c,w,h,'#03051a','#171b3e');const px=w*.82,py=-h*.15,M=Math.hypot(w,h);
+  for(const q of s.st){const a=q.a+t*.015;c.fillStyle='rgba(225,230,255,.75)';c.fillRect(px+Math.cos(a)*q.d*M,py+Math.sin(a)*q.d*M,q.z,q.z);}
+  const gy=h*.8;c.fillStyle='#06050c';c.beginPath();c.moveTo(0,h);c.lineTo(0,gy);for(let x=0;x<=w;x+=25)c.lineTo(x,gy+Math.sin(x*.008)*14);c.lineTo(w,h);c.fill();
+  const fx=w*.5,fy=gy+4,fl=.85+.15*Math.sin(t*13)*Math.sin(t*7);glow(c,fx,fy,Math.min(w,h)*.42*fl,'255,130,40',.35);
+  c.globalCompositeOperation='lighter';
+  for(const p of s.fl){const life=(t*p.sp+p.ph)%1,y=fy-life*Math.min(110,h*.2),x=fx+p.xo*(1-life)*18+Math.sin(t*9+p.ph*20)*3*life,z=(1-life)*8;c.fillStyle='rgba(255,'+Math.round(220-life*170)+','+Math.round(90-life*80)+','+(1-life)*.75+')';c.beginPath();c.arc(x,y,z,0,TAU);c.fill();}
+  c.globalCompositeOperation='source-over';
+  const u=Math.min(w,h)/420;c.fillStyle='#000';for(const v of[-1,1,1.9]){const x=fx+v*70*u,y=fy;c.beginPath();c.arc(x,y-46*u,10*u,0,TAU);c.fill();c.beginPath();c.ellipse(x,y-18*u,15*u,26*u,0,0,TAU);c.fill();}}},
+
+earth:{init(r){const C=[[10,50,9,190],[78,23,8,170],[115,32,8,190],[138,36,3,60],[-80,39,6,120],[-120,37,4,60],[-46,-22,5,70],[5,8,5,60],[31,29,3,50],[-100,20,5,60],[105,13,6,90],[110,-7,5,70],[150,-33,3,30],[-79,44,3,40],[-58,-34,3,30],[28,-26,3,30],[37,55,6,60]];const pts=[];
+  for(const[lo,la,sp,n]of C)for(let i=0;i<n;i++)pts.push({lon:lo+(r()-.5)*sp*2,lat:la+(r()-.5)*sp*1.3,b:.4+r()*.6});
+  return{pts,st:Array.from({length:300},()=>({x:r(),y:r(),a:r()*.7})),sat:Array.from({length:7},()=>({a:r()*TAU,rr:1.12+r()*.35,tl:(r()-.5)*1.2,sp:.4+r()*.5}))};},
+ draw(c,w,h,t,s){c.fillStyle='#02030a';c.fillRect(0,0,w,h);for(const q of s.st){c.fillStyle='rgba(220,225,255,'+q.a+')';c.fillRect(q.x*w,q.y*h,1,1);}
+  const cx=w/2,cy=h*.5,R=Math.min(w,h)*.36,tilt=.38,rot=t*7,D=Math.PI/180;
+  glow(c,cx,cy,R*1.25,'90,140,255',.35);const g=c.createRadialGradient(cx-R*.3,cy-R*.3,R*.1,cx,cy,R);g.addColorStop(0,'#13274a');g.addColorStop(1,'#02060f');c.fillStyle=g;c.beginPath();c.arc(cx,cy,R,0,TAU);c.fill();
+  c.globalCompositeOperation='lighter';
+  for(const p of s.pts){const la=p.lat*D,lm=(p.lon+rot)*D;const z=Math.sin(la)*Math.sin(tilt)+Math.cos(la)*Math.cos(lm)*Math.cos(tilt);if(z<=0)continue;const x=cx+R*Math.cos(la)*Math.sin(lm),y=cy-R*(Math.sin(la)*Math.cos(tilt)-Math.cos(la)*Math.cos(lm)*Math.sin(tilt));c.fillStyle='rgba(255,200,110,'+(.9*z*p.b)+')';c.fillRect(x,y,1.6,1.6);}
+  for(const q of s.sat){const a=q.a+t*q.sp,x=cx+Math.cos(a)*R*q.rr,y=cy+Math.sin(a)*R*q.rr*.35+Math.cos(a)*R*q.tl*.3;if(Math.sin(a)<0&&Math.hypot(x-cx,y-cy)<R)continue;glow(c,x,y,5,'200,230,255',.9);}
+  c.globalCompositeOperation='source-over';c.strokeStyle='rgba(120,170,255,.45)';c.lineWidth=2;c.beginPath();c.arc(cx,cy,R,0,TAU);c.stroke();}},
+
+hole:{init(r){return{p:Array.from({length:1600},()=>({a:r()*TAU,rr:1.35+Math.pow(r(),1.6)*1.5,z:.6+r()*1.6})),st:Array.from({length:260},()=>({x:r(),y:r(),a:r()*.7}))};},
+ draw(c,w,h,t,s){c.fillStyle='#000';c.fillRect(0,0,w,h);for(const q of s.st){c.fillStyle='rgba(220,225,255,'+q.a+')';c.fillRect(q.x*w,q.y*h,1,1);}
+  const cx=w/2,cy=h*.5,R=Math.min(w,h)*.13,tl=.26;
+  function disk(back){c.globalCompositeOperation='lighter';for(const p of s.p){const a=p.a+t*1.1/Math.pow(p.rr,1.5);const sn=Math.sin(a);if(back?sn>0:sn<=0)continue;const dop=.45+.55*(1+Math.cos(a))/2;c.fillStyle='rgba(255,'+Math.round(150+80*dop)+','+Math.round(70+60*dop)+','+(.85*dop)+')';c.fillRect(cx+Math.cos(a)*p.rr*R*1.6,cy+sn*p.rr*R*1.6*tl,p.z,p.z);}c.globalCompositeOperation='source-over';}
+  disk(true);
+  c.lineWidth=R*.35;const lg=c.createLinearGradient(cx-R*1.6,0,cx+R*1.6,0);lg.addColorStop(0,'rgba(255,190,110,.75)');lg.addColorStop(1,'rgba(255,120,60,.35)');c.strokeStyle=lg;c.beginPath();c.ellipse(cx,cy,R*1.45,R*1.3,0,Math.PI*1.04,Math.PI*1.96);c.stroke();
+  glow(c,cx,cy,R*1.25,'255,200,140',.7);c.fillStyle='#000';c.beginPath();c.arc(cx,cy,R,0,TAU);c.fill();
+  c.strokeStyle='rgba(255,230,190,.9)';c.lineWidth=1.5;c.beginPath();c.arc(cx,cy,R*1.04,0,TAU);c.stroke();
+  disk(false);}},
+
+kilonova:{init(r){return{g:Array.from({length:500},()=>({a:r()*TAU,s:.3+r(),z:.8+r()*1.8,gold:r()<.4}))};},
+ draw(c,w,h,t,s){const T=t%13;c.fillStyle='#04030a';c.fillRect(0,0,w,h);const cx=w/2,cy=h*.5,R0=Math.min(w,h)*.3;
+  c.strokeStyle='rgba(150,170,255,.18)';c.lineWidth=1.2;for(let k=0;k<9;k++){const rr=((t*60+k*55)%(Math.hypot(w,h)*.6));c.beginPath();c.ellipse(cx,cy,rr,rr*.62,0,0,TAU);c.stroke();}
+  if(T<5){const f=1-T/5,r=R0*Math.pow(Math.max(f,.02),.35),om=t*1.5+(1-Math.pow(f,1.6))*40;c.globalCompositeOperation='lighter';
+   for(const sgn of[1,-1]){const x=cx+Math.cos(om)*r*sgn,y=cy+Math.sin(om)*r*.6*sgn;glow(c,x,y,26,'190,215,255',.9);c.fillStyle='#fff';c.beginPath();c.arc(x,y,4,0,TAU);c.fill();}
+   c.globalCompositeOperation='source-over';}
+  else{const e=T-5;if(e<.5){c.fillStyle='rgba(255,255,255,'+(1-e/.5)+')';c.fillRect(0,0,w,h);}
+   glow(c,cx,cy,Math.min(w,h)*(.12+e*.08),'255,120,90',Math.max(0,.9-e*.1));glow(c,cx,cy,Math.min(w,h)*(.06+e*.03),'140,170,255',Math.max(0,.8-e*.12));
+   c.globalCompositeOperation='lighter';for(const p of s.g){const d=e*p.s*Math.min(w,h)*.12;c.fillStyle=p.gold?'rgba(255,214,90,'+Math.max(0,1-e/8)+')':'rgba(255,140,110,'+Math.max(0,.7-e/8)+')';c.fillRect(cx+Math.cos(p.a)*d,cy+Math.sin(p.a)*d*.7,p.z,p.z);}c.globalCompositeOperation='source-over';}}},
+
+transit:{init(r){return{st:Array.from({length:220},()=>({x:r(),y:r(),a:r()*.6}))};},
+ draw(c,w,h,t,s){c.fillStyle='#03040a';c.fillRect(0,0,w,h);for(const q of s.st){c.fillStyle='rgba(220,225,255,'+q.a+')';c.fillRect(q.x*w,q.y*h*.6,1,1);}
+  const cx=w/2,cy=h*.32,R=Math.min(w,h)*.17,P=8,ph=(t%P)/P,px=cx+(ph*2-1)*R*2.4,pr=R*.16;
+  glow(c,cx,cy,R*2.2,'255,170,90',.35);const g=c.createRadialGradient(cx,cy,0,cx,cy,R);g.addColorStop(0,'#fff3d6');g.addColorStop(.7,'#ffb04a');g.addColorStop(1,'#e46a1d');c.fillStyle=g;c.beginPath();c.arc(cx,cy,R,0,TAU);c.fill();
+  c.fillStyle='#05060c';c.beginPath();c.arc(px,cy+R*.15,pr,0,TAU);c.fill();
+  const gx=w*.1,gw=w*.8,gy=h*.68,gh=h*.18;c.strokeStyle='rgba(255,255,255,.25)';c.lineWidth=1;c.beginPath();c.moveTo(gx,gy+gh);c.lineTo(gx+gw,gy+gh);c.moveTo(gx,gy-8);c.lineTo(gx,gy+gh);c.stroke();
+  c.fillStyle='rgba(255,255,255,.55)';c.font='11px "JetBrains Mono",monospace';c.fillText('STAR BRIGHTNESS',gx+6,gy-12);
+  function dip(q){const x=(q*2-1)*R*2.4;const d=Math.abs(x);return d<R?1:smooth(R+pr,R-pr,d)||0;}
+  c.strokeStyle='#F2C46D';c.lineWidth=2;c.beginPath();for(let i=0;i<=200;i++){const q=i/200;if(q>ph)break;const y=gy+gh*.15+dip(q)*gh*.55;i?c.lineTo(gx+q*gw,y):c.moveTo(gx+q*gw,y);}c.stroke();
+  glow(c,gx+ph*gw,gy+gh*.15+dip(ph)*gh*.55,8,'242,196,109',1);}},
+
+mars:{init(r){return{pts:Array.from({length:2600},()=>({lon:r()*360,lat:Math.asin(r()*2-1)*180/Math.PI,b:r()})),st:Array.from({length:200},()=>({x:r(),y:r(),a:r()*.6}))};},
+ draw(c,w,h,t,s){const T=t%14;c.fillStyle='#030305';c.fillRect(0,0,w,h);for(const q of s.st){c.fillStyle='rgba(220,225,255,'+q.a+')';c.fillRect(q.x*w,q.y*h,1,1);}
+  const cx=w/2,cy=h*.5,R=Math.min(w,h)*.36,D=Math.PI/180,tilt=.3,wet=1-smooth(4,10,T);
+  glow(c,cx,cy,R*1.2,'120,170,255',.35*wet);const g=c.createRadialGradient(cx-R*.3,cy-R*.3,R*.1,cx,cy,R);g.addColorStop(0,'#d9784a');g.addColorStop(1,'#4a1a0e');c.fillStyle=g;c.beginPath();c.arc(cx,cy,R,0,TAU);c.fill();
+  for(const p of s.pts){const la=p.lat*D,lm=(p.lon+t*10)*D;const z=Math.sin(la)*Math.sin(tilt)+Math.cos(la)*Math.cos(lm)*Math.cos(tilt);if(z<=0)continue;const x=cx+R*Math.cos(la)*Math.sin(lm),y=cy-R*(Math.sin(la)*Math.cos(tilt)-Math.cos(la)*Math.cos(lm)*Math.sin(tilt));
+   const sea=p.lat>28+Math.sin(p.lon*D*3)*8;if(sea&&wet>0.02){c.fillStyle='rgba(60,120,210,'+(.85*wet*z)+')';c.fillRect(x,y,2.4,2.4);}else{c.fillStyle=p.b<.3?'rgba(70,25,15,'+(.6*z)+')':'rgba(240,150,100,'+(.35*z)+')';c.fillRect(x,y,1.6,1.6);}}
+  c.fillStyle='rgba(255,255,255,.6)';c.font='12px "JetBrains Mono",monospace';c.fillText(wet>.5?'MARS · LONG AGO':'MARS · TODAY',16,24);}},
+
+jupiter:{init(r){return{b:Array.from({length:16},(_,i)=>({y:i/16,sp:(r()-.5)*40,c:['#d9b48a','#b98a63','#efd9bb','#a46e4c','#e7c9a2'][i%5]})),sw:Array.from({length:240},()=>({a:r()*TAU,d:Math.sqrt(r()),z:.8+r()}))};},
+ draw(c,w,h,t,s){c.fillStyle='#04040a';c.fillRect(0,0,w,h);const cx=w*.5,cy=h*.5,R=Math.min(w*.46,h*.44);
+  c.save();c.beginPath();c.arc(cx,cy,R,0,TAU);c.clip();
+  for(const b of s.b){const y0=cy-R+b.y*2*R;c.fillStyle=b.c;c.beginPath();c.moveTo(cx-R,y0);for(let x=-R;x<=R;x+=10)c.lineTo(cx+x,y0+Math.sin((x+t*b.sp)*.03)*4);c.lineTo(cx+R,y0+2*R/16+6);c.lineTo(cx-R,y0+2*R/16+6);c.fill();}
+  const sx=cx+R*.25,sy=cy+R*.38,srx=R*.26,sry=R*.13;const sg=c.createRadialGradient(sx,sy,1,sx,sy,srx);sg.addColorStop(0,'#c4442b');sg.addColorStop(1,'#a8503a');c.fillStyle=sg;c.beginPath();c.ellipse(sx,sy,srx,sry,0,0,TAU);c.fill();
+  for(const p of s.sw){const a=p.a+t*(1.4-p.d);c.fillStyle='rgba(255,210,180,.5)';c.fillRect(sx+Math.cos(a)*p.d*srx*.95,sy+Math.sin(a)*p.d*sry*.95,p.z,p.z);}
+  const shade=c.createRadialGradient(cx-R*.35,cy-R*.35,R*.2,cx,cy,R*1.05);shade.addColorStop(0,'rgba(0,0,0,0)');shade.addColorStop(1,'rgba(0,0,0,.7)');c.fillStyle=shade;c.fillRect(cx-R,cy-R,2*R,2*R);c.restore();
+  const er=srx*2/1.3/2,ex=sx,ey=sy-sry-er-14;c.fillStyle='#3b6fb6';c.beginPath();c.arc(ex,ey,er,0,TAU);c.fill();c.fillStyle='rgba(255,255,255,.85)';c.font='11px "JetBrains Mono",monospace';c.fillText('EARTH, TO SCALE',ex+er+8,ey+4);}},
+
+voyager:{init(r){return{st:Array.from({length:500},()=>({x:r(),y:r(),z:r()}))};},
+ draw(c,w,h,t,s){c.fillStyle='#010106';c.fillRect(0,0,w,h);for(const q of s.st){const x=((q.x-t*.004*q.z)%1+1)%1*w;c.fillStyle='rgba(220,225,255,'+(.25+q.z*.6)+')';c.fillRect(x,q.y*h,q.z*1.6,q.z*1.6);}
+  const sx=w*.12,sy=h*.7;glow(c,sx,sy,14,'255,230,170',.9);c.fillStyle='#fff';c.fillRect(sx-1,sy-1,2,2);c.fillStyle='rgba(255,255,255,.6)';c.font='11px "JetBrains Mono",monospace';c.fillText('THE SUN',sx+12,sy+16);
+  const vx=w*.68,vy=h*.4+Math.sin(t*.4)*4,u=Math.min(w,h)/420;
+  for(let k=0;k<4;k++){const e=((t*.5+k/4)%1);c.strokeStyle='rgba(143,178,255,'+(1-e)*.6+')';c.lineWidth=1.5;c.beginPath();c.arc(vx,vy,20*u+e*(vx-sx),Math.PI*.82,Math.PI*1.05);c.stroke();}
+  c.save();c.translate(vx,vy);c.rotate(-.35);c.strokeStyle='#cfd6e6';c.fillStyle='#e8ecf5';c.lineWidth=2*u;
+  c.beginPath();c.ellipse(0,0,7*u,26*u,0,0,TAU);c.fill();c.fillStyle='#9aa4b8';c.fillRect(4*u,-6*u,16*u,12*u);
+  c.beginPath();c.moveTo(20*u,0);c.lineTo(80*u,-8*u);c.moveTo(14*u,4*u);c.lineTo(50*u,40*u);c.moveTo(14*u,-4*u);c.lineTo(-10*u,-60*u);c.stroke();
+  c.fillStyle='#F2C46D';c.beginPath();c.arc(12*u,8*u,4*u,0,TAU);c.fill();c.restore();}},
+
+andromeda:{init(r){function gal(n,seed){const q=rng(seed);return Array.from({length:n},()=>{const rr=Math.pow(q(),.75),arm=q()<.5?0:1;return{rr,th:arm*Math.PI+rr*5+(q()-.5)*.8};});}return{a:gal(1500,7),b:gal(1500,11)};},
+ draw(c,w,h,t,s){const T=t%16;c.fillStyle='#03030a';c.fillRect(0,0,w,h);const f=smooth(0,11,T),R=Math.min(w,h)*.3,cy=h*.5;
+  const ax=lerp(w*.22,w*.47,f),bx=lerp(w*.8,w*.53,f);c.globalCompositeOperation='lighter';
+  function draw(arr,x,y,tilt,rot,col,sz){for(const p of arr){const a=p.th+t*.12/(.3+p.rr)+rot;const px=Math.cos(a)*p.rr*sz,py=Math.sin(a)*p.rr*sz*tilt;c.fillStyle='rgba('+col+',.6)';c.fillRect(x+px,y+py+px*.15,1.2,1.2);}glow(c,x,y,sz*.25,col,.6);}
+  draw(s.a,ax,cy-R*.1*f,.45,0,'180,200,255',R*.8);draw(s.b,bx,cy+R*.1*f,.3,1,'255,215,170',R*1.05);
+  if(T>11)glow(c,w/2,cy,R*(.4+(T-11)*.12),'255,235,210',smooth(11,15,T)*.6);
+  c.globalCompositeOperation='source-over';c.fillStyle='rgba(255,255,255,.6)';c.font='11px "JetBrains Mono",monospace';c.fillText('MILKY WAY',Math.max(8,ax-R*.4),cy-R*.55);c.fillText('ANDROMEDA',Math.min(w-90,bx-R*.3),cy+R*.62);}},
+
+fade:{init(r){return{p:Array.from({length:700},()=>({x:r(),y:r(),d:r()*13,red:r()<.25,z:.6+r()*1.6}))};},
+ draw(c,w,h,t,s){const T=t%17;c.fillStyle='#000';c.fillRect(0,0,w,h);c.globalCompositeOperation='lighter';
+  for(const p of s.p){const life=p.red?p.d+3.5:p.d;const a=1-smooth(life,life+1.2,T);if(a<=0)continue;const col=p.red?'255,110,80':'215,225,255';if(p.z>1.8)glow(c,p.x*w,p.y*h,7,col,.6*a);c.fillStyle='rgba('+col+','+a+')';c.fillRect(p.x*w,p.y*h,p.z,p.z);}
+  c.globalCompositeOperation='source-over';}},
+
+giant:{init(){return{};},
+ draw(c,w,h,t,s){c.fillStyle='#0b0204';c.fillRect(0,0,w,h);const cx=w*.4,cy=h*.5,R=Math.min(w*.42,h*.48)*(1+.035*Math.sin(t*.8));
+  glow(c,cx,cy,R*1.8,'255,70,30',.35);c.beginPath();for(let i=0;i<=160;i++){const a=i/160*TAU,rr=R*(1+.025*Math.sin(a*7+t*1.3)+.018*Math.sin(a*13-t*2.1)+.01*Math.sin(a*29+t*3));const x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;i?c.lineTo(x,y):c.moveTo(x,y);}c.closePath();
+  const g=c.createRadialGradient(cx-R*.2,cy-R*.2,R*.05,cx,cy,R);g.addColorStop(0,'#ffcf7a');g.addColorStop(.45,'#f2662a');g.addColorStop(1,'#7a1009');c.fillStyle=g;c.fill();
+  const ex=cx+R*1.22+Math.sin(t*.3)*6,ey=cy+Math.cos(t*.3)*8;glow(c,ex,ey,14,'255,150,90',.6);c.fillStyle='#3b5f8a';c.beginPath();c.arc(ex,ey,4,0,TAU);c.fill();}}
+};
+
+return{scenes,h:{rng,glow,lerp,clamp,smooth,bg}};})();
+
+</script>
+<script>
+/* ---- THE LIBRARY: one book per topic ---- */
+const BOOKS={
+bang:{t:'The Big Bang',s:'How everything began',c:['#ffcf7a','#c2421c'],pages:[
+ {h:'The very beginning',p:['About 13.8 billion years ago, everything in the universe was packed into a space smaller than an atom. It was hotter than anything that exists today.','Then space began to stretch. This was not a bomb going off in an empty room. There was no room. Space itself grew, everywhere at once, carrying everything along.'],f:'In the first tiny fraction of a second, the universe may have doubled in size again and again. Scientists call this idea "inflation".'},
+ {h:'The first three minutes',p:['As space stretched, it cooled. In the first second, tiny particles called quarks joined up into protons and neutrons.','Within about three minutes, protons and neutrons stuck together into the first atom centres: hydrogen and helium. Almost nothing heavier was made. Every heavier atom came later, from stars.'],f:'Hydrogen and helium still make up about 98% of all normal matter in the universe.'},
+ {h:'How we found out',p:['In 1929 Edwin Hubble noticed that faraway galaxies are moving away from us, and the farther they are, the faster they go. If everything is spreading apart, it must once have been together.','In 1965 Arno Penzias and Robert Wilson heard a strange hiss in their radio antenna. They even cleaned out pigeon droppings, but the hiss stayed. It was the leftover glow of the Big Bang, coming from every direction.'],f:'That accidental discovery won them the Nobel Prize in 1978.'},
+ {h:'Mind-blowing facts',p:['The name "Big Bang" started as a tease. Astronomer Fred Hoyle, who didn\'t believe the idea, used it on the radio in 1949. The name stuck.','There is no centre of the Big Bang. It happened everywhere, including right where you are sitting.'],f:'About 1% of the fuzzy "snow" on an old TV with no signal was leftover glow from the Big Bang.'},
+ {h:'Still a mystery',p:['Why did it happen? What, if anything, came before? Nobody knows.','Ideas include a flicker from empty space, a bounce from an older universe, or a universe that is one bubble among many. None of them can be tested yet. Maybe you will be the one to find a way.']}],
+ words:[['Universe','Everything that exists: all space, time, matter and energy.'],['Expansion','Space stretching, so galaxies move farther apart.'],['Atom','The tiny building block of all matter.'],['Hydrogen','The simplest, lightest atom. One proton.'],['Inflation','A super-fast stretch in the first fraction of a second.']],
+ think:['If space is stretching, is your bedroom getting bigger? (Hint: gravity and atoms hold it together.)','Can something come from nothing?','What would count as proof of what came before?']},
+
+galaxy:{t:'Our Galaxy',s:'The Milky Way, our city of stars',c:['#cfe0ff','#3b4aa0'],pages:[
+ {h:'A city of stars',p:['A galaxy is a giant group of stars, gas and dust held together by gravity. Ours is called the Milky Way, after the milky band of light you can see across a dark night sky.','It holds between 100 and 400 billion stars and is about 100,000 light-years across. Light, the fastest thing there is, needs 100,000 years to cross it.']},
+ {h:'Shape and spin',p:['Seen from above, the Milky Way is a barred spiral: a bar-shaped middle with arms curling out. We live in a small arm called the Orion Spur.','The whole galaxy turns. The Sun travels at about 230 km every second, yet one lap still takes about 230 million years. That is one "galactic year".'],f:'Since the Sun was born, it has gone around the galaxy only about 20 times.'},
+ {h:'How we found out',p:['In 1610 Galileo pointed a telescope at the Milky Way and saw it was made of countless faint stars.','In 1924 Edwin Hubble showed that some fuzzy patches in the sky were whole other galaxies, far beyond ours. Suddenly the universe was far bigger than anyone thought.'],f:'The Gaia space telescope has measured nearly 2 billion stars to map our galaxy in 3D.'},
+ {h:'Mind-blowing facts',p:['Light from some stars you see tonight left them before you were born. You are looking into the past.','The Milky Way and the Andromeda galaxy are the two biggest members of a small family of galaxies called the Local Group.'],f:'Estimates for galaxies in the universe we can see range from hundreds of billions to about 2 trillion.'},
+ {h:'Still a mystery',p:['Galaxies spin so fast that they should fly apart. Something invisible holds them together. Scientists call it dark matter.','Dark matter makes up about 85% of all the matter in the universe, and nobody knows what it is made of.']}],
+ words:[['Galaxy','A huge group of stars, gas and dust held by gravity.'],['Light-year','How far light travels in a year: about 9.46 trillion km.'],['Spiral arm','A curved band of stars and gas in a spiral galaxy.'],['Dark matter','Invisible matter we only detect by its gravity.']],
+ think:['If you could stand above the galaxy, what would you look for first?','Why might we be in a quiet arm and not the busy centre?']},
+
+hole:{t:'Black Holes',s:'Where gravity wins',c:['#ffb070','#1a0a05'],pages:[
+ {h:'Gravity that won\'t let go',p:['Throw a ball up and gravity pulls it back. Throw it fast enough and it could escape Earth. A black hole is a place where gravity is so strong that nothing is fast enough to escape. Not even light.','The edge where escape becomes impossible is called the event horizon. It is not a surface you could touch. It is a one-way door.']},
+ {h:'How they are born',p:['When a star many times heavier than the Sun runs out of fuel, its core collapses under its own weight. Squeeze enough mass into a small enough space and a black hole forms.','Giant black holes, millions or billions of times the Sun\'s mass, sit at the centres of most big galaxies, including ours.'],f:'If Earth were squeezed into a black hole, it would be about the size of a marble, roughly 1.8 cm across.'},
+ {h:'How we found out',p:['In 1916, just after Einstein published his theory of gravity, Karl Schwarzschild worked out that black holes were possible. For decades they were only maths.','Then astronomers watched stars race around an invisible object at our galaxy\'s centre. Reinhard Genzel and Andrea Ghez won the 2020 Nobel Prize for it. In 2019 the Event Horizon Telescope showed the first picture of a black hole, and in 2022 a picture of ours.']},
+ {h:'Mind-blowing facts',p:['Near a black hole, time runs slower. A clock close to it ticks slower than one far away.','Fall in feet first and gravity pulls your feet much harder than your head, stretching you thin. Scientists really call this "spaghettification".'],f:'Stephen Hawking predicted that black holes slowly leak energy and could one day evaporate. Nobody has seen it happen yet.'},
+ {h:'Still a mystery',p:['What is at the very centre? Einstein\'s maths says a point squeezed infinitely small. Most scientists think that means the maths breaks down there, not that infinity is real.','And what happens to everything that falls in? This puzzle, the "information paradox", is still argued today.']}],
+ words:[['Event horizon','The point of no return around a black hole.'],['Singularity','The centre, where our maths stops working.'],['Accretion disk','Hot gas swirling around a black hole.'],['Spaghettification','Being stretched thin by strong gravity.']],
+ think:['If time runs slower near a black hole, what would happen to an astronaut who visited and came back?','Can something be real if we can never see inside it?']},
+
+waves:{t:'Ripples in Space',s:'Gravitational waves',c:['#9fbaff','#1d2a6b'],pages:[
+ {h:'Space can bend',p:['In 1915 Albert Einstein had a giant idea: gravity is not a pull through empty space. Heavy things bend space and time around them, and other things follow the curves.','Picture a trampoline with a bowling ball in the middle. Roll a marble nearby and it curves around the dip. That is gravity.']},
+ {h:'Ripples',p:['When heavy objects move fast, like two black holes circling each other, they send ripples through space, the way a boat makes waves on a lake.','As a ripple passes, it stretches space one way and squeezes it the other, by an unbelievably tiny amount.'],f:'Einstein predicted these waves in 1916, but thought they would be far too weak to ever detect.'},
+ {h:'How we found out',p:['LIGO has two L-shaped detectors in the USA. Each arm is 4 km long. Lasers race along the arms. A passing wave changes their length by less than a thousandth of the width of a proton.','On 14 September 2015 both detectors caught the same signal: two black holes, about 36 and 29 times the Sun\'s mass, merging 1.3 billion years ago. The 2017 Nobel Prize went to Rainer Weiss, Kip Thorne and Barry Barish.']},
+ {h:'Mind-blowing facts',p:['In that crash, about three Suns\' worth of mass turned into pure energy as gravitational waves, in a fraction of a second.','Turned into sound, the signal is a short rising whistle called a "chirp". That is what you hear in the film.'],f:'In 2017 detectors felt two neutron stars crash, and telescopes saw the same crash in light. It showed the crash made gold.'},
+ {h:'Still a mystery',p:['Future detectors in space, like the planned LISA mission, will listen for giant black holes merging across the universe.','Could we one day hear ripples left over from the Big Bang itself? Scientists are trying.']}],
+ words:[['Gravitational wave','A ripple in space caused by heavy moving objects.'],['Spacetime','Space and time joined as one stretchy "fabric".'],['LIGO','The detectors that first heard gravitational waves.'],['Chirp','The rising signal of two objects spiralling together.']],
+ think:['If space can stretch, what is space really made of?','What other "invisible" things could we detect by the ripples they make?']},
+
+solar:{t:'The Solar System',s:'Our neighbourhood',c:['#ffd27a','#8a3b12'],pages:[
+ {h:'Our neighbourhood',p:['The Solar System is the Sun and everything that circles it: 8 planets, their moons, dwarf planets like Pluto, and millions of asteroids and comets.','It formed about 4.6 billion years ago from a spinning cloud of gas and dust. The middle became the Sun. The leftovers became everything else.']},
+ {h:'Two kinds of planets',p:['The four inner planets, Mercury, Venus, Earth and Mars, are small and rocky.','The four outer planets are giants. Jupiter and Saturn are mostly hydrogen and helium gas. Uranus and Neptune are "ice giants", full of water, ammonia and methane.'],f:'More than 1,300 Earths could fit inside Jupiter.'},
+ {h:'How we found out',p:['Ancient people could see five planets with their own eyes: Mercury, Venus, Mars, Jupiter and Saturn.','William Herschel found Uranus with a telescope in 1781. Neptune was found in 1846 because maths predicted exactly where it had to be. Today spacecraft have visited every planet.']},
+ {h:'Mind-blowing facts',p:['Venus is the hottest planet, about 465 °C, even though Mercury is closer to the Sun. Its thick air traps the heat. A day on Venus is longer than its year.','Saturn is lighter than water for its size. In a big enough bathtub, it would float.'],f:'Olympus Mons on Mars is the tallest volcano we know, about 2.5 times the height of Mount Everest.'},
+ {h:'Still a mystery',p:['Is there a hidden ninth planet far beyond Neptune? Something seems to tug on distant icy objects, but nobody has found it.','Could life exist in the oceans hidden under the ice of Jupiter\'s moon Europa or Saturn\'s moon Enceladus?']}],
+ words:[['Orbit','The path one object takes around another.'],['Dwarf planet','A small round world like Pluto that shares its orbit with other objects.'],['Asteroid','A rocky leftover from when the planets formed.'],['Comet','A ball of ice and dust that grows a tail near the Sun.']],
+ think:['Which planet would you visit first, and what would you pack?','Why do you think the rocky planets are close to the Sun and the gas giants far away?']},
+
+home:{t:'Planet Earth',s:'Our one and only home',c:['#7fc0ff','#0b2a55'],pages:[
+ {h:'A just-right planet',p:['Earth is the only place we know with life. It sits at a distance from the Sun where water can stay liquid: not too hot, not too cold.','Liquid water covers about 71% of the surface. Every living thing we know needs it.']},
+ {h:'Earth\'s shields',p:['Deep inside, Earth\'s molten iron core spins and makes a magnetic field. It shields us from harmful particles blown from the Sun. When those particles hit the air near the poles, we see the northern lights.','The air is mostly nitrogen (78%) and oxygen (21%). About 90% of it lies within 16 km of the ground. Compared to Earth, that is thinner than the skin on an apple.']},
+ {h:'The Moon, our partner',p:['The Moon steadies Earth\'s tilt, which helps keep our seasons gentle, and its pull on the oceans makes the tides.','It drifts away by 3.8 cm every year. Long ago it was much closer, and a day on Earth was shorter.'],f:'The Moon always shows us the same face, because it spins exactly once for every trip around Earth.'},
+ {h:'How we know',p:['Earth\'s age, 4.54 billion years, comes from measuring how radioactive atoms in meteorites and old rocks have slowly changed, like a clock built into stone.','The oldest bits of Earth found so far are tiny zircon crystals from Australia, about 4.4 billion years old.'],f:'You are spinning at up to 1,670 km/h at the equator and flying around the Sun at 107,000 km/h, yet you can\'t feel a thing.'},
+ {h:'The pale blue dot',p:['In 1990 Voyager 1 turned around and photographed Earth from about 6 billion km away. Our whole world was a tiny speck, smaller than a pixel.','Carl Sagan said every person who ever lived, lived on that dot. It is the only home we have, so we should take care of it.']}],
+ words:[['Atmosphere','The layer of air around a planet.'],['Magnetic field','An invisible shield made by Earth\'s iron core.'],['Tide','The rise and fall of the sea caused by the Moon.'],['Zircon','A tough crystal that can survive billions of years.']],
+ think:['What would change if Earth had no Moon?','If you could send one message on the pale blue dot photo, what would it say?']},
+
+atom:{t:'Inside You',s:'A journey into one atom',c:['#c9b6ff','#3a1d6b'],pages:[
+ {h:'What you are made of',p:['Everything you can touch is made of atoms: you, water, air, stars. Your body has about 7 billion billion billion atoms. That is a 7 followed by 27 zeros.','Scientists know of 118 kinds of atoms, called elements. Your body is mostly oxygen, carbon, hydrogen and nitrogen.']},
+ {h:'Inside an atom',p:['In the middle is a tiny nucleus made of protons and neutrons. Around it are electrons. Electrons don\'t circle like planets. They are spread in a fuzzy cloud of where they might be.','The number of protons decides what an atom is. One proton: hydrogen. Six: carbon. Eight: oxygen. Seventy-nine: gold.']},
+ {h:'Almost empty',p:['The nucleus is about 100,000 times smaller than the whole atom. If the nucleus were a marble, the atom would be about 1.5 km wide.','So why can\'t you walk through walls? The electrons in your hand push against the electrons in the wall with electric force. When you "touch" something, you never really touch it.'],f:'Squeeze all the empty space out of every human alive and all 8 billion of us would fit inside one sugar cube.'},
+ {h:'How we found out',p:['Around 400 BC the Greek thinker Democritus guessed that everything is made of tiny uncuttable bits. "Atom" comes from the Greek word for uncuttable.','In 1897 J.J. Thomson discovered the electron. In 1909 Ernest Rutherford\'s team fired tiny particles at gold foil. A few bounced straight back, which proved there was a small, heavy nucleus. Today special microscopes can show single atoms.']},
+ {h:'Where your atoms came from',p:['Your hydrogen atoms were made in the Big Bang. Your carbon and oxygen were made inside stars. Most of your atoms have been part of other things before: rocks, oceans, plants, maybe even dinosaurs.','Mystery: protons are made of even smaller quarks, held by a force so strong that no one has ever pulled a single quark out on its own.']}],
+ words:[['Atom','The tiny building block of every substance.'],['Nucleus','The heavy centre of an atom.'],['Proton','A particle in the nucleus with a positive charge.'],['Electron','A tiny particle with a negative charge, in a cloud around the nucleus.'],['Element','A substance made of one kind of atom.']],
+ think:['If you are mostly empty space, why do you feel solid?','Which of your atoms might once have been inside a star?']},
+
+nothing:{t:'Before Time?',s:'The hardest question',c:['#8a8fb3','#0a0b18'],pages:[
+ {h:'The hardest question',p:['What came before the Big Bang? It may have no answer, because time itself may have begun then. With no time, there is no "before".','Stephen Hawking compared it to asking what is south of the South Pole. There is simply nowhere further to go.']},
+ {h:'Ideas scientists explore',p:['Maybe our universe bounced back from an older one that shrank. Maybe it budded off from another universe.','Maybe "nothing" isn\'t really empty. Even empty space has tiny flickers of energy that pop in and out. Right now none of these ideas can be tested.']},
+ {h:'Why it matters',p:['Asking about "nothing" pushed scientists to try joining the physics of the very big (gravity) with the physics of the very small (quantum physics).','That joining is still unfinished. It may be the biggest open puzzle in all of science.']}],
+ words:[['Vacuum','Space with no matter in it, but still with tiny energy flickers.'],['Multiverse','The idea that our universe is one of many.'],['Quantum physics','The rules for the very, very small.']],
+ think:['Can you imagine "nothing"? What do you picture?','Does every event need a cause?']},
+
+light:{t:'The First Light',s:'When the fog cleared',c:['#ffb070','#2b4c9b'],pages:[
+ {h:'A glowing fog',p:['For 380,000 years the universe was so hot that atoms couldn\'t hold together. Loose electrons bounced light in every direction, like car headlights in thick fog.','When it cooled to about 3,000 degrees, electrons joined protons to make atoms. The fog cleared, and light could travel freely for the first time.']},
+ {h:'Light that is still arriving',p:['That first light has been travelling for 13.8 billion years. Space has stretched it so much that it is now faint microwaves, only 2.7 degrees above absolute zero, the coldest anything can be.','The satellites COBE (1989), WMAP (2001) and Planck (2009) mapped it across the whole sky.']},
+ {h:'The seeds of everything',p:['The map shows tiny hot and cold spots, different by only about 1 part in 100,000.','The slightly thicker spots pulled in more matter with their gravity and slowly grew into galaxies. Every galaxy, star and person started as one of those faint spots.']}],
+ words:[['Cosmic microwave background','The leftover first light of the universe.'],['Absolute zero','The coldest possible temperature, −273.15 °C.']],
+ think:['How can light be "old"?','What tiny difference in your life might grow into something huge?']},
+
+stars:{t:'The First Stars',s:'When the lights came on',c:['#d9e4ff','#202a6a'],pages:[
+ {h:'Lights on',p:['After the first light, the universe went dark for about 100 million years. Scientists call it the cosmic dark ages. Gravity slowly gathered gas into clumps.','When a clump got hot and dense enough, hydrogen began fusing into helium and gave off enormous energy. A star switched on.']},
+ {h:'Star factories',p:['Stars are atom factories. They fuse light atoms into heavier ones: helium, carbon, oxygen, all the way up to iron.','When the biggest stars die, they explode as supernovas and scatter these atoms into space. They become part of new stars, planets and people.'],f:'Every second, the Sun turns about 600 million tonnes of hydrogen into helium.'},
+ {h:'Still searching',p:['The very first stars were probably made only of hydrogen and helium, and were giants. Scientists call them Population III stars.','No one has seen one yet. The James Webb Space Telescope is hunting for their light from the edge of time.']}],
+ words:[['Fusion','Joining small atoms into bigger ones, releasing energy.'],['Supernova','The giant explosion of a dying star.']],
+ think:['If stars made your atoms, are you related to the stars?','Why might the first stars have been so huge?']},
+
+moon:{t:'The Moon\'s Birth',s:'A crash that made our Moon',c:['#e8e4dc','#5b5650'],pages:[
+ {h:'A giant crash',p:['About 4.5 billion years ago, a planet about the size of Mars, nicknamed Theia, smashed into young Earth.','The crash threw out a ring of glowing rock around Earth. Over time the ring clumped together into the Moon.']},
+ {h:'Clues in the rocks',p:['Apollo astronauts brought back 382 kg of Moon rocks between 1969 and 1972.','The rocks are chemically almost twins of Earth\'s rocks, and they show the Moon was once covered by an ocean of molten rock.']},
+ {h:'Still argued',p:['If Theia was a separate planet, why are Moon rocks so similar to Earth\'s? Maybe the crash mixed everything together, or maybe Theia was built from the same stuff as Earth.','Some scientists think giant blobs deep inside Earth\'s mantle could be leftover pieces of Theia.']}],
+ words:[['Theia','The name for the planet that may have hit Earth.'],['Mantle','The thick hot rock layer under Earth\'s crust.']],
+ think:['What would our nights look like without the Moon?','How can a rock tell a story billions of years old?']},
+
+life:{t:'The First Life',s:'When chemistry came alive',c:['#9ff5c9','#04303a'],pages:[
+ {h:'From chemistry to life',p:['Living things use energy, grow, and make copies of themselves. Somehow, chemicals on early Earth started doing all three.','Many scientists think it began near hot vents on the ocean floor or in warm pools on land. Nobody knows for sure.']},
+ {h:'Clues',p:['Stromatolites in Western Australia, about 3.5 billion years old, were built by mats of tiny microbes.','In 1952 Stanley Miller sent electric sparks through water and gases like those on early Earth. He made amino acids, building blocks of life, in a jar.']},
+ {h:'The air we breathe',p:['Tiny blue-green microbes called cyanobacteria learned to use sunlight and released oxygen as waste.','About 2.4 billion years ago, oxygen built up in the air. Scientists call it the Great Oxidation Event. Without it, animals like us could never have existed.']}],
+ words:[['Microbe','A living thing too small to see with your eyes.'],['Amino acid','A building block of proteins, and of life.']],
+ think:['What is the difference between something alive and something not alive?','Could life start somewhere else in a totally different way?']},
+
+cambrian:{t:'Life Goes Wild',s:'The Cambrian explosion',c:['#ffd27a','#0a3456'],pages:[
+ {h:'An explosion of bodies',p:['About 538 million years ago, in a burst of maybe 20 million years, animals with eyes, shells, legs and jaws appeared.','Most of the main body plans of animals today, including the start of backbones, appear in rocks from this time.']},
+ {h:'Canada\'s treasure',p:['The Burgess Shale, high in the Rocky Mountains of British Columbia, was discovered in 1909 by Charles Walcott. Its fossils even kept soft bodies, which almost never happens.','Opabinia had five eyes and a long grabbing nozzle. Anomalocaris was a fierce hunter with spiky grabbing arms, giant for its time.']},
+ {h:'Why then?',p:['More oxygen, the first eyes and the first hunters may have started an arms race of shells, spikes and speed.','Scientists still argue about which of these mattered most.']}],
+ words:[['Fossil','The preserved remains or traces of an ancient living thing.'],['Body plan','The basic layout of an animal\'s body.']],
+ think:['How would having eyes change everything for an animal?','If you could design a Cambrian animal, what would it have?']},
+
+dino:{t:'The Worst Day',s:'The end of the dinosaurs',c:['#ffb35c','#2a0d05'],pages:[
+ {h:'Impact',p:['66 million years ago, a space rock about 10 km wide hit near today\'s Yucatán Peninsula in Mexico, moving around 20 km every second.','It blasted out the Chicxulub crater, about 180 km wide, now buried under rock and sea.']},
+ {h:'After the impact',p:['Giant waves, wildfires, then soot and dust blocked sunlight for years. Plants died and food chains collapsed.','About three out of four species vanished, including every dinosaur except the birds.']},
+ {h:'How we know',p:['In 1980 Luis and Walter Alvarez found a thin clay layer full of iridium, a metal common in asteroids, all over the world, at exactly the age of the extinction. The crater was confirmed in 1991.'],f:'Stegosaurus lived further back in time from T. rex than T. rex lives from us.'}],
+ words:[['Extinction','When a kind of living thing dies out completely.'],['Iridium','A rare metal common in asteroids.']],
+ think:['Birds are living dinosaurs. So did the dinosaurs really die out?','What can we do to protect Earth from a space rock today?']},
+
+fire:{t:'Someone Looks Up',s:'The first humans',c:['#ffa040','#171b3e'],pages:[
+ {h:'Our story begins',p:['People like us, Homo sapiens, appeared in Africa about 300,000 years ago.','We were not alone. Neanderthals and other human species lived at the same time. Many people today carry a little Neanderthal DNA.']},
+ {h:'Fire and stories',p:['Controlling fire let people cook, stay warm and gather together at night.','Cave paintings more than 45,000 years old in Indonesia show that people were already telling stories with pictures.']},
+ {h:'Looking up',p:['Ancient people used the stars to track seasons and find their way across land and sea.','Stonehenge in England lines up with the sunrise on the longest day of the year. Humans have always wondered about the sky.']}],
+ words:[['Homo sapiens','Our species. It means "wise human".'],['Neanderthal','A close human cousin who lived in Europe and Asia.']],
+ think:['What would you have asked if you were the first person to look up at the stars?','Why do humans tell stories?']},
+
+giant:{t:'The Sun\'s Future',s:'How our star will end',c:['#ffcf7a','#7a1009'],pages:[
+ {h:'Running low',p:['The Sun is about halfway through its life. In about 5 billion years, its core will run out of hydrogen fuel.','Even before then, in about 1 billion years, the Sun will have grown bright enough to boil away Earth\'s oceans.']},
+ {h:'Red giant',p:['When the fuel runs low, the Sun will swell into a red giant, perhaps 200 times its size today.','It will swallow Mercury and Venus. Whether it also swallows Earth is still argued.']},
+ {h:'White dwarf',p:['Finally it will puff off its outer layers into a glowing cloud called a planetary nebula.','What remains will be a white dwarf: a hot core about the size of Earth, cooling slowly for trillions of years.']}],
+ words:[['Red giant','A dying star that has swollen hugely.'],['White dwarf','The small, hot leftover core of a star like the Sun.']],
+ think:['If humans are still around in a billion years, where might they live?','Is it sad that the Sun will die, or is it part of a bigger cycle?']},
+
+kilonova:{t:'The Gold Factory',s:'When dead stars collide',c:['#ffd65a','#3a1a10'],pages:[
+ {h:'Neutron stars',p:['A neutron star is the crushed core left after a giant star explodes. It packs more mass than the Sun into a ball about 20 km wide, the size of a city.'],f:'A teaspoon of neutron star would weigh about a billion tonnes.'},
+ {h:'The 2017 crash',p:['On 17 August 2017, gravitational-wave detectors felt two neutron stars merge 130 million light-years away.','About two seconds later, a flash of gamma rays arrived, and around 70 telescopes on Earth and in space watched the glowing afterglow.']},
+ {h:'Gold from the sky',p:['The afterglow carried the fingerprint of freshly made heavy elements, like gold and platinum, several times the mass of Earth.','That is why scientists think much of the gold in the universe comes from crashes like this.']}],
+ words:[['Neutron star','The super-dense core left after a big star explodes.'],['Kilonova','The glowing explosion when neutron stars crash.']],
+ think:['If gold comes from star crashes, why is it so rare on Earth?','What else might be hidden in the light from faraway explosions?']},
+
+transit:{t:'Alien Worlds',s:'Planets around other stars',c:['#ffb04a','#1a2240'],pages:[
+ {h:'Planets everywhere',p:['In 1995 Michel Mayor and Didier Queloz found the first planet around a Sun-like star, 51 Pegasi b. They won the 2019 Nobel Prize.','Today more than 6,000 planets beyond our Solar System are confirmed. Most stars probably have planets.']},
+ {h:'Finding planets you can\'t see',p:['Transit: when a planet passes in front of its star, the star dims a tiny bit. Wobble: a planet\'s gravity makes its star wobble, which shifts its light.','The Kepler space telescope found thousands of planets by staring at one patch of sky.']},
+ {h:'Weird worlds',p:['TRAPPIST-1 has seven Earth-sized planets, some in the zone where water could be liquid.','The James Webb telescope now studies the air of some of these worlds, looking for gases that living things might make.']}],
+ words:[['Exoplanet','A planet that orbits a star other than the Sun.'],['Transit','When a planet passes in front of its star.']],
+ think:['If you found a planet with life, what would you want to tell it?','Would aliens see Earth as a tiny dip in the Sun\'s light?']},
+
+mars:{t:'Mars',s:'The red planet that was once blue',c:['#e07a4a','#4a1a0e'],pages:[
+ {h:'A red world',p:['Mars is red because its dust is full of iron oxide: rust.','It is about half as wide as Earth, and its day is only 37 minutes longer than ours.']},
+ {h:'Once wet',p:['Billions of years ago, rivers carved valleys and filled lakes on Mars.','Mars lost its protective magnetic field, and the wind from the Sun stripped away much of its air. Water ice still sits at its poles and under the ground.']},
+ {h:'Robots on Mars',p:['NASA\'s Perseverance rover landed in Jezero Crater, an old lake, in 2021. It is collecting rock samples that might one day be flown back to Earth.','Its little helicopter, Ingenuity, made the first powered flight on another planet.']}],
+ words:[['Rover','A robot vehicle that explores a planet\'s surface.'],['Iron oxide','Rust, the chemical that makes Mars red.']],
+ think:['Would you live on Mars? What would you miss most?','If Mars once had water, could it once have had life?']},
+
+jupiter:{t:'Jupiter',s:'King of the planets',c:['#e7c9a2','#7a4a2c'],pages:[
+ {h:'King of planets',p:['Jupiter is more than twice as massive as all the other planets combined.','It is made mostly of hydrogen and helium. There is no solid ground to stand on.']},
+ {h:'The Great Red Spot',p:['A storm wider than Earth, watched since at least 1830, with winds over 400 km/h.','It has been shrinking, and nobody knows if it will vanish.']},
+ {h:'A family of moons',p:['Jupiter has nearly 100 known moons. Europa hides a salty ocean under its icy shell, one of the best places to search for life.','NASA\'s Europa Clipper spacecraft launched in 2024 to study it.']}],
+ words:[['Gas giant','A huge planet made mostly of gas.'],['Europa','A moon of Jupiter with a hidden ocean.']],
+ think:['How could a storm last for hundreds of years?','What might live in an ocean with no sunlight?']},
+
+voyager:{t:'Voyager',s:'Our message in a bottle',c:['#F2C46D','#101830'],pages:[
+ {h:'The longest trip',p:['Voyager 1 and Voyager 2 launched in 1977 to explore the giant planets.','Voyager 2 is still the only spacecraft to visit Uranus and Neptune.']},
+ {h:'Into interstellar space',p:['In 2012 Voyager 1 crossed the edge of the Sun\'s bubble into the space between stars. Voyager 2 followed in 2018.'],f:'Its radio is about as powerful as a fridge light bulb, about 23 watts, yet we still hear it from billions of kilometres away.'},
+ {h:'The Golden Record',p:['Both Voyagers carry a gold-plated record with 115 pictures, sounds of nature, music, and greetings in 55 languages.','It was made by a team led by Carl Sagan, as a hello from Earth to anyone who might one day find it.']}],
+ words:[['Interstellar','Between the stars.'],['Heliosphere','The bubble of the Sun\'s wind around the Solar System.']],
+ think:['What one sound would you put on a record for aliens?','Voyager will outlast Earth\'s cities. What does that make you feel?']},
+
+andromeda:{t:'Andromeda',s:'Our giant neighbour',c:['#ffd7aa','#1d1a40'],pages:[
+ {h:'Our big neighbour',p:['Andromeda is the nearest large galaxy, 2.5 million light-years away, with about a trillion stars.','On a very dark night you can see it without a telescope. It is the most distant thing most people can see with their own eyes.']},
+ {h:'Coming closer',p:['Andromeda is moving toward us at about 110 km every second.','For years scientists predicted it would crash into the Milky Way in about 4.5 billion years.']},
+ {h:'Crash or miss?',p:['A 2025 study using newer measurements found only about a 50% chance of a merger in the next 10 billion years.','Even if they merge, stars would almost never hit each other. The space between stars is enormous.']}],
+ words:[['Merger','When two galaxies join into one.'],['Local Group','Our small family of nearby galaxies.']],
+ think:['Why would stars almost never collide, even when galaxies do?','How does it feel to see light that left Andromeda 2.5 million years ago?']},
+
+fade:{t:'The End?',s:'How the universe might end',c:['#c8d0ff','#05050a'],pages:[
+ {h:'Speeding up',p:['In 1998 two teams discovered that the stretching of the universe is speeding up. They won the 2011 Nobel Prize.','The cause is a mystery that scientists call dark energy.']},
+ {h:'The Big Freeze',p:['If the stretching continues, galaxies will drift out of sight, new stars will stop forming, and the last small red stars will fade after trillions of years.','The universe would end cold, dark and quiet.']},
+ {h:'Other endings',p:['The Big Rip: the stretching tears everything apart. The Big Crunch: everything falls back together.','In 2025 a huge sky survey called DESI hinted that dark energy may be getting weaker. So the ending is an open question again.']}],
+ words:[['Dark energy','The unknown cause of the universe\'s speeding-up expansion.'],['Heat death','A universe so spread out that nothing changes anymore.']],
+ think:['If the universe ends, does what we do now still matter?','Which ending do you think is most likely, and why?']}
+};
+
+/* one live picture per chapter: [scene, start time, caption] */
+const PICS={
+bang:[['bang',.5,'The first instant: space begins to stretch'],['bang',3.2,'Glowing matter cools as it spreads out'],['light',7,'The leftover glow, mapped across the whole sky'],['galaxy',2,'Galaxies are still flying apart today'],['nothing',2,'What came before? Nobody knows']],
+galaxy:[['galaxy',0,'A spiral galaxy like our Milky Way'],['galaxy',6,'The whole galaxy turns like a pinwheel'],['stars',5,'Countless stars in every direction'],['andromeda',3,'Andromeda, our nearest big neighbour'],['galaxy',12,'Something invisible keeps galaxies from flying apart']],
+hole:[['hole',1,'Hot gas swirling around the event horizon'],['stars',6,'A giant star collapses at the end of its life'],['hole',5,'Bent light makes the glowing ring'],['kilonova',2,'Black holes can spiral together'],['hole',9,'What is inside? Our maths breaks down']],
+waves:[['kilonova',1,'Two heavy objects circling each other'],['kilonova',3.6,'Faster and faster, they spiral in'],['kilonova',5.7,'Crash! Ripples race out across space'],['kilonova',8,'The afterglow of the crash made gold'],['galaxy',3,'Listening to the whole universe']],
+solar:[['sun',4,'The Solar System forms from a spinning disk of dust'],['jupiter',2,'Jupiter: more than 1,300 Earths would fit inside'],['voyager',3,'Spacecraft have visited every planet'],['mars',12,'Mars has the tallest volcano we know'],['transit',3,'Searching for hidden worlds']],
+home:[['earth',0,'Earth at night, glowing with cities'],['earth',8,'A thin shell of air protects all life'],['moon',10,'The Moon, born from a giant crash'],['sun',6,'Meteorites from the Solar System\'s birth reveal Earth\'s age'],['earth',14,'The pale blue dot: our only home']],
+atom:[['atomart',0,'One atom: a nucleus wrapped in an electron cloud'],['atomart',4,'Protons (red) and neutrons (blue) in the nucleus'],['atomart',8,'Almost entirely empty space'],['atomart',12,'Rutherford\'s surprise: a tiny, heavy centre'],['stars',8,'Your atoms were made inside stars']],
+nothing:[['nothing',1,'Before time? Maybe not even darkness'],['nothing',4,'Tiny flickers of energy in "empty" space'],['bang',.3,'The moment it all began']],
+light:[['light',.5,'A glowing fog fills the young universe'],['light',6,'The first light is still arriving today'],['light',9,'Hot and cold spots: the seeds of galaxies']],
+stars:[['stars',2,'The first stars switch on'],['stars',8,'A giant star explodes as a supernova'],['stars',11,'Hunting for the very first stars']],
+moon:[['moon',2,'Theia heads for young Earth'],['moon',4.5,'Crash! A ring of glowing rock'],['moon',11,'The Moon gathers from the ring']],
+life:[['life',1,'The first living cells'],['life',6,'Cells copying themselves'],['life',12.5,'An ocean filling with life']],
+cambrian:[['cambrian',2,'Strange new animals fill the seas'],['cambrian',6,'Eyes, shells and spikes appear'],['cambrian',10,'An arms race in the ancient ocean']],
+dino:[['dino',2,'A space rock streaks across the sky'],['dino',4.6,'The impact and the fireball'],['dino',9,'Dust and darkness cover the world']],
+fire:[['fire',1,'People like us gather around a fire'],['fire',5,'Stories told under the stars'],['fire',9,'Looking up and wondering']],
+giant:[['giant',1,'The Sun swells into a red giant'],['giant',5,'Earth, a tiny dot beside the giant Sun'],['giant',9,'A slow fade over trillions of years']],
+kilonova:[['kilonova',1,'Two neutron stars spiral together'],['kilonova',5.7,'The crash that shook space'],['kilonova',9,'Gold and platinum spray into space']],
+transit:[['transit',1,'A planet starts to cross its star'],['transit',4,'The star dims a tiny bit'],['transit',7,'That dip reveals a hidden world']],
+mars:[['mars',1,'Mars long ago, with water'],['mars',7,'The water slowly disappears'],['mars',13,'The red desert of today']],
+jupiter:[['jupiter',1,'Jupiter, king of the planets'],['jupiter',5,'The Great Red Spot, wider than Earth'],['jupiter',9,'Bands of clouds racing around']],
+voyager:[['voyager',1,'Voyager, far from home'],['voyager',4,'Still calling home after 49 years'],['voyager',7,'Carrying a golden message from Earth']],
+andromeda:[['andromeda',2,'Andromeda and the Milky Way'],['andromeda',9,'Coming closer'],['andromeda',13.5,'A merger, or a near miss?']],
+fade:[['fade',2,'A universe full of stars'],['fade',9,'The stars begin to fade'],['fade',15.5,'The last red stars go dark']]
+};
+
+Object.assign(BOOKS,{
+sun:{t:'The Sun',s:'Our star, up close',c:['#ffe08a','#d2560f'],pages:[
+ {h:'Our star',p:['The Sun is a star: a giant ball of hot gas, mostly hydrogen and helium. It is about 109 times wider than Earth, and about 1.3 million Earths could fit inside it.','It holds 99.8% of all the mass in the Solar System.'],f:'Sunlight takes about 8 minutes and 20 seconds to reach Earth.'},
+ {h:'The furnace inside',p:['In the core the temperature is about 15 million °C. There, hydrogen nuclei crash together and fuse into helium, giving off enormous energy.','Every second the Sun turns about 600 million tonnes of hydrogen into helium. The energy then takes tens of thousands of years or more to bounce its way out before it escapes as light.']},
+ {h:'A boiling surface',p:['The visible surface, the photosphere, is about 5,500 °C. It is covered in bubbling cells of hot gas called granules, each about 1,000 km across.','Sunspots are cooler, darker patches where twisted magnetism blocks the heat. They come and go in a cycle of about 11 years.'],f:'The Sun\'s outer atmosphere, the corona, is over a million degrees, far hotter than the surface. Nobody fully knows why.'},
+ {h:'Storms from the Sun',p:['Solar flares and giant clouds of gas called coronal mass ejections blast particles into space. When they reach Earth they make the northern lights.','Big storms can disturb satellites and power grids. In 1859 the biggest solar storm on record, the Carrington Event, made telegraph wires spark.']},
+ {h:'Touching the Sun',p:['NASA\'s Parker Solar Probe launched in 2018. On 24 December 2024 it flew just 6.1 million km from the Sun\'s surface at about 690,000 km/h, the fastest object humans have ever made.','Its heat shield faces temperatures over 1,000 °C, while the instruments behind it stay close to room temperature.']}],
+ words:[['Fusion','Joining small atoms into bigger ones, releasing energy.'],['Photosphere','The Sun\'s visible surface.'],['Corona','The Sun\'s super-hot outer atmosphere.'],['Sunspot','A cooler, darker patch on the Sun.'],['Solar wind','A stream of particles blowing out from the Sun.']],
+ think:['What would happen on Earth if the Sun switched off for one day?','Why might the corona be hotter than the surface below it?']},
+saturn:{t:'Saturn',s:'The ringed giant',c:['#f0dcae','#8a6a34'],pages:[
+ {h:'The ringed giant',p:['Saturn is the second-biggest planet, about 9 times wider than Earth. It is made mostly of hydrogen and helium.','It is so light for its size that, in a big enough bathtub, it would float.']},
+ {h:'The rings',p:['The rings are countless pieces of water ice, from tiny grains to chunks as big as a house. They stretch about 280,000 km across but are mostly only about 10 metres thick.','Gaps in the rings, like the wide Cassini Division, are cleared by the pull of Saturn\'s moons.']},
+ {h:'How we found out',p:['In 1610 Galileo saw Saturn through his telescope but couldn\'t tell what the rings were. He thought Saturn had "ears".','In 1655 Christiaan Huygens worked out that they were a ring, and found the moon Titan. The Cassini spacecraft orbited Saturn from 2004 to 2017, then dived into it on purpose to protect its moons.']},
+ {h:'Amazing moons',p:['Saturn has 274 known moons. Titan, the biggest, has a thick hazy atmosphere and lakes of liquid methane.','Enceladus sprays jets of water into space from an ocean hidden under its ice.'],f:'At Saturn\'s north pole there is a six-sided storm called the hexagon, wider than Earth.'},
+ {h:'Still a mystery',p:['How old are the rings? Some scientists think they are young, a few hundred million years old. Others think they formed with Saturn. It is still argued.','The rings are slowly raining into the planet, so one day they could disappear.']}],
+ words:[['Ring','A flat band of ice and rock orbiting a planet.'],['Cassini Division','The widest gap in Saturn\'s rings.'],['Titan','Saturn\'s biggest moon, with methane lakes.'],['Hexagon','The six-sided storm at Saturn\'s north pole.']],
+ think:['Why are the rings so wide but so thin?','Would you rather explore Titan or Enceladus? Why?']}
+});
+BOOKS.mars.pages.splice(2,0,
+ {h:'Mountains and canyons',p:['Olympus Mons is the tallest volcano we know, about 22 km high, roughly two and a half times the height of Mount Everest. It is so wide that if you stood on top, its edges would be beyond the horizon.','Valles Marineris is a canyon system about 4,000 km long. On Earth it would stretch across the whole USA.']},
+ {h:'Two tiny moons',p:['Mars has two small, lumpy moons, Phobos and Deimos. Phobos is only about 22 km wide.','Phobos is slowly spiralling inward. In tens of millions of years it may crash into Mars or break apart into a ring.']});
+BOOKS.mars.words.push(['Olympus Mons','The tallest known volcano, on Mars.'],['Phobos','The bigger of Mars\'s two moons.']);
+Object.assign(PICS,{
+ sun:[['sun',6,'The Sun was born from a spinning cloud of gas and dust'],['stars',3,'Deep inside, hydrogen fuses into helium'],['giant',3,'The surface boils with hot gas'],['earth',3,'Sunlight reaches Earth in about 8 minutes'],['giant',8,'In 5 billion years it will swell into a red giant']],
+ saturn:[['saturnart',0,'Saturn and its rings'],['saturnart',4,'Billions of chunks of ice'],['saturnart',8,'Seen edge-on, the rings almost vanish'],['saturnart',12,'Moons hide among the rings'],['saturnart',16,'Will the rings last forever?']],
+ mars:[['mars',1,'Mars long ago, with water'],['mars',7,'The water slowly disappears'],['mars',12,'Olympus Mons and the great canyon'],['mars',10,'Little Phobos circles close to Mars'],['mars',13,'The red desert of today']]
+});
+
+/* the philosopher's page: one deep thought per book */
+const PHIL={
+bang:['Everything you have ever touched was once in the same place at the same time.','If you share an origin with every star, are you really separate from anything?'],
+galaxy:['We live on the edge of a spinning city of stars, too small to be noticed and yet able to notice it all.','Does being small make us less important, or more amazing?'],
+hole:['A black hole is a place where the universe keeps a secret even from light.','Is there anything that can never be known? And is it still worth wondering about?'],
+waves:['For a hundred years, Einstein\'s ripples were only an idea in his head. Then the universe answered.','Can a thought be true before anyone proves it?'],
+sun:['Every leaf, every meal, every heartbeat you have runs on light that left a star 8 minutes ago.','If the Sun feeds everything, what do you feed with your own light?'],
+solar:['Eight worlds circle one star, each one different, each following the same law of gravity.','Can things be very different and still belong together?'],
+saturn:['The rings look solid and eternal from far away. Up close, they are countless moving pieces, slowly changing.','Is anything really permanent, or does everything only look still from far enough away?'],
+home:['From six billion kilometres away, everyone who ever lived fits inside a single speck of light.','If all of history happened on one tiny dot, what really matters?'],
+atom:['You are made almost entirely of empty space, yet you can laugh, think and love.','If you are mostly nothing, where does the "you" come from?'],
+nothing:['Even "nothing" may be full of tiny flickers of something.','Is nothing ever truly nothing?'],
+light:['The oldest light in the universe is touching your skin right now, too faint to feel.','How much of the world touches us without our noticing?'],
+stars:['Stars spend their whole lives turning simple things into precious ones, then give them away when they die.','What would it mean to live like a star?'],
+moon:['Our Moon was born from a disaster. Now it lights our nights and moves our oceans.','Can something beautiful come from something broken?'],
+life:['Somewhere, once, chemistry began to copy itself, and it has never stopped since. You are part of that chain.','Where does chemistry end and life begin?'],
+cambrian:['The first eyes changed everything: once animals could see, the world had to be seen.','Does being watched change who we become?'],
+dino:['The worst day for the dinosaurs was the luckiest day for our tiny ancestors.','Is anything only good or only bad, or does it depend on who is looking?'],
+fire:['For most of history, people looked up at the same stars you can see tonight and asked the same questions you ask.','What question would you hand down to people 300,000 years from now?'],
+giant:['Even our Sun will grow old. Nothing that shines lasts forever.','If nothing lasts forever, what makes something worth doing?'],
+kilonova:['The gold in a ring was made when two dead stars crashed, long before Earth existed.','Can endings create new beginnings?'],
+transit:['We find hidden worlds not by seeing them, but by noticing a star grow a tiny bit dimmer.','What could you discover by paying attention to tiny changes?'],
+mars:['Mars was once blue, then lost its water and turned red. Planets have life stories too.','Could Earth change as much as Mars did? What would we want to protect?'],
+jupiter:['A storm wider than Earth has spun for centuries, and no one knows why it keeps going.','What keeps something going for hundreds of years?'],
+voyager:['A message from all of humanity drifts between the stars, and may outlast every city on Earth.','If you could leave one message for the far future, what would it say?'],
+andromeda:['For years scientists were sure the galaxies would crash. New measurements turned "certain" into "maybe".','How should we act when we find out we were wrong?'],
+fade:['If every star eventually fades, this moment, when the universe is bright and full of questions, is rare and precious.','Does something have to last forever to matter?']
+};
+
+Object.assign(BOOKS,{
+comet:{t:'Comets',s:'Dirty snowballs from the edge',c:['#bfe6ff','#1b3a5c'],pages:[
+ {h:'Dirty snowballs',p:['A comet is a chunk of ice, dust and rock, usually 1 to 20 km wide, left over from when the planets formed 4.6 billion years ago.','Most comets live far beyond Neptune, frozen and dark, until something nudges them toward the Sun.']},
+ {h:'Growing a tail',p:['As a comet nears the Sun, its ice turns straight into gas. The gas and dust form a glowing cloud around it called the coma.','Sunlight and the solar wind push the gas and dust back into tails that can stretch more than 100 million km.'],f:'A comet\'s tails always point away from the Sun, even when the comet is travelling away from it.'},
+ {h:'Two kinds of tail',p:['The dust tail is curved and yellowish, made of dust that reflects sunlight.','The ion tail is straight and bluish, made of electrically charged gas pushed by the solar wind.']},
+ {h:'Visiting a comet',p:['In 2014, the European Rosetta spacecraft reached Comet 67P and dropped a small lander, Philae, onto its surface: the first landing on a comet.','Rosetta found the comet was shaped like a rubber duck, and that it smelled like rotten eggs, according to its instruments.']},
+ {h:'Comets and us',p:['When Earth passes through dust left by a comet, we see a meteor shower: shooting stars.','Some scientists think comets delivered some of Earth\'s water long ago. Others think most of it came from asteroids. It is still argued.']}],
+ words:[['Coma','The glowing cloud of gas and dust around a comet.'],['Nucleus','The solid icy centre of a comet.'],['Meteor shower','Shooting stars caused by comet dust burning up in our air.'],['Oort Cloud','A huge, distant cloud of icy objects that may surround the Solar System.']],
+ think:['Why do you think people long ago were scared of comets?','If comets brought water to Earth, could they have brought other ingredients for life?']},
+pulsar:{t:'Pulsars',s:'Lighthouses made of dead stars',c:['#cfe0ff','#1a1f4a'],pages:[
+ {h:'A crushed star',p:['When a giant star explodes, its core can be crushed into a neutron star: more mass than the Sun, squeezed into a ball about 20 km wide.','A teaspoon of neutron star would weigh about a billion tonnes.']},
+ {h:'Cosmic lighthouses',p:['Some neutron stars spin incredibly fast and shoot beams of radio waves from their magnetic poles.','As the star spins, the beams sweep around like a lighthouse. If a beam crosses Earth, we detect a steady pulse. These stars are called pulsars.'],f:'The fastest known pulsar spins 716 times every second.'},
+ {h:'Little green men?',p:['In 1967, a student named Jocelyn Bell Burnell noticed a strange signal pulsing every 1.3 seconds.','It was so regular that the team jokingly called it LGM-1, for "little green men". It turned out to be the first pulsar.']},
+ {h:'Clocks in space',p:['Pulsars tick so steadily that scientists use them like cosmic clocks.','By timing many pulsars at once, scientists in 2023 found signs of a slow background of gravitational waves rippling through our galaxy.']},
+ {h:'Still a mystery',p:['What is deep inside a neutron star? The matter there is squeezed harder than anywhere we can test on Earth.','Some scientists think its core may hold strange forms of matter, like free quarks. Nobody knows for sure.']}],
+ words:[['Neutron star','The super-dense core left after a big star explodes.'],['Pulsar','A spinning neutron star whose beams sweep past Earth.'],['Radio waves','A kind of light our eyes cannot see.']],
+ think:['If you heard a perfectly regular signal from space, how would you check whether aliens made it?','What else in nature keeps perfect time?']},
+moonfull:{t:'The Moon',s:'Our closest neighbour',c:['#eeeae2','#4a4740'],pages:[
+ {h:'Our neighbour',p:['The Moon is about 384,400 km away and 3,474 km wide, about a quarter as wide as Earth.','Its gravity is about one-sixth of Earth\'s, so you could jump six times higher there.']},
+ {h:'A cratered world',p:['The Moon has almost no air, wind or rain, so craters from space rocks stay for billions of years.','The dark patches you see are old lava plains, once mistaken for seas. They are still called "maria", Latin for seas.']},
+ {h:'Footprints on the Moon',p:['On 20 July 1969, Neil Armstrong and Buzz Aldrin of Apollo 11 became the first people to walk on the Moon.','Between 1969 and 1972, 12 astronauts walked there. With no wind, their footprints may last for millions of years.'],f:'Mathematician Katherine Johnson\'s calculations helped make these journeys possible.'},
+ {h:'The hidden far side',p:['The Moon always shows us the same face. The far side was first photographed by the Soviet Luna 3 in 1959.','In 2019 China\'s Chang\'e 4 made the first landing on the far side.']},
+ {h:'Going back',p:['There is water ice hidden in dark craters near the Moon\'s poles. Future explorers might use it to drink, or to make rocket fuel.','NASA\'s Artemis program and other countries\' missions aim to send people back to the Moon.']}],
+ words:[['Crater','A bowl-shaped hole made by an impact.'],['Maria','Dark plains of old lava on the Moon.'],['Far side','The half of the Moon that always faces away from Earth.']],
+ think:['What would you bring to live on the Moon for a month?','Why might footprints on the Moon last longer than any building on Earth?']}
+});
+BOOKS.jupiter.pages.push({h:'Volcanoes and oceans',p:['Jupiter\'s moon Io is the most volcanic place in the Solar System, squeezed and heated by Jupiter\'s gravity.','Ganymede is the biggest moon in the Solar System, even bigger than the planet Mercury.']},{h:'A planet that glows warm',p:['Jupiter gives off more heat than it receives from the Sun, still cooling from when it formed.','NASA\'s Juno spacecraft has orbited Jupiter since 2016, measuring what lies deep beneath its clouds.']});
+Object.assign(PICS,{
+ comet:[['cometart',0,'A comet far from the Sun, dark and frozen'],['cometart',6,'Ice turns to gas and a tail appears'],['cometart',10,'A curved dust tail and a straight gas tail'],['cometart',3,'Rosetta landed on Comet 67P in 2014'],['cometart',14,'Comet dust becomes shooting stars']],
+ pulsar:[['pulsarart',0,'A neutron star, the size of a city'],['pulsarart',3,'Beams sweep around like a lighthouse'],['pulsarart',6,'Each sweep past Earth is a pulse'],['pulsarart',9,'Ticking more steadily than many clocks'],['pulsarart',12,'What lies deep inside? Nobody knows']],
+ moonfull:[['moon',11,'Our Moon, 384,400 km away'],['moon',12,'Craters stay for billions of years'],['earth',4,'From the Moon, Earth hangs in the sky'],['moon',13,'The far side always faces away'],['moon',10,'Ice in polar craters, waiting for explorers']],
+ jupiter:[['jupiter',1,'Jupiter, king of the planets'],['jupiter',5,'The Great Red Spot, wider than Earth'],['jupiter',9,'Bands of clouds racing around'],['jupiter',12,'Volcanic Io and giant Ganymede'],['jupiter',15,'A planet still glowing warm']]
+});
+Object.assign(PHIL,{
+ comet:['A comet only shines when it comes close to the Sun, and it gives a little of itself away each time.','Do we shine brightest when we give something away?'],
+ pulsar:['A dead star becomes the most precise clock in the sky. Its story did not end when it died.','Can something keep teaching us long after it is gone?'],
+ moonfull:['Twelve people have stood on the Moon and looked back at a whole planet holding everyone else.','How would your problems look if you saw them from the Moon?']
+});
+/* ---- VOICE: two voices (narrator + Nova), best natural voice on this device, natural pacing ---- */
+window.Voice=(function(){
+ const ok=!!window.speechSynthesis;let list=[];const chosen={narrator:null,nova:null};const sels={narrator:[],nova:[]};
+ const MALE=/andrew|brian|guy|davis|christopher|eric|roger|steffan|ryan|thomas|daniel|evan|nathan|aaron|arthur|oliver|alex\b|tom\b|fred|ralph/i;
+ const FEMALE=/ava|aria|jenny|emma|michelle|ana\b|sonia|libby|natasha|clara|zoe|samantha|allison|susan|serena|karen|moira|tessa|kate|fiona|victoria|joanna|salli|female/i;
+ const isNatural=v=>/natural|neural|online|premium|enhanced|siri/i.test(v.name);
+ function base(v){const n=v.name;let s=0;if(/natural|neural/i.test(n))s+=70;if(/online/i.test(n))s+=30;if(/premium/i.test(n))s+=55;if(/enhanced|siri/i.test(n))s+=40;if(/google/i.test(n))s+=22;
+  if(/^en[-_](us|gb|ca|au|ie|nz|in)/i.test(v.lang))s+=6;if(/^en[-_](us|ca)/i.test(v.lang))s+=3;if(/compact|espeak|novelty|bells|whisper|zarvox|trinoids|bad news|good news|bubbles|cellos|organ|jester|wobble|boing|bahh|albert|hysterical|superstar/i.test(n))s-=200;return s;}
+ function rank(v,role){let s=base(v);if(role==='nova'){if(FEMALE.test(v.name))s+=18;if(MALE.test(v.name))s-=8;}else{if(MALE.test(v.name))s+=18;}return s;}
+ function nice(v){return v.name.replace(/Microsoft |Google |\(.*?\)| - English.*$/g,'').trim()+(isNatural(v)?' ★ natural':'')+' · '+v.lang;}
+ const KEY=r=>'edge-voice-'+r;
+ function load(){if(!ok)return;list=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));
+  for(const r of['narrator','nova']){let saved=null;try{saved=localStorage.getItem(KEY(r));}catch(e){}const sorted=list.slice().sort((a,b)=>rank(b,r)-rank(a,r));
+   let pick=list.find(v=>v.name===saved)||sorted[0]||null;
+   if(!saved&&r==='nova'&&pick&&chosen.narrator&&pick.name===chosen.narrator.name){const alt=sorted.find(v=>v.name!==pick.name&&base(v)>=base(pick)-25);if(alt)pick=alt;}
+   chosen[r]=pick;sels[r].forEach(s=>fill(s,r));}}
+ function fill(sel,role){sel.innerHTML='';if(!list.length){const o=document.createElement('option');o.textContent=ok?'Loading voices…':'No voices on this device';sel.appendChild(o);sel.disabled=true;return;}sel.disabled=false;
+  list.slice().sort((a,b)=>rank(b,role)-rank(a,role)).slice(0,30).forEach(v=>{const o=document.createElement('option');o.value=v.name;o.textContent=nice(v);if(chosen[role]&&v.name===chosen[role].name)o.selected=true;sel.appendChild(o);});}
+ if(ok){load();setTimeout(load,600);setTimeout(load,2000);speechSynthesis.addEventListener?speechSynthesis.addEventListener('voiceschanged',load):(speechSynthesis.onvoiceschanged=load);}
+ /* make text sound natural when read aloud */
+ function clean(t){return String(t).replace(/\s+\(From the book:.*\)$/,'').replace(/[★✓▶❚⏮⏭🔊🔇🗣📖🟠]/g,'')
+  .replace(/~\s?/g,'about ').replace(/(\d)\s?°C/g,'$1 degrees Celsius').replace(/(\d)\s?%/g,'$1 percent').replace(/\bkm\/h\b/g,'kilometres per hour').replace(/(\d)\s?km\/h/g,'$1 kilometres per hour').replace(/(\d)km\b/g,'$1 kilometres').replace(/\bkm\b/g,'kilometres').replace(/(\d)\s?kg\b/g,'$1 kilograms').replace(/(\d)\s?cm\b/g,'$1 centimetres')
+  .replace(/\s×\s?/g,' times ').replace(/10²⁷/g,'ten to the power of twenty-seven').replace(/\bc\.\s?(\d)/g,'around $1').replace(/\bBC\b/g,'B C').replace(/\bAD\b/g,'A D').replace(/(\d)–(\d)/g,'$1 to $2').replace(/\be\.g\./g,'for example').replace(/\bi\.e\./g,'that is')
+  .replace(/Sagittarius A\*/g,'Sagittarius A star').replace(/M87\*/g,'M 87').replace(/·/g,',').replace(/\s—\s|\s–\s/g,', ').replace(/\s+/g,' ').trim();}
+ /* split into breaths: sentences, and long sentences at commas */
+ function chunks(t){const out=[];t.replace(/([.!?]["”']?)\s+(?=[A-Z"“(])/g,'$1\u0002').split('\u0002').forEach(s=>{s=s.trim();if(!s)return;if(s.length>140){const parts=s.replace(/([,;:])\s+/g,'$1\u0001').split('\u0001');let buf='';parts.forEach(p=>{if((buf+' '+p).length>110&&buf){out.push(buf.trim());buf=p;}else buf=(buf?buf+' ':'')+p;});if(buf)out.push(buf.trim());}else out.push(s);});return out;}
+ let gen=0;
+ const api={
+  bind(sel,role){role=role||'narrator';sels[role].push(sel);fill(sel,role);sel.addEventListener('change',()=>{chosen[role]=list.find(v=>v.name===sel.value)||chosen[role];try{localStorage.setItem(KEY(role),chosen[role].name);}catch(e){}sels[role].forEach(s=>fill(s,role));api.speak(role==='nova'?'Hi! I am Nova. This is my voice now.':'This is the narrator voice. Welcome to the edge of knowing.',null,role);});},
+  speak(text,onend,role){if(!ok)return;role=role||'narrator';speechSynthesis.cancel();const my=++gen;const v=chosen[role];const nat=v&&isNatural(v);
+   const parts=chunks(clean(Array.isArray(text)?text.join(' '):text));
+   parts.forEach((p,i)=>{const u=new SpeechSynthesisUtterance(p);if(v)u.voice=v;u.lang=v?v.lang:'en-US';
+    const q=/\?$/.test(p),ex=/!$/.test(p);
+    if(role==='nova'){u.rate=nat?1.04:.98;u.pitch=(nat?1.04:1.1)+(q?.05:0)+(ex?.04:0)+((i%3)-1)*.02;}
+    else{u.rate=nat?.95:.9;u.pitch=(nat?.98:.94)+(q?.04:0)+((i%3)-1)*.015;}
+    if(i===parts.length-1&&onend)u.onend=()=>{if(my===gen)onend();};speechSynthesis.speak(u);});},
+  cancel(){gen++;if(ok)speechSynthesis.cancel();},pause(){if(ok)speechSynthesis.pause();},resume(){if(ok)speechSynthesis.resume();},
+  quality(role){const v=chosen[role||'narrator'];return!v?'none':isNatural(v)?'natural':'basic';},
+  name(role){const v=chosen[role||'narrator'];return v?nice(v):'';},
+  get available(){return ok;}};
+ return api;})();
+
+/* ---- BOOK VIEWER: a page-turning book for every topic ---- */
+window.Book=(function(){
+ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+ let ov,bk,L,R,leaf,lf,lb,cnt,pages=[],i=0,busy=false,cur=null,curId='',reading=false;
+ const live=new Set();let raf=0;const RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ function art(scene,t,cls){return'<canvas class="bk-art '+(cls||'')+'" data-s="'+scene+'" data-t="'+t+'" aria-hidden="true"></canvas>';}
+ function hook(){if(!window.ART)return;ov.querySelectorAll('canvas.bk-art').forEach(cv=>{if(cv._on)return;const sc=ART.scenes[cv.dataset.s];if(!sc)return;cv._on=1;cv._sc=sc;cv._st=sc.init(ART.h.rng(cv.dataset.s.length*131+Math.round(+cv.dataset.t*10)));cv._t0=performance.now()-(+cv.dataset.t)*1000;live.add(cv);});if(!raf)raf=requestAnimationFrame(loop);}
+ function loop(now){raf=0;if(!ov||ov.hidden){live.clear();return;}const d=Math.min(2,window.devicePixelRatio||1);
+  for(const cv of live){if(!cv.isConnected){live.delete(cv);continue;}const w=cv.clientWidth,h=Math.round(cv.classList.contains('bk-orb')?w:w/2);if(!w)continue;if(cv.width!==Math.round(w*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d);}
+   const c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);c.save();try{cv._sc.draw(c,w,h,RM?+cv.dataset.t+.01:(now-cv._t0)/1000,cv._st);}catch(e){}c.restore();if(RM)live.delete(cv);}
+  if(live.size)raf=requestAnimationFrame(loop);}
+ const single=()=>window.matchMedia('(max-width:760px)').matches;
+ function build(){if(ov)return;ov=document.createElement('div');ov.className='bk-ov';ov.hidden=true;ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Book');
+  ov.innerHTML='<div class="bk-bar"><b class="bk-title"></b><span class="bk-cnt"></span><label class="bk-vl"><span>Voice</span><select class="bk-voice" id="bkVoice" aria-label="Reading voice"></select></label><button class="bk-read" id="bkRead">🔊 Read aloud</button><button class="bk-x" id="bkClose" aria-label="Close book">×</button></div>'+
+  '<div class="bk-stage"><button class="bk-nav" id="bkPrev" aria-label="Previous page">‹</button><div class="bk"><div class="bk-page bk-l"></div><div class="bk-page bk-r"></div><div class="bk-leaf" hidden><div class="bk-face bk-front"></div><div class="bk-face bk-back"></div></div></div><button class="bk-nav" id="bkNext" aria-label="Next page">›</button></div>'+
+  '<p class="bk-hint">Tap the arrows, swipe, or use ← → keys to turn the page</p>';
+  document.body.appendChild(ov);bk=ov.querySelector('.bk');L=ov.querySelector('.bk-l');R=ov.querySelector('.bk-r');leaf=ov.querySelector('.bk-leaf');lf=ov.querySelector('.bk-front');lb=ov.querySelector('.bk-back');cnt=ov.querySelector('.bk-cnt');
+  window.Voice.bind(ov.querySelector('.bk-voice'));
+  ov.querySelector('#bkClose').onclick=close;ov.querySelector('#bkNext').onclick=()=>turn(1);ov.querySelector('#bkPrev').onclick=()=>turn(-1);
+  ov.querySelector('#bkRead').onclick=read;ov.addEventListener('click',e=>{if(e.target===ov)close();});
+  let sx=null;bk.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});bk.addEventListener('touchend',e=>{if(sx===null)return;const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>40)turn(d<0?1:-1);sx=null;});
+  document.addEventListener('keydown',e=>{if(ov.hidden)return;if(e.key==='ArrowRight'){e.stopPropagation();turn(1);}if(e.key==='ArrowLeft'){e.stopPropagation();turn(-1);}if(e.key==='Escape')close();},true);
+  window.addEventListener('resize',()=>{if(!ov.hidden)show();});}
+ function pagesFor(b){const P=[{k:'title'},{k:'toc'}];b.pages.forEach((p,n)=>P.push({k:'ch',n:n+1,...p}));if(typeof PHIL!=='undefined'&&PHIL[curId])P.push({k:'phil'});P.push({k:'words'});P.push({k:'think'});P.push({k:'end'});if(P.length%2)P.push({k:'blank'});return P;}
+ function html(p,num){const b=cur;const foot=num>1?'<div class="bk-num">'+num+'</div>':'';
+  if(!p)return'';
+  const pics=(typeof PICS!=='undefined'&&PICS[curId])||[];const PH=(typeof PHIL!=='undefined'&&PHIL[curId])?1:0;
+  if(p.k==='phil'){const ph=PHIL[curId],pc=pics[pics.length-1];return'<div class="bk-in bk-phil"><div class="bk-eye">The philosopher\'s page</div>'+(pc?'<figure class="bk-fig">'+art(pc[0],+pc[1]+3)+'</figure>':'')+'<blockquote>'+esc(ph[0])+'</blockquote><div class="bk-big"><b>The big question</b>'+esc(ph[1])+'</div><p class="bk-note">Philosophy begins where an answer runs out. Sit with this question for a minute before you turn the page.</p></div>'+foot;}
+  if(p.k==='title')return'<div class="bk-cover">'+(pics[0]?art(pics[0][0],pics[0][1],'bk-orb'):'<div class="bk-orb" style="background:radial-gradient(circle at 35% 30%,#fff 0%,'+b.c[0]+' 28%,'+b.c[1]+' 78%,#000 100%)"></div>')+'<div class="bk-lib">THE EDGE OF KNOWING · LIBRARY</div><h2>'+esc(b.t)+'</h2><p class="bk-sub">'+esc(b.s)+'</p><p class="bk-for">A book for curious minds</p></div>';
+  if(p.k==='toc')return'<div class="bk-in"><div class="bk-eye">Contents</div><ol class="bk-toc">'+b.pages.map((c,n)=>'<li><span>'+esc(c.h)+'</span><i></i><em>'+(n+3)+'</em></li>').join('')+(PH?'<li><span>The philosopher\'s page</span><i></i><em>'+(b.pages.length+3)+'</em></li>':'')+'<li><span>Words to know</span><i></i><em>'+(b.pages.length+3+PH)+'</em></li><li><span>Think about it</span><i></i><em>'+(b.pages.length+4+PH)+'</em></li></ol></div>'+foot;
+  if(p.k==='ch'){const pc=pics[p.n-1];return'<div class="bk-in"><div class="bk-eye">Chapter '+p.n+'</div><h3>'+esc(p.h)+'</h3>'+(pc?'<figure class="bk-fig">'+art(pc[0],pc[1])+'<figcaption>Fig. '+p.n+' · '+esc(pc[2])+'</figcaption></figure>':'')+p.p.map((t,k)=>'<p'+(k===0?' class="bk-drop"':'')+'>'+esc(t)+'</p>').join('')+(p.f?'<aside class="bk-fact"><b>Did you know?</b>'+esc(p.f)+'</aside>':'')+'</div>'+foot;}
+  if(p.k==='words')return'<div class="bk-in"><div class="bk-eye">Glossary</div><h3>Words to know</h3><dl class="bk-dl">'+b.words.map(w=>'<dt>'+esc(w[0])+'</dt><dd>'+esc(w[1])+'</dd>').join('')+'</dl></div>'+foot;
+  if(p.k==='think')return'<div class="bk-in"><div class="bk-eye">Your turn</div><h3>Think about it</h3><ol class="bk-q">'+b.think.map(q=>'<li>'+esc(q)+'</li>').join('')+'</ol><p class="bk-note">There are no wrong answers. Ask Nova, ask a grown-up, or ask Claude.</p></div>'+foot;
+  if(p.k==='end')return'<div class="bk-cover bk-endp"><h2>The End</h2><p class="bk-sub">Every answer opens a new question.</p></div>'+foot;
+  return foot;}
+ function txt(p){if(!p)return'';if(p.k==='title')return cur.t+'. '+cur.s+'.';if(p.k==='ch')return'Chapter '+p.n+'. '+p.h+'. '+p.p.join(' ')+(p.f?' Did you know? '+p.f:'');if(p.k==='phil')return'The philosopher\'s page. '+PHIL[curId][0]+' The big question: '+PHIL[curId][1];if(p.k==='words')return'Words to know. '+cur.words.map(w=>w[0]+': '+w[1]).join(' ');if(p.k==='think')return'Think about it. '+cur.think.join(' ');if(p.k==='end')return'The end. Every answer opens a new question.';return'';}
+ function show(){const s=single();bk.classList.toggle('one',s);if(s){L.hidden=true;R.innerHTML=html(pages[i],i+1);cnt.textContent='Page '+(i+1)+' of '+pages.length;}
+  else{i=i-(i%2);L.hidden=false;L.innerHTML=html(pages[i],i+1);R.innerHTML=html(pages[i+1],i+2);cnt.textContent='Pages '+(i+1)+'–'+(i+2)+' of '+pages.length;}
+  hook();ov.querySelector('#bkPrev').disabled=i<=0;ov.querySelector('#bkNext').disabled=i>=pages.length-(s?1:2);}
+ function turn(d){if(busy)return;const s=single(),step=s?1:2,ni=i+d*step;if(ni<0||ni>pages.length-1)return;busy=true;stopRead();
+  if(window.Snd&&Snd.on)Snd.whoosh(.55,d>0);
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduce){i=ni;show();busy=false;return;}
+  leaf.hidden=false;leaf.className='bk-leaf '+(d>0?'go-next':'go-prev')+(s?' one':'');
+  if(d>0){lf.innerHTML=s?html(pages[i],i+1):html(pages[i+1],i+2);lb.innerHTML=s?'':html(pages[ni],ni+1);R.innerHTML=s?html(pages[ni],ni+1):html(pages[ni+1],ni+2);}
+  else{lf.innerHTML=s?html(pages[i],i+1):html(pages[i],i+1);lb.innerHTML=s?'':html(pages[ni+1],ni+2);if(s)R.innerHTML=html(pages[ni],ni+1);else L.innerHTML=html(pages[ni],ni+1);}
+  hook();leaf.getBoundingClientRect();leaf.classList.add('turning');
+  setTimeout(()=>{i=ni;leaf.hidden=true;leaf.className='bk-leaf';show();busy=false;},760);}
+ function stopRead(){if(reading){window.Voice.cancel();reading=false;ov.querySelector('#bkRead').textContent='🔊 Read aloud';}}
+ function read(){if(reading){stopRead();return;}if(!window.Voice.available){ov.querySelector('#bkRead').textContent='No voice on this device';return;}
+  const s=single();const t=s?txt(pages[i]):txt(pages[i])+' '+txt(pages[i+1]);reading=true;ov.querySelector('#bkRead').textContent='■ Stop reading';
+  window.Voice.speak(t,()=>{reading=false;ov.querySelector('#bkRead').textContent='🔊 Read aloud';});}
+ function open(id){build();curId=id;cur=BOOKS[id];if(!cur)return;pages=pagesFor(cur);i=0;ov.querySelector('.bk-title').textContent=cur.t;ov.hidden=false;document.documentElement.style.overflow='hidden';show();if(window.Snd&&Snd.on)Snd.chime([660,880],.15);ov.querySelector('#bkNext').focus();}
+ function close(){stopRead();ov.hidden=true;document.documentElement.style.overflow='';}
+ return{open,close,has:id=>!!BOOKS[id],info:id=>BOOKS[id]};})();
+
+</script>
+<script>
+(function(){
+/* ---- SOUND ENGINE: every sound is made live by maths (Web Audio), no files ---- */
+const Snd=(function(){let ac=null,master=null,on=false,bed=[],NB=null;
+ function init(){if(ac)return true;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return false;ac=new AC();const comp=ac.createDynamicsCompressor();master=ac.createGain();master.gain.value=0;master.connect(comp);comp.connect(ac.destination);
+  NB=ac.createBuffer(1,ac.sampleRate*3,ac.sampleRate);const d=NB.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;return true;}
+ const now=()=>ac.currentTime;
+ function env(g,a,peak,hold,rel,t0){t0=t0||now();g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(peak,t0+a);g.gain.setValueAtTime(peak,t0+a+hold);g.gain.exponentialRampToValueAtTime(.0001,t0+a+hold+rel);}
+ function noise(){const s=ac.createBufferSource();s.buffer=NB;s.loop=true;return s;}
+ function out(node,level){const g=ac.createGain();g.gain.value=0;node.connect(g);g.connect(master);g.gain.setTargetAtTime(level,now(),1.2);return g;}
+ const api={
+  get on(){return on;},
+  toggle(){if(!init())return false;if(ac.state==='suspended')ac.resume();on=!on;master.gain.setTargetAtTime(on?.85:0,now(),.25);return on;},
+  pause(p){if(!ac)return;master.gain.setTargetAtTime(on&&!p?.85:0,now(),.2);},
+  stopBed(){if(!ac)return;bed.forEach(b=>{b.g.gain.setTargetAtTime(0,now(),.5);const ss=b.s;setTimeout(()=>ss.forEach(x=>{try{x.stop();}catch(e){}}),2500);});bed=[];},
+  drone(freqs,type,level,cut,lfoHz){if(!ac)return;const f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=cut||900;const srcs=[];
+   freqs.forEach((fr,i)=>{const o=ac.createOscillator();o.type=type||'sine';o.frequency.value=fr;o.detune.value=(i%2?7:-7);o.connect(f);o.start();srcs.push(o);});
+   const g=out(f,level);if(lfoHz){const l=ac.createOscillator(),lg=ac.createGain();l.frequency.value=lfoHz;lg.gain.value=level*.6;l.connect(lg);lg.connect(g.gain);l.start();srcs.push(l);}
+   bed.push({g,s:srcs});return{f,g,srcs};},
+  hiss(type,freq,q,level,lfoHz){if(!ac)return;const s=noise(),f=ac.createBiquadFilter();f.type=type;f.frequency.value=freq;f.Q.value=q||1;s.connect(f);s.start();const g=out(f,level);const srcs=[s];
+   if(lfoHz){const l=ac.createOscillator(),lg=ac.createGain();l.frequency.value=lfoHz;lg.gain.value=level*.7;l.connect(lg);lg.connect(g.gain);l.start();srcs.push(l);}bed.push({g,s:srcs});return{f,g};},
+  boom(size){if(!ac||!on)return;size=size||1;const t0=now();const s=noise(),f=ac.createBiquadFilter(),g=ac.createGain();f.type='lowpass';f.frequency.setValueAtTime(2400*size,t0);f.frequency.exponentialRampToValueAtTime(60,t0+2.5*size);s.connect(f);f.connect(g);g.connect(master);env(g,.01,.9,.05,2.6*size,t0);s.start(t0);s.stop(t0+3.5*size);
+   const o=ac.createOscillator(),og=ac.createGain();o.frequency.setValueAtTime(110,t0);o.frequency.exponentialRampToValueAtTime(28,t0+1.8*size);o.connect(og);og.connect(master);env(og,.01,.8,.1,2.2*size,t0);o.start(t0);o.stop(t0+3*size);},
+  whoosh(dur,up){if(!ac||!on)return;dur=dur||1.6;const t0=now(),s=noise(),f=ac.createBiquadFilter(),g=ac.createGain();f.type='bandpass';f.Q.value=2.5;f.frequency.setValueAtTime(up===false?2400:250,t0);f.frequency.exponentialRampToValueAtTime(up===false?150:3200,t0+dur);s.connect(f);f.connect(g);g.connect(master);env(g,dur*.45,.35,0,dur*.6,t0);s.start(t0);s.stop(t0+dur*1.2);},
+  chirp(f0,f1,dur,level){if(!ac||!on)return;const t0=now(),o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(f0,t0);o.frequency.exponentialRampToValueAtTime(f1,t0+dur);o.connect(g);g.connect(master);g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(level||.25,t0+dur*.9);g.gain.exponentialRampToValueAtTime(.0001,t0+dur+.4);o.start(t0);o.stop(t0+dur+.5);},
+  chime(notes,gap){if(!ac||!on)return;const t0=now();(notes||[880,1320]).forEach((fr,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.value=fr;o.connect(g);g.connect(master);env(g,.01,.18,0,2.4,t0+i*(gap||.18));o.start(t0+i*(gap||.18));o.stop(t0+i*(gap||.18)+2.6);});},
+  sparkle(n){if(!ac||!on)return;const t0=now();for(let i=0;i<(n||10);i++){const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=1200+Math.random()*2400;o.connect(g);g.connect(master);const st=t0+Math.random()*1.6;env(g,.005,.06,0,.5,st);o.start(st);o.stop(st+.6);}},
+  click(){if(!ac||!on)return;const t0=now(),o=ac.createOscillator(),g=ac.createGain();o.frequency.value=660;o.connect(g);g.connect(master);env(g,.003,.07,0,.12,t0);o.start(t0);o.stop(t0+.2);}
+ };return api;})();
+
+window.Snd=Snd;
+const TAU=Math.PI*2;
+const {rng,glow,lerp,clamp,smooth,bg}=ART.h;
+const scenes=ART.scenes;
+
+/* ---------- STORY ---------- */
+const S=[
+{key:'nothing',tab:'Before?',era:'Before time?',when:'Before the clock started',ya:null,cal:'Before the calendar starts',
+ what:'We don\'t know if there even was a "before." Time itself may have started with the Big Bang. Asking what came before could be like asking what is north of the North Pole.',
+ how:['Nothing from that moment has reached us. No light, no clue.','Our best physics stops working here, like a map with a blank edge.'],
+ real:0,note:'Nobody knows. Scientists don\'t even agree the question makes sense.',
+ you:'You were nothing. Not atoms. Not even space for atoms to sit in.',
+ unknown:'Why is there something instead of nothing?'},
+{key:'bang',tab:'Big Bang',era:'The Big Bang',when:'13.8 billion years ago',ya:13.8e9,
+ what:'Everything that exists was squeezed incredibly small and hot. Then space began to stretch. It was not an explosion inside space. Space itself started growing, everywhere at once. Within 3 minutes, the first atom centres formed: hydrogen and helium.',
+ how:['Galaxies are flying away from each other. Play that movie backwards and everything meets at one starting point (Edwin Hubble, 1929).','The whole sky still glows with leftover heat. Two scientists found it by accident in 1965. At first they blamed pigeon droppings in their antenna.','The universe is about 3 parts hydrogen to 1 part helium by weight. That is exactly what the Big Bang predicts.'],
+ real:2,note:'Yes. The evidence that it happened is very strong. Why it happened is the mystery.',
+ you:'The hydrogen in your body was made right here. Every glass of water you drink holds atoms 13.8 billion years old.',
+ unknown:'What made it start?',
+ why:[['A flicker of nothing','Tiny random jumps happen even in empty space. Maybe one jump became everything.'],['A bounce','An older universe shrank, crunched, and bounced back as ours.'],['One bubble of many','Our universe may be one bubble in a foam of countless universes.'],['No "before" at all','If time began here, there was no earlier moment for a cause to happen in.']]},
+{key:'light',tab:'First light',era:'The fog clears',when:'380,000 years after the Big Bang',ya:13.8e9-380000,
+ what:'For 380,000 years the universe was a glowing orange fog. Light couldn\'t travel through it. Then it cooled enough for real atoms to form, the fog cleared, and the first light flew free.',
+ how:['That first light is still arriving today, stretched into faint microwaves.','Satellites like Planck mapped it across the whole sky. The oval in the picture is drawn like their map: tiny hot (red) and cold (blue) spots.'],
+ real:3,note:'Proven. We have measured this light in great detail.',
+ you:'Your hydrogen became a whole atom for the first time.',
+ unknown:'Those tiny hot and cold spots grew into every galaxy. But why were the spots there at all?'},
+{key:'stars',tab:'First stars',era:'The first stars switch on',when:'About 13.5 billion years ago',ya:13.5e9,
+ what:'Gravity pulled gas into balls. Their middles got so hot they lit up. The first stars were giants, burned fast, and exploded, throwing new kinds of atoms into space.',
+ how:['The James Webb Space Telescope sees galaxies from when the universe was only a few hundred million years old.','Scientists understand how stars make atoms, and can see it happening in stars today.'],
+ real:2,note:'Strong evidence. But nobody has seen one of the very first stars yet.',
+ you:'The carbon in your body, the oxygen you breathe and the iron in your blood were cooked inside stars and blasted out when they exploded. You are made of star leftovers.',
+ unknown:'What did the very first stars look like? We are still searching for them.'},
+{key:'galaxy',tab:'Milky Way',era:'Our galaxy takes shape',when:'Starting about 13 billion years ago',ya:13e9,
+ what:'Stars gathered into huge spinning cities called galaxies. Ours, the Milky Way, now holds somewhere between 100 and 400 billion stars.',
+ how:['Telescopes see billions of other galaxies.','Astronomers date the oldest stars in our own galaxy to over 13 billion years.'],
+ real:2,note:'Strong evidence.',
+ you:'For about 8 billion years your atoms drifted around this galaxy, passing from dying stars into newborn ones.',
+ unknown:'About 85% of the matter holding galaxies together is invisible "dark matter." Nobody knows what it is.'},
+{key:'sun',tab:'Sun is born',era:'The Sun is born',when:'4.6 billion years ago',ya:4.6e9,
+ what:'A cloud of gas and dust collapsed. The middle became the Sun. The rest flattened into a spinning disk of dust that clumped together into planets.',
+ how:['Some space rocks (meteorites) are leftovers from this time. Lab tests date them to about 4.57 billion years.','Telescopes see dusty disks forming planets around young stars right now.'],
+ real:3,note:'Proven.',
+ you:'Your atoms were dust grains in that spinning disk, about to become part of Earth.',
+ unknown:'Did a nearby exploding star give the cloud the push it needed to collapse?'},
+{key:'moon',tab:'Moon is made',era:'A crash makes the Moon',when:'About 4.5 billion years ago',ya:4.5e9,
+ what:'A planet about the size of Mars, nicknamed Theia, smashed into young Earth. The splash made a ring of glowing rock around Earth, and the ring clumped into the Moon.',
+ how:['Moon rocks brought back by Apollo astronauts are almost identical to Earth rocks.','Computer models of a giant crash produce a moon like ours.'],
+ real:1,note:'Best guess. It is the leading idea, but scientists still argue about the details.',
+ you:'Some of your atoms may have been flung into that ring. Some scientists think chunks of Theia are still buried deep inside Earth.',
+ unknown:'If half the Moon came from Theia, why do Moon rocks look so much like Earth\'s?'},
+{key:'life',tab:'First life',era:'Something comes alive',when:'At least 3.5 billion years ago',ya:3.5e9,
+ what:'In the oceans, simple chemicals started making copies of themselves. The first living cells appeared. For billions of years, all life was too small to see.',
+ how:['Rocks in Australia called stromatolites hold layers built by tiny living mats about 3.5 billion years ago.'],
+ real:2,note:'Strong evidence that life was here. How it began is unknown.',
+ you:'Every cell in your body comes from those first cells, through an unbroken chain of parents. Not broken once in 3.5 billion years.',
+ unknown:'How did non-living chemicals become alive? This is one of the biggest unsolved questions in science.'},
+{key:'cambrian',tab:'Life explodes',era:'Life goes wild',when:'538 million years ago',ya:538e6,
+ what:'In a short time, as nature counts it, animals appeared with eyes, shells, legs and jaws. Most of today\'s main body shapes started here.',
+ how:['Fossils from the Burgess Shale in British Columbia, Canada show strange animals, like Opabinia with five eyes.'],
+ real:3,note:'Proven by fossils.',
+ you:'Your ancestors were small swimmers with the very beginning of a backbone.',
+ unknown:'Why did life suddenly speed up? More oxygen? The arrival of eyes? Both?'},
+{key:'dino',tab:'Dinosaurs end',era:'The worst day on Earth',when:'66 million years ago',ya:66e6,
+ what:'A space rock about 10 km wide hit near Mexico. Fires spread, then years of darkness and cold. About three out of four kinds of living things died out, including all the big dinosaurs.',
+ how:['All over the world there is a thin rock layer full of iridium, a metal common in asteroids.','The buried Chicxulub crater, about 180 km wide, matches the date.'],
+ real:3,note:'Proven.',
+ you:'Your ancestors were small furry mammals, likely hiding in burrows. The dinosaurs\' worst day was their lucky day.',
+ unknown:'Birds survived, and birds are dinosaurs. So did the dinosaurs really end?'},
+{key:'fire',tab:'Humans',era:'Someone looks up',when:'About 300,000 years ago',ya:3e5,
+ what:'People like us appear in Africa. We tell stories around fires, paint caves, and for the first time a living thing looks at the stars and asks where it came from.',
+ how:['Fossils from Jebel Irhoud in Morocco are about 300,000 years old.'],
+ real:2,note:'Strong evidence. The exact date keeps moving as new fossils are found.',
+ you:'After 13.8 billion years, your atoms finally became someone who could ask questions.',
+ unknown:'Why do we ask "why" at all?'},
+{key:'earth',tab:'Now',era:'You, reading this',when:'Today',ya:0,cal:'The very last second of December 31',
+ what:'About 8 billion people. Cities glowing at night. Satellites circling. Telescopes that see back almost to the Big Bang.',
+ how:['You are the evidence.'],
+ real:3,note:'Proven. You are here.',
+ you:'Here you are. Atoms 13.8 billion years old, put together for a short time into you.',
+ unknown:'What will your atoms do next?'},
+{key:'giant',tab:'Future',era:'The Sun grows old',when:'About 5 billion years from now',ya:-5e9,cal:'Not on this calendar. It belongs to next year.',
+ what:'The Sun will run low on fuel and swell into a huge red giant, maybe big enough to swallow Earth.',
+ how:['Astronomers watch older stars like the Sun reach this stage right now.'],
+ real:2,note:'Strong evidence the Sun will swell. Whether it swallows Earth is still argued.',
+ you:'Your atoms will be scattered back into space, ready to become new stars, new planets, maybe new life.',
+ unknown:'Will the universe keep stretching forever, or end some other way?'}
+];
+
+const S2=[
+{key:'hole',tab:'Black hole',era:'The monster at the centre',when:'Light from 27,000 years ago',ya:27000,
+ what:'At the middle of our galaxy sits a black hole called Sagittarius A*. It is as heavy as about 4 million Suns squeezed into a space smaller than the orbit of Mercury. Nothing that falls in, not even light, comes back out.',
+ how:['In 2019 a team linked radio telescopes across the planet into one Earth-sized "eye" and took the first ever picture of a black hole (M87*).','In 2022 they photographed ours, Sagittarius A*.','Astronomers watched stars whip around an invisible point for over 20 years. That work won the 2020 Nobel Prize.'],
+ real:3,note:'Black holes are real and photographed. What happens inside them is unknown.',
+ you:'You are circling it right now. The whole Solar System, with you in it, goes around this black hole once every 230 million years or so.',
+ unknown:'What is at the very centre of a black hole? Our laws of physics break there.'},
+{key:'kilonova',tab:'Gold factory',era:'Two dead stars crash',when:'130 million years ago (seen in 2017)',ya:130e6,
+ what:'Two neutron stars, each a city-sized ball heavier than the Sun, spiralled into each other and crashed. The blast made huge amounts of gold, platinum and other heavy metals.',
+ how:['On 17 August 2017, detectors on Earth felt a tiny wobble in space itself, a gravitational wave.','Seconds later, telescopes saw the flash. For the first time ever, one event was both "felt" and seen.'],
+ real:3,note:'Seen and measured in 2017. How much of the universe\'s gold comes from crashes like this is still argued.',
+ you:'Any gold near you, a ring, a medal, a phone circuit, was probably made in a crash like this before the Sun was born.',
+ unknown:'Do all the heavy metals come from star crashes, or do other explosions help too?'},
+{key:'transit',tab:'Alien worlds',era:'Planets around other stars',when:'Found since 1995',ya:31,
+ what:'Most stars have planets. Astronomers have confirmed more than 6,000 planets beyond our Solar System: lava worlds, puffy giants, planets with two suns, and some rocky ones the right distance for water.',
+ how:['When a planet passes in front of its star, the star dims a tiny bit. The yellow line in the picture shows that dip. Space telescopes watch for it on thousands of stars at once.'],
+ real:3,note:'Proven. Thousands confirmed.',
+ you:'Somewhere out there, the same kinds of atoms that make you may be part of a planet, an ocean, or maybe something alive.',
+ unknown:'Is anyone out there? We have not found life beyond Earth yet.'},
+{key:'mars',tab:'Mars',era:'Mars once had water',when:'Over 3 billion years ago',ya:3.5e9,
+ what:'Mars was once warmer and wetter, with rivers and lakes. It lost most of its air, the water froze or escaped to space, and it became the cold red desert we see today. Watch the picture: the blue fades away.',
+ how:['NASA rovers drive over dried riverbeds and an old lake delta in Jezero Crater.','Rocks on Mars contain minerals that only form in water.'],
+ real:2,note:'Strong evidence for rivers and lakes. A big northern ocean is still argued.',
+ you:'Rocks blasted off Mars by impacts have landed on Earth as meteorites. A tiny bit of Mars may be in the ground near you.',
+ unknown:'Did life ever start on Mars? Rovers are collecting samples to find out.'},
+{key:'jupiter',tab:'Jupiter',era:'A storm older than your country',when:'Watched since at least 1830',ya:196,
+ what:'Jupiter\'s Great Red Spot is a giant storm, wider than the whole Earth, spinning for hundreds of years. It has been shrinking, and nobody knows if it will disappear.',
+ how:['Astronomers have tracked it through telescopes since at least 1830. The Juno spacecraft measured that it goes hundreds of kilometres deep.'],
+ real:3,note:'Proven. You can see it with a good backyard telescope.',
+ you:'Jupiter\'s huge gravity flings away many comets and asteroids. Some scientists think it helped protect Earth while life got started. That idea is still argued.',
+ unknown:'Why has this storm lasted so long, and why is it shrinking?'},
+{key:'voyager',tab:'Voyager 1',era:'The farthest thing we ever made',when:'Launched 1977, still talking',ya:49,
+ what:'Voyager 1 left Earth in 1977. In 2012 it crossed out of the Sun\'s bubble into the space between stars. It is so far that its radio messages take almost a whole day to reach us.',
+ how:['NASA still receives its weak signal with giant antennas, nearly 50 years later.'],
+ real:3,note:'Proven. It is still sending data.',
+ you:'Voyager carries a Golden Record with sounds of Earth and greetings in 55 languages. It is a message from all of us, including you, to anyone who finds it.',
+ unknown:'Will anyone ever find it?'},
+{key:'andromeda',tab:'Galaxy crash',era:'Galaxies on a crash course?',when:'In about 4.5 billion years, maybe',ya:-4.5e9,cal:'Not on this calendar. It belongs to next year.',
+ what:'The Andromeda galaxy is 2.5 million light-years away and moving toward us. For years scientists said it would surely crash into the Milky Way and merge into one giant galaxy.',
+ how:['Telescopes measure Andromeda\'s speed toward us at over 100 km every second.','A 2025 study re-ran the maths and found only about a 50/50 chance of a crash in the next 10 billion years.'],
+ real:1,note:'Best guess. The chance went from "certain" to "maybe" in 2025.',
+ you:'If it happens, your atoms will ride along. Stars are so far apart that almost none would actually hit each other.',
+ unknown:'Will the two galaxies meet or miss? More measurements will tell.'},
+{key:'fade',tab:'The end?',era:'The lights go out',when:'Trillions of years from now',ya:-1e14,cal:'Far beyond this calendar.',
+ what:'The universe keeps stretching. The leading idea says new stars will stop forming, old ones will burn out, and the last small red stars will fade. Everything spreads out, cold and dark. Watch the stars switch off.',
+ how:['The universe is stretching faster and faster. Scientists found this in 1998 by measuring exploding stars, and it won a Nobel Prize.'],
+ real:1,note:'Best guess. New measurements in 2025 hint the stretching may be changing, so the ending is still open.',
+ you:'Your atoms will still exist, drifting in the dark, older than anything you can imagine.',
+ unknown:'Will it end in cold darkness, a big rip, or a bounce that starts everything again?'}
+];
+
+
+const B={
+ pad:(f,l)=>Snd.drone(f,'sine',l||.06,1200,.05), sub:(f,l)=>Snd.drone(f,'sawtooth',l||.12,150,.1),
+ wind:(c,l)=>Snd.hiss('lowpass',c||600,.8,l||.12,.12)};
+const SND={
+ nothing:{bed(){Snd.hiss('highpass',6000,1,.02,.3);}},
+ bang:{loop:10,bed(){B.sub([36,54]);},ev:[[0,()=>{Snd.boom(1.4);Snd.whoosh(3);}]]},
+ light:{loop:11,bed(){B.pad([146.8,220,293.7]);},ev:[[.4,()=>Snd.whoosh(4)],[4.5,()=>Snd.chime([587,880],.3)]]},
+ stars:{loop:13,bed(){B.pad([110,165],.05);},ev:[[1,()=>Snd.sparkle(10)],[4,()=>Snd.boom(.5)],[7.5,()=>Snd.boom(.45)]]},
+ galaxy:{bed(){B.pad([110,164.8,220,277.2]);Snd.hiss('bandpass',5200,6,.025,.1);}},
+ sun:{loop:14,bed(){Snd.drone([98,147],'triangle',.07,700,.06);},ev:[[0,()=>Snd.whoosh(3)],[6,()=>Snd.chime([392,587],.3)]]},
+ moon:{loop:13,bed(){B.sub([41,62],.08);},ev:[[0,()=>Snd.whoosh(3)],[3,()=>Snd.boom(1.3)],[7,()=>Snd.chime([330,494],.4)]]},
+ life:{loop:15,bed(){B.wind(500,.1);B.pad([196,247,294],.04);},ev:[1.7,3.4,5.1,6.8,8.5,10.2,11.9].map((t,k)=>[t,()=>Snd.chime([520+k*70],0)])},
+ cambrian:{bed(){B.wind(450,.12);B.pad([174.6,220,261.6],.05);}},
+ dino:{loop:13,bed(){B.wind(800,.06);},ev:[[0,()=>Snd.whoosh(3.6)],[3.6,()=>Snd.boom(1.8)]]},
+ fire:{bed(){Snd.hiss('bandpass',1800,1.2,.05,7);B.wind(300,.06);B.pad([130.8,196],.03);}},
+ earth:{bed(){B.pad([130.8,196,261.6,329.6]);}},
+ giant:{bed(){B.sub([32,48,64],.14);Snd.hiss('lowpass',200,1,.15,.08);}},
+ hole:{bed(){B.sub([30,45,60],.16);Snd.hiss('lowpass',120,1,.25,.07);}},
+ kilonova:{loop:13,bed(){B.wind(400,.05);},ev:[[0,()=>Snd.chirp(40,420,5,.28)],[5,()=>{Snd.boom(1.3);Snd.sparkle(16);}]]},
+ transit:{loop:8,bed(){B.pad([220,330],.04);},ev:[[4,()=>Snd.chime([330],0)]]},
+ mars:{bed(){Snd.hiss('lowpass',900,.7,.16,.15);}},
+ jupiter:{bed(){Snd.hiss('lowpass',260,1,.2,.06);B.sub([55,82],.06);}},
+ voyager:{loop:8,bed(){B.pad([220,277,330],.03);},ev:[.5,2.5,4.5,6.5].map(t=>[t,()=>Snd.chime([1760],0)])},
+ andromeda:{loop:16,bed(){B.pad([98,147,196,247],.05);},ev:[[11,()=>{Snd.boom(1.5);Snd.whoosh(3);}]]},
+ fade:{loop:17,bed(){B.pad([110,138.6,164.8],.05);},ev:[[15,()=>Snd.chime([220,165],.6)]]}
+};
+let sFired=new Set(),sPrev=0;
+function startSound(){Snd.stopBed();sFired=new Set();sPrev=0;const d=SND[L[cur].key];if(Snd.on&&d)d.bed();}
+function soundTick(t){const d=SND[L[cur].key];if(!Snd.on||!d||!d.ev)return;const tl=d.loop?t%d.loop:t;if(tl<sPrev)sFired=new Set();sPrev=tl;d.ev.forEach((e,k)=>{if(!sFired.has(k)&&tl>=e[0]){sFired.add(k);if(tl-e[0]<.5)e[1]();}});}
+
+/* ---------- UI ---------- */
+const cv=document.getElementById('sky'),ctx=cv.getContext('2d');
+let L=S,W=0,H=0,cur=1,start=performance.now(),fadeAt=start,playing=false,timer=null;
+const state={};
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function size(){const d=Math.min(2,window.devicePixelRatio||1);const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=Math.round(W*d);cv.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);if(reduce)frame(performance.now());}
+new ResizeObserver(size).observe(cv);
+
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],FULL=['January','February','March','April','May','June','July','August','September','October','November','December'],DAYS=[31,28,31,30,31,30,31,31,30,31,30,31];
+const months=document.getElementById('months');MN.forEach(m=>{const d=document.createElement('div');d.textContent=m;months.appendChild(d);});
+function calc(ya){const f=clamp((13.8e9-ya)/13.8e9,0,.9999999);let mins=f*525600,day=Math.floor(mins/1440),m=Math.floor(mins-day*1440),mi=0;while(day>=DAYS[mi]){day-=DAYS[mi];mi++;}const hh=Math.floor(m/60),mm=m%60,ap=hh<12?'AM':'PM',h12=hh%12===0?12:hh%12;return{f,label:FULL[mi]+' '+(day+1)+' · '+h12+':'+String(mm).padStart(2,'0')+' '+ap};}
+
+const rail=document.getElementById('rail');
+function buildRail(){rail.innerHTML='';L.forEach((s,i)=>{const b=document.createElement('button');b.id='tab-'+s.key;b.textContent=s.tab;b.addEventListener('click',()=>{stop();go(i);});rail.appendChild(b);});}
+document.querySelectorAll('.paths button').forEach(b=>b.addEventListener('click',()=>{stop();L=b.dataset.p==='space'?S2:S;document.querySelectorAll('.paths button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));buildRail();go(0);}));
+buildRail();
+const LV=[['Nobody knows','var(--unknown)'],['Best guess','var(--guess)'],['Strong evidence','var(--strong)'],['Proven','var(--proven)']];
+const $=id=>document.getElementById(id);
+
+function go(i){cur=(i+L.length)%L.length;const s=L[cur];start=performance.now();fadeAt=start;
+ if(!state[s.key])state[s.key]=scenes[s.key].init(rng(s.key.length*9973+s.key.charCodeAt(0)));
+ $('count').textContent=String(cur+1).padStart(2,'0')+' / '+L.length;$('era').textContent=s.era;$('when').textContent=s.when;
+ $('you').textContent=s.you;$('what').textContent=s.what;$('unknown').textContent=s.unknown;
+ const how=$('how');how.innerHTML='';if(s.how.length>1){const ol=document.createElement('ol');ol.className='clues';s.how.forEach(x=>{const li=document.createElement('li');li.textContent=x;ol.appendChild(li);});how.appendChild(ol);}else{const p=document.createElement('p');p.textContent=s.how[0];how.appendChild(p);}
+ const lv=LV[s.real];[...$('meter').children].forEach((el,k)=>{el.style.background=k<=s.real?lv[1]:'';});$('realLabel').textContent=lv[0]+'.';$('realLabel').style.color=lv[1];$('realNote').textContent=s.note.replace(/^(Yes\.|Proven\.|Strong evidence\.|Best guess\.|Nobody knows\.)\s*/,'');
+ const wc=$('whyCard');if(s.why){wc.hidden=false;const ul=$('why');ul.innerHTML='';s.why.forEach(([a,b])=>{const li=document.createElement('li');const bb=document.createElement('b');bb.textContent=a;li.appendChild(bb);li.appendChild(document.createTextNode(b));ul.appendChild(li);});}else wc.hidden=true;
+ const mk=$('marker');let lit=-1;
+ if(s.ya===null){$('calDate').textContent=s.cal;mk.style.left='0%';mk.style.opacity='.3';}
+ else if(s.ya<0){$('calDate').textContent=s.cal;mk.style.left='100%';mk.style.opacity='.3';lit=11;}
+ else{const c=calc(s.ya);$('calDate').textContent=s.ya===0?s.cal:c.label;mk.style.left=(c.f*100)+'%';mk.style.opacity='1';lit=Math.floor(c.f*12);}
+ [...months.querySelectorAll('div')].forEach((d,k)=>d.classList.toggle('lit',k<=lit));
+ [...rail.children].forEach((b,k)=>b.setAttribute('aria-current',String(k===cur)));
+ const tab=rail.children[cur];if(tab&&tab.scrollIntoView)rail.scrollTo({left:tab.offsetLeft-rail.clientWidth/2+tab.clientWidth/2,behavior:reduce?'auto':'smooth'});
+ startSound();const bid=BMAP[s.key]||s.key,bi=BOOKS[bid];$('bookName').textContent=bi.t;$('bookMeta').textContent=bi.pages.length+' chapters · words to know · questions to think about';if(reduce)frame(performance.now());}
+
+function frame(now){if(!W)return;const s=L[cur];const t=reduce?6:Math.max(0,(now-start)/1000);
+ ctx.save();scenes[s.key].draw(ctx,W,H,t,state[s.key]);ctx.restore();if(!reduce)soundTick(t);
+ const since=(now-fadeAt)/1000;if(!reduce&&since<.7){ctx.fillStyle='rgba(0,0,0,'+(1-since/.7)+')';ctx.fillRect(0,0,W,H);}}
+function loop(now){frame(now);requestAnimationFrame(loop);}
+
+function stop(){playing=false;clearInterval(timer);$('play').textContent='▶ Take the tour';$('play').setAttribute('aria-pressed','false');}
+$('play').addEventListener('click',()=>{if(playing){stop();return;}playing=true;$('play').textContent='❚❚ Pause tour';$('play').setAttribute('aria-pressed','true');timer=setInterval(()=>go(cur+1),11000);});
+$('sound').addEventListener('click',()=>{const o=Snd.toggle();$('sound').setAttribute('aria-pressed',String(o));$('sound').textContent=o?'🔊 Sound on':'🔇 Sound off';if(o)startSound();else Snd.stopBed();});
+const BMAP={earth:'home',sun:'solar'};
+$('bookBtn').addEventListener('click',()=>{stop();Book.open(BMAP[L[cur].key]||L[cur].key);});
+$('prev').addEventListener('click',()=>{stop();go(cur-1);});
+$('next').addEventListener('click',()=>{stop();go(cur+1);});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){stop();go(cur+1);}if(e.key==='ArrowLeft'){stop();go(cur-1);}});
+
+go(1);size();if(!reduce)requestAnimationFrame(loop);
+})();
+</script>
+
+</body></html>
