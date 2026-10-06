@@ -72,6 +72,7 @@ head_new='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta nam
 <link rel="icon" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/icon-180.png"><meta name="theme-color" content="#06070C">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"The Edge of Knowing","url":"https://starsteps.zeroorigine.com/edge/","isPartOf":{"@type":"WebSite","name":"Star Steps","url":"https://starsteps.zeroorigine.com/"},"about":["astronomy","physics","cosmology"],"audience":{"@type":"EducationalAudience","educationalRole":"student"},"creator":{"@type":"Person","name":"Advik"}}</script>
 <style>:root{box-sizing:border-box}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<script src="/js/ss-store.js"></script>
 <link rel="stylesheet" href="/js/doors.css">
 </head><body>
 <nav class="ss-doors" aria-label="Star Steps"><a class="ss-home" href="/"><img src="/icons/icon-192.png" alt="" width="26" height="26">Star Steps</a><div class="ss-doors-links"><a href="/play/">Play</a><a href="/library/">Library</a><a href="/edge/" aria-current="page">Edge of Knowing</a></div></nav>
@@ -199,9 +200,24 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
 @media (max-width:560px){nav#reel{grid-template-columns:1fr!important}}
 .nova-btn{bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:900px){.journey .grid{grid-template-columns:1fr;grid-template-areas:"you" "what" "book" "how" "real" "unk" "why"}.journey .why ul{grid-template-columns:1fr 1fr}}
+/* tap targets and small text (store review: 44px targets, 11px+ text) */
+.topnav a,.topnav button{min-height:36px;display:inline-flex;align-items:center}
+.topnav{top:46px}
+@media (max-width:640px){.topnav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:4px}.topnav::-webkit-scrollbar{display:none}.topnav a,.topnav button{flex:0 0 auto;white-space:nowrap}.topnav button{margin-left:4px}}
+.sect-h,#gallery{scroll-margin-top:110px}
+#quiet.ghost{padding:12px 16px;min-height:44px}
+.bar button.ico{min-width:38px;flex:0 0 auto}
+.bar button{min-height:38px}
+.settings .voice-pick,.topbook,.settings .q button{min-height:38px}
+.journey .months div{font-size:11px}
+.journey .cal-head b{font-size:24px}
+@media (max-width:760px){.journey .months div{font-size:11px;padding-inline:0}.journey .months div:nth-of-type(even){color:transparent}}
+@media (max-width:420px){.bar{gap:6px 8px;padding:8px 10px 12px;flex-wrap:wrap}.bar .track{flex:1 1 100%;order:-1;height:18px}.bar button{font-size:11px;padding:8px 9px}.sub{font-size:15px;bottom:92px}}
+.gal .tile small,.bk-cover .bk-lib,.bk-fact b,.bk-big b{font-size:11px!important}
 @media (max-width:560px){.ss-doors .ss-home span{display:none}.hero-stats b{font-size:17px}.time{display:none}.nova-btn{bottom:14px}.topnav a{padding:7px 10px}.sect-h{padding-top:32px}}
 """
-a=a.replace('\n.settings{display:flex;',tidycss+'\n.settings{display:flex;',1)
+_i=a.index('</style>',a.index('.settings{display:flex;'))
+a=a[:_i]+tidycss+'\n'+a[_i:]
 
 assert a.count('id="jsky"')==1 and 'id="journey"' in a and '/edge/vendor/three.min.js' in a
 OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(a)

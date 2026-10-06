@@ -24,8 +24,8 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid var(
 .chips::-webkit-scrollbar{display:none}
 .chip{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:7px 13px;font-weight:600;font-size:13px}
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
-.search{margin-left:auto;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 6px 4px 12px;min-width:200px}
-.search input{border:0;outline:0;background:none;font:inherit;font-size:14px;width:100%;color:var(--ink)}
+.search{margin-left:auto;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 6px 4px 12px;min-width:200px;min-height:40px}
+.search input{border:0;outline:0;background:none;font:inherit;font-size:15px;width:100%;color:var(--ink);min-height:32px}
 .search input::placeholder{color:#9b98ad}
 select.sel{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 10px;font-size:13px;font-weight:600;color:var(--muted)}
 /* continue row */
@@ -50,7 +50,7 @@ select.sel{border:1px solid var(--line);background:var(--card);border-radius:999
 .cov .ttl{position:absolute;left:14px;right:10px;bottom:12px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.6)}
 .cov .ttl b{display:block;font-family:var(--display);font-weight:700;font-size:17px;line-height:1.1;text-wrap:balance}
 .cov .ttl small{display:block;font-size:11px;opacity:.9;margin-top:4px}
-.cov .tag{position:absolute;top:10px;left:16px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#fff;background:rgba(20,18,30,.55);padding:3px 7px;border-radius:999px}
+.cov .tag{position:absolute;top:10px;left:16px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#fff;background:rgba(20,18,30,.55);padding:3px 7px;border-radius:999px}
 .cov .done{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:#3ddc5a;color:#083;display:grid;place-items:center;font-weight:900;font-size:14px}
 .cov .prog{position:absolute;left:8px;right:0;bottom:0;height:5px;background:rgba(255,255,255,.3)}.cov .prog i{display:block;height:100%;background:var(--star)}
 .book:hover .cov,.book:focus-visible .cov{transform:translateY(-5px) rotate(-1deg);box-shadow:inset 8px 0 0 rgba(0,0,0,.22),0 18px 30px rgba(40,30,80,.28)}
@@ -69,7 +69,7 @@ select.sel{border:1px solid var(--line);background:var(--card);border-radius:999
 .edge-books .ecov b{font-family:var(--display);font-weight:400;font-size:14px;line-height:1.1;color:#1a1208;background:rgba(250,245,232,.93);padding:5px 7px;border-radius:4px;width:100%}
 .edge-books small{font-size:11px;color:#A29EB5}
 footer.lf{color:var(--muted);font-size:14px;padding:26px 0 40px;border-top:1px solid var(--line);margin-top:26px}
-footer.lf a{color:var(--accent)}
+footer.lf a{color:var(--accent);display:inline-block;padding:6px 2px}
 @media (max-width:860px){.hero{grid-template-columns:1fr;padding-top:22px}.hero-art{max-width:520px}.edge-shelf{grid-template-columns:1fr}.search{margin-left:0;flex:1 1 100%}}
 @media (max-width:560px){.books{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}.cov .ttl b{font-size:15px}}
 
@@ -84,7 +84,7 @@ footer.lf a{color:var(--accent)}
 .rd-stage{display:flex;align-items:center;gap:10px;width:min(1180px,100%);justify-content:center}
 .rd-nav{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:28px;line-height:1}
 .rd-nav:disabled{opacity:.25;cursor:default}
-.bk{position:relative;display:grid;grid-template-columns:1fr 1fr;width:min(1040px,calc(100vw - 130px));height:min(660px,calc(100vh - 150px));perspective:2400px;filter:drop-shadow(0 30px 50px rgba(0,0,0,.5))}
+.bk{position:relative;display:grid;grid-template-columns:1fr 1fr;width:min(1040px,calc(100vw - 130px));height:min(720px,calc(100vh - 150px));perspective:2400px;filter:drop-shadow(0 30px 50px rgba(0,0,0,.5))}
 .bk.one{grid-template-columns:1fr;width:min(560px,calc(100vw - 20px));height:min(720px,calc(100vh - 130px))}
 .pg,.face{position:relative;overflow:hidden;background:#fffdf8;background-image:radial-gradient(120% 90% at 50% 40%,#fffdf8 0%,#f8f2e6 75%,#efe6d4 100%);color:var(--ink);font-family:var(--body)}
 .pg-l{border-radius:12px 2px 2px 12px;box-shadow:inset -26px 0 30px -18px rgba(90,60,20,.35)}
