@@ -172,20 +172,21 @@ S.iceberg={init(r){return{};},
 
 S.tilt={init(r){return{st:mkstars(r,120)};},
  draw(c,w,h,t,s,v){sky(c,w,h,'#05071a','#0a0c22');stars(c,w,h,s.st,t);const cx=w*.5,cy=h*.5;sun(c,cx,cy,h*.1,t);c.strokeStyle='rgba(255,255,255,.2)';c.setLineDash([4,6]);c.lineWidth=1.5;c.beginPath();c.ellipse(cx,cy,w*.38,h*.3,0,0,TAU);c.stroke();c.setLineDash([]);
-  const a=t*.5,ex=cx+Math.cos(a)*w*.38,ey=cy+Math.sin(a)*h*.3,R=h*.07;ball(c,ex,ey,R,'#3b7dd8');c.save();c.translate(ex,ey);c.rotate(-.41);c.strokeStyle='#fff';c.lineWidth=2;c.beginPath();c.moveTo(0,-R*1.5);c.lineTo(0,R*1.5);c.stroke();c.fillStyle='rgba(255,255,255,.85)';c.beginPath();c.ellipse(0,-R*.8,R*.5,R*.25,0,0,TAU);c.fill();c.restore();
+  const a=t*.5,ex=cx+Math.cos(a)*w*.38,ey=cy+Math.sin(a)*h*.3,R=h*.07;ball(c,ex,ey,R,'#3b7dd8');if(KID())face(c,ex,ey,R,t,{ink:'#10233f'});c.save();c.translate(ex,ey);c.rotate(-.41);c.strokeStyle='#fff';c.lineWidth=2;c.beginPath();c.moveTo(0,-R*1.5);c.lineTo(0,R*1.5);c.stroke();c.fillStyle='rgba(255,255,255,.85)';c.beginPath();c.ellipse(0,-R*.8,R*.5,R*.25,0,0,TAU);c.fill();c.restore();
   const north=-Math.cos(a)*Math.sin(.41);label(c,north>.2?'north tilted toward the Sun: summer in the north':north<-.2?'north tilted away: winter in the north':'in between: spring or autumn',w*.5,h*.08);label(c,'the tilt never changes direction; the seasons come from where Earth is',w*.5,h*.94,{size:11});}};
 
 S.moonphases={init(r){return{st:mkstars(r,120)};},
  draw(c,w,h,t,s,v){sky(c,w,h,'#05071a','#0a0c22');stars(c,w,h,s.st,t);const n=8,R=h*.09;const names=['new','crescent','first quarter','gibbous','full','gibbous','last quarter','crescent'];const cur=Math.floor(t/1.5)%n;
   for(let i=0;i<n;i++){const x=w*(.08+i*.12),y=h*.42,ph=i/n;circ(c,x,y,R,'#2a2c3a');c.save();c.beginPath();c.arc(x,y,R,0,TAU);c.clip();c.fillStyle='#f3efe4';
    const k=Math.cos(ph*TAU);if(ph<.5){c.beginPath();c.arc(x,y,R,-Math.PI/2,Math.PI/2);c.ellipse(x,y,Math.abs(k)*R,R,0,Math.PI/2,-Math.PI/2,k>0);c.fill();}else{c.beginPath();c.arc(x,y,R,Math.PI/2,-Math.PI/2);c.ellipse(x,y,Math.abs(k)*R,R,0,-Math.PI/2,Math.PI/2,k>0);c.fill();}
-   c.restore();if(i===cur){c.strokeStyle='#F2C46D';c.lineWidth=3;c.beginPath();c.arc(x,y,R+6,0,TAU);c.stroke();label(c,names[i],x,y+R+26,{size:11,bg:'rgba(242,196,109,.9)',col:'#1b1206'});}}
+   c.restore();if(KID()&&i===4)face(c,x,y,R,t,{ink:'#5a5040'});if(i===cur){c.strokeStyle='#F2C46D';c.lineWidth=3;c.beginPath();c.arc(x,y,R+6,0,TAU);c.stroke();label(c,names[i],x,y+R+26,{size:11,bg:'rgba(242,196,109,.9)',col:'#1b1206'});}}
   label(c,'the Moon makes no light: we see the sunlit half from different sides',w*.5,h*.1,{size:11});label(c,'one full cycle takes about 29.5 days',w*.5,h*.9,{size:11});}};
 
 S.daynight={init(r){return{st:mkstars(r,120),pts:(function(){const r2=rng(7),o=[];for(let i=0;i<500;i++)o.push({lat:(r2()*2-1)*70,lon:r2()*360});return o;})()};},
  draw(c,w,h,t,s,v){sky(c,w,h,'#05071a','#0a0c22');stars(c,w,h,s.st,t);const cx=w*.5,cy=h*.5,R=h*.4;glow(c,w*.04,cy,h*.5,'255,220,120',.6);
   ball(c,cx,cy,R,'#2f6fb0',.2);const D=Math.PI/180;for(const p of s.pts){const la=p.lat*D,lm=(p.lon+t*25)*D;const z=Math.cos(la)*Math.cos(lm);if(z<=0)continue;const x=cx+R*Math.cos(la)*Math.sin(lm),y=cy-R*Math.sin(la);c.fillStyle='rgba(120,200,110,'+(.9*z)+')';c.fillRect(x-1.5,y-1.5,3,3);}
   c.save();c.beginPath();c.arc(cx,cy,R,0,TAU);c.clip();c.fillStyle=grad(c,cx-R*.1,0,cx+R*.3,0,['rgba(0,0,20,0)','rgba(0,0,20,.85)']);c.fillRect(cx-R*.1,0,R*1.2,h);c.restore();
+  if(KID())face(c,cx-R*.3,cy-R*.05,R*.5,t,{ink:'#10233f'});
   label(c,'day',cx-R*.55,cy-R*1.15,{col:'#ffe08a'});label(c,'night',cx+R*.55,cy-R*1.15,{col:'#bcd8ff'});label(c,'Earth spins once every 24 hours',w*.5,h*.94,{size:11});}};
 
 S.strata={init(r){return{};},
@@ -208,4 +209,23 @@ S.tornado={init(r){return{d:Array.from({length:200},()=>({u:r(),a:r()*TAU,s:.5+r
   c.fillStyle='rgba(120,120,135,.45)';c.beginPath();c.moveTo(cx-h*.3,h*.14);c.quadraticCurveTo(cx-h*.05,h*.6,cx-h*.03+Math.sin(t*2)*h*.04,h*.86);c.lineTo(cx+h*.03+Math.sin(t*2)*h*.04,h*.86);c.quadraticCurveTo(cx+h*.05,h*.6,cx+h*.3,h*.14);c.fill();
   for(let k=0;k<5;k++){const a=t*5+k*1.3,R=h*.08+k*h*.03;c.fillStyle='#5a4a2a';c.fillRect(cx+Math.cos(a)*R-3,h*.8-k*h*.08+Math.sin(a)*R*.3,6,4);}
   label(c,'spinning air, faster than a race car',w*.5,h*.94,{size:12});}};
+})();
+/* ---- two gentle scenes for the smallest readers ---- */
+(function(){
+const A=window.LART,S=A.scenes,{rng,lerp,smooth,grad,sky,ground,glow,circ,ball,sun,cloud,star,label,tree,stars,mkstars,face,KID,TAU}=A.h;
+S.sunny={init(r){return{fl:Array.from({length:14},()=>({x:r(),h:.5+r()*.5,c:['#ff6b8a','#ffd35a','#c77dff','#ff8c42'][(r()*4)|0]})),bd:Array.from({length:3},()=>({x:r(),y:.15+r()*.25,s:.6+r()}))};},
+ draw(c,w,h,t,s,v){sky(c,w,h,'#8fd0ff','#e6f6ff');sun(c,w*.78,h*.22,h*.13,t);if(!KID())face(c,w*.78,h*.22,h*.13,t);
+  const cx=w*.25+Math.sin(t*.15)*10,cy=h*.2;cloud(c,cx,cy,w*.08);face(c,cx,cy+w*.01,w*.045,t+1,{ink:'#5a6a80'});cloud(c,w*.5+Math.sin(t*.12+2)*8,h*.12,w*.06);
+  for(const b of s.bd){const x=((b.x+t*.03*b.s)%1.1)*w,y=b.y*h+Math.sin(t*2+b.x*9)*6;c.strokeStyle='#3b3f48';c.lineWidth=2;c.beginPath();c.moveTo(x-8,y);c.quadraticCurveTo(x-4,y-5,x,y);c.quadraticCurveTo(x+4,y-5,x+8,y);c.stroke();}
+  c.fillStyle='#7cc36b';c.beginPath();c.moveTo(0,h);c.lineTo(0,h*.72);c.quadraticCurveTo(w*.3,h*.5,w*.55,h*.7);c.quadraticCurveTo(w*.8,h*.86,w,h*.66);c.lineTo(w,h);c.fill();c.fillStyle='#5fae55';c.beginPath();c.moveTo(0,h);c.lineTo(0,h*.86);c.quadraticCurveTo(w*.5,h*.72,w,h*.88);c.lineTo(w,h);c.fill();
+  tree(c,w*.12,h*.74,h*.26);tree(c,w*.86,h*.72,h*.22,'#4fb866');
+  s.fl.forEach((f,i)=>{const x=f.x*w,y=h*.9-f.h*h*.06;c.strokeStyle='#3f9d55';c.lineWidth=3;c.beginPath();c.moveTo(x,h*.95);c.lineTo(x,y);c.stroke();for(let k=0;k<5;k++){const a=k/5*TAU+t*.5;circ(c,x+Math.cos(a)*7,y+Math.sin(a)*7,5,f.c);}circ(c,x,y,4,'#fff3a8');});
+  label(c,'a sunny day: light everywhere',w*.5,h*.08,{bg:'rgba(60,80,120,.7)'});}};
+S.nightsky={init(r){return{st:Array.from({length:26},()=>({x:.05+r()*.9,y:.08+r()*.6,s:.5+r(),p:r()*TAU})),dust:mkstars(r,120)};},
+ draw(c,w,h,t,s,v){sky(c,w,h,'#2b3a8a','#5a4a9a');stars(c,w,h,s.dust,t);
+  for(const q of s.st){const tw=.7+.3*Math.sin(t*2+q.p);star(c,q.x*w,q.y*h,h*.035*q.s*tw,'#fff3a8',t*.2+q.p);}
+  const mx=w*.78,my=h*.24,R=h*.14;glow(c,mx,my,R*2.2,'255,240,200',.35);c.fillStyle='#fff3c4';c.beginPath();c.arc(mx,my,R,0,TAU);c.fill();c.fillStyle=A.h.soften('#2b3a8a');c.beginPath();c.arc(mx-R*.45,my-R*.1,R*.85,0,TAU);c.fill();face(c,mx+R*.3,my+R*.05,R*.5,t,{ink:'#7a5a20'});
+  c.fillStyle='#1d2a4a';c.beginPath();c.moveTo(0,h);c.lineTo(0,h*.8);c.quadraticCurveTo(w*.3,h*.62,w*.55,h*.78);c.quadraticCurveTo(w*.8,h*.9,w,h*.74);c.lineTo(w,h);c.fill();
+  for(let k=0;k<4;k++){const x=w*(.12+k*.22),gy=h*.82-k*h*.02;c.fillStyle='#152040';c.fillRect(x-h*.06,gy-h*.12,h*.12,h*.12);c.fillStyle='rgba(255,220,120,'+(.6+.4*Math.sin(t*1.3+k))+')';c.fillRect(x-h*.035,gy-h*.09,h*.03,h*.03);c.fillRect(x+h*.005,gy-h*.09,h*.03,h*.03);}
+  label(c,'at night the stars come out: far-away suns',w*.5,h*.94,{bg:'rgba(20,30,70,.75)'});}};
 })();

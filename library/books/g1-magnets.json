@@ -5,33 +5,365 @@
  "grade": 1,
  "subject": "Physics",
  "minutes": 27,
- "cover": {"scene": "magnet", "c": ["#e0483c", "#2f6fd1"]},
+ "cover": {
+  "scene": "magnet",
+  "c": [
+   "#e0483c",
+   "#2f6fd1"
+  ]
+ },
  "pages": [
-  {"k":"ch", "h":"A pull with no hands", "p":["Hold a magnet near a paper clip. Do not touch it. The clip jumps! Something pulls it through the air. You cannot see the pull. You cannot hear it. But it is real. That pull is called magnetism."], "art":{"s":"magnet"}, "cap":"The pull reaches out from the magnet in curved lines.", "fact":"Did you know? A strong magnet can pull a paper clip through a sheet of paper, a glass, or a cup of water."},
-  {"k":"ch", "h":"Every magnet has two ends", "p":["One end of a magnet is called the north pole. The other end is the south pole. The pull is strongest at the two ends. Even a round magnet has a north and a south. Even a tiny one does."], "art":{"s":"magnet"}, "cap":"The north pole is often painted red. The south pole is often blue."},
-  {"k":"ch", "h":"Push away!", "p":["Put two north poles together. They push apart! You can feel it in your fingers. Same poles always push away. Different poles pull together. North and south hug. North and north never will. South and south never will either."], "art":{"s":"magnet"}, "cap":"North pulls south. North pushes north.", "fact":"Did you know? Try to push two same poles together and one magnet may spin around to make friends."},
-  {"k":"quiz", "q":"What happens when two north poles meet?", "opts":["They pull together","They push apart","Nothing happens"], "a":1, "why":"Same poles always push away from each other."},
-  {"k":"ch", "h":"What sticks?", "p":["A magnet pulls iron. It pulls steel too, because steel is mostly iron. Many Canadian coins have steel inside, so they stick. Nickel sticks as well. Most things do not stick: wood, paper, glass, plastic, and even aluminium pop cans."], "art":{"s":"coins", "v":{"items":[[5,"5 cents"],[10,"10 cents"],[25,"25 cents"],[100,"1 dollar"]]}}, "cap":"Canadian coins are made on steel. A magnet grabs them."},
-  {"k":"ch", "h":"Test your home", "p":["Walk around with a fridge magnet. Touch the door of the fridge. It sticks. Touch a spoon. Maybe it sticks. Touch a window. Nothing. Touch a wooden table. Nothing. Only a few things in a home are made of iron or steel."], "art":{"s":"people", "v":{"title":"Magnet hunt"}}, "cap":"What will stick? Guess first, then test it."},
-  {"k":"ch", "h":"Cut a magnet in half", "p":["Cut a magnet in half. Do you get a north half and a south half? No! You get two whole magnets. Each new piece has a north pole and a south pole. Cut it again and again. Every tiny piece still has two ends."], "art":{"s":"magnet"}, "cap":"Two halves make two full magnets.", "fact":"Did you know? Inside a magnet are billions of tiny magnets, all pointing the same way."},
-  {"k":"big", "h":"The Earth is a giant magnet", "p":["Deep inside the Earth is hot, runny iron. It moves and makes a huge magnet. The whole planet has a north end and a south end, just like a bar magnet."], "art":{"s":"daynight"}},
-  {"k":"ch", "h":"The compass", "p":["A compass is a tiny magnet on a pin. It can spin. Earth's magnet pulls on it. So the needle always turns to point north. People in China made the first compasses about 2,000 years ago. Later, sailors used them to find their way across the sea."], "art":{"s":"ship"}, "cap":"Sailors used a compass by day and the stars by night."},
-  {"k":"ch", "h":"The north pole moves", "p":["A compass points to the magnetic north pole. That spot used to be in northern Canada. Now it has moved far out over the Arctic Ocean, toward Russia. It creeps about 35 kilometres a year. Map makers have to fix their maps again and again."], "art":{"s":"space:earth"}, "cap":"The magnetic north pole is near the top of the world, but not quite at the top."},
-  {"k":"quiz", "q":"Which way does a compass needle point?", "opts":["North","Up to the sky","Toward the Sun"], "a":0, "why":"Earth's magnet turns the needle so it points north."},
-  {"k":"ch", "h":"The northern lights", "p":["The Sun blows out tiny bits all the time. Earth's magnet catches them near the top and bottom of the world. The bits hit the air and make it glow. Green and pink lights dance in the sky. In Canada we call them the northern lights."], "art":{"s":"space:sun"}, "cap":"The Sun sends out a wind of tiny bits. Earth's magnet steers them.", "fact":"Did you know? Yellowknife is one of the best places on Earth to see the northern lights."},
-  {"k":"ch", "h":"Animals that feel the pull", "p":["Some animals can feel Earth's magnet. Sea turtles swim across a whole ocean and come back to the same beach. Many birds fly south each autumn with no map. Scientists think monarch butterflies may feel it too. How animals sense the pull is still a puzzle."], "art":{"s":"butterfly"}, "cap":"Monarch butterflies fly from Canada all the way to Mexico."},
-  {"k":"ch", "h":"Electricity makes a magnet", "p":["Electricity can make a magnet. Wrap a wire around an iron nail. Join the wire to a battery. The nail becomes a magnet! Unhook the wire. The nail lets go. A magnet you can switch on and off is called an electromagnet. Ask a grown-up to help, because the wire can get hot."], "art":{"s":"circuit", "v":{"on":true}}, "cap":"When electricity flows through the wire, the nail pulls like a magnet."},
-  {"k":"ch", "h":"A magnet that lifts cars", "p":["A scrapyard crane has a huge electromagnet. Switch it on. It lifts a whole car into the air! Switch it off. The car drops with a crash. Some of these magnets can lift more than 1,000 kilograms at once. That is as heavy as a small car."], "art":{"s":"pulley"}, "cap":"The crane lifts scrap metal with a magnet, not a hook."},
-  {"k":"try", "h":"Try it: float a compass", "p":["Make a compass that points north."], "steps":["Rub a sewing needle on a magnet 30 times, always in the same direction.","Lay the needle on a small piece of cork or a leaf.","Float it in a bowl of water.","Wait. The needle slowly turns and points north!"], "art":{"s":"float"}, "cap":"The floating needle turns until it points north.", "safe":"Ask a grown-up to help with the needle, and keep magnets away from your mouth."},
-  {"k":"ch", "h":"Trains that float", "p":["Some trains have no wheels touching the track. Magnets push the train up. It floats a few centimetres above the rail. Then magnets pull it forward. A floating train in Japan went 603 kilometres an hour in a test. That is faster than any train with wheels."], "art":{"s":"train"}, "cap":"A floating train has nothing to rub against, so it can go very fast."},
-  {"k":"ch", "h":"Magnets hide in your home", "p":["Magnets are hiding all over your home. One holds the fridge door shut. Speakers and headphones use magnets to make sound. Small motors in toys spin because of magnets. Some bags and phone cases close with a magnet click. Count the magnets you find today."], "art":{"s":"sound"}, "cap":"Inside every speaker is a magnet. It wobbles a cone to make sound."},
-  {"k":"quiz", "q":"Which of these sticks to a magnet?", "opts":["A wooden spoon","A steel paper clip","A plastic cup"], "a":1, "why":"Magnets pull iron and steel. Wood and plastic do not stick."},
-  {"k":"ch", "h":"The doctor's giant magnet", "p":["Doctors use a giant magnet to look inside you. The machine is called an MRI. You lie in a tube and keep still. The magnet is hundreds of times stronger than a fridge magnet. Nothing made of iron or steel is allowed in the room, or it would fly!"], "art":{"s":"bones"}, "cap":"An MRI makes pictures of your bones, brain and muscles without cutting."},
-  {"k":"ch", "h":"A rock that is a magnet", "p":["Long ago, people found a black rock that pulled iron. They called it lodestone. It is a magnet made by nature. The word magnet comes from Magnesia, a place in Greece where the rock was found. You can still find lodestone in the ground today."], "art":{"s":"strata"}, "cap":"Lodestone is found in rock layers in the ground."},
-  {"k":"ch", "h":"Keep your magnet strong", "p":["A magnet can get weak. Heat it very hot and the pull fades. Drop it again and again and it weakens too. Keep a magnet cool and treat it gently. It will stay strong for many years. And never put a magnet in your mouth."], "art":{"s":"heat"}, "cap":"Heat shakes up the tiny magnets inside, so the pull gets weak.", "fact":"Did you know? Swallowing two small magnets is very dangerous. They pull together inside you."},
-  {"k":"big", "h":"Jupiter has the biggest magnet of all the planets", "p":["Jupiter's magnet reaches millions of kilometres into space. If you could see it from Earth, it would look bigger than the full Moon in our sky."], "art":{"s":"space:jupiter"}},
-  {"k":"try", "h":"Try it: make a paper clip chain", "p":["See how far the pull reaches."], "steps":["Touch one paper clip to a magnet. It sticks.","Touch a second clip to the first one. It sticks too!","Keep adding clips. Count how many hang in a chain.","Try a stronger magnet. Does the chain get longer?"], "art":{"s":"magnet"}, "cap":"Each clip becomes a little magnet while it touches the chain.", "safe":"Keep magnets and clips away from your mouth and away from babies. Never swallow a magnet."},
-  {"k":"words", "items":[["magnet","a thing that pulls iron and steel"],["pole","one end of a magnet, north or south"],["attract","to pull together"],["repel","to push apart"],["compass","a tiny magnet that points north"],["iron","a metal that magnets pull"],["electromagnet","a magnet you can switch on and off"],["northern lights","glowing colours in the night sky"]]},
-  {"k":"think", "qs":["Where would it be a bad idea to keep a magnet? Why?","If you had a magnet as big as a house, what would you do with it?","How might a bird feel the Earth's pull? Make a guess!"]}
+  {
+   "k": "ch",
+   "h": "A pull with no hands",
+   "p": [
+    "Hold a magnet near a paper clip. Do not touch it. The clip jumps! Something pulls it through the air. You cannot see the pull. You cannot hear it. But it is real. That pull is called magnetism."
+   ],
+   "art": {
+    "s": "magnet"
+   },
+   "cap": "The pull reaches out from the magnet in curved lines.",
+   "fact": "Did you know? A strong magnet can pull a paper clip through a sheet of paper, a glass, or a cup of water."
+  },
+  {
+   "k": "ch",
+   "h": "Every magnet has two ends",
+   "p": [
+    "One end of a magnet is called the north pole. The other end is the south pole. The pull is strongest at the two ends. Even a round magnet has a north and a south. Even a tiny one does."
+   ],
+   "art": {
+    "s": "magnet"
+   },
+   "cap": "The north pole is often painted red. The south pole is often blue."
+  },
+  {
+   "k": "ch",
+   "h": "Push away!",
+   "p": [
+    "Put two north poles together. They push apart! You can feel it in your fingers. Same poles always push away. Different poles pull together. North and south hug. North and north never will. South and south never will either."
+   ],
+   "art": {
+    "s": "magnet"
+   },
+   "cap": "North pulls south. North pushes north.",
+   "fact": "Did you know? Try to push two same poles together and one magnet may spin around to make friends."
+  },
+  {
+   "k": "quiz",
+   "q": "What happens when two north poles meet?",
+   "opts": [
+    "They pull together",
+    "They push apart",
+    "Nothing happens"
+   ],
+   "a": 1,
+   "why": "Same poles always push away from each other."
+  },
+  {
+   "k": "ch",
+   "h": "What sticks?",
+   "p": [
+    "A magnet pulls iron. It pulls steel too, because steel is mostly iron. Many Canadian coins have steel inside, so they stick. Nickel sticks as well. Most things do not stick: wood, paper, glass, plastic, and even aluminium pop cans."
+   ],
+   "art": {
+    "s": "coins",
+    "v": {
+     "items": [
+      [
+       5,
+       "5 cents"
+      ],
+      [
+       10,
+       "10 cents"
+      ],
+      [
+       25,
+       "25 cents"
+      ],
+      [
+       100,
+       "1 dollar"
+      ]
+     ]
+    }
+   },
+   "cap": "Canadian coins are made on steel. A magnet grabs them."
+  },
+  {
+   "k": "ch",
+   "h": "Test your home",
+   "p": [
+    "Walk around with a fridge magnet. Touch the door of the fridge. It sticks. Touch a spoon. Maybe it sticks. Touch a window. Nothing. Touch a wooden table. Nothing. Only a few things in a home are made of iron or steel."
+   ],
+   "art": {
+    "s": "people",
+    "v": {
+     "title": "Magnet hunt"
+    }
+   },
+   "cap": "What will stick? Guess first, then test it."
+  },
+  {
+   "k": "ch",
+   "h": "Cut a magnet in half",
+   "p": [
+    "Cut a magnet in half. Do you get a north half and a south half? No! You get two whole magnets. Each new piece has a north pole and a south pole. Cut it again and again. Every tiny piece still has two ends."
+   ],
+   "art": {
+    "s": "magnet"
+   },
+   "cap": "Two halves make two full magnets.",
+   "fact": "Did you know? Inside a magnet are billions of tiny magnets, all pointing the same way."
+  },
+  {
+   "k": "big",
+   "h": "The Earth is a giant magnet",
+   "p": [
+    "Deep inside the Earth is hot, runny iron. It moves and makes a huge magnet. The whole planet has a north end and a south end, just like a bar magnet."
+   ],
+   "art": {
+    "s": "daynight"
+   }
+  },
+  {
+   "k": "ch",
+   "h": "The compass",
+   "p": [
+    "A compass is a tiny magnet on a pin. It can spin. Earth's magnet pulls on it. So the needle always turns to point north. People in China made the first compasses about 2,000 years ago. Later, sailors used them to find their way across the sea."
+   ],
+   "art": {
+    "s": "ship"
+   },
+   "cap": "Sailors used a compass by day and the stars by night."
+  },
+  {
+   "k": "ch",
+   "h": "The north pole moves",
+   "p": [
+    "A compass points to the magnetic north pole. That spot used to be in northern Canada. Now it has moved far out over the Arctic Ocean, toward Russia. It creeps about 35 kilometres a year. Map makers have to fix their maps again and again."
+   ],
+   "art": {
+    "s": "daynight"
+   },
+   "cap": "The magnetic north pole is near the top of the world, but not quite at the top."
+  },
+  {
+   "k": "quiz",
+   "q": "Which way does a compass needle point?",
+   "opts": [
+    "North",
+    "Up to the sky",
+    "Toward the Sun"
+   ],
+   "a": 0,
+   "why": "Earth's magnet turns the needle so it points north."
+  },
+  {
+   "k": "ch",
+   "h": "The northern lights",
+   "p": [
+    "The Sun blows out tiny bits all the time. Earth's magnet catches them near the top and bottom of the world. The bits hit the air and make it glow. Green and pink lights dance in the sky. In Canada we call them the northern lights."
+   ],
+   "art": {
+    "s": "sunny"
+   },
+   "cap": "The Sun sends out a wind of tiny bits. Earth's magnet steers them.",
+   "fact": "Did you know? Yellowknife is one of the best places on Earth to see the northern lights."
+  },
+  {
+   "k": "ch",
+   "h": "Animals that feel the pull",
+   "p": [
+    "Some animals can feel Earth's magnet. Sea turtles swim across a whole ocean and come back to the same beach. Many birds fly south each autumn with no map. Scientists think monarch butterflies may feel it too. How animals sense the pull is still a puzzle."
+   ],
+   "art": {
+    "s": "butterfly"
+   },
+   "cap": "Monarch butterflies fly from Canada all the way to Mexico."
+  },
+  {
+   "k": "ch",
+   "h": "Electricity makes a magnet",
+   "p": [
+    "Electricity can make a magnet. Wrap a wire around an iron nail. Join the wire to a battery. The nail becomes a magnet! Unhook the wire. The nail lets go. A magnet you can switch on and off is called an electromagnet. Ask a grown-up to help, because the wire can get hot."
+   ],
+   "art": {
+    "s": "circuit",
+    "v": {
+     "on": true
+    }
+   },
+   "cap": "When electricity flows through the wire, the nail pulls like a magnet."
+  },
+  {
+   "k": "ch",
+   "h": "A magnet that lifts cars",
+   "p": [
+    "A scrapyard crane has a huge electromagnet. Switch it on. It lifts a whole car into the air! Switch it off. The car drops with a crash. Some of these magnets can lift more than 1,000 kilograms at once. That is as heavy as a small car."
+   ],
+   "art": {
+    "s": "pulley"
+   },
+   "cap": "The crane lifts scrap metal with a magnet, not a hook."
+  },
+  {
+   "k": "try",
+   "h": "Try it: float a compass",
+   "p": [
+    "Make a compass that points north."
+   ],
+   "steps": [
+    "Rub a sewing needle on a magnet 30 times, always in the same direction.",
+    "Lay the needle on a small piece of cork or a leaf.",
+    "Float it in a bowl of water.",
+    "Wait. The needle slowly turns and points north!"
+   ],
+   "art": {
+    "s": "float"
+   },
+   "cap": "The floating needle turns until it points north.",
+   "safe": "Ask a grown-up to help with the needle, and keep magnets away from your mouth."
+  },
+  {
+   "k": "ch",
+   "h": "Trains that float",
+   "p": [
+    "Some trains have no wheels touching the track. Magnets push the train up. It floats a few centimetres above the rail. Then magnets pull it forward. A floating train in Japan went 603 kilometres an hour in a test. That is faster than any train with wheels."
+   ],
+   "art": {
+    "s": "train"
+   },
+   "cap": "A floating train has nothing to rub against, so it can go very fast."
+  },
+  {
+   "k": "ch",
+   "h": "Magnets hide in your home",
+   "p": [
+    "Magnets are hiding all over your home. One holds the fridge door shut. Speakers and headphones use magnets to make sound. Small motors in toys spin because of magnets. Some bags and phone cases close with a magnet click. Count the magnets you find today."
+   ],
+   "art": {
+    "s": "sound"
+   },
+   "cap": "Inside every speaker is a magnet. It wobbles a cone to make sound."
+  },
+  {
+   "k": "quiz",
+   "q": "Which of these sticks to a magnet?",
+   "opts": [
+    "A wooden spoon",
+    "A steel paper clip",
+    "A plastic cup"
+   ],
+   "a": 1,
+   "why": "Magnets pull iron and steel. Wood and plastic do not stick."
+  },
+  {
+   "k": "ch",
+   "h": "The doctor's giant magnet",
+   "p": [
+    "Doctors use a giant magnet to look inside you. The machine is called an MRI. You lie in a tube and keep still. The magnet is hundreds of times stronger than a fridge magnet. Nothing made of iron or steel is allowed in the room, or it would fly!"
+   ],
+   "art": {
+    "s": "bones"
+   },
+   "cap": "An MRI makes pictures of your bones, brain and muscles without cutting."
+  },
+  {
+   "k": "ch",
+   "h": "A rock that is a magnet",
+   "p": [
+    "Long ago, people found a black rock that pulled iron. They called it lodestone. It is a magnet made by nature. The word magnet comes from Magnesia, a place in Greece where the rock was found. You can still find lodestone in the ground today."
+   ],
+   "art": {
+    "s": "strata"
+   },
+   "cap": "Lodestone is found in rock layers in the ground."
+  },
+  {
+   "k": "ch",
+   "h": "Keep your magnet strong",
+   "p": [
+    "A magnet can get weak. Heat it very hot and the pull fades. Drop it again and again and it weakens too. Keep a magnet cool and treat it gently. It will stay strong for many years. And never put a magnet in your mouth."
+   ],
+   "art": {
+    "s": "heat"
+   },
+   "cap": "Heat shakes up the tiny magnets inside, so the pull gets weak.",
+   "fact": "Did you know? Swallowing two small magnets is very dangerous. They pull together inside you."
+  },
+  {
+   "k": "big",
+   "h": "Jupiter has the biggest magnet of all the planets",
+   "p": [
+    "Jupiter's magnet reaches millions of kilometres into space. If you could see it from Earth, it would look bigger than the full Moon in our sky."
+   ],
+   "art": {
+    "s": "space:jupiter"
+   }
+  },
+  {
+   "k": "try",
+   "h": "Try it: make a paper clip chain",
+   "p": [
+    "See how far the pull reaches."
+   ],
+   "steps": [
+    "Touch one paper clip to a magnet. It sticks.",
+    "Touch a second clip to the first one. It sticks too!",
+    "Keep adding clips. Count how many hang in a chain.",
+    "Try a stronger magnet. Does the chain get longer?"
+   ],
+   "art": {
+    "s": "magnet"
+   },
+   "cap": "Each clip becomes a little magnet while it touches the chain.",
+   "safe": "Keep magnets and clips away from your mouth and away from babies. Never swallow a magnet."
+  },
+  {
+   "k": "words",
+   "items": [
+    [
+     "magnet",
+     "a thing that pulls iron and steel"
+    ],
+    [
+     "pole",
+     "one end of a magnet, north or south"
+    ],
+    [
+     "attract",
+     "to pull together"
+    ],
+    [
+     "repel",
+     "to push apart"
+    ],
+    [
+     "compass",
+     "a tiny magnet that points north"
+    ],
+    [
+     "iron",
+     "a metal that magnets pull"
+    ],
+    [
+     "electromagnet",
+     "a magnet you can switch on and off"
+    ],
+    [
+     "northern lights",
+     "glowing colours in the night sky"
+    ]
+   ]
+  },
+  {
+   "k": "think",
+   "qs": [
+    "Where would it be a bad idea to keep a magnet? Why?",
+    "If you had a magnet as big as a house, what would you do with it?",
+    "How might a bird feel the Earth's pull? Make a guess!"
+   ]
+  }
  ]
 }

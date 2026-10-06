@@ -161,6 +161,8 @@ a=_re.sub(r'<p class="foot">Everything on the screen is built live.*?</p>\n',
 a=a.replace('as part of <a href="/">Star Steps</a>. Sizes and distances are squeezed to fit on screen; the real numbers are in the tables. <a href="/library/">','as part of <a href="/">Star Steps</a>. <a href="/library/">')
 tidycss=r"""
 /* ---- v24 tidy ---- */
+:root{--body:ui-rounded,"SF Pro Rounded","Nunito","Quicksand","Avenir Next",system-ui,sans-serif}
+.bk-in p,.bk-dl dd,.bk-q,.bk-fact,.bk-fig figcaption,.bk-sub{font-family:var(--body)}
 .wrap{gap:16px}
 header{padding-block:34px 0}
 .hero-stats{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}

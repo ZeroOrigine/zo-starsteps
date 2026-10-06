@@ -133,7 +133,7 @@ S.spiral={init(r){return{};},
 
 S.compare={init(r){return{};},
  draw(c,w,h,t,s,v){const a=(v&&v.a)||1,b=(v&&v.b)||11,la=(v&&v.la)||'Earth',lb=(v&&v.lb)||'Jupiter',ca=(v&&v.ca)||'#3b7dd8',cb=(v&&v.cb)||'#e8c47a';sky(c,w,h,'#05071a','#0a0c22');const mx=Math.max(a,b),R=h*.4/mx*(1);const ra=R*a*(a===mx?1:1),rb=R*b;const grow=smooth(0,1.2,t%6);
-  const xa=w*.2,xb=w*.62;ball(c,xa,h*.55,Math.max(4,ra*grow),ca);ball(c,xb,h*.55,Math.max(4,rb*grow),cb);
+  const xa=w*.2,xb=w*.62;ball(c,xa,h*.55,Math.max(4,ra*grow),ca);ball(c,xb,h*.55,Math.max(4,rb*grow),cb);if(KID()&&grow>.9){if(ra>14)face(c,xa,h*.55,ra,t);face(c,xb,h*.55,rb,t);}
   label(c,la,xa,Math.min(h*.9,h*.55+Math.max(ra,20)+22),{size:12});label(c,lb,xb,Math.min(h*.9,h*.55+rb+22),{size:12});label(c,(v&&v.title)||(lb+' is about '+Math.round(b/a)+' times wider than '+la),w*.5,h*.09,{bold:1,size:12});}};
 
 S.scale={init(r){return{};},

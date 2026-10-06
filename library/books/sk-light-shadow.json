@@ -5,31 +5,335 @@
  "grade": 0,
  "subject": "Physics",
  "minutes": 16,
- "cover": {"scene": "shadow", "c": ["#ffd166", "#2b2d6b"]},
+ "cover": {
+  "scene": "shadow",
+  "c": [
+   "#ffd166",
+   "#2b2d6b"
+  ]
+ },
  "pages": [
-  {"k":"ch", "h":"The Sun", "p":["Look up. Not at the Sun! Never straight at the Sun.", "The Sun is a giant ball of hot, glowing gas, very far away.", "Its light comes all the way here to you."], "art":{"s":"space:sun"}, "cap":"The Sun is so bright it lights up the whole Earth.", "fact":"Did you know? Sunlight takes 8 minutes to get from the Sun to your face."},
-  {"k":"ch", "h":"Light goes straight", "p":["A grown-up lights a candle. The room fills with light.", "Light zips out in straight lines. It does not bend around corners.", "That is why you cannot see around a wall."], "art":{"s":"candle"}, "cap":"Light shoots out from the flame in every direction."},
-  {"k":"ch", "h":"Your shadow", "p":["Stand in the sun. Look down.", "There is a dark shape on the ground. It is you!", "Your body blocks the light. The dark spot behind you is your shadow."], "art":{"s":"shadow"}, "cap":"Where light cannot go, you see a shadow."},
-  {"k":"quiz", "q":"What makes a shadow?", "opts":["Something blocking the light","Water on the ground","A gust of wind"], "a":0, "why":"When something blocks the light, a dark shape is left behind. That is a shadow."},
-  {"k":"try", "h":"Try it: shadow puppets", "p":["You need a torch and a dark room."], "steps":["Shine the torch at a wall.","Put your hand in front of the light. See the shadow?","Make a dog. Make a bird. Move closer to the torch. What happens?"], "art":{"s":"shadow"}, "cap":"Close to the light, the shadow grows big.", "safe":"Do not shine the torch in anyone's eyes."},
-  {"k":"big", "h":"Your shadow is stuck to your feet.", "p":["Run. Jump. Spin. Your shadow does it all with you. It is the one friend you can never leave behind."], "art":{"s":"shadow"}},
-  {"k":"ch", "h":"Long and short", "p":["In the morning your shadow is long and thin.", "At noon it is short and fat.", "The Sun seems to move across the sky, so your shadow moves too."], "art":{"s":"shadow"}, "cap":"Low Sun, long shadow. High Sun, short shadow."},
-  {"k":"ch", "h":"Tree shadows", "p":["Trees have shadows. Dogs have shadows. Even clouds do!", "Watch a cloud shadow slide across a field.", "Can you hide inside a tree's shadow on a hot day?"], "art":{"s":"seasons"}, "cap":"A big tree makes a big, cool shadow."},
-  {"k":"ch", "h":"Night time", "p":["At night the Sun is gone. Where did it go?", "It did not go anywhere. The Earth turned!", "The Earth spins like a slow top. Your side turned away from the Sun."], "art":{"s":"daynight"}, "cap":"The Earth spins. One side is day, the other is night.", "fact":"Did you know? The Earth takes one whole day to spin around once."},
-  {"k":"ch", "h":"Day here, night there", "p":["When it is night for you, it is day on the other side of the Earth.", "A child there is eating lunch while you sleep.", "Night is just the Earth's own shadow."], "art":{"s":"space:earth"}, "cap":"From space you can see the lights of cities on the night side."},
-  {"k":"quiz", "q":"Why does it get dark at night?", "opts":["The Sun switches off","The Earth turns away from the Sun","Clouds hide the Sun"], "a":1, "why":"The Earth spins. At night your side is turned away from the Sun."},
-  {"k":"ch", "h":"The Moon", "p":["The Moon shines at night. But it makes no light of its own!", "Sunlight hits the Moon and bounces off.", "That bounced light is what you see."], "art":{"s":"moonphases"}, "cap":"The lit part of the Moon changes shape through the month."},
-  {"k":"big", "h":"The Moon is a giant ball of rock in the sunshine.", "p":["It only looks bright because the Sun is shining on it. Turn off the Sun and the Moon would go dark too."], "art":{"s":"moonphases"}},
-  {"k":"ch", "h":"Stars", "p":["Each tiny star is a sun. A real one!", "They look small because they are very, very far away.", "Some stars are much bigger than our Sun."], "art":{"s":"space:stars"}, "cap":"Stars are far-away suns.", "fact":"Did you know? You can see about 2,000 stars on a clear, dark night."},
-  {"k":"ch", "h":"Hidden colours", "p":["Sunlight looks white. But it is hiding a secret.", "Shine it through a glass triangle called a prism.", "Out come red, orange, yellow, green, blue and purple!"], "art":{"s":"prism"}, "cap":"A prism splits white light into all its colours."},
-  {"k":"ch", "h":"Rainbow", "p":["Rain in front of you. Sun behind you. Look!", "Each raindrop is a tiny prism.", "Millions of drops together paint a rainbow across the sky."], "art":{"s":"rainbow"}, "cap":"Sun plus rain makes a rainbow."},
-  {"k":"try", "h":"Try it: make a rainbow", "p":["You need a sunny day and a glass of water."], "steps":["Put the glass on a sunny windowsill.","Hold a white paper on the floor below it.","Move the paper around until a little rainbow appears."], "art":{"s":"rainbow"}, "cap":"A glass of water can split sunlight just like rain does.", "safe":"Ask a grown-up to help with the glass."},
-  {"k":"quiz", "q":"What do you need to see a rainbow?", "opts":["Sun and rain at the same time","Snow","A strong wind"], "a":0, "why":"Raindrops split the sunlight into colours. You need both sun and rain."},
-  {"k":"ch", "h":"Count the colours", "p":["Red, orange, yellow, green, blue, indigo, violet.", "That is seven colours. Red is on the outside.", "Can you point to each one in the picture?"], "art":{"s":"rainbow"}, "cap":"Red on the outside, violet on the inside."},
-  {"k":"ch", "h":"Light is warm", "p":["Stand in the sunshine. Feel your cheek. Warm!", "Step into the shade. Cooler.", "Light carries heat with it. That is why the sunny side of the street is hot."], "art":{"s":"heat"}, "cap":"Heat moves from the warm sun into you."},
-  {"k":"ch", "h":"Plants eat light", "p":["Plants do not eat lunch. They catch light with their leaves!", "They use it to make their own food.", "Put a plant in a dark cupboard and it turns pale and droops."], "art":{"s":"seed"}, "cap":"Leaves turn toward the light to catch more of it."},
-  {"k":"ch", "h":"Lights at night", "p":["Long ago, night was dark. Only fire and the Moon.", "Now we have lamps, street lights and headlights.", "Look out the window tonight. How many lights can you count?"], "art":{"s":"city"}, "cap":"A city at night is full of little lights."},
-  {"k":"words", "items":[["light","the bright stuff that lets you see"],["shadow","the dark shape where light is blocked"],["Sun","our nearest star, a ball of hot gas"],["spin","to turn round and round"],["prism","a glass that splits light into colours"],["rainbow","a stripe of colours made by sun and rain"]]},
-  {"k":"think", "qs":["What would the world be like if there were no shadows at all?","If you could add one new colour to the rainbow, what would it be?","Where is the darkest place you have ever been? What could you still see?"]}
+  {
+   "k": "ch",
+   "h": "The Sun",
+   "p": [
+    "Look up. Not at the Sun! Never straight at the Sun.",
+    "The Sun is a giant ball of hot, glowing gas, very far away.",
+    "Its light comes all the way here to you."
+   ],
+   "art": {
+    "s": "sunny"
+   },
+   "cap": "The Sun is so bright it lights up the whole Earth.",
+   "fact": "Did you know? Sunlight takes 8 minutes to get from the Sun to your face."
+  },
+  {
+   "k": "ch",
+   "h": "Light goes straight",
+   "p": [
+    "A grown-up lights a candle. The room fills with light.",
+    "Light zips out in straight lines. It does not bend around corners.",
+    "That is why you cannot see around a wall."
+   ],
+   "art": {
+    "s": "candle"
+   },
+   "cap": "Light shoots out from the flame in every direction."
+  },
+  {
+   "k": "ch",
+   "h": "Your shadow",
+   "p": [
+    "Stand in the sun. Look down.",
+    "There is a dark shape on the ground. It is you!",
+    "Your body blocks the light. The dark spot behind you is your shadow."
+   ],
+   "art": {
+    "s": "shadow"
+   },
+   "cap": "Where light cannot go, you see a shadow."
+  },
+  {
+   "k": "quiz",
+   "q": "What makes a shadow?",
+   "opts": [
+    "Something blocking the light",
+    "Water on the ground",
+    "A gust of wind"
+   ],
+   "a": 0,
+   "why": "When something blocks the light, a dark shape is left behind. That is a shadow."
+  },
+  {
+   "k": "try",
+   "h": "Try it: shadow puppets",
+   "p": [
+    "You need a torch and a dark room."
+   ],
+   "steps": [
+    "Shine the torch at a wall.",
+    "Put your hand in front of the light. See the shadow?",
+    "Make a dog. Make a bird. Move closer to the torch. What happens?"
+   ],
+   "art": {
+    "s": "shadow"
+   },
+   "cap": "Close to the light, the shadow grows big.",
+   "safe": "Do not shine the torch in anyone's eyes."
+  },
+  {
+   "k": "big",
+   "h": "Your shadow is stuck to your feet.",
+   "p": [
+    "Run. Jump. Spin. Your shadow does it all with you. It is the one friend you can never leave behind."
+   ],
+   "art": {
+    "s": "shadow"
+   }
+  },
+  {
+   "k": "ch",
+   "h": "Long and short",
+   "p": [
+    "In the morning your shadow is long and thin.",
+    "At noon it is short and fat.",
+    "The Sun seems to move across the sky, so your shadow moves too."
+   ],
+   "art": {
+    "s": "shadow"
+   },
+   "cap": "Low Sun, long shadow. High Sun, short shadow."
+  },
+  {
+   "k": "ch",
+   "h": "Tree shadows",
+   "p": [
+    "Trees have shadows. Dogs have shadows. Even clouds do!",
+    "Watch a cloud shadow slide across a field.",
+    "Can you hide inside a tree's shadow on a hot day?"
+   ],
+   "art": {
+    "s": "seasons"
+   },
+   "cap": "A big tree makes a big, cool shadow."
+  },
+  {
+   "k": "ch",
+   "h": "Night time",
+   "p": [
+    "At night the Sun is gone. Where did it go?",
+    "It did not go anywhere. The Earth turned!",
+    "The Earth spins like a slow top. Your side turned away from the Sun."
+   ],
+   "art": {
+    "s": "daynight"
+   },
+   "cap": "The Earth spins. One side is day, the other is night.",
+   "fact": "Did you know? The Earth takes one whole day to spin around once."
+  },
+  {
+   "k": "ch",
+   "h": "Day here, night there",
+   "p": [
+    "When it is night for you, it is day on the other side of the Earth.",
+    "A child there is eating lunch while you sleep.",
+    "Night is just the Earth's own shadow."
+   ],
+   "art": {
+    "s": "daynight"
+   },
+   "cap": "From space you can see the lights of cities on the night side."
+  },
+  {
+   "k": "quiz",
+   "q": "Why does it get dark at night?",
+   "opts": [
+    "The Sun switches off",
+    "The Earth turns away from the Sun",
+    "Clouds hide the Sun"
+   ],
+   "a": 1,
+   "why": "The Earth spins. At night your side is turned away from the Sun."
+  },
+  {
+   "k": "ch",
+   "h": "The Moon",
+   "p": [
+    "The Moon shines at night. But it makes no light of its own!",
+    "Sunlight hits the Moon and bounces off.",
+    "That bounced light is what you see."
+   ],
+   "art": {
+    "s": "moonphases"
+   },
+   "cap": "The lit part of the Moon changes shape through the month."
+  },
+  {
+   "k": "big",
+   "h": "The Moon is a giant ball of rock in the sunshine.",
+   "p": [
+    "It only looks bright because the Sun is shining on it. Turn off the Sun and the Moon would go dark too."
+   ],
+   "art": {
+    "s": "moonphases"
+   }
+  },
+  {
+   "k": "ch",
+   "h": "Stars",
+   "p": [
+    "Each tiny star is a sun. A real one!",
+    "They look small because they are very, very far away.",
+    "Some stars are much bigger than our Sun."
+   ],
+   "art": {
+    "s": "nightsky"
+   },
+   "cap": "Stars are far-away suns.",
+   "fact": "Did you know? You can see about 2,000 stars on a clear, dark night."
+  },
+  {
+   "k": "ch",
+   "h": "Hidden colours",
+   "p": [
+    "Sunlight looks white. But it is hiding a secret.",
+    "Shine it through a glass triangle called a prism.",
+    "Out come red, orange, yellow, green, blue and purple!"
+   ],
+   "art": {
+    "s": "prism"
+   },
+   "cap": "A prism splits white light into all its colours."
+  },
+  {
+   "k": "ch",
+   "h": "Rainbow",
+   "p": [
+    "Rain in front of you. Sun behind you. Look!",
+    "Each raindrop is a tiny prism.",
+    "Millions of drops together paint a rainbow across the sky."
+   ],
+   "art": {
+    "s": "rainbow"
+   },
+   "cap": "Sun plus rain makes a rainbow."
+  },
+  {
+   "k": "try",
+   "h": "Try it: make a rainbow",
+   "p": [
+    "You need a sunny day and a glass of water."
+   ],
+   "steps": [
+    "Put the glass on a sunny windowsill.",
+    "Hold a white paper on the floor below it.",
+    "Move the paper around until a little rainbow appears."
+   ],
+   "art": {
+    "s": "rainbow"
+   },
+   "cap": "A glass of water can split sunlight just like rain does.",
+   "safe": "Ask a grown-up to help with the glass."
+  },
+  {
+   "k": "quiz",
+   "q": "What do you need to see a rainbow?",
+   "opts": [
+    "Sun and rain at the same time",
+    "Snow",
+    "A strong wind"
+   ],
+   "a": 0,
+   "why": "Raindrops split the sunlight into colours. You need both sun and rain."
+  },
+  {
+   "k": "ch",
+   "h": "Count the colours",
+   "p": [
+    "Red, orange, yellow, green, blue, indigo, violet.",
+    "That is seven colours. Red is on the outside.",
+    "Can you point to each one in the picture?"
+   ],
+   "art": {
+    "s": "rainbow"
+   },
+   "cap": "Red on the outside, violet on the inside."
+  },
+  {
+   "k": "ch",
+   "h": "Light is warm",
+   "p": [
+    "Stand in the sunshine. Feel your cheek. Warm!",
+    "Step into the shade. Cooler.",
+    "Light carries heat with it. That is why the sunny side of the street is hot."
+   ],
+   "art": {
+    "s": "heat"
+   },
+   "cap": "Heat moves from the warm sun into you."
+  },
+  {
+   "k": "ch",
+   "h": "Plants eat light",
+   "p": [
+    "Plants do not eat lunch. They catch light with their leaves!",
+    "They use it to make their own food.",
+    "Put a plant in a dark cupboard and it turns pale and droops."
+   ],
+   "art": {
+    "s": "seed"
+   },
+   "cap": "Leaves turn toward the light to catch more of it."
+  },
+  {
+   "k": "ch",
+   "h": "Lights at night",
+   "p": [
+    "Long ago, night was dark. Only fire and the Moon.",
+    "Now we have lamps, street lights and headlights.",
+    "Look out the window tonight. How many lights can you count?"
+   ],
+   "art": {
+    "s": "city"
+   },
+   "cap": "A city at night is full of little lights."
+  },
+  {
+   "k": "words",
+   "items": [
+    [
+     "light",
+     "the bright stuff that lets you see"
+    ],
+    [
+     "shadow",
+     "the dark shape where light is blocked"
+    ],
+    [
+     "Sun",
+     "our nearest star, a ball of hot gas"
+    ],
+    [
+     "spin",
+     "to turn round and round"
+    ],
+    [
+     "prism",
+     "a glass that splits light into colours"
+    ],
+    [
+     "rainbow",
+     "a stripe of colours made by sun and rain"
+    ]
+   ]
+  },
+  {
+   "k": "think",
+   "qs": [
+    "What would the world be like if there were no shadows at all?",
+    "If you could add one new colour to the rainbow, what would it be?",
+    "Where is the darkest place you have ever been? What could you still see?"
+   ]
+  }
  ]
 }

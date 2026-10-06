@@ -22,9 +22,11 @@ function hook(root){$$('canvas[data-s]',root).forEach(cv=>{if(cv._on)return;cons
 function loop(now){raf=0;const d=Math.min(2,window.devicePixelRatio||1);let any=false;
  for(const cv of live){if(!cv.isConnected){live.delete(cv);continue;}if(cv._paused)continue;const r=cv.getBoundingClientRect();if(r.bottom<-50||r.top>innerHeight+50||r.width===0)continue;any=true;
   let w=r.width,h=r.height;if(cv.dataset.fit==='cover'){w=Math.max(w,h*2);h=w/2;}if(cv.width!==Math.round(w*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d);}
-  const c=cv.getContext('2d');c.__nl=cv.dataset.nl==='1';c.setTransform(d,0,0,d,0,0);c.save();try{cv._sc.draw(c,w,h,RM?((+cv.dataset.t||0)+3):(now-cv._t0)/1000,cv._st,cv._v);}catch(e){}c.restore();if(RM)cv._paused=1;}
+  const c=cv.getContext('2d');c.__nl=cv.dataset.nl==='1';window.LART.kid=cv.dataset.kid==='1';c.setTransform(d,0,0,d,0,0);c.save();try{cv._sc.draw(c,w,h,RM?((+cv.dataset.t||0)+3):(now-cv._t0)/1000,cv._st,cv._v);}catch(e){}c.restore();
+  if(window.LART.kid&&cv.dataset.s.startsWith('space:')){c.save();c.setTransform(d,0,0,d,0,0);c.fillStyle='rgba(120,130,210,.22)';c.fillRect(0,0,w,h);c.restore();}if(RM)cv._paused=1;}
  if(live.size)raf=requestAnimationFrame(loop);}
-const art=(s,v,opt)=>'<canvas data-s="'+esc(s)+'" data-v="'+esc(JSON.stringify(v||{}))+'" data-k="'+esc((opt&&opt.k)||'')+'" data-t="'+((opt&&opt.t)||0)+'"'+(opt&&opt.cover?' data-fit="cover" data-nl="1"':'')+' aria-hidden="true"></canvas>';
+let KIDBOOK=false;
+const art=(s,v,opt)=>'<canvas data-s="'+esc(s)+'" data-v="'+esc(JSON.stringify(v||{}))+'" data-k="'+esc((opt&&opt.k)||'')+'" data-t="'+((opt&&opt.t)||0)+'"'+(opt&&opt.cover?' data-fit="cover" data-nl="1"':'')+(((opt&&opt.kid!=null)?opt.kid:KIDBOOK)?' data-kid="1"':'')+' aria-hidden="true"></canvas>';
 
 /* ---------- sound (tiny: page flips and quiz dings, made by maths) ---------- */
 const Snd=(function(){let ac=null;function get(){if(!ac){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;ac=new AC();}if(ac.state==='suspended')ac.resume();return ac;}
@@ -44,7 +46,7 @@ const Voice=(function(){const ok=!!window.speechSynthesis;let voices=[],pick=nul
 /* ---------- shelves ---------- */
 let filterG='all',filterS='all',query='';
 function coverHTML(b,opt){const p=PROG[b.id]||{},pct=p.done?100:Math.round(((p.p||0)/Math.max(1,b.pages-1))*100);
- return '<span class="cov" style="background:linear-gradient(160deg,'+esc(b.cover.c[0])+','+esc(b.cover.c[1])+')">'+art(b.cover.scene,{},{k:b.id+'c',t:4,cover:1})+
+ return '<span class="cov" style="background:linear-gradient(160deg,'+esc(b.cover.c[0])+','+esc(b.cover.c[1])+')">'+art(b.cover.scene,{},{k:b.id+'c',t:4,cover:1,kid:b.grade<=2})+
   '<span class="tag">'+esc(GSHORT[b.grade])+' · '+esc(b.subject)+'</span>'+(p.done?'<span class="done" aria-label="finished">✓</span>':'')+
   '<span class="ttl"><b>'+esc(b.title)+'</b><small>'+esc(b.subtitle)+'</small></span>'+(pct>0&&!p.done?'<span class="prog"><i style="width:'+pct+'%"></i></span>':'')+'</span>';}
 function renderShelves(){const host=$('#shelves');host.innerHTML='';const q=query.trim().toLowerCase();
@@ -80,7 +82,7 @@ function build(){if(ov)return;ov=document.createElement('div');ov.className='rd'
  window.addEventListener('resize',()=>{if(!ov.hidden)show();});}
 function pagesFor(b){const P=[{k:'cover'},{k:'toc'}];let ch=0;b.pages.forEach(p=>{const q=Object.assign({},p);if(p.k==='ch')q.n=++ch;P.push(q);});P.push({k:'end'});return P;}
 function html(p,num){if(!p)return'';const b=cur;const foot=num>1&&p.k!=='big'&&p.k!=='end'?'<div class="num">'+num+'</div>':'';const F=foot;
- if(p.k==='cover')return'<div class="cover">'+art(b.cover.scene,{},{k:b.id+'cover',t:5,cover:1})+'<div class="ct"><div class="lib">STAR STEPS LIBRARY · '+esc(GRADES[b.grade].toUpperCase())+'</div><h2>'+esc(b.title)+'</h2><p class="sub">'+esc(b.subtitle)+'</p><p class="for">'+esc(b.subject)+' · '+(b.pages.length+3)+' pages · about '+b.minutes+' minutes</p></div></div>';
+ if(p.k==='cover')return'<div class="cover">'+art(b.cover.scene,{},{k:b.id+'cover',t:5,cover:1})+'<div class="ct">'+(KIDBOOK?'<img class="pip" src="/img/pip.webp" alt="" width="96" height="99">':'')+'<div class="lib">STAR STEPS LIBRARY · '+esc(GRADES[b.grade].toUpperCase())+'</div><h2>'+esc(b.title)+'</h2><p class="sub">'+esc(b.subtitle)+'</p><p class="for">'+esc(b.subject)+' · '+(b.pages.length+3)+' pages · about '+b.minutes+' minutes</p></div></div>';
  if(p.k==='toc'){let n=2,ch=0;const items=[];b.pages.forEach(pg=>{n++;if(pg.k==='ch'){ch++;items.push('<li><span>'+ch+'. '+esc(pg.h)+'</span><i></i><em>'+n+'</em></li>');}else if(pg.k==='try')items.push('<li class="sub"><span>Try it: '+esc(pg.h.replace(/^Try it:?\s*/i,''))+'</span><i></i><em>'+n+'</em></li>');else if(pg.k==='words')items.push('<li class="sub"><span>Words to know</span><i></i><em>'+n+'</em></li>');else if(pg.k==='think')items.push('<li class="sub"><span>Think about it</span><i></i><em>'+n+'</em></li>');});
   return'<div class="in"><div class="eye">Contents</div><h3>What is inside</h3><ol class="toc">'+items.join('')+'</ol>'+F+'</div>';}
  if(p.k==='ch')return'<div class="in"><div class="eye">Chapter '+p.n+'</div><h3>'+esc(p.h)+'</h3>'+(p.art?'<figure class="fig">'+art(p.art.s,p.art.v,{k:b.id+num})+(p.cap?'<figcaption>'+esc(p.cap)+'</figcaption>':'')+'</figure>':'')+p.p.map((t,k)=>'<p'+(k===0?' class="drop"':'')+'>'+esc(t)+'</p>').join('')+(p.fact?'<aside class="fact"><b>Did you know?</b>'+esc(p.fact.replace(/^Did you know\?\s*/i,''))+'</aside>':'')+F+'</div>';
@@ -89,11 +91,11 @@ function html(p,num){if(!p)return'';const b=cur;const foot=num>1&&p.k!=='big'&&p
  if(p.k==='big')return'<div class="big">'+art(p.art.s,p.art.v,{k:b.id+num,cover:1})+'<div class="bt"><h3>'+esc(p.h)+'</h3>'+(p.p||[]).map(t=>'<p>'+esc(t)+'</p>').join('')+'</div></div>';
  if(p.k==='words')return'<div class="in"><div class="eye">Glossary</div><h3>Words to know</h3><dl class="dl">'+p.items.map(w=>'<dt>'+esc(w[0])+'</dt><dd>'+esc(w[1])+'</dd>').join('')+'</dl>'+F+'</div>';
  if(p.k==='think')return'<div class="in"><div class="eye">Your turn</div><h3>Think about it</h3><ol class="qs">'+p.qs.map(q=>'<li>'+esc(q)+'</li>').join('')+'</ol><p class="note">There are no wrong answers. Talk about them with a grown-up or a friend.</p>'+F+'</div>';
- if(p.k==='end'){const nx=nextBook(b);return'<div class="endp"><div class="star">⭐</div><h2>The End</h2><p>You read all '+(b.pages.length+3)+' pages of <b>'+esc(b.title)+'</b>.</p><button class="btn" id="rdDone">Mark as finished</button>'+(nx?'<button class="btn sec" id="rdNextBook" data-id="'+esc(nx.id)+'">Next: '+esc(nx.title)+' →</button>':'')+'</div>';}
+ if(p.k==='end'){const nx=nextBook(b);return'<div class="endp">'+(KIDBOOK?'<img class="pip" src="/img/pip.webp" alt="" width="120" height="124"><h2>You did it!</h2>':'<div class="star">⭐</div><h2>The End</h2>')+'<p>You read all '+(b.pages.length+3)+' pages of <b>'+esc(b.title)+'</b>.</p><button class="btn" id="rdDone">Mark as finished</button>'+(nx?'<button class="btn sec" id="rdNextBook" data-id="'+esc(nx.id)+'">Next: '+esc(nx.title)+' →</button>':'')+'</div>';}
  return foot;}
 function nextBook(b){const same=CAT.filter(x=>x.grade===b.grade&&x.id!==b.id&&!(PROG[x.id]||{}).done);if(same.length)return same[0];const up=CAT.filter(x=>x.grade>b.grade&&!(PROG[x.id]||{}).done);return up[0]||null;}
 function txt(p){if(!p)return'';const b=cur;if(p.k==='cover')return b.title+'. '+b.subtitle+'.';if(p.k==='toc')return'Contents.';if(p.k==='ch')return'Chapter '+p.n+'. '+p.h+'. '+p.p.join(' ')+(p.fact?' Did you know? '+p.fact.replace(/^Did you know\?\s*/i,''):'');if(p.k==='try')return p.h+'. '+(p.p||[]).join(' ')+' '+p.steps.map((s,k)=>'Step '+(k+1)+'. '+s).join(' ')+(p.safe?' Safety: '+p.safe:'');if(p.k==='quiz')return'Quick quiz. '+p.q+' '+p.opts.map((o,k)=>String.fromCharCode(65+k)+'. '+o).join(' ');if(p.k==='big')return p.h+'. '+(p.p||[]).join(' ');if(p.k==='words')return'Words to know. '+p.items.map(w=>w[0]+': '+w[1]).join(' ');if(p.k==='think')return'Think about it. '+p.qs.join(' ');if(p.k==='end')return'The end. You read the whole book.';return'';}
-function wire(root){$$('.qz',root).forEach(q=>{const pg=pages[+q.dataset.q-1];const box=$('.opts',q),fb=$('.fb',q);$$('button',box).forEach(bt=>bt.addEventListener('click',()=>{$$('button',box).forEach(x=>x.disabled=true);const k=+bt.dataset.k,ok=k===pg.a;bt.classList.add(ok?'right':'wrong');box.children[pg.a].classList.add('right');fb.textContent=(ok?'Correct! ':'Not quite. ')+pg.why;fb.style.color=ok?'#1d8a3a':'#b3261e';ok?Snd.good():Snd.bad();
+function wire(root){$$('.qz',root).forEach(q=>{const pg=pages[+q.dataset.q-1];const box=$('.opts',q),fb=$('.fb',q);$$('button',box).forEach(bt=>bt.addEventListener('click',()=>{$$('button',box).forEach(x=>x.disabled=true);const k=+bt.dataset.k,ok=k===pg.a;bt.classList.add(ok?'right':'wrong');box.children[pg.a].classList.add('right');fb.textContent=(ok?(KIDBOOK?'Yes! ⭐ ':'Correct! '):(KIDBOOK?'Good try! ':'Not quite. '))+pg.why;fb.style.color=ok?'#1d8a3a':'#b3261e';ok?Snd.good():Snd.bad();
   const pr=PROG[cur.id]||(PROG[cur.id]={});pr.quiz=pr.quiz||{};pr.quiz[q.dataset.q]=ok?1:0;saveProg();}));});
  const d=$('#rdDone',root);if(d)d.addEventListener('click',()=>{const pr=PROG[cur.id]||(PROG[cur.id]={});pr.done=true;pr.t=Date.now();saveProg();Snd.good();d.textContent='Finished ✓';d.disabled=true;stats();});
  const nb=$('#rdNextBook',root);if(nb)nb.addEventListener('click',()=>openBook(nb.dataset.id));}
@@ -113,7 +115,7 @@ function stopRead(){if(reading){Voice.cancel();reading=false;$('#rdRead',ov).tex
 function read(){if(reading){stopRead();return;}if(!Voice.ok){$('#rdRead',ov).textContent='No voice on this device';return;}
  const s=single();const t=s?txt(pages[i]):txt(pages[i])+' '+txt(pages[i+1]);reading=true;$('#rdRead',ov).textContent='■ Stop';Voice.speak(t,()=>{reading=false;$('#rdRead',ov).textContent='🔊 Read aloud';});}
 async function openBook(id){const meta=CAT.find(b=>b.id===id);if(!meta)return;build();let data;try{data=await (await fetch('/library/books/'+id+'.json')).json();}catch(e){alert('That book could not load. Check your connection and try again.');return;}
- cur=data;pages=pagesFor(data);bk.className='bk g'+data.grade;const pr=PROG[id]||{};i=pr.done?0:Math.min(pr.p||0,pages.length-1);if(!single())i=i-(i%2);
+ cur=data;pages=pagesFor(data);KIDBOOK=data.grade<=2;bk.className='bk g'+data.grade+(KIDBOOK?' kid':'');const pr=PROG[id]||{};i=pr.done?0:Math.min(pr.p||0,pages.length-1);if(!single())i=i-(i%2);
  $('.rd-title',ov).textContent=data.title;ov.hidden=false;document.documentElement.style.overflow='hidden';show();Snd.open();$('#rdNext',ov).focus();
  try{history.replaceState(null,'','/library/?book='+id);}catch(e){}}
 function close(){stopRead();ov.hidden=true;document.documentElement.style.overflow='';renderShelves();stats();try{history.replaceState(null,'','/library/');}catch(e){}}
