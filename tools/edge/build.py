@@ -379,10 +379,10 @@ a=a.replace('\n'+jscript,'\n'+no3d+jscript,1)
 assert a.count('id="jsky"')==1 and 'id="journey"' in a and '/edge/vendor/three.min.js' in a
 # ---------- v29: the full Nova AI (nova.zeroorigine.com, by Advik) ----------
 NOVA_URL='https://nova.zeroorigine.com/?src=starsteps'
-# 1. a banner in the guide panel, between the chat and the question chips
-_nv='<div class="chips" id="novaChips"></div>'
+# 1. a one-line link in the guide's header (second line under the title), so the chat keeps all its room
+_nv='<small id="novaMode">Offline notes + calculator</small>'
 assert a.count(_nv)==1
-a=a.replace(_nv,'<a class="nova-up" id="novaUp" href="'+NOVA_URL+'" target="_blank" rel="noopener"><span class="nu-orb" aria-hidden="true"></span><span class="nu-t"><b>Try the full Nova AI</b><small>Live answers · voice chat · free</small></span><span class="nu-go">Open ↗</span></a>\n'+_nv,1)
+a=a.replace(_nv,_nv+'<a class="nova-up" id="novaUp" href="'+NOVA_URL+'" target="_blank" rel="noopener"><span class="nu-orb" aria-hidden="true"></span>Try the full Nova AI <b>↗</b></a>',1)
 # 2. the offline notes point to it where they run out
 for old,new in [
  ("For anything harder, ask a grown-up or look it up in the Library!","For anything harder, open the full Nova AI below with a grown-up, or look it up in the Library!"),
@@ -395,14 +395,13 @@ a=a.replace('<a href="/library/">Books Library</a> · <a href="/play/">Play</a> 
 assert a.count('Nova AI ↗')==1
 novacss=r"""
 /* ---- v29 full Nova AI ---- */
-.nova-up{display:flex;align-items:center;gap:10px;margin:0 14px 10px;padding:9px 10px 9px 9px;border-radius:12px;text-decoration:none;color:var(--ink);background:linear-gradient(135deg,rgba(242,196,109,.14),rgba(143,184,255,.10));border:1px solid rgba(242,196,109,.35);transition:border-color .2s,background .2s}
-.nova-up:hover{border-color:var(--star);background:linear-gradient(135deg,rgba(242,196,109,.24),rgba(143,184,255,.16))}
-.nova-up:focus-visible{outline:2px solid var(--star);outline-offset:2px}
-.nova-up .nu-orb{width:26px;height:26px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 35% 30%,#fff 0%,#cfe4ff 30%,#4b6fd6 70%,#141a3a 100%);box-shadow:0 0 14px rgba(143,184,255,.7)}
-.nova-up .nu-t{display:grid;min-width:0;line-height:1.2}
-.nova-up b{font-size:14px}
-.nova-up small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nova-up .nu-go{margin-left:auto;flex:0 0 auto;font-weight:700;font-size:13px;color:#1b1206;background:var(--star);padding:7px 11px;border-radius:999px}
+.nova-head>div{min-width:0;display:grid;gap:1px}
+.nova-head small#novaMode{max-width:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px}
+.nova-up{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--star);text-decoration:none;line-height:1.2;white-space:nowrap;justify-self:start}
+.nova-up:hover{text-decoration:underline}
+.nova-up:focus-visible{outline:2px solid var(--star);outline-offset:2px;border-radius:4px}
+.nova-up .nu-orb{width:11px;height:11px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 35% 30%,#fff 0%,#cfe4ff 30%,#4b6fd6 70%,#141a3a 100%);box-shadow:0 0 8px rgba(143,184,255,.8)}
+.nova-up b{font-weight:700}
 .nova-gate{margin:0 14px 10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#1d1a24;display:grid;gap:8px;font-size:14px;line-height:1.4}
 .nova .nova-gate form{display:flex;gap:6px;padding:0;border-top:0}
 .nova .nova-gate form .nvc{background:none;color:var(--muted);border:1px solid var(--line)}
@@ -426,7 +425,7 @@ up.addEventListener('click',function(e){
  var x=3+Math.floor(Math.random()*6),y=2+Math.floor(Math.random()*7);
  g=document.createElement('div');g.className='nova-gate';g.id='novaGate';
  g.innerHTML='<div><b>Ask a grown-up first.</b> Nova AI is a separate app by Advik; a grown-up should open it with you. Grown-up, what is '+x+' × '+y+'?</div><form><input inputmode="numeric" aria-label="Answer" placeholder="Answer"><button type="submit">Go</button><button type="button" class="nvc">Cancel</button></form>';
- up.after(g);
+ document.getElementById('novaLog').before(g);
  g.querySelector('.nvc').addEventListener('click',function(){g.remove();});
  g.querySelector('form').addEventListener('submit',function(ev){ev.preventDefault();var inp=g.querySelector('input');if(+inp.value===x*y){g.remove();window.open(up.href,'_blank','noopener');}else{inp.value='';inp.placeholder='Try again';}});
  g.querySelector('input').focus();
