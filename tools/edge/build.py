@@ -377,5 +377,65 @@ no3d='<script>\n(function(){function go(){if(!document.querySelector(".err"))ret
 a=a.replace('\n'+jscript,'\n'+no3d+jscript,1)
 
 assert a.count('id="jsky"')==1 and 'id="journey"' in a and '/edge/vendor/three.min.js' in a
+# ---------- v29: the full Nova AI (nova.zeroorigine.com, by Advik) ----------
+NOVA_URL='https://nova.zeroorigine.com/?src=starsteps'
+# 1. a banner in the guide panel, between the chat and the question chips
+_nv='<div class="chips" id="novaChips"></div>'
+assert a.count(_nv)==1
+a=a.replace(_nv,'<a class="nova-up" id="novaUp" href="'+NOVA_URL+'" target="_blank" rel="noopener"><span class="nu-orb" aria-hidden="true"></span><span class="nu-t"><b>Try the full Nova AI</b><small>Live answers · voice chat · free</small></span><span class="nu-go">Open ↗</span></a>\n'+_nv,1)
+# 2. the offline notes point to it where they run out
+for old,new in [
+ ("For anything harder, ask a grown-up or look it up in the Library!","For anything harder, open the full Nova AI below with a grown-up, or look it up in the Library!"),
+ ("For anything else, try the Library or ask a grown-up!","For anything else, try the Library, or open the full Nova AI below with a grown-up."),
+ (" Modes need Claude; right now I am using my offline notes."," Thinking modes work in the full Nova AI; here I use my offline notes.")]:
+    assert a.count(old)==1, old[:40]; a=a.replace(old,new)
+# 3. footer link
+a=a.replace('<a href="/library/">Books Library</a> · <a href="/play/">Play</a> · <a href="/privacy/">Privacy</a></p></footer>',
+ '<a href="/library/">Books Library</a> · <a href="/play/">Play</a> · <a href="'+NOVA_URL+'" target="_blank" rel="noopener">Nova AI ↗</a> · <a href="/privacy/">Privacy</a></p></footer>',1)
+assert a.count('Nova AI ↗')==1
+novacss=r"""
+/* ---- v29 full Nova AI ---- */
+.nova-up{display:flex;align-items:center;gap:10px;margin:0 14px 10px;padding:9px 10px 9px 9px;border-radius:12px;text-decoration:none;color:var(--ink);background:linear-gradient(135deg,rgba(242,196,109,.14),rgba(143,184,255,.10));border:1px solid rgba(242,196,109,.35);transition:border-color .2s,background .2s}
+.nova-up:hover{border-color:var(--star);background:linear-gradient(135deg,rgba(242,196,109,.24),rgba(143,184,255,.16))}
+.nova-up:focus-visible{outline:2px solid var(--star);outline-offset:2px}
+.nova-up .nu-orb{width:26px;height:26px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 35% 30%,#fff 0%,#cfe4ff 30%,#4b6fd6 70%,#141a3a 100%);box-shadow:0 0 14px rgba(143,184,255,.7)}
+.nova-up .nu-t{display:grid;min-width:0;line-height:1.2}
+.nova-up b{font-size:14px}
+.nova-up small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nova-up .nu-go{margin-left:auto;flex:0 0 auto;font-weight:700;font-size:13px;color:#1b1206;background:var(--star);padding:7px 11px;border-radius:999px}
+.nova-gate{margin:0 14px 10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#1d1a24;display:grid;gap:8px;font-size:14px;line-height:1.4}
+.nova .nova-gate form{display:flex;gap:6px;padding:0;border-top:0}
+.nova .nova-gate form .nvc{background:none;color:var(--muted);border:1px solid var(--line)}
+.ss-foot a[target="_blank"]{color:var(--star)}
+.nova-gate{grid-template-columns:minmax(0,1fr);min-width:0}
+.nova .nova-gate form{flex-wrap:wrap}
+.nova .nova-gate input{flex:1 1 90px;min-width:0}
+.nova .nova-gate form button{padding:0 12px;min-height:38px}
+@media (max-width:640px){.depth{padding:6px 14px 8px}.depth #dpDesc{display:none}.nova{max-height:min(560px,78vh)}}
+"""
+_i=a.index('</style>',a.index('/* ---- v26 tabs ---- */'))
+a=a[:_i]+novacss+'\n'+a[_i:]
+novajs=r"""<script>
+/* Nova AI link: a plain link on the web; inside the store apps a grown-up answers a sum first (store rules for links that leave the app) */
+(function(){
+const up=document.getElementById('novaUp');if(!up)return;
+up.addEventListener('click',function(e){
+ if(!document.documentElement.classList.contains('ss-store'))return;
+ e.preventDefault();
+ var g=document.getElementById('novaGate');if(g){g.querySelector('input').focus();return;}
+ var x=3+Math.floor(Math.random()*6),y=2+Math.floor(Math.random()*7);
+ g=document.createElement('div');g.className='nova-gate';g.id='novaGate';
+ g.innerHTML='<div><b>Ask a grown-up first.</b> Nova AI is a separate app by Advik; a grown-up should open it with you. Grown-up, what is '+x+' × '+y+'?</div><form><input inputmode="numeric" aria-label="Answer" placeholder="Answer"><button type="submit">Go</button><button type="button" class="nvc">Cancel</button></form>';
+ up.after(g);
+ g.querySelector('.nvc').addEventListener('click',function(){g.remove();});
+ g.querySelector('form').addEventListener('submit',function(ev){ev.preventDefault();var inp=g.querySelector('input');if(+inp.value===x*y){g.remove();window.open(up.href,'_blank','noopener');}else{inp.value='';inp.placeholder='Try again';}});
+ g.querySelector('input').focus();
+});
+})();
+</script>
+"""
+a=a.replace('<footer class="ss-foot">',novajs+'<footer class="ss-foot">',1)
+assert a.count('id="novaGate"')==0 and 'novaUp' in a
+
 OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(a)
 print('wrote',OUT,len(a),'bytes; journey css',len(jcss),'js',len(js))

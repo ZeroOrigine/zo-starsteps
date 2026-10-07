@@ -427,6 +427,26 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
 @media (max-width:640px){.topnav{gap:2px;padding-top:6px}.topnav .tab{flex:1 1 0;flex-direction:column;justify-content:flex-start;gap:5px;padding:6px 3px 9px;min-height:0;border-radius:10px 10px 0 0}.topnav .tab .th{width:min(100%,76px);height:34px;border-radius:8px}.topnav .tab .th i{display:none}.topnav .tab .tx{display:block}.topnav .tab b{font:700 13px/1.1 var(--body);text-align:center;display:block;opacity:.75}.topnav .tab[aria-selected="true"] .th{transform:none}.topnav .tab[aria-selected="true"]::after{left:8px;right:8px}.topnav #navNova{display:none}#watch,#journey,#library,#gallery{padding-top:10px}}
 @media (prefers-reduced-motion:reduce){.topnav .tab,.topnav .tab .th,.topnav .tab b{transition:none}}
 
+
+/* ---- v29 full Nova AI ---- */
+.nova-up{display:flex;align-items:center;gap:10px;margin:0 14px 10px;padding:9px 10px 9px 9px;border-radius:12px;text-decoration:none;color:var(--ink);background:linear-gradient(135deg,rgba(242,196,109,.14),rgba(143,184,255,.10));border:1px solid rgba(242,196,109,.35);transition:border-color .2s,background .2s}
+.nova-up:hover{border-color:var(--star);background:linear-gradient(135deg,rgba(242,196,109,.24),rgba(143,184,255,.16))}
+.nova-up:focus-visible{outline:2px solid var(--star);outline-offset:2px}
+.nova-up .nu-orb{width:26px;height:26px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 35% 30%,#fff 0%,#cfe4ff 30%,#4b6fd6 70%,#141a3a 100%);box-shadow:0 0 14px rgba(143,184,255,.7)}
+.nova-up .nu-t{display:grid;min-width:0;line-height:1.2}
+.nova-up b{font-size:14px}
+.nova-up small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nova-up .nu-go{margin-left:auto;flex:0 0 auto;font-weight:700;font-size:13px;color:#1b1206;background:var(--star);padding:7px 11px;border-radius:999px}
+.nova-gate{margin:0 14px 10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#1d1a24;display:grid;gap:8px;font-size:14px;line-height:1.4}
+.nova .nova-gate form{display:flex;gap:6px;padding:0;border-top:0}
+.nova .nova-gate form .nvc{background:none;color:var(--muted);border:1px solid var(--line)}
+.ss-foot a[target="_blank"]{color:var(--star)}
+.nova-gate{grid-template-columns:minmax(0,1fr);min-width:0}
+.nova .nova-gate form{flex-wrap:wrap}
+.nova .nova-gate input{flex:1 1 90px;min-width:0}
+.nova .nova-gate form button{padding:0 12px;min-height:38px}
+@media (max-width:640px){.depth{padding:6px 14px 8px}.depth #dpDesc{display:none}.nova{max-height:min(560px,78vh)}}
+
 </style>
 
 <div class="wrap">
@@ -590,7 +610,8 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)paint(perf
 <button role="radio" id="dp-expert" data-m="expert" aria-checked="false"><i class="pl p3"></i><b>Nebula</b></button>
 <button role="radio" id="dp-heavy" data-m="heavy" aria-checked="false"><i class="pl p4"></i><b>Supernova</b></button></div><p id="dpDesc">I decide for you: quick for simple questions, deeper for hard ones.</p></div>
   <div class="nova-log" id="novaLog" aria-live="polite"></div>
-  <div class="chips" id="novaChips"></div>
+  <a class="nova-up" id="novaUp" href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener"><span class="nu-orb" aria-hidden="true"></span><span class="nu-t"><b>Try the full Nova AI</b><small>Live answers · voice chat · free</small></span><span class="nu-go">Open ↗</span></a>
+<div class="chips" id="novaChips"></div>
   <form id="novaForm"><input id="novaIn" placeholder="Ask me anything…" autocomplete="off"><button type="submit">Ask</button></form>
 </section>
 <script>
@@ -1235,7 +1256,7 @@ window.Book=(function(){
 window.Nova=(function(){
 const $=id=>document.getElementById(id),log=$('novaLog'),chips=$('novaChips');
 const QA=[
-[['who','you','nova','are you','real ai'],"I'm Nova, a guide built into this page. I run free, right inside your browser. I'm not a live AI and I don't use the internet: I know the answers written into me. For anything harder, ask a grown-up or look it up in the Library!"],
+[['who','you','nova','are you','real ai'],"I'm Nova, a guide built into this page. I run free, right inside your browser. I'm not a live AI and I don't use the internet: I know the answers written into me. For anything harder, open the full Nova AI below with a grown-up, or look it up in the Library!"],
 [['before','big bang'],"Nobody knows what came before the Big Bang. Time itself may have started then, so 'before' might not even exist. It's like asking what is north of the North Pole."],
 [['big bang','real','proof','evidence'],"Yes, scientists are very sure the Big Bang happened. Three clues: galaxies are flying apart, the whole sky glows with leftover heat, and the universe is about 3 parts hydrogen to 1 part helium, just as predicted."],
 [['why','big bang','start','started','cause'],"That's one of the biggest unsolved questions! Ideas include a random flicker in empty space, a bounce from an older universe, or one bubble among many universes. Nobody knows yet."],
@@ -1280,7 +1301,7 @@ const idf=w=>Math.log(1+DOCS.length/(DF[w]||.5));
 function answer(q){const qt=[...new Set(toks(q))];if(!qt.length)return"Ask me anything about space, time or atoms! For example: what is a black hole?";
  let best=null,bs=0;for(const d of DOCS){let sc=0;for(const w of qt){if(d.key.includes(w))sc+=2*idf(w);else if(d.body.includes(w))sc+=idf(w);}sc*=d.boost;if(sc>bs){bs=sc;best=d;}}
  const hit=best?qt.filter(w=>best.key.includes(w)||best.body.includes(w)).length/qt.length:0;if(best&&bs>=2.2&&hit>.5)return best.text+(best.src?'  (From the book: '+best.src+')':'');
- return"I don't have that in my notes yet. Try asking about black holes, the Big Bang, stars, planets, the Moon, atoms, dinosaurs or aliens. For anything else, try the Library or ask a grown-up!";}
+ return"I don't have that in my notes yet. Try asking about black holes, the Big Bang, stars, planets, the Moon, atoms, dinosaurs or aliens. For anything else, try the Library, or open the full Nova AI below with a grown-up.";}
 
 let talk=true;function speakIt(t){if(talk&&window.Voice)Voice.speak(t,null,'nova');}
 function say(text,who,quiet){const d=document.createElement('div');d.className='msg '+(who||'n');d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;if((who||'n')==='n'&&!quiet)speakIt(text);return d;}
@@ -1333,7 +1354,7 @@ function toggle(){const p=$('nova');p.hidden=!p.hidden;$('novaBtn').setAttribute
  if(!p.hidden)$('novaIn').focus();}
 const DP={fast:['Spark','about 1–2 s','Lightning quick. Short answers for simple facts.'],auto:['Orbit','1–30 s','I decide for you: quick for simple questions, deeper for hard ones.'],expert:['Nebula','5–60 s','I think before I answer. Best for "why" and "how" questions.'],heavy:['Supernova','up to 2 min','My deepest thinking, step by step. For tough maths and physics.']};
 document.querySelectorAll('.depth-row button').forEach(b=>b.addEventListener('click',()=>{MODE=b.dataset.m;document.querySelectorAll('.depth-row button').forEach(x=>x.setAttribute('aria-checked',String(x===b)));const d=DP[MODE];$('dpTime').textContent=d[1];$('dpDesc').textContent=d[2];
- if(window.Snd&&Snd.on)Snd.chime([[523],[659],[784],[988]][['fast','auto','expert','heavy'].indexOf(MODE)],0);say(d[0]+' mode. '+d[2]+(SAMPLE?'':' Modes need Claude; right now I am using my offline notes.'));}));
+ if(window.Snd&&Snd.on)Snd.chime([[523],[659],[784],[988]][['fast','auto','expert','heavy'].indexOf(MODE)],0);say(d[0]+' mode. '+d[2]+(SAMPLE?'':' Thinking modes work in the full Nova AI; here I use my offline notes.'));}));
 $('novaTalk').addEventListener('click',()=>{talk=!talk;$('novaTalk').setAttribute('aria-pressed',String(talk));$('novaTalk').textContent=talk?'🔊 Talk':'🔇 Quiet';if(!talk&&window.Voice)Voice.cancel();});
 $('novaBtn').addEventListener('click',toggle);$('novaBtn2').addEventListener('click',toggle);$('novaBtn').classList.add('intro');setTimeout(()=>$('novaBtn').classList.remove('intro'),7000);$('novaX').addEventListener('click',toggle);
 $('novaForm').addEventListener('submit',e=>{e.preventDefault();const v=$('novaIn').value.trim();if(!v)return;$('novaIn').value='';ask(v);});
@@ -2121,7 +2142,25 @@ $('jnext').addEventListener('click',()=>{stop();go(cur+1);});
 go(1);size();if(!reduce)requestAnimationFrame(loop);
 })();
 </script>
-<footer class="ss-foot"><p>The Edge of Knowing was made by Advik with help from Claude, as part of <a href="/">Star Steps</a>. <a href="/library/">Books Library</a> · <a href="/play/">Play</a> · <a href="/privacy/">Privacy</a></p></footer>
+<script>
+/* Nova AI link: a plain link on the web; inside the store apps a grown-up answers a sum first (store rules for links that leave the app) */
+(function(){
+const up=document.getElementById('novaUp');if(!up)return;
+up.addEventListener('click',function(e){
+ if(!document.documentElement.classList.contains('ss-store'))return;
+ e.preventDefault();
+ var g=document.getElementById('novaGate');if(g){g.querySelector('input').focus();return;}
+ var x=3+Math.floor(Math.random()*6),y=2+Math.floor(Math.random()*7);
+ g=document.createElement('div');g.className='nova-gate';g.id='novaGate';
+ g.innerHTML='<div><b>Ask a grown-up first.</b> Nova AI is a separate app by Advik; a grown-up should open it with you. Grown-up, what is '+x+' × '+y+'?</div><form><input inputmode="numeric" aria-label="Answer" placeholder="Answer"><button type="submit">Go</button><button type="button" class="nvc">Cancel</button></form>';
+ up.after(g);
+ g.querySelector('.nvc').addEventListener('click',function(){g.remove();});
+ g.querySelector('form').addEventListener('submit',function(ev){ev.preventDefault();var inp=g.querySelector('input');if(+inp.value===x*y){g.remove();window.open(up.href,'_blank','noopener');}else{inp.value='';inp.placeholder='Try again';}});
+ g.querySelector('input').focus();
+});
+})();
+</script>
+<footer class="ss-foot"><p>The Edge of Knowing was made by Advik with help from Claude, as part of <a href="/">Star Steps</a>. <a href="/library/">Books Library</a> · <a href="/play/">Play</a> · <a href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener">Nova AI ↗</a> · <a href="/privacy/">Privacy</a></p></footer>
 <script>try{var _bq=new URLSearchParams(location.search).get("book");if(_bq&&window.Book&&Book.has(_bq))setTimeout(function(){Book.open(_bq);},400);}catch(e){}
 if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}</script>
 </body></html>
