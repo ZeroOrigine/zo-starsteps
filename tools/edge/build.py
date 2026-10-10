@@ -77,7 +77,7 @@ head_new='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta nam
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"The Edge of Knowing","url":"https://starsteps.zeroorigine.com/edge/","isPartOf":{"@type":"WebSite","name":"Star Steps","url":"https://starsteps.zeroorigine.com/"},"about":["astronomy","physics","cosmology"],"audience":{"@type":"EducationalAudience","educationalRole":"student"},"creator":{"@type":"Person","name":"Advik"}}</script>
 <style>:root{box-sizing:border-box}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <script src="/js/ss-store.js"></script>
-<link rel="stylesheet" href="/js/doors.css">
+<link rel="stylesheet" href="/js/doors.css"><link rel="stylesheet" href="/js/nova.css">
 </head><body>
 <nav class="ss-doors" aria-label="Star Steps"><a class="ss-home" href="/"><img src="/icons/icon-192.png" alt="" width="26" height="26">Star Steps</a><div class="ss-doors-links"><a href="/play/">Play</a><a href="/library/">Library</a><a href="/edge/" aria-current="page">Edge<span class="ss-long"> of Knowing</span></a><a class="ss-nova" href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener" data-nova><span class="ss-orb" aria-hidden="true"></span>Nova AI</a></div></nav>
 '''
@@ -435,6 +435,23 @@ up.addEventListener('click',function(e){
 """
 a=a.replace('<footer class="ss-foot">',novajs+'<footer class="ss-foot">',1)
 assert a.count('id="novaGate"')==0 and 'novaUp' in a
+
+# ---------- v32: the live Nova (shared widget) replaces the offline guide panel ----------
+# Advik's offline notes stay as the fallback: expose answer() and keep his panel in the page, hidden
+assert a.count('return{film};})();')==1
+a=a.replace('return{film};})();','return{film,answer};})();',1)
+_nn="$('navNova').addEventListener('click',()=>$('novaBtn').click());"
+assert a.count(_nn)==1
+a=a.replace(_nn,"$('navNova').addEventListener('click',()=>{if(window.SSNova)SSNova.open();else $('novaBtn').click();});",1)
+_nb="$('novaBtn').addEventListener('click',toggle);$('novaBtn2').addEventListener('click',toggle);"
+assert a.count(_nb)==1
+a=a.replace(_nb,"$('novaBtn').addEventListener('click',toggle);$('novaBtn2').addEventListener('click',()=>{if(window.SSNova)SSNova.open();else toggle();});",1)
+a=a.replace('<p class="muted">Numbers, evidence, extra facts and the people behind the film that is playing. It changes with every film.</p>','<p class="muted">Numbers, evidence, extra facts and the people behind the film that is playing. It changes with every film.</p>',1)
+# the "Ask Nova" button in the tab bar keeps its look; the old floating button and panel are hidden
+_i=a.index('</style>',a.index('/* ---- v29 full Nova AI ---- */'))
+a=a[:_i]+'\n/* ---- v32 live Nova ---- */\n#nova,#novaBtn{display:none!important}\n.ssn-dark .ssn-btn{bottom:calc(20px + env(safe-area-inset-bottom,0px))}\n'+a[_i:]
+a=a.replace('<footer class="ss-foot">','<script src="/js/nova.js" data-page="edge" data-theme="dark" defer></script>\n<footer class="ss-foot">',1)
+assert a.count('/js/nova.js')==1
 
 OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(a)
 print('wrote',OUT,len(a),'bytes; journey css',len(jcss),'js',len(js))

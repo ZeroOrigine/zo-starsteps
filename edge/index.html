@@ -8,7 +8,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"The Edge of Knowing","url":"https://starsteps.zeroorigine.com/edge/","isPartOf":{"@type":"WebSite","name":"Star Steps","url":"https://starsteps.zeroorigine.com/"},"about":["astronomy","physics","cosmology"],"audience":{"@type":"EducationalAudience","educationalRole":"student"},"creator":{"@type":"Person","name":"Advik"}}</script>
 <style>:root{box-sizing:border-box}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <script src="/js/ss-store.js"></script>
-<link rel="stylesheet" href="/js/doors.css">
+<link rel="stylesheet" href="/js/doors.css"><link rel="stylesheet" href="/js/nova.css">
 </head><body>
 <nav class="ss-doors" aria-label="Star Steps"><a class="ss-home" href="/"><img src="/icons/icon-192.png" alt="" width="26" height="26"><span>Star Steps</span></a><div class="ss-doors-links"><a href="/play/">Play</a><a href="/library/">Library</a><a href="/edge/" aria-current="page">Edge<span class="ss-long"> of Knowing</span></a><a class="ss-nova" href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener" data-nova><span class="ss-orb" aria-hidden="true"></span>Nova AI</a></div></nav>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -446,6 +446,10 @@ nav#reel{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;align-
 .nova .nova-gate form button{padding:0 12px;min-height:38px}
 @media (max-width:640px){.depth{padding:6px 14px 8px}.depth #dpDesc{display:none}.nova{max-height:min(560px,78vh)}}
 
+
+/* ---- v32 live Nova ---- */
+#nova,#novaBtn{display:none!important}
+.ssn-dark .ssn-btn{bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 </style>
 
 <div class="wrap">
@@ -1354,9 +1358,9 @@ const DP={fast:['Spark','about 1–2 s','Lightning quick. Short answers for simp
 document.querySelectorAll('.depth-row button').forEach(b=>b.addEventListener('click',()=>{MODE=b.dataset.m;document.querySelectorAll('.depth-row button').forEach(x=>x.setAttribute('aria-checked',String(x===b)));const d=DP[MODE];$('dpTime').textContent=d[1];$('dpDesc').textContent=d[2];
  if(window.Snd&&Snd.on)Snd.chime([[523],[659],[784],[988]][['fast','auto','expert','heavy'].indexOf(MODE)],0);say(d[0]+' mode. '+d[2]+(SAMPLE?'':' Thinking modes work in the full Nova AI; here I use my offline notes.'));}));
 $('novaTalk').addEventListener('click',()=>{talk=!talk;$('novaTalk').setAttribute('aria-pressed',String(talk));$('novaTalk').textContent=talk?'🔊 Talk':'🔇 Quiet';if(!talk&&window.Voice)Voice.cancel();});
-$('novaBtn').addEventListener('click',toggle);$('novaBtn2').addEventListener('click',toggle);$('novaBtn').classList.add('intro');setTimeout(()=>$('novaBtn').classList.remove('intro'),7000);$('novaX').addEventListener('click',toggle);
+$('novaBtn').addEventListener('click',toggle);$('novaBtn2').addEventListener('click',()=>{if(window.SSNova)SSNova.open();else toggle();});$('novaBtn').classList.add('intro');setTimeout(()=>$('novaBtn').classList.remove('intro'),7000);$('novaX').addEventListener('click',toggle);
 $('novaForm').addEventListener('submit',e=>{e.preventDefault();const v=$('novaIn').value.trim();if(!v)return;$('novaIn').value='';ask(v);});
-return{film};})();
+return{film,answer};})();
 </script>
 <script src="/edge/vendor/three.min.js"></script>
 <script src="/edge/vendor/OrbitControls.js"></script>
@@ -1859,7 +1863,7 @@ function tick(now){const dt=Math.min(.05,(now-last)/1000);last=now;
 load(0);resize();requestAnimationFrame(tick);
 document.querySelectorAll('.tabs [role=tab]').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tabs [role=tab]').forEach(x=>x.setAttribute('aria-selected',String(x===t)));document.querySelectorAll('.tpanel').forEach(p=>p.hidden=p.id!==t.dataset.p);}));
 (function(){const sh=$('shelves');SHELVES.forEach(([name,ids])=>{const row=document.createElement('div');row.className='shelf';row.innerHTML='<h3></h3><div class="books"></div>';row.firstChild.textContent=name;ids.forEach(id=>{const b=BOOKS[id];if(!b)return;const btn=document.createElement('button');btn.className='bookc';btn.id='book-'+id;btn.innerHTML='<span class="cov"><i></i><b></b></span><small></small>';btn.querySelector('.cov').style.background='linear-gradient(160deg,'+b.c[0]+','+b.c[1]+')';btn.querySelector('b').textContent=b.t;btn.querySelector('small').textContent=b.s+' · '+b.pages.length+' chapters';btn.addEventListener('click',()=>{if(playing)$('play').click();Book.open(id);});row.lastChild.appendChild(btn);});sh.appendChild(row);});})();
-$('navNova').addEventListener('click',()=>$('novaBtn').click());
+$('navNova').addEventListener('click',()=>{if(window.SSNova)SSNova.open();else $('novaBtn').click();});
 function begin(withSound){$('gate').hidden=true;if(withSound){if(!Snd.on)$('sound').click();if(!voice)$('voice').click();}load(0);playing=true;syncPlay();Snd.pause(false);}
 ['home','mars','saturn','sun'].forEach((id,k)=>setTimeout(()=>{const f=FILMS.find(x=>x.id===id);if(f&&!built[id]&&!$('gate').hidden)built[id]=f.build();},900+k*500));
 $('begin').addEventListener('click',()=>begin(true));$('quiet').addEventListener('click',()=>begin(false));
@@ -2158,6 +2162,7 @@ up.addEventListener('click',function(e){
 });
 })();
 </script>
+<script src="/js/nova.js" data-page="edge" data-theme="dark" defer></script>
 <footer class="ss-foot"><p>The Edge of Knowing was made by Advik with help from Claude, as part of <a href="/">Star Steps</a>. <a href="/library/">Books Library</a> · <a href="/play/">Play</a> · <a href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener">Nova AI ↗</a> · <a href="/privacy/">Privacy</a></p></footer>
 <script>try{var _bq=new URLSearchParams(location.search).get("book");if(_bq&&window.Book&&Book.has(_bq))setTimeout(function(){Book.open(_bq);},400);}catch(e){}
 if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}</script>

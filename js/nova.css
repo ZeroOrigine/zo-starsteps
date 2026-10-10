@@ -1,0 +1,58 @@
+/* Nova, Star Steps edition: the small live chat shared by Play, Library and The Edge of Knowing (v32). */
+.ssn-btn,.ssn{font-family:ui-rounded,"SF Pro Rounded","Nunito","Quicksand","Avenir Next",system-ui,sans-serif;--ssn-ink:#1d1b33;--ssn-mut:#5c5a72;--ssn-line:#d9d6ea;--ssn-card:#fff;--ssn-bg:#f6f5ff;--ssn-pick:#5b4ee0;--ssn-star:#F2C46D;--ssn-nova:#4b6fd6}
+.ssn-btn{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:9px;padding:8px 14px 8px 8px;border-radius:999px;border:3px solid var(--ssn-ink);background:var(--ssn-card);color:var(--ssn-ink);font-weight:800;font-size:15px;cursor:pointer;box-shadow:3px 3px 0 var(--ssn-ink);min-height:48px}
+.ssn-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ssn-ink)}
+.ssn-btn .ssn-orb{width:26px;height:26px}
+.ssn-btn[aria-expanded="true"]{display:none}
+.ssn-orb{display:inline-block;flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0%,#cfe4ff 28%,#4b6fd6 70%,#141a3a 100%);box-shadow:0 0 14px rgba(143,184,255,.85)}
+.ssn{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:61;width:min(400px,calc(100vw - 24px));max-height:min(640px,calc(100vh - 32px));display:flex;flex-direction:column;background:var(--ssn-bg);color:var(--ssn-ink);border:3px solid var(--ssn-ink);border-radius:22px;box-shadow:6px 6px 0 var(--ssn-ink);overflow:hidden}
+.ssn[hidden]{display:none!important}
+.ssn-head{display:flex;align-items:center;gap:10px;padding:12px 12px 10px 14px;background:var(--ssn-card);border-bottom:3px solid var(--ssn-ink)}
+.ssn-head .ssn-t{display:grid;min-width:0;line-height:1.2}
+.ssn-head b{font-size:17px}
+.ssn-head small{font-size:12px;color:var(--ssn-mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ssn-head .ssn-full{margin-left:auto;flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:800;color:var(--ssn-nova);text-decoration:none;padding:6px 9px;border-radius:999px;border:2px solid rgba(75,111,214,.35);white-space:nowrap}
+.ssn-head .ssn-full:hover{background:rgba(75,111,214,.08)}
+.ssn-head .ssn-ico{flex:0 0 auto;width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:10px;background:none;color:var(--ssn-mut);font-size:18px;cursor:pointer}
+.ssn-head .ssn-ico:hover{background:var(--ssn-bg)}
+.ssn-head .ssn-ico[aria-pressed="true"]{color:var(--ssn-pick)}
+.ssn-log{flex:1 1 auto;min-height:160px;overflow-y:auto;padding:14px;display:grid;gap:10px;align-content:start;scroll-behavior:smooth}
+.ssn-m{max-width:88%;padding:10px 13px;border-radius:16px;font-size:15.5px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+.ssn-m.n{background:var(--ssn-card);border:2px solid var(--ssn-line);border-bottom-left-radius:6px;justify-self:start}
+.ssn-m.u{background:var(--ssn-pick);color:#fff;border-bottom-right-radius:6px;justify-self:end}
+.ssn-m.w{background:none;border:0;color:var(--ssn-mut);font-size:13.5px;max-width:100%;padding:0 4px;text-align:center;justify-self:stretch}
+.ssn-m.think{color:var(--ssn-mut);font-style:italic}
+.ssn-m.think::after{content:"";display:inline-block;width:1.2em;animation:ssn-dots 1.2s steps(4,end) infinite;overflow:hidden;vertical-align:bottom}
+@keyframes ssn-dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+.ssn-card{justify-self:stretch;max-width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;text-decoration:none;color:#EDE9F5;background:linear-gradient(135deg,#131a44,#0E1018 75%);border:2px solid #131a44}
+.ssn-card .ssn-orb{width:26px;height:26px}
+.ssn-card b{display:block;font-size:14.5px}
+.ssn-card small{display:block;font-size:12.5px;color:#A29EB5;line-height:1.3}
+.ssn-card .go{margin-left:auto;flex:0 0 auto;font-weight:800;font-size:13px;color:#1b1206;background:var(--ssn-star);padding:7px 11px;border-radius:999px}
+.ssn-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px}
+.ssn-chips button{font:700 13px/1.2 inherit;font-family:inherit;padding:7px 11px;border-radius:999px;border:2px solid var(--ssn-line);background:var(--ssn-card);color:var(--ssn-ink);cursor:pointer;min-height:36px}
+.ssn-chips button:hover{border-color:var(--ssn-pick)}
+.ssn-form{display:flex;gap:8px;padding:10px 12px 12px;border-top:3px solid var(--ssn-ink);background:var(--ssn-card)}
+.ssn-form input{flex:1;min-width:0;font:inherit;font-size:16px;padding:10px 12px;border-radius:12px;border:2px solid var(--ssn-line);background:#fff;color:var(--ssn-ink)}
+.ssn-form input:focus{outline:2px solid var(--ssn-pick);outline-offset:1px}
+.ssn-form input:disabled{background:#f1f0f7;color:var(--ssn-mut)}
+.ssn-form button{font:800 15px inherit;font-family:inherit;padding:0 16px;border-radius:12px;border:0;background:var(--ssn-pick);color:#fff;cursor:pointer;min-height:44px}
+.ssn-form button:disabled{opacity:.5;cursor:default}
+.ssn-foot{display:flex;justify-content:space-between;gap:8px;padding:0 14px 10px;font-size:12px;color:var(--ssn-mut);background:var(--ssn-card)}
+.ssn-foot b{color:var(--ssn-ink)}
+.ssn-foot .low b{color:#c2421c}
+/* dark pages (The Edge of Knowing) */
+.ssn-dark .ssn-btn,.ssn-dark .ssn{--ssn-ink:#EDE9F5;--ssn-mut:#A29EB5;--ssn-line:#2a2838;--ssn-card:#14131c;--ssn-bg:#0E1018;--ssn-pick:#F2C46D}
+.ssn-dark .ssn,.ssn-dark .ssn-btn{border-color:#2a2838;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.ssn-dark .ssn-head,.ssn-dark .ssn-form{border-color:#2a2838}
+.ssn-dark .ssn-m.u{color:#1b1206}
+.ssn-dark .ssn-form button{color:#1b1206}
+.ssn-dark .ssn-form input{background:#07070b}
+.ssn-dark .ssn-form input:disabled{background:#0e0e14}
+.ssn-dark .ssn-head .ssn-full{color:#cfe4ff;border-color:rgba(143,184,255,.35)}
+.ssn-dark .ssn-btn:active{box-shadow:none}
+/* the game: keep clear of its bottom tab bar */
+.ssn-play .ssn-btn{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.ssn-play .ssn{bottom:calc(80px + env(safe-area-inset-bottom,0px));max-height:min(600px,calc(100vh - 100px))}
+@media (max-width:480px){.ssn-btn .ssn-l{display:none}.ssn-btn{padding:8px}.ssn{right:12px;left:12px;width:auto}.ssn-head .ssn-full span{display:none}}
+@media (prefers-reduced-motion:reduce){.ssn-log{scroll-behavior:auto}.ssn-m.think::after{animation:none;content:"..."}}

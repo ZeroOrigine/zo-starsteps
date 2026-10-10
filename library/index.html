@@ -8,7 +8,7 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Star Steps Books Library","url":"https://starsteps.zeroorigine.com/library/","description":"Free illustrated science books for children, Kindergarten to Grade 7.","isPartOf":{"@type":"WebSite","name":"Star Steps","url":"https://starsteps.zeroorigine.com/"},"audience":{"@type":"EducationalAudience","educationalRole":"student"},"publisher":{"@type":"Organization","name":"ZeroOrigine","url":"https://zeroorigine.com"}}</script>
 <script src="/js/ss-store.js"></script>
-<link rel="stylesheet" href="/js/doors.css"><link rel="stylesheet" href="/library/lib.css">
+<link rel="stylesheet" href="/js/doors.css"><link rel="stylesheet" href="/library/lib.css"><link rel="stylesheet" href="/js/nova.css">
 </head><body>
 <nav class="ss-doors light" aria-label="Star Steps"><a class="ss-home" href="/"><img src="/icons/icon-192.png" alt="" width="26" height="26"><span>Star Steps</span></a><div class="ss-doors-links"><a href="/play/">Play</a><a href="/library/" aria-current="page">Library</a><a href="/edge/">Edge<span class="ss-long"> of Knowing</span></a><a class="ss-nova" href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener" data-nova><span class="ss-orb" aria-hidden="true"></span>Nova AI</a></div></nav>
 
@@ -47,4 +47,5 @@
 fetch('/library/edge-books.json').then(r=>r.json()).then(list=>{const h=document.getElementById('edgeBooks');h.innerHTML=list.map(b=>'<a href="/edge/?book='+b.id+'#library"><span class="ecov" style="background:linear-gradient(160deg,'+b.c[0]+','+b.c[1]+')"><b>'+b.t.replace(/</g,'&lt;')+'</b></span><small>'+b.n+' chapters</small></a>').join('');}).catch(function(){});
 if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}
 </script>
+<script src="/js/nova.js" data-page="library" defer></script>
 </body></html>
