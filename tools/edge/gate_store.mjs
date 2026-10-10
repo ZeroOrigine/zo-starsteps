@@ -1,0 +1,17 @@
+import { chromium } from '/home/claude/.npm-global/lib/node_modules/playwright/index.mjs';
+const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium',args:['--no-sandbox','--proxy-server='+process.env.HTTPS_PROXY,'--proxy-bypass-list=localhost;127.0.0.1']});
+const ctx=await b.newContext({viewport:{width:390,height:844}});const p=await ctx.newPage();
+await p.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
+await p.goto('http://localhost:8767/library/?src=android',{waitUntil:'load'}); await p.waitForTimeout(800);
+const pop=ctx.waitForEvent('page',{timeout:1200}).catch(()=>null);
+await p.click('a.ss-nova'); await p.waitForTimeout(400);
+const g1=await p.evaluate(()=>{const g=document.getElementById('ssNovaGate');return {shown:!!g,text:g&&g.textContent.slice(0,90)}});
+const noPop=!(await pop);
+await p.evaluate(()=>{const g=document.getElementById('ssNovaGate');g.querySelector('input').value='2';g.querySelector('form').requestSubmit();}); await p.waitForTimeout(200);
+const wrong=await p.evaluate(()=>document.getElementById('ssNovaGate').querySelector('input').placeholder);
+await p.screenshot({path:'edge/np_gate_store.png'});
+const pop2=ctx.waitForEvent('page',{timeout:2500}).catch(()=>null);
+await p.evaluate(()=>{const g=document.getElementById('ssNovaGate');const m=/(\d+) × (\d+)/.exec(g.textContent);g.querySelector('input').value=String(m[1]*m[2]);g.querySelector('form').requestSubmit();});
+const pg=await pop2;
+console.log(JSON.stringify({g1,noPop,wrong,opened:pg&&pg.url(),gone:await p.evaluate(()=>!document.getElementById('ssNovaGate'))}));
+await b.close();

@@ -309,6 +309,28 @@ footer a:hover{text-decoration:underline}
 @media (max-width:1120px){.nav{display:none}}
 @media (max-width:860px){.doorsnav a span{display:none}.doorsnav a{padding:7px 10px;font-size:13px}}
 @media (max-width:640px){.doorsnav{display:none}}
+/* ---- v31: four doors + Nova AI ---- */
+.nova-orb{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px;background:radial-gradient(circle at 35% 30%,#fff 0%,#cfe4ff 30%,#4b6fd6 70%,#141a3a 100%);box-shadow:0 0 8px rgba(91,111,214,.8)}
+.nova-orb.big{width:34px;height:34px;box-shadow:0 0 18px rgba(143,184,255,.9)}
+.doorsnav .dn-nova{color:#2b2f7a}
+.doorsnav .dn-nova:hover{background:#e8edff}
+details.more{position:relative;margin-left:2px;background:none;border:0;border-radius:0;box-shadow:none}
+.more>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:8px 10px;border-radius:10px;font-family:var(--body);font-weight:800;font-size:14px;color:var(--muted);white-space:nowrap;user-select:none}
+.more>summary::after,.more[open]>summary::after{content:none}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary:hover,.more[open]>summary{color:var(--ink);background:var(--card)}
+.more>nav{position:absolute;right:0;top:calc(100% + 8px);min-width:190px;display:grid;padding:6px;background:var(--card,#fff);border:3px solid var(--edge);border-radius:14px;box-shadow:4px 4px 0 var(--edge);z-index:50}
+.more>nav a{padding:9px 12px;border-radius:9px;font-weight:800;font-size:15px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.more>nav a:hover{background:color-mix(in srgb,var(--pick) 12%,transparent)}
+.cta .nova-btn{display:inline-flex;align-items:center;gap:9px}
+.door-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.door-nova{background:linear-gradient(160deg,#101433,#0E1018 70%);color:#EDE9F5;border-color:#101433}
+.door-nova .door-sub{color:#8fb8ff}.door-nova p{color:#A29EB5}.door-nova .door-go{color:#8fb8ff}
+@media (max-width:1180px){.door-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:860px){.door-grid{grid-template-columns:1fr}}
+@media (max-width:1120px){.doorsnav a span{display:none}.doorsnav a{padding:7px 10px;font-size:13px}.doorsnav .dn-nova .nova-orb{display:inline-block}}
+@media (max-width:900px){.top{position:static}.top-in{flex-wrap:wrap}.doorsnav{display:flex;order:9;flex:1 1 100%;margin-top:6px;justify-content:space-between;box-shadow:2px 2px 0 var(--edge)}.doorsnav a{flex:1 1 0;justify-content:center;padding:7px 4px;font-size:13px}.doorsnav a span{display:inline}}
+@media (max-width:640px){.doorsnav a span{display:none}.doorsnav a{font-size:12.5px}.more{display:none}}
 </style>
 </head>
 <body>
@@ -319,18 +341,23 @@ footer a:hover{text-decoration:underline}
       <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.8l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.6l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" fill="#FFE17A" stroke="#221A3D" stroke-width="2" stroke-linejoin="round"/></svg></span>
       <b>Star Steps</b>
     </a>
-    <nav class="doorsnav" aria-label="Three ways in">
+    <nav class="doorsnav" aria-label="Four ways in">
       <a href="/play/" data-play><span aria-hidden="true">🎮</span>Play</a>
       <a href="/library/"><span aria-hidden="true">📚</span>Library</a>
       <a href="/edge/"><span aria-hidden="true">🔭</span>Edge of Knowing</a>
+      <a class="dn-nova" href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener" data-nova><span class="nova-orb" aria-hidden="true"></span>Nova AI</a>
     </nav>
-    <nav class="nav" aria-label="Sections">
-      <a href="#subjects">Subjects</a>
-      <a href="#how">How it works</a>
-      <a href="#parents">Parents</a>
-      <a href="#plans">Plans</a>
-      <a href="#faq">FAQ</a>
-    </nav>
+    <details class="more" id="moreMenu">
+      <summary aria-label="More sections">More <span aria-hidden="true">▾</span></summary>
+      <nav aria-label="Sections">
+        <a href="#subjects">Subjects</a>
+        <a href="#how">How it works</a>
+        <a href="#parents">For parents</a>
+        <a href="#plans">Plans</a>
+        <a href="#faq">FAQ</a>
+        <a href="/privacy/">Privacy</a>
+      </nav>
+    </details>
     <a class="login" href="/parents/"><span class="lg-l">Parent login</span><span class="lg-s">Log in</span></a>
     <a class="btn primary small" href="/play/" data-play>Play free</a>
   </div>
@@ -342,10 +369,11 @@ footer a:hover{text-decoration:underline}
     <div>
       <div class="eyebrow">Ages 5 to 12 &middot; Senior Kindergarten to Grade 6</div>
       <h1>Little steps.<br><span class="hl">Big climbs.</span></h1>
-      <p class="lede">A learning game with 810 skills across 26 subjects, a library of 32 illustrated science books, and a 3D science cinema. All free, no ads, and your child can start now, with no account.</p>
+      <p class="lede">A learning game with 810 skills across 26 subjects, a library of 32 illustrated science books, a 3D science cinema, and Nova, a free AI helper. All free, no ads, and your child can start now, with no account.</p>
       <div class="cta">
         <a class="btn primary" href="/play/" id="heroPlay" data-play>Play free now</a>
         <a class="btn ghost" href="#parents">For parents</a>
+        <a class="btn ghost nova-btn" href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener" data-nova><span class="nova-orb" aria-hidden="true"></span>Meet Nova AI</a>
       </div>
       <p class="cta-note" id="heroNote">Works in any browser on phones, tablets and computers. <b>Plays offline</b> after the first visit.</p>
     </div>
@@ -358,7 +386,7 @@ footer a:hover{text-decoration:underline}
 
 
   <section class="doors" id="doors" aria-labelledby="doorsTitle">
-    <div class="sec-head"><h2 id="doorsTitle">Three ways in</h2><p>All free, nothing to install, no account needed.</p></div>
+    <div class="sec-head"><h2 id="doorsTitle">Four ways in</h2><p>All free, nothing to install. Play, read and watch with no account at all.</p></div>
     <div class="door-grid">
       <a class="door" href="/play/" data-play>
         <span class="door-ico" aria-hidden="true">🎮</span>
@@ -377,6 +405,12 @@ footer a:hover{text-decoration:underline}
         <b>The Edge of Knowing</b><span class="door-sub">A science cinema, made by Advik</span>
         <p>14 films in 3D, a 21-stop journey from the Big Bang to you, 28 illustrated books, pop quizzes and a guide who answers questions.</p>
         <span class="door-go">Begin the voyage &rarr;</span>
+      </a>
+      <a class="door door-nova" href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener" data-nova>
+        <span class="door-ico" aria-hidden="true"><span class="nova-orb big"></span></span>
+        <b>Nova AI</b><span class="door-sub">A free AI helper, made by Advik</span>
+        <p>Ask anything, by typing or talking. Live answers, voice chat, projects and memory. A separate app: grown-ups sign in, children use it together with a parent.</p>
+        <span class="door-go">Open Nova AI &nearr;</span>
       </a>
     </div>
   </section>
@@ -655,5 +689,6 @@ footer a:hover{text-decoration:underline}
 })();
 if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}
 </script>
+<script>(function(){var m=document.getElementById("moreMenu");if(!m)return;m.addEventListener("click",function(e){if(e.target.closest("a"))m.removeAttribute("open");});document.addEventListener("click",function(e){if(!m.contains(e.target))m.removeAttribute("open");});})();</script>
 </body>
 </html>

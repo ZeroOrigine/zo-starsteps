@@ -79,7 +79,7 @@ head_new='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta nam
 <script src="/js/ss-store.js"></script>
 <link rel="stylesheet" href="/js/doors.css">
 </head><body>
-<nav class="ss-doors" aria-label="Star Steps"><a class="ss-home" href="/"><img src="/icons/icon-192.png" alt="" width="26" height="26">Star Steps</a><div class="ss-doors-links"><a href="/play/">Play</a><a href="/library/">Library</a><a href="/edge/" aria-current="page">Edge of Knowing</a></div></nav>
+<nav class="ss-doors" aria-label="Star Steps"><a class="ss-home" href="/"><img src="/icons/icon-192.png" alt="" width="26" height="26">Star Steps</a><div class="ss-doors-links"><a href="/play/">Play</a><a href="/library/">Library</a><a href="/edge/" aria-current="page">Edge<span class="ss-long"> of Knowing</span></a><a class="ss-nova" href="https://nova.zeroorigine.com/?src=starsteps" target="_blank" rel="noopener" data-nova><span class="ss-orb" aria-hidden="true"></span>Nova AI</a></div></nav>
 '''
 a=head_new+a[len(head_old):]
 a=a.replace('<title>The Edge of Knowing</title>\n','')
@@ -276,7 +276,7 @@ tabcss=r"""
 .topnav .tab[data-tab="gallery"]{--acc:#ffb28a;--acc-rgb:255,178,138}
 .topnav .tab .th{position:relative;flex:0 0 auto;width:70px;height:48px;border-radius:10px;overflow:hidden;background:#0d0f18;box-shadow:0 0 0 1px var(--line);filter:saturate(.7) brightness(.8);transition:filter .3s,box-shadow .3s,transform .3s}
 .topnav .tab .th canvas{display:block;width:100%;height:100%}
-.topnav .tab .th i{position:absolute;left:4px;top:4px;font:600 10px/1 var(--mono);font-style:normal;color:#1b1206;background:var(--acc);padding:3px 5px;border-radius:6px;letter-spacing:.04em;margin:0;opacity:1}
+.topnav .tab .th i{position:absolute;left:4px;top:4px;font:600 11px/1 var(--mono);font-style:normal;color:#1b1206;background:var(--acc);padding:3px 5px;border-radius:6px;letter-spacing:.04em;margin:0;opacity:1}
 .topnav .tab .tx{display:grid;min-width:0}
 .topnav .tab b{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.05;color:var(--ink);opacity:.78;transition:opacity .25s}
 .topnav .tab small{font:12px/1.3 var(--mono);color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.02em}

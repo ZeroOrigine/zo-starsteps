@@ -23,5 +23,9 @@
     card.querySelector("b").textContent=L.cur?"Keep reading your book":"Read a book";
     card.querySelector(".bc-txt span").textContent=L.cur?"You are on page "+L.page+". Tap to open it.":"32 illustrated science books, Kindergarten to Grade 7"+(L.done?" · "+L.done+" finished":"");
     var after=document.getElementById("superCta")||cont; after.parentNode.insertBefore(card,after.nextSibling);
+    /* Nova AI: Advik's free AI helper, a separate app (the store apps show a grown-up gate first, see ss-store.js) */
+    var nv=document.createElement("a"); nv.className="book-card nova-card"; nv.setAttribute("data-sec","today"); nv.href="https://nova.zeroorigine.com/?src=starsteps"; nv.target="_blank"; nv.rel="noopener"; nv.setAttribute("data-nova","");
+    nv.innerHTML='<span class="bc-ico nc-ico" aria-hidden="true"><span class="nc-orb"></span></span><span class="bc-txt"><b>Ask Nova AI</b><span>Advik\'s free AI helper: ask anything, by typing or talking. Open it with a grown-up.</span></span><span class="bc-go" aria-hidden="true">&nearr;</span>';
+    card.parentNode.insertBefore(nv,card.nextSibling);
   }
 })();

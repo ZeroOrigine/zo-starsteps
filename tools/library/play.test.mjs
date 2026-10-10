@@ -15,7 +15,7 @@ for(const w of [390,1440]){
  ck(w+': no JS errors',errs.length===0,errs.join('|'));
  await p.goto(BASE+'/',{waitUntil:'networkidle'});await p.waitForTimeout(800);
  const h=await p.evaluate(()=>({doors:document.querySelectorAll('.door').length,hs:document.documentElement.scrollWidth>innerWidth,nav:[...document.querySelectorAll('.doorsnav a')].map(a=>a.textContent).join(',')}));
- ck(w+': home shows three doors',h.doors===3&&!h.hs&&/Library/.test(h.nav),JSON.stringify(h));
+ ck(w+': home shows four doors incl. Nova AI',h.doors===4&&!h.hs&&/Library/.test(h.nav)&&/Nova AI/.test(h.nav),JSON.stringify(h));
  await p.evaluate(()=>document.getElementById('doors').scrollIntoView());await p.waitForTimeout(300);await p.screenshot({path:`libtest/home_${w}.png`});
  await p.close();}
 console.log(res.filter(Boolean).length+'/'+res.length);await b.close();

@@ -450,3 +450,10 @@ html.ss-new:not(.ss-ready) #viewIntro .intro-go,html.ss-new:not(.ss-ready) #view
 .bc-txt b{font-size:16px}.bc-txt span{font-size:13px;color:var(--muted)}
 .bc-go{font-weight:900;font-size:20px;color:var(--muted)}
 html.ss-store .book-card{display:flex}
+
+/* Nova AI card on Today (v31) */
+.nova-card{background:linear-gradient(160deg,#131a44,#0E1018 70%);color:#EDE9F5;border-color:#131a44}
+.nova-card .bc-txt span{color:#A29EB5}.nova-card .bc-go{color:#8fb8ff}
+.nc-ico{background:rgba(143,184,255,.12)}
+.nc-orb{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0%,#cfe4ff 30%,#4b6fd6 70%,#141a3a 100%);box-shadow:0 0 14px rgba(143,184,255,.9)}
+html.ss-store .nova-card{display:flex}
